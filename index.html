@@ -422,182 +422,377 @@
   'left': 'lefty',
   'center': 'centered',
   'right': 'righty'
-};
+  };
 
-function getLayerPaintType(layer) {
-  if (map.getLayer(layer)) {
-    const layerType = map.getLayer(layer).type;
-    return layerTypes[layerType];
+  function getLayerPaintType(layer) {
+    if (map.getLayer(layer)) {
+      const layerType = map.getLayer(layer).type;
+      return layerTypes[layerType];
+    }
   }
-}
 
-function setLayerOpacity(layer) {
-  const paintProps = getLayerPaintType(layer.layer);
-  if (paintProps) {
-    paintProps.forEach(function (prop) {
-      map.setPaintProperty(layer.layer, prop, layer.opacity);
+  function setLayerOpacity(layer) {
+    const paintProps = getLayerPaintType(layer.layer);
+    if (paintProps) {
+      paintProps.forEach(function (prop) {
+        map.setPaintProperty(layer.layer, prop, layer.opacity);
+      });
+    }
+  }
+
+  let story = document.getElementById('story');
+  const features = document.createElement('div');
+  features.classList.add(alignments[config.alignment]);
+  features.setAttribute('id', 'features');
+
+  const header = document.createElement('div');
+
+  if (config.title) {
+    const titleText = document.createElement('h1');
+    titleText.innerText = config.title;
+      header.appendChild(titleText);
+  }
+
+  if (config.subtitle) {
+    const subtitleText = document.createElement('h2');
+    subtitleText.innerText = config.subtitle;
+      header.appendChild(subtitleText);
+  }
+
+  if (config.byline) {
+    const bylineText = document.createElement('p');
+    bylineText.innerText = config.byline;
+      header.appendChild(bylineText);
+  }
+
+  if (header.innerText.length > 0) {
+      header.classList.add(config.theme);
+      header.setAttribute('id', 'header');
+      story.appendChild(header);
+  }
+
+  config.chapters.forEach((record, idx) => {
+    const container = document.createElement('div');
+    const chapter = document.createElement('div');
+
+    if (record.title) {
+        const title = document.createElement('h3');
+        title.innerText = record.title;
+          chapter.appendChild(title);
+      }
+
+      if (record.image) {
+        const image = new Image();
+        image.src = record.image;
+          chapter.appendChild(image);
+      }
+
+      if (record.description) {
+        const story = document.createElement('p');
+        story.innerHTML = record.description;
+          chapter.appendChild(story);
+      }
+
+      container.setAttribute('id', record.id);
+      container.classList.add('step');
+      if (idx === 0) {
+          container.classList.add('active');
+      }
+
+      chapter.classList.add(config.theme);
+      container.appendChild(chapter);
+      features.appendChild(container);
+  });
+
+  story.appendChild(features);
+
+  const footer = document.createElement('div');
+
+  if (config.footer) {
+      var footerText = document.createElement('p');
+      footerText.innerHTML = config.footer;
+      footer.appendChild(footerText);
+  }
+
+  if (footer.innerText.length > 0) {
+      footer.classList.add(config.theme);
+      footer.setAttribute('id', 'footer');
+      story.appendChild(footer);
+  }
+
+  mapboxgl.accessToken = config.accessToken;
+
+  const transformRequest = (url) => {
+    const hasQuery = url.indexOf("?") !== -1;
+    const suffix = hasQuery ? "&pluginName=journalismScrollytelling" : "?pluginName=journalismScrollytelling";
+    return {
+      url: url + suffix
+    }
+  };
+
+  map = new mapboxgl.Map({
+    container: 'map',
+    style: config.style,
+    center: config.chapters[0].location.center,
+    zoom: config.chapters[0].location.zoom,
+    bearing: config.chapters[0].location.bearing,
+    pitch: config.chapters[0].location.pitch,
+    scrollZoom: true,  // TODO enabled after timeout?
+    zoomSnap: 0.1,
+    fadeTransition: 600,
+    transformRequest: transformRequest
+  });
+
+  marker = new mapboxgl.Marker();
+  if (config.showMarkers) {
+      marker.setLngLat(config.chapters[0].location.center).addTo(map);
+  }
+
+  // instantiate the scrollama
+  scroller = scrollama();
+
+  // ---------------------------------- MAP EXPLORER CONSTANTS ----------------------------------
+
+  // popup for mouseover
+  popup = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false,
+    className: 'school-popup',
+  });
+
+  filters = {
+    weighted: false,
+    school: 'all',
+    seed: 'all',
+    conference: 'all',
+    stat: 'mean',
+  };
+
+  highlights = {
+    'mean_dist': 639,
+    '50%_dist': 413,
+    'min_dist': 0.39,
+    'max_dist': 2866,
+    'count_dist': 87,
+    'mean_wtDist': 341,
+    '50%_wtDist': 229,
+    'min_wtDist': 0.39,
+    'max_wtDist': 2781,  // St johns to long beach ca 1986
+    'count_wtDist': 87,
+  };
+
+  selectedSchoolDetails = {  // TODO create class?
+    id: 'selected-school',
+    type: 'circle',
+    paint: {
+      'circle-color': '#E27600',
+      'circle-stroke-opacity': 1,
+    },
+    visibility: 'visible',
+    before: 'sites',
+  };
+
+  avgDistanceDetails = {
+    id: 'avg-distance',
+    type: 'circle',
+    paint: {
+      'circle-radius': highlights[setProperty('mean')] / adjustPropCircles(setProperty('mean')),  // average weighted mean
+      'circle-color': 'transparent',
+      'circle-stroke-opacity': 0.7,
+      'circle-stroke-color': '#AA5F0E',
+      'circle-stroke-width': 2,
+    },
+    visibility: 'visible',
+    before: '',
+  };
+
+  lineStringDetails = {
+    id: 'line',
+    type: 'line',
+    paint: {
+      'line-color': '#999',
+      'line-width': 1,
+      'line-opacity': 0.75,
+    },
+    visibility: 'none',
+    before: 'sites',
+  };
+
+  siteDetails = {
+    id: 'sites',
+    type: 'circle',
+    paint: {
+
+    },
+    visibility: 'visible',
+    before: '',
+  };
+
+  tmp3 = {
+    id: '',
+    type: '',
+    paint: {
+
+    },
+    visibility: 'visible',
+    before: '',
+  };
+
+  tmp4 = {
+    id: '',
+    type: '',
+    paint: {
+
+    },
+    visibility: 'visible',
+    before: '',
+  };
+
+  // jQuery map mouseover labels
+  label = $('.label');
+  labelText = $('.label-text');
+  labelSubText = $('.label-subtext');
+
+  // jQuery sidebar filter divs
+  mapExplorer = $('.map-explore');
+  weightedToggle = $('#weightedToggle');
+  schoolFilter = $('#schoolFilter');
+  seedFilter = $('#seedFilter');
+  conferenceFilter = $('#conferenceFilter');
+  statFilter = $('#statFilter');
+  header = $('.info-header');
+
+  story = $('#story');
+  returnBtn = $('#return');
+
+  // set final chapter story map to invisible to seamlessly scroll into map explorer
+  $('#final-chapter').css('visibility', 'hidden');
+
+  // dynamically apply info card defaults before jsons are loaded
+  setDefaultInfoCard();
+
+  // TODO Delete old json, replace with new
+  const sitesJson = d3.json('data/cleaned/sites-all-edit.json');
+  const schoolsJson = d3.json('data/cleaned/schools-agg.json');
+  const seedsJson = d3.json('data/cleaned/seeds-by-school.json');
+  const seedsAggJson = d3.json('data/cleaned/seeds-overall.json');
+  const confJson = d3.json('data/cleaned/conference-agg.json');
+  const colorsJson = d3.json('data/cleaned/school-colors.json');
+
+  Promise.all([sitesJson, schoolsJson, seedsJson, seedsAggJson, confJson, colorsJson]).then(onLoad);
+
+  function onLoad(data) {
+    const sites = data[0];
+    const schools = data[1];
+    const seeds = data[2];
+    const seedsAgg = data[3];
+    const conf = data[4];
+    const colors = data[5];
+
+    // iterate over schools and seeds geojson layers before manipulating map
+    // push schools to schoolFilter dropdown, apply seed values to school feature properties
+    iterateGeojsonSource(schools, seeds, colors);
+
+    //  geojsons created by reading jupyter notebook output CSVs into QGIS and converted
+    map.on('load', () => {
+      // TODO consolidate into one function, include avg distance?
+      createSchoolLayer(schools);
+      createSiteLayer(sites);
+      createLineStringLayer();
+      createAvgDistanceLayer();  // TODO move to different function?
+      createSelectedSchoolLayer();
+
+      onSchoolClick(sites);
+      onWeightedToggle(schools);
+
+      selectSchool(sites);
+      selectConference();
+      selectSeed();
+      selectStat(schools);
+
+      defaultMap();
+
+      // STORYTELLING MODE
+      // setup the instance, pass callback functions
+      scroller
+        .setup({
+          step: '.step',
+          offset: 0.5,
+          progress: true
+        })
+        .onStepEnter(response => {
+          const chapter = config.chapters.find(chap => chap.id === response.element.id);
+          response.element.classList.add('active');
+          map.flyTo(chapter.location);
+          if (config.showMarkers) {
+            marker.setLngLat(chapter.location.center);
+          }
+          if (chapter.onChapterEnter.length > 0) {
+            chapter.onChapterEnter.forEach(setLayerOpacity);
+          }
+
+          if (response.index === config.chapters.length - 1) {
+            story.detach();
+            returnBtn.css('visibility', 'visible');
+            returnBtn.on('click', () => {
+              $('body').append(story);
+              returnBtn.css('visibility', 'hidden');
+              mapExplorer.css('visibility', 'hidden');
+            });
+            mapExplorer.css('visibility', 'visible');
+          }
+        })
+        .onStepExit(response => {
+          const chapter = config.chapters.find(chap => chap.id === response.element.id);
+          response.element.classList.remove('active');
+          if (chapter.onChapterExit.length > 0) {
+            chapter.onChapterExit.forEach(setLayerOpacity);
+          }
+        });
     });
   }
-}
 
-let story = document.getElementById('story');
-const features = document.createElement('div');
-features.classList.add(alignments[config.alignment]);
-features.setAttribute('id', 'features');
+  // map.on('load', () => {
+  //   // // setup the instance, pass callback functions
+  //   // scroller
+  //   // .setup({
+  //   //   step: '.step',
+  //   //   offset: 0.5,
+  //   //   progress: true
+  //   // })
+  //   // .onStepEnter(response => {
+  //   //   const chapter = config.chapters.find(chap => chap.id === response.element.id);
+  //   //   response.element.classList.add('active');
+  //   //     map.flyTo(chapter.location);
+  //   //     if (config.showMarkers) {
+  //   //       marker.setLngLat(chapter.location.center);
+  //   //     }
+  //   //     if (chapter.onChapterEnter.length > 0) {
+  //   //       chapter.onChapterEnter.forEach(setLayerOpacity);
+  //   //     }
+  //   //
+  //   //     if (response.index === config.chapters.length - 1) {
+  //   //       story.detach();
+  //   //       returnBtn.css('visibility', 'visible');
+  //   //       returnBtn.on('click', () => {
+  //   //         $('body').append(story);
+  //   //         returnBtn.css('visibility', 'hidden');
+  //   //         mapExplorer.css('visibility', 'hidden');
+  //   //       });
+  //   //       mapExplorer.css('visibility', 'visible');
+  //   //     }
+  //   // })
+  //   // .onStepExit(response => {
+  //   //   const chapter = config.chapters.find(chap => chap.id === response.element.id);
+  //   //   response.element.classList.remove('active');
+  //   //   if (chapter.onChapterExit.length > 0) {
+  //   //     chapter.onChapterExit.forEach(setLayerOpacity);
+  //   //   }
+  //   // });
+  // });
 
-const header = document.createElement('div');
-
-if (config.title) {
-  const titleText = document.createElement('h1');
-  titleText.innerText = config.title;
-    header.appendChild(titleText);
-}
-
-if (config.subtitle) {
-  const subtitleText = document.createElement('h2');
-  subtitleText.innerText = config.subtitle;
-    header.appendChild(subtitleText);
-}
-
-if (config.byline) {
-  const bylineText = document.createElement('p');
-  bylineText.innerText = config.byline;
-    header.appendChild(bylineText);
-}
-
-if (header.innerText.length > 0) {
-    header.classList.add(config.theme);
-    header.setAttribute('id', 'header');
-    story.appendChild(header);
-}
-
-config.chapters.forEach((record, idx) => {
-  const container = document.createElement('div');
-  const chapter = document.createElement('div');
-
-  if (record.title) {
-      const title = document.createElement('h3');
-      title.innerText = record.title;
-        chapter.appendChild(title);
-    }
-
-    if (record.image) {
-      const image = new Image();
-      image.src = record.image;
-        chapter.appendChild(image);
-    }
-
-    if (record.description) {
-      const story = document.createElement('p');
-      story.innerHTML = record.description;
-        chapter.appendChild(story);
-    }
-
-    container.setAttribute('id', record.id);
-    container.classList.add('step');
-    if (idx === 0) {
-        container.classList.add('active');
-    }
-
-    chapter.classList.add(config.theme);
-    container.appendChild(chapter);
-    features.appendChild(container);
-});
-
-story.appendChild(features);
-
-const footer = document.createElement('div');
-
-if (config.footer) {
-    var footerText = document.createElement('p');
-    footerText.innerHTML = config.footer;
-    footer.appendChild(footerText);
-}
-
-if (footer.innerText.length > 0) {
-    footer.classList.add(config.theme);
-    footer.setAttribute('id', 'footer');
-    story.appendChild(footer);
-}
-
-mapboxgl.accessToken = config.accessToken;
-
-const transformRequest = (url) => {
-  const hasQuery = url.indexOf("?") !== -1;
-  const suffix = hasQuery ? "&pluginName=journalismScrollytelling" : "?pluginName=journalismScrollytelling";
-  return {
-    url: url + suffix
-  }
-};
-
-map = new mapboxgl.Map({
-  container: 'map',
-  style: config.style,
-  center: config.chapters[0].location.center,
-  zoom: config.chapters[0].location.zoom,
-  bearing: config.chapters[0].location.bearing,
-  pitch: config.chapters[0].location.pitch,
-  scrollZoom: true,  // TODO enabled after timeout?
-  zoomSnap: 0.1,
-  fadeTransition: 600,
-  transformRequest: transformRequest
-});
-
-marker = new mapboxgl.Marker();
-if (config.showMarkers) {
-    marker.setLngLat(config.chapters[0].location.center).addTo(map);
-}
-
-// instantiate the scrollama
-scroller = scrollama();
-
-story = $('#story');
-returnBtn = $('#return');
-sidebar = $('.sidebar');
-mapExplorer = $('.map-explore');
-$('#final-chapter').css('visibility', 'hidden');
-
-map.on('load', () => {
-  // setup the instance, pass callback functions
-  scroller
-  .setup({
-    step: '.step',
-    offset: 0.5,
-    progress: true
-  })
-  .onStepEnter(response => {
-    const chapter = config.chapters.find(chap => chap.id === response.element.id);
-    response.element.classList.add('active');
-      map.flyTo(chapter.location);
-      if (config.showMarkers) {
-        marker.setLngLat(chapter.location.center);
-      }
-      if (chapter.onChapterEnter.length > 0) {
-        chapter.onChapterEnter.forEach(setLayerOpacity);
-      }
-
-      if (response.index === config.chapters.length - 1) {
-        story.detach();
-        returnBtn.css('visibility', 'visible');
-        returnBtn.on('click', () => {
-          $('body').append(story);
-          returnBtn.css('visibility', 'hidden');
-          mapExplorer.css('visibility', 'hidden');
-        });
-        mapExplorer.css('visibility', 'visible');
-      }
-  })
-  .onStepExit(response => {
-    const chapter = config.chapters.find(chap => chap.id === response.element.id);
-    response.element.classList.remove('active');
-    if (chapter.onChapterExit.length > 0) {
-      chapter.onChapterExit.forEach(setLayerOpacity);
-    }
-  });
-});
-
-// STORYMAP: setup resize event
-window.addEventListener('resize', scroller.resize);
+  // STORYMAP: setup resize event
+  window.addEventListener('resize', scroller.resize);
 
 </script>
 
