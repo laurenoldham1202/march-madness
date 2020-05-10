@@ -660,7 +660,7 @@
   seedFilter = $('#seedFilter');
   conferenceFilter = $('#conferenceFilter');
   statFilter = $('#statFilter');
-  header = $('.info-header');
+  infoHeader = $('.info-header');
 
   story = $('#story');
   returnBtn = $('#return');
@@ -712,7 +712,8 @@
 
       defaultMap();
 
-      // STORYTELLING MODE
+      // STORYTELLING MODE  todo place in fn
+      // todo move map div abs position to not have to add padding once story mode is exited
       // setup the instance, pass callback functions
       scroller
         .setup({
@@ -790,6 +791,615 @@
   //   //   }
   //   // });
   // });
+
+  function setDefaultInfoCard() {
+    // dynamically set default info card whether weighted toggle is true or false on load
+    const defaultInfoCard = {
+      header: 'All Top Seeded Schools 1985 - 2019',
+      card1: highlights[setProperty('mean')] + ' miles',
+      card1text: `${highlights['mean_wtDist']} miles WEIGHTED mean \n \n Average for top seeded schools 1985 - 2019`,  // TODO make constant
+      card2: highlights[setProperty('50%')] + ' miles',
+      card2text: `${highlights['50%_wtDist']} miles WEIGHTED median \n \n Average for top seeded schools 1985 - 2019`,
+      card3: highlights[setProperty('min')] + ' miles',
+      card3text: 'University of Arizona to Tucson, AZ as a 1 seed in 2000',
+      card4: highlights[setProperty('max')] + ' miles',
+      card4text: 'Syracuse University to San Jose, CA as a 4 seed in 2013',
+      // card4text: 'St. John\'s University to Long Beach, CA as a 1 seed in 1986',
+      card5: 87,
+      card5text: 'Different schools with appearances',
+    };
+    updateInfoCard(defaultInfoCard);
+  }
+
+  /**
+   * Set weighted or unweighted property value, e.g. 'mean_wtDist' or 'mean_dist'
+   **/
+  function setProperty(stat = filters.stat) {
+    return `${stat}_${filters.weighted ? 'wtD' : 'd'}ist`;
+  }
+
+  // iterate over schools and seeds geojson layers before manipulating map
+  function iterateGeojsonSource(schools, seeds, colors) {
+    const allSchools = [];  // empty array to push school values
+    const allMin = [];  // empty array to push minimum values  // TODO do this in JN?
+
+    schools.features.forEach(school => {
+      // apply colors to school geojson
+      colors.features.forEach(color => {
+        if (school.properties.school_common_name === color.name) {
+          school.properties['color_1'] = color['color_1'];
+          school.properties['color_2'] = color['color_2'];
+          school.properties['color_neutral'] = color['color_neutral'];
+        }
+      });
+
+      // push all schools to array to be sorted before pushing to dropdown
+      allSchools.push(school.properties.school_common_name);
+      allMin.push(school.properties.min_dist);
+
+      // TODO Move to node script?
+      // apply seed property to schools geojson to match with seed dropdown values
+      seeds.features.forEach(seed => {
+        if (school.properties.school_common_name === seed.properties.school_common_name) {
+          if (seed.properties.seed === '1.0') {
+            school.properties['oneSeed'] = seed.properties;
+          } else if (seed.properties.seed === '2.0') {
+            school.properties['twoSeed'] = seed.properties;
+          } else if (seed.properties.seed === '3.0') {
+            school.properties['threeSeed'] = seed.properties;
+          } else if (seed.properties.seed === '4.0') {
+            school.properties['fourSeed'] = seed.properties;
+          }
+        }
+      });
+    });
+
+    allSchools.sort();  // sort schools alphabetically
+    allSchools.forEach(s => {
+      // push all school names to schoolFilter dropdown
+      schoolFilter.append(`<option value="${s}">${s}</option>`);
+    });
+
+    // console.log(allMin.reduce((a, b) => a + b) / allMin.length);
+  }
+
+  function resetFilter(filter) {
+    // reset 'mean' instead of 'all' for statFilter and true for weighted toggle
+    filter.val(filter === statFilter ? 'mean' : filter === weightedToggle ? false : 'all');
+    filter.trigger('change');  // trigger change event
+    console.log(filters);  // TODO need to trigger weightedToggle to be set to false
+  }
+
+  function resetAllFilters(excludeFilter = null) {
+    let filters = [weightedToggle, schoolFilter, seedFilter, conferenceFilter, statFilter];
+    if (excludeFilter) {
+      const index = filters.indexOf(excludeFilter);
+      filters.splice(index, 1);
+      excludeFilter.val('all');
+    }
+    filters.forEach(filter => {
+      resetFilter(filter);
+    });
+  }
+
+  function defaultMap() {
+    $('#extent').on('click', () => {
+      resetExtent();
+      resetAllFilters();
+    });
+  }
+
+  function resetExtent() {
+
+    // reset default gray color to info box infoHeader
+    infoHeader.css('background', '#414140');
+    infoHeader.css('border-color', '#AAA');
+
+    const layers = ['sites', 'line', 'avg-distance', 'selected-school']; // TODO create constants
+    layers.forEach(layer => {
+      map.setLayoutProperty(layer, 'visibility', 'none');
+    });
+
+    map.setPaintProperty('schools', 'circle-color', '#E27600');
+    map.setPaintProperty('schools', 'circle-opacity', 0.7);
+
+    // TODO create function for here and sites - might not be best because sites loop includes other conditions
+    const layerGeometry = {type: 'Polygon', coordinates: []};
+    const layerCoords = [];
+
+    map.getSource('schools')['_data'].features.forEach(feature => {
+      layerCoords.push(feature.geometry.coordinates);
+    });
+
+    layerGeometry.coordinates = [layerCoords];
+
+    // fit bounds to school layer
+    fitMapBounds(layerGeometry);
+
+    // reset info card to all school defaults
+    setDefaultInfoCard();
+  }
+
+  function fitMapBounds(layerGeometry) {
+    // map.fitBounds(turf.bbox(layerGeometry), { padding: {top: 50, right: 50, bottom: 50, left: 375} });
+    map.fitBounds(turf.bbox(layerGeometry), { padding: 50 });
+  }
+
+  // TODO make additional dropdown for special cases, i.e. blue bloods, etc.? Add slider for numbers of appearances?
+  function selectSchool(sites) {
+    schoolFilter.on('change', (e) => {
+      // apply selected school to filters
+      filters.school = e.target.value;
+      selectSchoolOnMap(sites);
+
+      if (filters.school !== 'all') {
+        selectSchoolOnMap(sites);
+      } else {
+        resetExtent();
+      }
+    });
+  }
+
+  function selectStat(schools) {
+    statFilter.on('change', (e) => {
+      // set filter constant with changed stat
+      filters.stat = e.target.value;
+
+      // property of filter, e.g. mean_dist, mean_wtDist, etc.
+      const prop = setProperty();
+
+      // TODO update stops for more readability (e.g. max is huge for all schools)
+      const stops = createStops(schools, prop);
+
+      map.setPaintProperty('schools', 'circle-radius', { property: prop, stops: stops });
+      map.setPaintProperty('selected-school', 'circle-radius', { property: prop, stops: stops });
+      map.setPaintProperty('avg-distance', 'circle-radius', highlights[prop] / adjustPropCircles(prop));
+    });
+  }
+
+  function selectSchoolOnMap(sites) {  // TODO iterate over layer source instead of geojson directly
+    const lineFeatures = [];
+    let min = null;
+    let max = null;
+
+    map.getSource('schools')['_data'].features.forEach(feature => {
+      // selected school
+      if (feature.properties.school_common_name === filters.school) {
+
+        // close any open popups
+        popup.remove();
+
+        // create empty bounding geometry for fitBounds argument
+        const layerGeometry = {type: 'Polygon', coordinates: []};
+        // coordinate array (formatted[[0,0],[1,1],[...]) to be pushed to layerGeometry coordinates
+        // start with school point coordinates
+        const layerCoords = [feature.geometry.coordinates];
+
+        // loop through all tournament sites
+        sites.features.forEach(site => {
+          // filter sites for the selected school
+          if (site.properties.school_common_name === feature.properties.school_common_name) {
+            // push site coordinates to single array
+            layerCoords.push(site.geometry.coordinates);
+            // wrap coords
+            layerGeometry.coordinates = [layerCoords];
+
+            // push linestring features to a feature array to be inserted into lines layer geojson source
+            createLineFeatures(lineFeatures, site, feature);
+          }
+
+          // TODO fix w new weighted vs unweighted
+          // set minimum and maximum distances for info cards
+          // iterate through sites and match to the min and max distances traveled, to fixed with for exact match
+          if (site.properties.distance.toFixed(4) === feature.properties.min_dist.toFixed(4)) {
+            min = site.properties;
+          }
+          if (site.properties.distance.toFixed(4) === feature.properties.max_dist.toFixed(4)) {
+            max = site.properties;
+          }
+        });
+
+        // fit bounds to school and sites
+        fitMapBounds(layerGeometry);
+
+        // push linestring features to line layer source
+        map.getSource('line').setData({ type: 'FeatureCollection', features: lineFeatures });
+
+        // difference between school averages and overall averages // TODO add min and max avg? or compare against overall min and max?
+        const diffDistMed = (feature.properties['50%_dist'] - highlights['50%_dist']).toFixed();
+        const differenceDist = (feature.properties.mean_dist - highlights.mean_dist).toFixed();
+
+        // TODO look into projection/distance calc, messed up cincy and louisville
+        const inputs = {
+          header: feature.properties.school_full_name,
+          card1: `${feature.properties.mean_dist.toFixed()} miles`,
+          card1text: `${feature.properties.mean_wtDist.toFixed()} miles WEIGHTED mean \n \n ${differenceDist} miles ${differenceText(differenceDist)} all-school average (${highlights.mean_dist} miles)`,
+          card2: `${feature.properties['50%_dist'].toFixed()} miles`,
+          card2text: `${feature.properties['50%_wtDist'].toFixed()} miles WEIGHTED median \n \n ${diffDistMed} miles  ${differenceText(diffDistMed)} all-school average (${highlights['50%_dist']} miles)`,
+          card3: `${feature.properties.min_dist.toFixed()} miles`,
+          card3text: `${min.city}, ${min.state} to ${min.site} as a ${min.seed} seed in ${min.year}`,
+          card4: `${feature.properties.max_dist.toFixed()} miles`,
+          card4text: `${max.city}, ${max.state} to ${max.site} as a ${max.seed} seed in ${max.year}`,
+          card5: feature.properties.count_dist,
+          card5text: 'Appearances as 1-4 seed',  // TODO put subinfoHeader w list of number of apperances as each seed
+        };
+        updateInfoCard(inputs);  // update highlights/info card with school info
+        applySchoolLabelStyles(feature);  // style mouseover label with school colors
+        styleLayers(feature);  // style and filter school, site, and line layers based on selected school
+        setAvgDistanceLayer(feature);  // set average distance circle at same location as selected school, apply source to layer
+      }
+    });
+  }
+
+  function applySchoolLabelStyles(feature) {
+    // TODO conditions for white
+    // apply colors associated with selected school to info cards
+    infoHeader.css('background', feature.properties.color_1);
+    infoHeader.css('border-color', feature.properties.color_2);
+
+    // add style tags because jQuery does not apply to CSS pseudo classes
+    infoHeader.append(`<style>.info-row:hover > .info-stat {background: ${feature.properties.color_2}</style>`)
+    infoHeader.append(`<style>.info-row:hover > .info-stat {border-color: ${feature.properties.color_2}</style>`)
+    infoHeader.append(`<style>.info-row:hover > .info-text {border-color: ${feature.properties.color_2}</style>`)
+  }
+
+  function differenceText(value) {
+    return value >= 0 ? 'ABOVE' : 'BELOW';
+  }
+
+  function createLineFeatures(lineFeatures, site, feature) {
+    // push linestring features to a feature array to be inserted into lines layer geojson source
+    lineFeatures.push({
+      'type': 'Feature',
+      'properties': site.properties,  // apply all school/site metadata to linestring
+      'geometry': {
+        'type': 'LineString',
+        // set school geometry and site geometry to create linetring between the two
+        'coordinates': [feature.geometry.coordinates, site.geometry.coordinates],
+      }
+    });
+    // return lineFeatures;
+  }
+
+  // TODO create legend for average distance prop circle size?
+  function setAvgDistanceLayer(feature) {  // TODO rename fn
+    // create formatted mapbox/geojson feature to apply to avg-distance layer source
+    const avgDistance = [{
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: feature.geometry.coordinates,
+      },
+      properties: feature.properties,
+    }];
+
+    // apply geojson source to selected school layer
+    map.getSource('selected-school').setData({ type: 'FeatureCollection', features: avgDistance });
+
+    // TODO apply to avg-distance layer - update with full agg values? (e.g. compare school min to overall min? or avg min?)
+    const property = setProperty();
+
+    // apply circle radius based on data-driven radiuses
+    map.setPaintProperty('selected-school', 'circle-radius',
+      // radius dynamically determined by currently selected filters
+      { property: property, stops: createStops(map.getSource('selected-school')['_data'], property) }
+    );
+
+    // apply above geojson to avg-distance layer
+    map.getSource('avg-distance').setData({ type: 'FeatureCollection', features: avgDistance });
+
+    // toggle visibility of layer back on if previously set to none (e.g. in resetExtent)
+    ['avg-distance', 'selected-school'].forEach(layer => {
+      map.setLayoutProperty(layer, 'visibility', 'visible');
+    });
+  }
+
+  function styleLayers(feature) {
+    // gray out non-selected schools
+    grayOutSchools();
+
+    // filter site layer and toggle visibility on for sites and lines that match the clicked school
+    ['sites', 'line'].forEach(layer => {
+      map.setFilter(layer, ['==', 'school_common_name', feature.properties.school_common_name]);
+      map.setLayoutProperty(layer, 'visibility', 'visible');
+    });
+  }
+
+  function grayOutSchools() {
+    const styles = ['color', 'opacity'];
+    styles.forEach(style => {
+      map.setPaintProperty('schools', `circle-${style}`, ['case', ['boolean', ['feature-state', 'clicked'], false],
+        style === 'color' ? '#E27600' : 1, style === 'color' ? '#D2D4D4' : 0.7]);
+    });
+  }
+
+  function selectSeedOrConf(filterUI, filter) {
+    filterUI.on('change', (e) => {
+      // apply selected conference to filters
+      filters[filter] = e.target.value;
+
+      // loop through schools layer
+      map.getSource('schools')['_data'].features.forEach(school => {
+        // if a school is currently selected but does not belong to the selected conference, reset to default map view
+        if (school.properties.school_common_name === filters.school) {
+          const schoolMissingFilter = filter === 'conference' ? school.properties[filter] !== filters[filter] :
+            !Object.keys(school.properties).includes(filters[filter]);
+          if (schoolMissingFilter) { // TODO REMOVE IF YOU HIDE ALL OTHER SCHOOLS WHEN SCHOOL IS SELECTED
+            // TODO remove selected school and set selected filter?
+            resetExtent();  // hides selected school, sites, lines, etc. and resets bounds
+            // TODO Display an error message for this resetting?
+            resetAllFilters(filterUI);  // resets all filters EXCEPT conference filter
+            // resets filters explicitly so that setMapFilters below displays ALL schools
+            filters[filter] = 'all';
+          }
+        }
+      });
+
+      setMapFilters();
+    });
+  }
+
+  // TODO allow multiple conference selections?
+  function selectConference() {
+    selectSeedOrConf(conferenceFilter, 'conference');
+  }
+
+  function selectSeed() {
+    selectSeedOrConf(seedFilter, 'seed');
+  }
+
+  /**
+   * Sets condition for 'all' values in seed and conference filter - school layer is handled with resetExtent()
+   **/
+  function setMapFilters() {
+    // filter for selected conference OR display all for 'all conference' selection (filter for features that have school common name field)
+    const confFilter = filters.conference !== 'all' ? ['==', 'conference', filters.conference] : ['has', 'school_common_name'];
+    // filter for seeds that have seed aggregate field or display all for all seed selection
+    const seedFilter = ['has', filters.seed === 'all' ? 'school_common_name' : filters.seed];
+    // apply multiple filters with 'all'
+    map.setFilter('schools', ['all', confFilter, seedFilter]);
+  }
+
+  // apply weighted or unweighted mean distance depending on toggle position
+  function onWeightedToggle(geojson) {
+    weightedToggle.on('click', (e) => {
+
+      // update global filters
+      filters.weighted = e.target.checked;
+
+      // set weighted distance if toggle checked - if not, set regular unweighted distance
+      const property = setProperty();
+      const stops = createStops(geojson, property);
+
+      map.setPaintProperty('schools', 'circle-radius', { property: property, stops: stops });
+
+      // TODO fix error this causes when toggling back and forth
+      // apply selected school circle radius based on data-driven radiuses
+      map.setPaintProperty('selected-school', 'circle-radius',
+        { property: property, stops: createStops(map.getSource('selected-school')['_data'], property) }
+      );
+
+      // adjust average distance circle based on weighted toggle status, divide property by set value for mean and max values only
+      map.setPaintProperty('avg-distance', 'circle-radius', highlights[property] / adjustPropCircles(property),);
+    });
+  }
+
+  function adjustPropCircles(property) {
+    return property === 'min_dist' || property === 'min_wtDist' ? 100 :
+      property === 'count_dist' || property === 'count_wtDist' ? 1 : 65;
+  }
+
+  // TODO Create hardcoded stops with class breaks for easier differentiating, maybe legend too?
+  function createStops(geojson, property) {
+    const values = [];
+    const stops = [];
+
+    geojson.features.forEach((feature, i) => {
+      feature['id'] = i;  // add ids to school geojson for featureState functionality
+      values.push(feature.properties[property]);
+    });
+
+    const sortedValues = values.sort((a, b) => { return a-b });
+    sortedValues.forEach(val => {
+      stops.push([val, val / adjustPropCircles(property)]);
+    });
+    return stops;
+  }
+
+  function onSchoolClick(sites, colors) {
+    map.on('click', 'schools', (e) => {
+      // save selected school in filters
+      filters.school = e.features[0].properties.school_common_name;
+      // set school filter dropdown value as clicked school
+      schoolFilter.val(filters.school);
+      selectSchoolOnMap(sites, colors);
+    });
+  }
+
+  // TODO create class or interface for contentObject?
+  function updateInfoCard(contentObject) {
+    infoHeader.text(contentObject['header']);
+    $('.card-1').text(contentObject['card1']);
+    $('.card-1-subtext').text(contentObject['card1text']);
+    $('.card-2').text(contentObject['card2']);
+    $('.card-2-subtext').text(contentObject['card2text']);
+    $('.card-3').text(contentObject['card3']);
+    $('.card-3-subtext').text(contentObject['card3text']);
+    $('.card-4').text(contentObject['card4']);
+    $('.card-4-subtext').text(contentObject['card4text']);
+    $('.card-5').text(contentObject['card5']);
+    $('.card-5-subtext').text(contentObject['card5text']);
+  }
+
+  function statFriendlyName(stat = filters.stat) {
+    return stat === 'mean' ? 'mean' :
+      stat === '50%' ? 'median' :
+        stat === 'min' ? 'minimum' :
+          stat === 'max' ? 'maximum' :
+            stat === 'count' ? 'count' : '';
+  }
+
+  function onSchoolHover() {
+    // empty hoverId, resets on each school mouseover
+    let hoverId = null;
+
+    map.on('mousemove', 'schools', (e) => {
+      // change cursor to pointer to indicate clickability
+      this.map.getCanvas().style.cursor = 'pointer';
+
+      // reset basic school style for popup
+      // TODO add +/- overall avg?
+      label.css('background', '#414140');
+      label.css('color', 'whitesmoke');
+
+      label.addClass('visible');  // make popup visible on school mouseover
+      labelText.text(e.features[0].properties.school_full_name);  // apply school name to label
+      // apply selected stat distance in label subtext
+      labelSubText.text(`${e.features[0].properties[setProperty()].toFixed()} miles (${statFriendlyName()} distance traveled)`);
+
+      // apply dark stroke on mouseover
+      if (hoverId) {
+        map.setFeatureState({ source: 'schools', id: hoverId }, { hovered: false });
+      }
+      hoverId = e.features[0].id;
+      map.setFeatureState({ source: 'schools', id: hoverId }, { hovered: true });
+    });
+
+    map.on('mouseleave', 'schools', () => {
+      // change cursor to pointer to indicate clickability
+      this.map.getCanvas().style.cursor = 'grab';
+      label.removeClass('visible');  // hide label on mouseleave
+      // remove visual affordance on mouseleave
+      map.setFeatureState({ source: 'schools', id: hoverId }, { hovered: false });
+    });
+  }
+
+  function onSiteHover() {
+    // TODO add visual afforance to line+site? Add invisible thicker linestring layer for smoother popup
+    const layers = ['sites', 'line'];
+    layers.forEach(layer => {
+      map.on('mousemove', layer, (e) => {
+        applySiteLabelStyles(e.features[0].properties);
+
+      });
+
+      map.on('mouseleave', layer, () => {
+        label.removeClass('visible');  // hide label on mouseleave
+      });
+    });
+  }
+
+  function backgroundColor(property) {
+    return property.seed === 1 ? '#80bad1' :
+      property.seed === 2 ? '#5694c1' :
+        property.seed === 3 ? '#2c6db1' :
+          property.seed === 4 ? '#0146a1' : '#AAA';
+  }
+
+  function applySiteLabelStyles(props) {
+    const content = `${props.school_common_name} played ${props.distance.toFixed()}
+            miles from home in ${props.site} in ${props.year} as a ${props.seed} seed.`;
+
+    // update label text and styles TODO add +/- from seed avg
+    label.addClass('visible');  // make info label visible
+    labelText.text(content);  // apply site info content
+    labelSubText.text('');  // apply site info content
+    label.css('background', backgroundColor(props));  // apply styles based on seed
+    label.css('color', 'white');
+  }
+
+
+  /**
+   * Create mapbox layer for schools, set initial view for Overall wins
+   * @param geojson
+   */
+  function createSchoolLayer(geojson) {
+    const property = setProperty();
+    const stops = createStops(geojson, property);
+    // const stops = [[100, 3], [300, 6], [600, 9], [900, 14], [1200, 19], [1800, 26], [2900, 40]];
+
+    // sort geojson in descending order to plot larger circles underneath smaller ones
+    // TODO Sort for each stat selection
+    // TODO sorting causes bug when select school, click weighted toggle, then click a diff school - plots multi schools
+    // geojson.features.sort((a, b) => (a.properties.mean_dist > b.properties.mean_dist) ? 1 : -1).reverse();
+
+    map.addLayer({
+      id: 'schools',
+      type: 'circle',
+      source: {
+        type: 'geojson',
+        data: geojson,
+      },
+      paint: {
+        'circle-radius': {
+          property: property,
+          stops: stops,
+        },
+        'circle-color': '#E27600',
+        'circle-opacity': ['case', ['boolean', ['feature-state', 'clicked'], false], 1, 0.7],
+        'circle-stroke-color': ['case', ['boolean', ['feature-state', 'hovered'], false], '#414140', 'whitesmoke'],
+        'circle-stroke-opacity': ['case', ['boolean', ['feature-state', 'hovered'], false], 0.7, 0.5],
+        'circle-stroke-width': 1.5,
+      }
+    });
+
+    // change cursor to pointer to indicate clickability of school features
+    onSchoolHover();
+  }
+
+  function createSiteLayer(geojson) {
+    // TODO Apply layering so that higher seeds/smaller circles plot on top of lower seeds
+    map.addLayer({
+      id: 'sites',
+      type: 'circle',
+      source: {
+        type: 'geojson',
+        data: geojson,
+      },
+      paint: {
+        'circle-radius': ['match', ['get', 'seed'], 1, 5, 2, 8, 3, 11, 4, 14, 5],
+        'circle-color': ['match', ['get', 'seed'], 1, '#80bad1', 2, '#5694c1', 3, '#2c6db1', 4, '#0146a1', '#AAA'],
+        'circle-opacity': 1,
+      },
+      layout: {
+        visibility: 'none',  // invisible on default, gets toggled on on school click event
+      },
+    });
+
+    onSiteHover();
+  }
+
+  function createLineStringLayer() {
+    createLayer(lineStringDetails);
+  }
+
+  function createAvgDistanceLayer() {
+    createLayer(avgDistanceDetails);
+  }
+
+  function createSelectedSchoolLayer() {
+    createLayer(selectedSchoolDetails);
+  }
+
+  // TODO put all layers in loop
+  function createLayer(layerInfo) {
+    // layer without geojson source - source is added dynamically
+    map.addLayer({
+      id: layerInfo.id,
+      type: layerInfo.type,
+      source: {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: [ ],
+        }
+      },
+      paint: layerInfo.paint,
+      layout: {
+        visibility: layerInfo.visibility,
+      }
+    }, layerInfo.before);  // layer to place before plotting
+  }
 
   // STORYMAP: setup resize event
   window.addEventListener('resize', scroller.resize);
