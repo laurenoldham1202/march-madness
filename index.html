@@ -739,10 +739,13 @@
           if (id === 'chapter-3') {
             resetExtent();
           } else if (id === 'chapter-4') {
-            // don't need to hardcode in filters since kansas city is only data
-            filters.school = 'Minnesota';  // todo might not need since filters will be reset at end
-            schoolFilter.val(filters.school);
-            schoolFilter.trigger('change');
+            applyChapterFilters('Minnesota', 'Kansas City, MO');
+          } else if (id === 'chapter-5') {
+            applyChapterFilters('Kentucky', 'Jacksonville, FL');
+          } else if (id === 'chapter-6') {
+            applyChapterFilters('Texas', 'Denver, CO');
+          } else if (id === 'chapter-7') {
+            applyChapterFilters('San Diego State', 'Spokane, WA');
           }
 
           if (response.index === config.chapters.length - 1) {
@@ -764,6 +767,20 @@
           }
         });
     });
+  }
+
+  function applyChapterFilters(school, site) {
+    filters.school = school;  // todo might not need - call val directly
+    schoolFilter.val(filters.school);
+    schoolFilter.trigger('change');
+
+    ['sites', 'line'].forEach(layer => {
+      map.setFilter(layer, ['==', 'site', site]);
+    });
+
+    // TODO fitBounds, toggle other schools off
+    // console.log(map.getSource('line'));
+    // fitMapBounds(map.getLayer('line'));
   }
 
   function setDefaultInfoCard() {

@@ -107,14 +107,38 @@ const config = {
             title: '',
             image: '',
             description: `One seeds averaged a travel distance of roughly 376 miles, approximately the same distance from
+            Lexington, Kentucky to Jacksonville, Florida, where 2 seed University of Kentucky Wildcats played in 2019.
+            `,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
+            id: 'chapter-5',
+            title: '',
+            image: '',
+            description: `Two seeds averaged a travel distance of roughly 513 miles, approximately the same distance from
             Minneapolis, Minnesota to Kansas City, Missouri, where 1 seed University of Minnesota Golden Gophers played in 1997.
             `,
-            // location: {
-            //     center: [-113.72917, 48.58938],
-            //     zoom: 12.92,
-            //     pitch: 39.50,
-            //     bearing: 36.00
-            // },
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
+            id: 'chapter-6',
+            title: '',
+            image: '',
+            description: `Three seeds averaged a travel distance of roughly 742 miles, approximately the same distance from
+            Austin, Texas to Denver, Colorado, where 3 seed University of Texas Longhorns played in 2004.
+            `,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
+            id: 'chapter-7',
+            title: '',
+            image: '',
+            description: `Four seeds averaged a travel distance of roughly 922 miles, approximately the same distance from
+            San Diego, California to Spokane, Washington, where 4 seed San Diego State University Aztecs played in 2014.
+            `,
             onChapterEnter: [],
             onChapterExit: []
         },
