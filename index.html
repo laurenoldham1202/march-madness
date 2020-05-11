@@ -689,6 +689,8 @@
     const conf = data[4];
     const colors = data[5];
 
+    console.log(seedsAgg);
+
     // iterate over schools and seeds geojson layers before manipulating map
     // push schools to schoolFilter dropdown, apply seed values to school feature properties
     iterateGeojsonSource(schools, seeds, colors);
@@ -713,7 +715,8 @@
       defaultMap();
 
       // STORYTELLING MODE  todo place in fn
-      // todo move map div abs position to not have to add padding once story mode is exited
+      // todo move map div abs position to not have to add padding once story mode is exited, reset bearing on resetExtent
+      // todo reset layers + filters when storymode is entered again
       // setup the instance, pass callback functions
       scroller
         .setup({
@@ -722,7 +725,8 @@
           progress: true
         })
         .onStepEnter(response => {
-          const chapter = config.chapters.find(chap => chap.id === response.element.id);
+          const id = response.element.id;
+          const chapter = config.chapters.find(chap => chap.id === id);
           response.element.classList.add('active');
           map.flyTo(chapter.location);
           if (config.showMarkers) {
@@ -730,6 +734,15 @@
           }
           if (chapter.onChapterEnter.length > 0) {
             chapter.onChapterEnter.forEach(setLayerOpacity);
+          }
+
+          if (id === 'chapter-3') {
+            resetExtent();
+          } else if (id === 'chapter-4') {
+            // don't need to hardcode in filters since kansas city is only data
+            filters.school = 'Minnesota';  // todo might not need since filters will be reset at end
+            schoolFilter.val(filters.school);
+            schoolFilter.trigger('change');
           }
 
           if (response.index === config.chapters.length - 1) {
@@ -752,45 +765,6 @@
         });
     });
   }
-
-  // map.on('load', () => {
-  //   // // setup the instance, pass callback functions
-  //   // scroller
-  //   // .setup({
-  //   //   step: '.step',
-  //   //   offset: 0.5,
-  //   //   progress: true
-  //   // })
-  //   // .onStepEnter(response => {
-  //   //   const chapter = config.chapters.find(chap => chap.id === response.element.id);
-  //   //   response.element.classList.add('active');
-  //   //     map.flyTo(chapter.location);
-  //   //     if (config.showMarkers) {
-  //   //       marker.setLngLat(chapter.location.center);
-  //   //     }
-  //   //     if (chapter.onChapterEnter.length > 0) {
-  //   //       chapter.onChapterEnter.forEach(setLayerOpacity);
-  //   //     }
-  //   //
-  //   //     if (response.index === config.chapters.length - 1) {
-  //   //       story.detach();
-  //   //       returnBtn.css('visibility', 'visible');
-  //   //       returnBtn.on('click', () => {
-  //   //         $('body').append(story);
-  //   //         returnBtn.css('visibility', 'hidden');
-  //   //         mapExplorer.css('visibility', 'hidden');
-  //   //       });
-  //   //       mapExplorer.css('visibility', 'visible');
-  //   //     }
-  //   // })
-  //   // .onStepExit(response => {
-  //   //   const chapter = config.chapters.find(chap => chap.id === response.element.id);
-  //   //   response.element.classList.remove('active');
-  //   //   if (chapter.onChapterExit.length > 0) {
-  //   //     chapter.onChapterExit.forEach(setLayerOpacity);
-  //   //   }
-  //   // });
-  // });
 
   function setDefaultInfoCard() {
     // dynamically set default info card whether weighted toggle is true or false on load
@@ -890,6 +864,9 @@
   }
 
   function resetExtent() {
+
+    map.setBearing(0);  // todo create fn?
+    map.setPitch(0);
 
     // reset default gray color to info box infoHeader
     infoHeader.css('background', '#414140');
