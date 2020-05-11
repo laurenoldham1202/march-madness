@@ -146,13 +146,12 @@ const config = {
             id: 'final-chapter',
             title: '',
             image: '',
-            description: ``,
-            location: {
-                center: [-113.72917, 48.58938],
-                zoom: 12.92,
-                pitch: 39.50,
-                bearing: 36.00
-            },
+            description: `
+            <div class="buttons" style="display: flex;">
+              <button class="button" id="story-mode">Restart Story</button>
+              <button class="button" id="explore-mode">Explore Map</button>
+             </div>
+            `,
             onChapterEnter: [],
             onChapterExit: []
         }

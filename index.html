@@ -146,6 +146,14 @@
       background: #eee;
     }
 
+    .button {
+      margin: 1rem;
+      width: 17.5rem;
+      border-radius: 4px;
+      color: #fff;
+      background-color: #0146a1;
+    }
+
     .capital-font {
       font-family: 'Bebas Neue', sans-serif;
     }
@@ -666,7 +674,7 @@
   returnBtn = $('#return');
 
   // set final chapter story map to invisible to seamlessly scroll into map explorer
-  $('#final-chapter').css('visibility', 'hidden');
+  // $('#final-chapter').css('visibility', 'hidden');
 
   // dynamically apply info card defaults before jsons are loaded
   setDefaultInfoCard();
@@ -736,6 +744,7 @@
             chapter.onChapterEnter.forEach(setLayerOpacity);
           }
 
+          // TODO scroll by index instead?
           if (id === 'chapter-3') {
             resetExtent();
           } else if (id === 'chapter-4') {
@@ -748,15 +757,35 @@
             applyChapterFilters('San Diego State', 'Spokane, WA');
           }
 
+        // .step div {padding: 25px 50px;}
+
           if (response.index === config.chapters.length - 1) {
-            story.detach();
-            returnBtn.css('visibility', 'visible');
+
+            $('#explore-mode').on('click', () => {
+              story.detach();
+              returnBtn.css('visibility', 'visible');
+              mapExplorer.css('visibility', 'visible');
+            });
+
             returnBtn.on('click', () => {
               $('body').append(story);
               returnBtn.css('visibility', 'hidden');
               mapExplorer.css('visibility', 'hidden');
             });
-            mapExplorer.css('visibility', 'visible');
+
+            $('#story-mode').on('click', () => {
+              // Todo restart story
+            });
+
+            // $('.step div').css('padding', '0');
+            // story.detach();
+            // returnBtn.css('visibility', 'visible');
+            // returnBtn.on('click', () => {
+            //   $('body').append(story);
+            //   returnBtn.css('visibility', 'hidden');
+            //   mapExplorer.css('visibility', 'hidden');
+            // });
+            // mapExplorer.css('visibility', 'visible');
           }
         })
         .onStepExit(response => {
@@ -767,6 +796,8 @@
           }
         });
     });
+
+
   }
 
   function applyChapterFilters(school, site) {
