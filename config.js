@@ -143,6 +143,19 @@ const config = {
             onChapterExit: []
         },
         {
+            id: 'chapter-8',
+            title: '',
+            image: '',
+            description: `
+            376.4681913845625
+            384.9353264471618
+            371.37910393762354
+            230.66817536825405
+            `,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
             id: 'final-chapter',
             title: '',
             image: '',
