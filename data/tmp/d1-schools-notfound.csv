@@ -1,3 +1,28 @@
-school,common_name,team,city,state,type,conference
-Harvard University,Harvard,Crimson,Cambridge[A 12],Massachusetts,Private/Non-sectarian,Ivy League
-University of Texas Rio Grande Valley,UTRGV,Vaqueros,Edinburg[A 48],Texas,State,Western Athletic Conference
+school_full_name,common_name,team,city,state,type,conference
+Alabama Agricultural and Mechanical University,Alabama A&M,Bulldogs,Huntsville,Alabama,State,Southwestern Athletic Conference
+"University at Albany, SUNY",Albany,Great Danes,Albany,New York,State,America East Conference
+Alcorn State University,Alcorn State,Braves,Lorman,Mississippi,State,Southwestern Athletic Conference
+"California State University, Bakersfield",Cal State Bakersfield,Roadrunners,Bakersfield,California,State,Western Athletic Conference
+"California State University, Fullerton",Cal State Fullerton,Titans,Fullerton,California,State,Big West Conference
+"California State University, Sacramento",Sacramento State,Hornets,Sacramento,California,State,Big Sky Conference
+Florida A&M University,Florida A&M,Rattlers,Tallahassee,Florida,State,Mid-Eastern Athletic Conference
+Florida Atlantic University,Florida Atlantic,Owls,Boca Raton,Florida,State,Conference USA
+Florida Gulf Coast University,FGCU,Eagles,Fort Myers,Florida,State,Atlantic Sun Conference
+Hofstra University,Hofstra,Pride,Hempstead,New York,Private/Non-sectarian,Colonial Athletic Association
+Indiana University - Purdue University Indianapolis,IUPUI,Jaguars,Indianapolis,Indiana,State,Horizon League
+Kennesaw State University,Kennesaw State,Owls,Kennesaw,Georgia,State,Atlantic Sun Conference
+Long Island University,LIU,Sharks,Brooklyn,New York,Private/Non-Sectarian,Northeast Conference
+University of Louisiana at Monroe,Louisiana-Monroe,Warhawks,Monroe,Louisiana,State,Sun Belt Conference
+Manhattan College,Manhattan,Jaspers,Riverdale,New York,Private/Catholic,Metro Atlantic Athletic Conference
+"University of Maryland, Baltimore County",UMBC,Retrievers,Catonsville,Maryland,State,America East Conference
+University of Maryland Eastern Shore,Maryland Eastern Shore,Hawks,Princess Anne,Maryland,State,Mid-Eastern Athletic Conference
+University of Minnesota,Minnesota,Golden Gophers,Minneapolis-Saint Paul,Minnesota,State,Big Ten Conference
+Mississippi Valley State University,Mississippi Valley State,Delta Devils,Itta Bena,Mississippi,State,Southwestern Athletic Conference
+"University of Nevada, Las Vegas",UNLV,Rebels,Paradise,Nevada,State,Mountain West Conference
+Nicholls State University,Nicholls,Colonels,Thibodaux,Louisiana,State,Southland Conference
+University of North Carolina at Asheville,UNC Asheville,Bulldogs,Asheville,North Carolina,State,Big South Conference
+Rider University,Rider,Broncs,Lawrenceville,New Jersey,Private/Non-Sectarian,Metro Atlantic Athletic Conference
+Siena College,Siena,Saints,Loudonville,New York,Private/Catholic,Metro Atlantic Athletic Conference
+University of Tennessee at Chattanooga,Chattanooga,Mocs,Chattanooga,Tennessee,State,Southern Conference
+United States Military Academy,Army,Black Knights,West Point,New York,Federal academy,Patriot League
+West Virginia University,West Virginia,Mountaineers,Morgantown,West Virginia,State,Big 12 Conference

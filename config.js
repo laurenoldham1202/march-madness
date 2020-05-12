@@ -81,6 +81,7 @@ const config = {
             id: 'chapter-3',
             title: '',
             image: '',
+            // TODO add min and max for more of an overall story?
             description: `When looking at raw euclidean distances, the data falls in line with the NCAA's claim of 
             geographic preference for higher seeds, with 1 seeds averaging the shortest travel distance, 2 seeds averaging
             the second shortest travel distance, 3 seeds average the third shortest travel distance, and 4 seeds traveling
@@ -107,7 +108,7 @@ const config = {
             title: '',
             image: '',
             description: `One seeds averaged a travel distance of roughly 376 miles, approximately the same distance from
-            Lexington, Kentucky to Jacksonville, Florida, where 2 seed University of Kentucky Wildcats played in 2019.
+            Minneapolis, Minnesota to Kansas City, Missouri, where 1 seed University of Minnesota Golden Gophers played in 1997.
             `,
             onChapterEnter: [],
             onChapterExit: []
@@ -117,7 +118,7 @@ const config = {
             title: '',
             image: '',
             description: `Two seeds averaged a travel distance of roughly 513 miles, approximately the same distance from
-            Minneapolis, Minnesota to Kansas City, Missouri, where 1 seed University of Minnesota Golden Gophers played in 1997.
+            Lexington, Kentucky to Jacksonville, Florida, where 2 seed University of Kentucky Wildcats played in 2019.
             `,
             onChapterEnter: [],
             onChapterExit: []
@@ -146,12 +147,70 @@ const config = {
             id: 'chapter-8',
             title: '',
             image: '',
-            description: `
-            376.4681913845625
-            384.9353264471618
-            371.37910393762354
-            230.66817536825405
+            description: `Viewing aggregations at the school level paints a more varied picture of travel distances during
+            March Madness, ranging from a minimum travel distance of less than a mile to a maximum travel distance exceeding
+            2800 miles. The overall mean distance traveled for all top four seeded schools from 1985 to 2019 was 639 miles; 
+            the median distance traveled clocked in a bit lower at 413 miles, perhaps a more accurate representation that 
+            lessens the influence of outliers.
             `,
+            location: {
+                center: [-112.5, 41.5],
+                zoom: 3.75,
+                pitch: 0.00,
+                bearing: 0.00,
+            },
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
+            id: 'chapter-9',
+            title: '',
+            image: '',
+            description: `The University of Arizona traveled the overall shortest distance, barely leaving campus to travel 
+            less than half a mile to their first round site in Tucson in 2000 as a 1 seed. Unfortunately for the Wildcats,
+            the close proximity didn't give them enough of a boost to beat out Wisconsin in the second round of the 
+            tournament.`,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
+            id: 'chapter-10',
+            title: '',
+            image: '',
+            description: `Overall maximum distance`,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
+            id: 'chapter-11',
+            title: '',
+            image: '',
+            description: `Mean and median distance (unweighted)`,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+
+        {
+            id: 'chapter-12',
+            title: '',
+            image: '',
+            description: `WEIGHTED description, Mean and median distance (weighted)`,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
+            id: 'chapter-13',
+            title: '',
+            image: '',
+            description: `Minimum mean (weighted or unweighted?) `,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
+            id: 'chapter-14',
+            title: '',
+            image: '',
+            description: `Maximum mean (weighted or unweighted?)`,
             onChapterEnter: [],
             onChapterExit: []
         },

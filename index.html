@@ -697,7 +697,10 @@
     const conf = data[4];
     const colors = data[5];
 
+    // weighted seeds - 1) 376.4681913845625, 2) 384.9353264471618, 3) 371.37910393762354, 4) 230.66817536825405
     console.log(seedsAgg);
+    console.log(conf);
+    console.log(schools);
 
     // iterate over schools and seeds geojson layers before manipulating map
     // push schools to schoolFilter dropdown, apply seed values to school feature properties
@@ -744,10 +747,13 @@
             chapter.onChapterEnter.forEach(setLayerOpacity);
           }
 
+          // TODO add chapter in beginning for methodology, e.g. using city instead of arena, equal area proj, etc.
           // TODO scroll by index instead?
           if (id === 'chapter-3') {
             resetExtent();
-          } else if (id === 'chapter-4') {
+            map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
+
+          } else if (id === 'chapter-4') {  // todo create object w school info to streamline this
             applyChapterFilters('Minnesota', 'Kansas City, MO');
           } else if (id === 'chapter-5') {
             applyChapterFilters('Kentucky', 'Jacksonville, FL');
@@ -755,6 +761,12 @@
             applyChapterFilters('Texas', 'Denver, CO');
           } else if (id === 'chapter-7') {
             applyChapterFilters('San Diego State', 'Spokane, WA');
+          } else if (id === 'chapter-8') {
+            resetExtent();
+          } else if (id === 'chapter-9') {
+            applyChapterFilters('Arizona', 'Tucson, AZ');
+          } else if (id === 'chapter-10') {
+            applyChapterFilters('Syracuse', 'San Jose, CA');
           }
 
         // .step div {padding: 25px 50px;}
@@ -798,13 +810,16 @@
     });
   }
 
+  // TODO Consolidate into single chapter?
   function applyChapterFilters(school, site) {
+
     filters.school = school;  // todo might not need - call val directly
     schoolFilter.val(filters.school);
     schoolFilter.trigger('change');
 
     // set filter to display only selected school and site
     ['sites', 'line'].forEach(layer => {
+      // TODO apply site seed styling
       map.setFilter(layer, ['==', 'site', site]);  // TODO apply thicker line style on zoom
     });
 
@@ -925,6 +940,7 @@
 
     map.setBearing(0);  // todo create fn?
     map.setPitch(0);
+    map.setLayoutProperty('schools', 'visibility', 'visible');
 
     // reset default gray color to info box infoHeader
     infoHeader.css('background', '#414140');
