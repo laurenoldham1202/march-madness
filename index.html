@@ -547,7 +547,8 @@
     pitch: config.chapters[0].location.pitch,
     scrollZoom: true,  // TODO enabled after timeout?
     zoomSnap: 0.1,
-    fadeTransition: 600,
+    // fadeTransition: 1000,
+    fadeDuration: 1000,
     transformRequest: transformRequest
   });
 
@@ -636,11 +637,11 @@
     before: '',
   };
 
-  tmp3 = {
-    id: '',
-    type: '',
+  d1Details = {
+    id: 'd1',
+    type: 'circle',
     paint: {
-
+      'circle-radius': 0
     },
     visibility: 'visible',
     before: '',
@@ -686,8 +687,9 @@
   const seedsAggJson = d3.json('data/cleaned/seeds-overall.json');
   const confJson = d3.json('data/cleaned/conference-agg.json');
   const colorsJson = d3.json('data/cleaned/school-colors.json');
+  const d1Json = d3.json('data/tmp/d1-all-MISSING.json');  // TODO fix geocoding errors
 
-  Promise.all([sitesJson, schoolsJson, seedsJson, seedsAggJson, confJson, colorsJson]).then(onLoad);
+  Promise.all([sitesJson, schoolsJson, seedsJson, seedsAggJson, confJson, colorsJson, d1Json]).then(onLoad);
 
   function onLoad(data) {
     const sites = data[0];
@@ -696,6 +698,7 @@
     const seedsAgg = data[3];
     const conf = data[4];
     const colors = data[5];
+    const d1 = data[6];
 
     // weighted seeds - 1) 376.4681913845625, 2) 384.9353264471618, 3) 371.37910393762354, 4) 230.66817536825405
     console.log(seedsAgg);
@@ -708,7 +711,10 @@
 
     //  geojsons created by reading jupyter notebook output CSVs into QGIS and converted
     map.on('load', () => {
-      // TODO consolidate into one function, include avg distance?
+
+      createLayer(d1Details, d1);
+
+      // TODO consolidate into one funct ion, include avg distance?
       createSchoolLayer(schools);
       createSiteLayer(sites);
       createLineStringLayer();
@@ -745,6 +751,12 @@
           }
           if (chapter.onChapterEnter.length > 0) {
             chapter.onChapterEnter.forEach(setLayerOpacity);
+          }
+
+          if (id === 'intro') {
+            setTimeout(() => {
+              map.setPaintProperty('d1', 'circle-radius', 5);
+            }, 250);
           }
 
           // TODO add chapter in beginning for methodology, e.g. using city instead of arena, equal area proj, etc.
@@ -1432,18 +1444,15 @@
     createLayer(selectedSchoolDetails);
   }
 
-  // TODO put all layers in loop
-  function createLayer(layerInfo) {
+  // TODO put all layers in loop, do layers with sourceData
+  function createLayer(layerInfo, sourceData = { type: 'FeatureCollection', features: [] }) {
     // layer without geojson source - source is added dynamically
     map.addLayer({
       id: layerInfo.id,
       type: layerInfo.type,
       source: {
         type: 'geojson',
-        data: {
-          type: 'FeatureCollection',
-          features: [ ],
-        }
+        data: sourceData,
       },
       paint: layerInfo.paint,
       layout: {
