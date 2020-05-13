@@ -688,7 +688,7 @@
   const seedsAggJson = d3.json('data/cleaned/seeds-overall.json');
   const confJson = d3.json('data/cleaned/conference-agg.json');
   const colorsJson = d3.json('data/cleaned/school-colors.json');
-  const d1Json = d3.json('data/tmp/d1-all-MISSING.json');  // TODO fix geocoding errors
+  const d1Json = d3.json('data/tmp/d1-schools-master.json');  // TODO fix geocoding errors
 
   Promise.all([sitesJson, schoolsJson, seedsJson, seedsAggJson, confJson, colorsJson, d1Json]).then(onLoad);
 
@@ -702,9 +702,9 @@
     const d1 = data[6];
 
     // weighted seeds - 1) 376.4681913845625, 2) 384.9353264471618, 3) 371.37910393762354, 4) 230.66817536825405
-    console.log(seedsAgg);
-    console.log(conf);
-    console.log(schools);
+    // console.log(seedsAgg);
+    // console.log(conf);
+    // console.log(schools);
 
     // iterate over schools and seeds geojson layers before manipulating map
     // push schools to schoolFilter dropdown, apply seed values to school feature properties
@@ -755,9 +755,18 @@
           }
 
           if (id === 'intro') {
+            map.setFilter('d1', ['match', ['get', 'common_nam'], d1.features.map(x => x.properties.common_nam), true, false]);
             setTimeout(() => {
-              // map.setPaintProperty('d1', 'circle-radius', 5);
+              map.setPaintProperty('d1', 'circle-radius', 5);
             }, 250);
+          } else if (id === 'chapter-1') {
+            const random = [];
+            d1.features.forEach((feature, i) => {
+              if (i < 64) {
+                random.push(feature.properties.common_nam);  // TODO bubble out?
+              }
+            });
+            map.setFilter('d1', ['match', ['get', 'common_nam'], random, true, false]);
           }
 
           // TODO add chapter in beginning for methodology, e.g. using city instead of arena, equal area proj, etc.
@@ -840,12 +849,9 @@
     map.getSource('line')['_data'].features.forEach(line => {
       // find geometry for line that matches the selected school and site
       if (line.properties.site === site && line.properties.school_common_name === school) {
-        // todo slow flyto?
         // fitMapBounds(line.geometry);  // fit bounds to specific example
-        // map.fitBounds(turf.bbox(line.geometry), { padding: 50 });
         map.fitBounds(turf.bbox(line.geometry),
-          { padding: { top: 50, right: 50, bottom: 50, left: 450 }, duration: 5000 });
-
+          { padding: { top: 50, right: 50, bottom: 50, left: 450 }, duration: 3000 });
       }
     });
 
@@ -1405,7 +1411,10 @@
         'circle-stroke-color': ['case', ['boolean', ['feature-state', 'hovered'], false], '#414140', 'whitesmoke'],
         'circle-stroke-opacity': ['case', ['boolean', ['feature-state', 'hovered'], false], 0.7, 0.5],
         'circle-stroke-width': 1.5,
-      }
+      },
+      // layout: {
+      //   visibility: 'none',
+      // }
     });
 
     // change cursor to pointer to indicate clickability of school features

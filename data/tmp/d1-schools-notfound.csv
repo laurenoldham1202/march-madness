@@ -1,28 +1,28 @@
 school_full_name,common_name,team,city,state,type,conference
-4900 Meridian St N,Alabama A&M,Bulldogs,Huntsville,Alabama,State,Southwestern Athletic Conference
-1400 Washington Ave,Albany,Great Danes,Albany,New York,State,America East Conference
-1000 Asu Dr,Alcorn State,Braves,Lorman,Mississippi,State,Southwestern Athletic Conference
-9001 Stockdale Hwy,Cal State Bakersfield,Roadrunners,Bakersfield,California,State,Western Athletic Conference
-800 N State College Blvd,Cal State Fullerton,Titans,Fullerton,California,State,Big West Conference
-6000 J St,,Sacramento State,Hornets,Sacramento,California,State,Big Sky Conference
-1601 S Martin Luther King Jr Blvd,Florida A&M,Rattlers,Tallahassee,Florida,State,Mid-Eastern Athletic Conference
-777 Glades Rd,Florida Atlantic,Owls,Boca Raton,Florida,State,Conference USA
-10501 FGCU Blvd S,FGCU,Eagles,Fort Myers,Florida,State,Atlantic Sun Conference
-1000 Hempstead Turnpike,Hofstra,Pride,Hempstead,New York,Private/Non-sectarian,Colonial Athletic Association
-420 University Blvd,IUPUI,Jaguars,Indianapolis,Indiana,State,Horizon League
-3210 Kennesaw State University Road,Kennesaw State,Owls,Kennesaw,Georgia,State,Atlantic Sun Conference
-1 University Plaza,LIU,Sharks,Brooklyn,New York,Private/Non-Sectarian,Northeast Conference
-700 University Ave,Louisiana-Monroe,Warhawks,Monroe,Louisiana,State,Sun Belt Conference
-4513 Manhattan College Pkwy,Manhattan,Jaspers,Riverdale,New York,Private/Catholic,Metro Atlantic Athletic Conference
-1000 Hilltop Cir,UMBC,Retrievers,Catonsville,Maryland,State,America East Conference
-11868 College Backbone Rd,Maryland Eastern Shore,Hawks,Princess Anne,Maryland,State,Mid-Eastern Athletic Conference
-300 Washington Ave. S.E.,Minnesota,Golden Gophers,Minneapolis,Minnesota,State,Big Ten Conference
-14000 US-82,Mississippi Valley State,Delta Devils,Itta Bena,Mississippi,State,Southwestern Athletic Conference
-4505 S Maryland Pkwy,UNLV,Rebels,Paradise,Nevada,State,Mountain West Conference
-906 E 1st St,Nicholls,Colonels,Thibodaux,Louisiana,State,Southland Conference
-1 University Heights,UNC Asheville,Bulldogs,Asheville,North Carolina,State,Big South Conference
-2083 Lawrenceville Rd,Rider,Broncs,Lawrenceville,New Jersey,Private/Non-Sectarian,Metro Atlantic Athletic Conference
-515 Loudon Rd,Siena,Saints,Loudonville,New York,Private/Catholic,Metro Atlantic Athletic Conference
-615 McCallie Ave,Chattanooga,Mocs,Chattanooga,Tennessee,State,Southern Conference
-606 Thayer Rd,Army,Black Knights,West Point,New York,Federal academy,Patriot League
-WVU Morgantown West Virginia,West Virginia,Mountaineers,Morgantown,West Virginia,State,Big 12 Conference
+Alabama Agricultural and Mechanical University,Alabama A&M,Bulldogs,Huntsville,Alabama,State,Southwestern Athletic Conference
+"University at Albany, SUNY",Albany,Great Danes,Albany,New York,State,America East Conference
+Alcorn State University,Alcorn State,Braves,Lorman,Mississippi,State,Southwestern Athletic Conference
+"California State University, Bakersfield",Cal State Bakersfield,Roadrunners,Bakersfield,California,State,Western Athletic Conference
+"California State University, Fullerton",Cal State Fullerton,Titans,Fullerton,California,State,Big West Conference
+"California State University, Sacramento",Sacramento State,Hornets,Sacramento,California,State,Big Sky Conference
+Florida A&M University,Florida A&M,Rattlers,Tallahassee,Florida,State,Mid-Eastern Athletic Conference
+Florida Atlantic University,Florida Atlantic,Owls,Boca Raton,Florida,State,Conference USA
+Florida Gulf Coast University,FGCU,Eagles,Fort Myers,Florida,State,Atlantic Sun Conference
+Hofstra University,Hofstra,Pride,Hempstead,New York,Private/Non-sectarian,Colonial Athletic Association
+Indiana University - Purdue University Indianapolis,IUPUI,Jaguars,Indianapolis,Indiana,State,Horizon League
+Kennesaw State University,Kennesaw State,Owls,Kennesaw,Georgia,State,Atlantic Sun Conference
+Long Island University,LIU,Sharks,Brooklyn,New York,Private/Non-Sectarian,Northeast Conference
+University of Louisiana at Monroe,Louisiana-Monroe,Warhawks,Monroe,Louisiana,State,Sun Belt Conference
+Manhattan College,Manhattan,Jaspers,Riverdale,New York,Private/Catholic,Metro Atlantic Athletic Conference
+"University of Maryland, Baltimore County",UMBC,Retrievers,Catonsville,Maryland,State,America East Conference
+University of Maryland Eastern Shore,Maryland Eastern Shore,Hawks,Princess Anne,Maryland,State,Mid-Eastern Athletic Conference
+University of Minnesota,Minnesota,Golden Gophers,Minneapolis-Saint Paul,Minnesota,State,Big Ten Conference
+Mississippi Valley State University,Mississippi Valley State,Delta Devils,Itta Bena,Mississippi,State,Southwestern Athletic Conference
+"University of Nevada, Las Vegas",UNLV,Rebels,Paradise,Nevada,State,Mountain West Conference
+Nicholls State University,Nicholls,Colonels,Thibodaux,Louisiana,State,Southland Conference
+University of North Carolina at Asheville,UNC Asheville,Bulldogs,Asheville,North Carolina,State,Big South Conference
+Rider University,Rider,Broncs,Lawrenceville,New Jersey,Private/Non-Sectarian,Metro Atlantic Athletic Conference
+Siena College,Siena,Saints,Loudonville,New York,Private/Catholic,Metro Atlantic Athletic Conference
+University of Tennessee at Chattanooga,Chattanooga,Mocs,Chattanooga,Tennessee,State,Southern Conference
+United States Military Academy,Army,Black Knights,West Point,New York,Federal academy,Patriot League
+West Virginia University,West Virginia,Mountaineers,Morgantown,West Virginia,State,Big 12 Conference

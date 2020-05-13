@@ -21,14 +21,8 @@ const config = {
                 bearing: 0.00,
             },
             onChapterEnter: [
-                {
-                    layer: 'd1',
-                    opacity: 1
-                },
-                {
-                    layer: 'glaciernp-boundary',
-                    opacity: 0.25
-                }
+                {layer: 'd1', opacity: 1},
+                {layer: 'schools', opacity: 0},
             ],
             onChapterExit: [
                 {
@@ -46,12 +40,12 @@ const config = {
             // title: 'More details',
             image: '',
             description: `In theory, higher ranked teams are rewarded by playing the lowest ranked teams in the tournament. Furthermore, according to the NCAA's selection process, top seeded teams are to have geographic preference over lower seeded teams in the first two rounds of the tournament (if possible - other factors are considered). I want to analyze the first/second round sites for each of the top 4 seeded teams (four teams in each seed for 16 total top teams each year) from 1985 to 2020 to establish patterns, potential biases, and test the NCAA's claim of geographic preference.`,
-            location: {
-                center: [-113.72917, 48.58938],
-                zoom: 12.92,
-                pitch: 39.50,
-                bearing: 36.00
-            },
+            // location: {
+            //     center: [-113.72917, 48.58938],
+            //     zoom: 12.92,
+            //     pitch: 39.50,
+            //     bearing: 36.00
+            // },
             onChapterEnter: [],
             onChapterExit: []
         },
