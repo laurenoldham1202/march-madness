@@ -60,10 +60,17 @@ const config = {
             //     pitch: 39.50,
             //     bearing: 36.00
             // },
-            onChapterEnter: [],
-            onChapterExit: [
+            onChapterEnter: [
+                // {layer: 'schools', opacity: 0},
                 {layer: 'd1-all', opacity: 0},
                 {layer: 'd1-trim', opacity: 0},
+                {layer: 'schools', opacity: 0.7},
+
+            ],
+            onChapterExit: [
+                {layer: 'd1-all', opacity: 1},
+                {layer: 'd1-trim', opacity: 1},
+                {layer: 'schools', opacity: 0},
             ]
         },
         {
@@ -89,7 +96,10 @@ const config = {
                 pitch: 39.50,
                 bearing: 36.00
             },
-            onChapterEnter: [],
+            onChapterEnter: [
+                {layer: 'd1-all', opacity: 0},
+                {layer: 'd1-trim', opacity: 0},
+            ],
             onChapterExit: []
         },
         {
