@@ -637,12 +637,28 @@
     before: '',
   };
 
-  d1Details = {
-    id: 'd1',
+  d1AllDetails = {
+    id: 'd1-all',
     type: 'circle',
     paint: {
       // 'circle-radius': 0
-      'circle-radius': 3
+      'circle-radius': 1,
+      'circle-color': '#E27600',
+    },
+    visibility: 'visible',
+    before: '',
+  };
+
+  d1TrimDetails = {
+    id: 'd1-trim',
+    type: 'circle',
+    paint: {
+      // 'circle-radius': 0
+      'circle-radius': 1,
+      'circle-color': '#E27600',
+      'circle-stroke-color': '#414140',
+      'circle-stroke-width': 1,
+
     },
     visibility: 'visible',
     before: '',
@@ -713,7 +729,18 @@
     //  geojsons created by reading jupyter notebook output CSVs into QGIS and converted
     map.on('load', () => {
 
-      createLayer(d1Details, d1);
+      createLayer(d1AllDetails, d1);
+
+      const random = [];
+      d1.features.forEach((feature, i) => {
+        if (i < 64) {
+          random.push(feature);  // TODO bubble out?
+        }
+      });
+      console.log(d1);
+      console.log(random);
+
+      createLayer(d1TrimDetails, { type: 'FeatureCollection', features: random });
 
       // TODO consolidate into one funct ion, include avg distance?
       createSchoolLayer(schools);
@@ -755,18 +782,20 @@
           }
 
           if (id === 'intro') {
-            map.setFilter('d1', ['match', ['get', 'common_nam'], d1.features.map(x => x.properties.common_nam), true, false]);
+            // map.setFilter('d1', ['match', ['get', 'common_nam'], d1.features.map(x => x.properties.common_nam), true, false]);
             setTimeout(() => {
-              map.setPaintProperty('d1', 'circle-radius', 5);
+              map.setPaintProperty('d1-all', 'circle-radius', 5);
             }, 250);
           } else if (id === 'chapter-1') {
-            const random = [];
-            d1.features.forEach((feature, i) => {
-              if (i < 64) {
-                random.push(feature.properties.common_nam);  // TODO bubble out?
-              }
-            });
-            map.setFilter('d1', ['match', ['get', 'common_nam'], random, true, false]);
+            map.setPaintProperty('d1-trim', 'circle-radius', 7);
+
+            // const random = [];
+            // d1.features.forEach((feature, i) => {
+            //   if (i < 64) {
+            //     random.push(feature.properties.common_nam);  // TODO bubble out?
+            //   }
+            // });
+            // map.setFilter('d1', ['match', ['get', 'common_nam'], random, true, false]);
           }
 
           // TODO add chapter in beginning for methodology, e.g. using city instead of arena, equal area proj, etc.
