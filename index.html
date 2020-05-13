@@ -641,7 +641,8 @@
     id: 'd1',
     type: 'circle',
     paint: {
-      'circle-radius': 0
+      // 'circle-radius': 0
+      'circle-radius': 3
     },
     visibility: 'visible',
     before: '',
@@ -755,7 +756,7 @@
 
           if (id === 'intro') {
             setTimeout(() => {
-              map.setPaintProperty('d1', 'circle-radius', 5);
+              // map.setPaintProperty('d1', 'circle-radius', 5);
             }, 250);
           }
 
@@ -842,7 +843,8 @@
         // todo slow flyto?
         // fitMapBounds(line.geometry);  // fit bounds to specific example
         // map.fitBounds(turf.bbox(line.geometry), { padding: 50 });
-        map.fitBounds(turf.bbox(line.geometry), { padding: { top: 50, right: 50, bottom: 50, left: 450 } });
+        map.fitBounds(turf.bbox(line.geometry),
+          { padding: { top: 50, right: 50, bottom: 50, left: 450 }, duration: 5000 });
 
       }
     });

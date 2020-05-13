@@ -22,8 +22,8 @@ const config = {
             },
             onChapterEnter: [
                 {
-                    layer: 'gnpglaciers-1998',
-                    opacity: 0.25
+                    layer: 'd1',
+                    opacity: 1
                 },
                 {
                     layer: 'glaciernp-boundary',
