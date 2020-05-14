@@ -45,17 +45,33 @@
         color: #0071bc;
     }
 
-    #map {
-        top: 0;
-        height: 100vh;
-        width: 100vw;
-        position: fixed;
-        z-index: -5;
+    /*#map {*/
+    /*    top: 0;*/
+    /*    height: 100vh;*/
+    /*    width: 100vw;*/
+    /*    position: fixed;*/
+    /*    z-index: -5;*/
+    /*}*/
+
+    .map-story-mode {
+      top: 0;
+      height: 100vh;
+      width: 100vw;
+      position: fixed;
+      z-index: -5;
+    }
+
+    .map-explore-mode {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 24rem;
     }
 
     #header {
-        margin: 3vh auto;
-        width: 90vw;
+        /*margin: 3vh auto;*/
+        /*width: 90vw;*/
         padding: 2vh;
         text-align: center;
     }
@@ -134,8 +150,9 @@
 
     #extent {
       margin: 0.5rem;
-      height: 35px;
-      width: 35px;
+      height: 38px;
+      width: 38px;
+      line-height: 38px;
       z-index: 1000;
       background: white;
       border: 2px solid rgba(10, 10, 10, 0.1);
@@ -148,8 +165,8 @@
 
     .app-mode-toggle {
       position: fixed;
-      top: 1rem;
-      right: 1rem;
+      top: 0.5rem;
+      right: 0.5rem;
     }
 
     .button {
@@ -202,7 +219,7 @@
       height: 4rem;
       margin-top: 0.25rem;
       cursor: pointer;
-      transition: 0.3s ease-in-out;
+      transition: 0.3s height ease-in-out;
     }
 
     .info-row:hover > .info-stat {
@@ -244,13 +261,13 @@
       border-radius: 0 4px 4px 0;
       font-size: 0.85rem;
       padding: 0.75rem 0 0 0.5rem;
-      transition: 0.3s ease-in-out;
+      /*transition: 0.3s ease-in-out;*/
     }
 
     .label {
       position: absolute;
-      top: 0;
-      right: 3rem;
+      top: 3rem;
+      right: 0;
       background: whitesmoke;
       border: 1px solid #AAA;
       border-radius: 4px;
@@ -271,7 +288,7 @@
     .map-control {
       position: absolute;
       top: 0;
-      right: 0;
+      right: 14.75rem;
     }
 
     .map-explore {
@@ -298,6 +315,10 @@
       margin: 0.5rem;
     }
 
+    .visible {
+      visibility: visible;
+    }
+
     @media (max-width: 750px) {
       #features {
         width: 90vw;
@@ -308,7 +329,7 @@
 </head>
 <body>
 
-<div id="map"></div>
+<div id="map" class="map-story-mode"></div>
 
 <div class="btn-group btn-group-toggle app-mode-toggle" data-toggle="buttons">
   <label class="btn btn-secondary active">
@@ -723,42 +744,38 @@
   returnBtn = $('#return');
 
   $('.app-mode-toggle').on('click', (e) => {
-    console.log(e.target.innerText);
     if (e.target.innerText === 'Story Mode') {
-      restoreStoryMode();
+      enterStoryMode();
     } else {
-      exitStoryMode();
+      enterExploreMode();
     }
-    // $("input[name='gender']:checked").val();
-    // console.log($('input[name="map-story"]:checked').val());
-  });
-
-  $('#header').append(`<button id="explore">explore the map</button>`);
-
-  $('#explore').on('click', () => {
-    exitStoryMode();
-  });
-
-  returnBtn.on('click', () => {
-    console.log('click');
-    $('body').append(story);
-    returnBtn.css('visibility', 'hidden');
-    mapExplorer.css('visibility', 'hidden');
   });
 
   // dynamically apply info card defaults before jsons are loaded
   setDefaultInfoCard();
 
-  function exitStoryMode() {
+  function enterExploreMode() {
     story.detach();
     returnBtn.css('visibility', 'visible');
     mapExplorer.css('visibility', 'visible');
+    map.setLayoutProperty('d1-all', 'visibility', 'none');
+    map.setLayoutProperty('d1-trim', 'visibility', 'none');
+    // map.setLayoutProperty('d1-trim', 'visibility', 'none');
+    $('#map').removeClass('map-story-mode');
+    $('#map').addClass('map-explore-mode');
+    resetExtent();
   }
 
-  function restoreStoryMode() {
-    $('body').append(story);
+  function enterStoryMode() {
     returnBtn.css('visibility', 'hidden');
     mapExplorer.css('visibility', 'hidden');
+    $('body').append(story);
+
+    map.setLayoutProperty('d1-all', 'visibility', 'visible');
+    map.setLayoutProperty('d1-trim', 'visibility', 'visible');
+
+    $('#map').addClass('map-story-mode');
+    $('#map').removeClass('map-explore-mode');
   }
 
   // TODO Delete old json, replace with new
@@ -888,32 +905,12 @@
           if (response.index === config.chapters.length - 1) {
 
             $('#explore-mode').on('click', () => {
-              exitStoryMode();
-              // story.detach();
-              // returnBtn.css('visibility', 'visible');
-              // mapExplorer.css('visibility', 'visible');
+              enterExploreMode();
             });
-
-            // returnBtn.on('click', () => {
-            //   console.log('click');
-            //   $('body').append(story);
-            //   returnBtn.css('visibility', 'hidden');
-            //   mapExplorer.css('visibility', 'hidden');
-            // });
 
             $('#story-mode').on('click', () => {
-              // Todo restart story
+              // Todo restart story, jump to top
             });
-
-            // $('.step div').css('padding', '0');
-            // story.detach();
-            // returnBtn.css('visibility', 'visible');
-            // returnBtn.on('click', () => {
-            //   $('body').append(story);
-            //   returnBtn.css('visibility', 'hidden');
-            //   mapExplorer.css('visibility', 'hidden');
-            // });
-            // mapExplorer.css('visibility', 'visible');
           }
         })
         .onStepExit(response => {
@@ -1055,6 +1052,8 @@
     map.setBearing(0);  // todo create fn?
     map.setPitch(0);
     map.setLayoutProperty('schools', 'visibility', 'visible');
+    // map.setLayoutProperty('d1-all', 'visibility', 'none');
+    // map.setLayoutProperty('d1-trim', 'visibility', 'none');
 
     // reset default gray color to info box infoHeader
     infoHeader.css('background', '#414140');
@@ -1433,7 +1432,7 @@
     map.on('mouseleave', 'schools', () => {
       // change cursor to pointer to indicate clickability
       this.map.getCanvas().style.cursor = 'grab';
-      label.removeClass('visible');  // hide label on mouseleave
+      label.removeClass('visible');  // hide label on mouseleave todo is this needed?
       // remove visual affordance on mouseleave
       map.setFeatureState({ source: 'schools', id: hoverId }, { hovered: false });
     });
