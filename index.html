@@ -45,28 +45,12 @@
         color: #0071bc;
     }
 
-    /*#map {*/
-    /*    top: 0;*/
-    /*    height: 100vh;*/
-    /*    width: 100vw;*/
-    /*    position: fixed;*/
-    /*    z-index: -5;*/
-    /*}*/
-
-    .map-story-mode {
-      top: 0;
-      height: 100vh;
-      width: 100vw;
-      position: fixed;
-      z-index: -5;
-    }
-
-    .map-explore-mode {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      left: 24rem;
+    #map {
+        top: 0;
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+        z-index: -5;
     }
 
     #header {
@@ -763,7 +747,6 @@
     map.setLayoutProperty('d1-all', 'visibility', 'none');
     map.setLayoutProperty('d1-trim', 'visibility', 'none');
 
-    adjustMapWidth(false);
     resetExtent();
   }
 
@@ -775,12 +758,6 @@
     map.setLayoutProperty('d1-all', 'visibility', 'visible');
     map.setLayoutProperty('d1-trim', 'visibility', 'visible');
 
-    adjustMapWidth(true);
-  }
-
-  function adjustMapWidth(storyMode) {
-    mapDiv.addClass(storyMode ? 'map-story-mode' : 'map-explore-mode');
-    mapDiv.removeClass(storyMode ? 'map-explore-mode' : 'map-story-mode');
   }
 
   // TODO Delete old json, replace with new
@@ -1090,8 +1067,8 @@
   }
 
   function fitMapBounds(layerGeometry) {
-    // map.fitBounds(turf.bbox(layerGeometry), { padding: {top: 50, right: 50, bottom: 50, left: 375} });
-    map.fitBounds(turf.bbox(layerGeometry), { padding: 50 });
+    map.fitBounds(turf.bbox(layerGeometry), { padding: {top: 50, right: 50, bottom: 50, left: 450} });
+    // map.fitBounds(turf.bbox(layerGeometry), { padding: 50 });
   }
 
   // TODO make additional dropdown for special cases, i.e. blue bloods, etc.? Add slider for numbers of appearances?
@@ -1412,7 +1389,7 @@
     // empty hoverId, resets on each school mouseover
     let hoverId = null;
 
-    map.on('mousemove', 'schools', (e) => {
+    map.on('mouseenter', 'schools', (e) => {
       // change cursor to pointer to indicate clickability
       this.map.getCanvas().style.cursor = 'pointer';
 
@@ -1447,9 +1424,9 @@
     // TODO add visual afforance to line+site? Add invisible thicker linestring layer for smoother popup
     const layers = ['sites', 'line'];
     layers.forEach(layer => {
-      map.on('mousemove', layer, (e) => {
+      // TODO fix bug where site label doesnt work over a school, ex: Iowa site in Nashville overwitten by Vandy
+      map.on('mouseenter', layer, (e) => {
         applySiteLabelStyles(e.features[0].properties);
-
       });
 
       map.on('mouseleave', layer, () => {
