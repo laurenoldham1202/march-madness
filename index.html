@@ -740,6 +740,8 @@
   statFilter = $('#statFilter');
   infoHeader = $('.info-header');
 
+  mapDiv = $('#map');
+
   story = $('#story');
   returnBtn = $('#return');
 
@@ -760,9 +762,8 @@
     mapExplorer.css('visibility', 'visible');
     map.setLayoutProperty('d1-all', 'visibility', 'none');
     map.setLayoutProperty('d1-trim', 'visibility', 'none');
-    // map.setLayoutProperty('d1-trim', 'visibility', 'none');
-    $('#map').removeClass('map-story-mode');
-    $('#map').addClass('map-explore-mode');
+
+    adjustMapWidth(false);
     resetExtent();
   }
 
@@ -774,8 +775,12 @@
     map.setLayoutProperty('d1-all', 'visibility', 'visible');
     map.setLayoutProperty('d1-trim', 'visibility', 'visible');
 
-    $('#map').addClass('map-story-mode');
-    $('#map').removeClass('map-explore-mode');
+    adjustMapWidth(true);
+  }
+
+  function adjustMapWidth(storyMode) {
+    mapDiv.addClass(storyMode ? 'map-story-mode' : 'map-explore-mode');
+    mapDiv.removeClass(storyMode ? 'map-explore-mode' : 'map-story-mode');
   }
 
   // TODO Delete old json, replace with new
