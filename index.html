@@ -664,13 +664,29 @@
     before: '',
   };
 
-  tmp4 = {
-    id: '',
-    type: '',
+  siteDetails = {
+    id: 'sites',
+    type: 'circle',
     paint: {
-
+      'circle-radius': ['match', ['get', 'seed'], 1, 5, 2, 8, 3, 11, 4, 14, 5],
+      'circle-color': ['match', ['get', 'seed'], 1, '#80bad1', 2, '#5694c1', 3, '#2c6db1', 4, '#0146a1', '#AAA'],
+      'circle-opacity': 1,
     },
-    visibility: 'visible',
+    visibility: 'none',
+    before: '',
+  };
+
+  schoolDetails = {
+    id: 'schools',
+    type: 'circle',
+    paint: {
+      'circle-color': '#E27600',
+      'circle-opacity': ['case', ['boolean', ['feature-state', 'clicked'], false], 1, 0.7],
+      'circle-stroke-color': ['case', ['boolean', ['feature-state', 'hovered'], false], '#414140', 'whitesmoke'],
+      'circle-stroke-opacity': ['case', ['boolean', ['feature-state', 'hovered'], false], 0.7, 0.5],
+      'circle-stroke-width': 1.5,
+    },
+    visibility: 'none',
     before: '',
   };
 
@@ -690,9 +706,6 @@
 
   story = $('#story');
   returnBtn = $('#return');
-
-  // set final chapter story map to invisible to seamlessly scroll into map explorer
-  // $('#final-chapter').css('visibility', 'hidden');
 
   // dynamically apply info card defaults before jsons are loaded
   setDefaultInfoCard();
@@ -737,17 +750,13 @@
           random.push(feature);  // TODO bubble out?
         }
       });
-      console.log(d1);
-      console.log(random);
 
       createLayer(d1TrimDetails, { type: 'FeatureCollection', features: random });
 
-      // TODO consolidate into one funct ion, include avg distance?
-      createSchoolLayer(schools);
-      createSiteLayer(sites);
-      createLineStringLayer();
-      createAvgDistanceLayer();  // TODO move to different function?
-      createSelectedSchoolLayer();
+      createAllLayers(schools, sites);
+
+      onSiteHover();
+      onSchoolHover();
 
       onSchoolClick(sites);
       onWeightedToggle(schools);
@@ -787,7 +796,10 @@
               map.setPaintProperty('d1-all', 'circle-radius', 5);
             }, 250);
           } else if (id === 'chapter-1') {
-            map.setPaintProperty('d1-trim', 'circle-radius', 7);
+            setTimeout(() => {
+              // todo do transitions on scroll up?
+              map.setPaintProperty('d1-trim', 'circle-radius', 8);
+            }, 250);
 
             // const random = [];
             // d1.features.forEach((feature, i) => {
@@ -1408,83 +1420,6 @@
     label.css('color', 'white');
   }
 
-
-  /**
-   * Create mapbox layer for schools, set initial view for Overall wins
-   * @param geojson
-   */
-  function createSchoolLayer(geojson) {
-    const property = setProperty();
-    const stops = createStops(geojson, property);
-    // const stops = [[100, 3], [300, 6], [600, 9], [900, 14], [1200, 19], [1800, 26], [2900, 40]];
-
-    // sort geojson in descending order to plot larger circles underneath smaller ones
-    // TODO Sort for each stat selection
-    // TODO sorting causes bug when select school, click weighted toggle, then click a diff school - plots multi schools
-    // geojson.features.sort((a, b) => (a.properties.mean_dist > b.properties.mean_dist) ? 1 : -1).reverse();
-
-    map.addLayer({
-      id: 'schools',
-      type: 'circle',
-      source: {
-        type: 'geojson',
-        data: geojson,
-      },
-      paint: {
-        'circle-radius': {
-          property: property,
-          stops: stops,
-        },
-        'circle-color': '#E27600',
-        'circle-opacity': ['case', ['boolean', ['feature-state', 'clicked'], false], 1, 0.7],
-        'circle-stroke-color': ['case', ['boolean', ['feature-state', 'hovered'], false], '#414140', 'whitesmoke'],
-        'circle-stroke-opacity': ['case', ['boolean', ['feature-state', 'hovered'], false], 0.7, 0.5],
-        'circle-stroke-width': 1.5,
-      },
-      // layout: {
-      //   visibility: 'none',
-      // }
-    });
-
-    // change cursor to pointer to indicate clickability of school features
-    onSchoolHover();
-  }
-
-  function createSiteLayer(geojson) {
-    // TODO Apply layering so that higher seeds/smaller circles plot on top of lower seeds
-    map.addLayer({
-      id: 'sites',
-      type: 'circle',
-      source: {
-        type: 'geojson',
-        data: geojson,
-      },
-      paint: {
-        'circle-radius': ['match', ['get', 'seed'], 1, 5, 2, 8, 3, 11, 4, 14, 5],
-        'circle-color': ['match', ['get', 'seed'], 1, '#80bad1', 2, '#5694c1', 3, '#2c6db1', 4, '#0146a1', '#AAA'],
-        'circle-opacity': 1,
-      },
-      layout: {
-        visibility: 'none',  // invisible on default, gets toggled on on school click event
-      },
-    });
-
-    onSiteHover();
-  }
-
-  function createLineStringLayer() {
-    createLayer(lineStringDetails);
-  }
-
-  function createAvgDistanceLayer() {
-    createLayer(avgDistanceDetails);
-  }
-
-  function createSelectedSchoolLayer() {
-    createLayer(selectedSchoolDetails);
-  }
-
-  // TODO put all layers in loop, do layers with sourceData
   function createLayer(layerInfo, sourceData = { type: 'FeatureCollection', features: [] }) {
     // layer without geojson source - source is added dynamically
     map.addLayer({
@@ -1499,6 +1434,24 @@
         visibility: layerInfo.visibility,
       }
     }, layerInfo.before);  // layer to place before plotting
+  }
+
+  function createAllLayers(schools, sites) {
+    // TODO SITES: Apply layering so that higher seeds/smaller circles plot on top of lower seeds
+    // sort geojson in descending order to plot larger circles underneath smaller ones
+    // TODO Sort for each stat selection
+    // TODO SCHOOLS sorting causes bug when select school, click weighted toggle, then click a diff school - plots multi schools
+    // geojson.features.sort((a, b) => (a.properties.mean_dist > b.properties.mean_dist) ? 1 : -1).reverse();
+
+    const property = setProperty();
+    const stops = createStops(schools, property);
+    schoolDetails.paint['circle-radius'] = {property: property, stops: stops};
+
+    const layerDetails = [schoolDetails, siteDetails, lineStringDetails, avgDistanceDetails, selectedSchoolDetails];
+    layerDetails.forEach(details => {
+      const source = details === siteDetails ? sites : details === schoolDetails ? schools : null;
+      createLayer(details, source);
+    });
   }
 
   // STORYMAP: setup resize event
