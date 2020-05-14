@@ -146,6 +146,12 @@
       background: #eee;
     }
 
+    .app-mode-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+    }
+
     .button {
       margin: 1rem;
       width: 17.5rem;
@@ -303,6 +309,15 @@
 <body>
 
 <div id="map"></div>
+
+<div class="btn-group btn-group-toggle app-mode-toggle" data-toggle="buttons">
+  <label class="btn btn-secondary active">
+    <input type="radio" name="options" id="map-story" checked> Story Mode
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="options" id="map-explore"> Explore Mode
+  </label>
+</div>
 
 <div class="map-explore">
   <div class="map-control">
@@ -707,8 +722,44 @@
   story = $('#story');
   returnBtn = $('#return');
 
+  $('.app-mode-toggle').on('click', (e) => {
+    console.log(e.target.innerText);
+    if (e.target.innerText === 'Story Mode') {
+      restoreStoryMode();
+    } else {
+      exitStoryMode();
+    }
+    // $("input[name='gender']:checked").val();
+    // console.log($('input[name="map-story"]:checked').val());
+  });
+
+  $('#header').append(`<button id="explore">explore the map</button>`);
+
+  $('#explore').on('click', () => {
+    exitStoryMode();
+  });
+
+  returnBtn.on('click', () => {
+    console.log('click');
+    $('body').append(story);
+    returnBtn.css('visibility', 'hidden');
+    mapExplorer.css('visibility', 'hidden');
+  });
+
   // dynamically apply info card defaults before jsons are loaded
   setDefaultInfoCard();
+
+  function exitStoryMode() {
+    story.detach();
+    returnBtn.css('visibility', 'visible');
+    mapExplorer.css('visibility', 'visible');
+  }
+
+  function restoreStoryMode() {
+    $('body').append(story);
+    returnBtn.css('visibility', 'hidden');
+    mapExplorer.css('visibility', 'hidden');
+  }
 
   // TODO Delete old json, replace with new
   const sitesJson = d3.json('data/cleaned/sites-all-edit.json');
@@ -837,16 +888,18 @@
           if (response.index === config.chapters.length - 1) {
 
             $('#explore-mode').on('click', () => {
-              story.detach();
-              returnBtn.css('visibility', 'visible');
-              mapExplorer.css('visibility', 'visible');
+              exitStoryMode();
+              // story.detach();
+              // returnBtn.css('visibility', 'visible');
+              // mapExplorer.css('visibility', 'visible');
             });
 
-            returnBtn.on('click', () => {
-              $('body').append(story);
-              returnBtn.css('visibility', 'hidden');
-              mapExplorer.css('visibility', 'hidden');
-            });
+            // returnBtn.on('click', () => {
+            //   console.log('click');
+            //   $('body').append(story);
+            //   returnBtn.css('visibility', 'hidden');
+            //   mapExplorer.css('visibility', 'hidden');
+            // });
 
             $('#story-mode').on('click', () => {
               // Todo restart story
