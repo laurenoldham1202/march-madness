@@ -425,9 +425,6 @@
         <div class="info-text card-5-subtext">unique schools</div>
       </div>
     </div>
-
-    <button id="return" style="position: absolute; z-index: 1000; margin: 2rem;">RETURN TO STORY</button>
-
   </div>
 
 </div>
@@ -727,7 +724,6 @@
   mapDiv = $('#map');
 
   story = $('#story');
-  returnBtn = $('#return');
 
   $('.app-mode-toggle').on('click', (e) => {
     if (e.target.innerText === 'Story Mode') {
@@ -742,16 +738,15 @@
 
   function enterExploreMode() {
     story.detach();
-    returnBtn.css('visibility', 'visible');
     mapExplorer.css('visibility', 'visible');
     map.setLayoutProperty('d1-all', 'visibility', 'none');
     map.setLayoutProperty('d1-trim', 'visibility', 'none');
 
     resetExtent();
+    resetAllFilters();
   }
 
   function enterStoryMode() {
-    returnBtn.css('visibility', 'hidden');
     mapExplorer.css('visibility', 'hidden');
     $('body').append(story);
 
@@ -908,8 +903,9 @@
   // TODO Consolidate into single chapter?
   function applyChapterFilters(school, site) {
 
-    filters.school = school;  // todo might not need - call val directly
-    schoolFilter.val(filters.school);
+    // filters.school = school;  // todo might not need - call val directly
+    // schoolFilter.val(filters.school);
+    schoolFilter.val(school);  // todo school not set to all when entering explore mode from selected schools
     schoolFilter.trigger('change');
 
     // set filter to display only selected school and site
@@ -1067,7 +1063,7 @@
   }
 
   function fitMapBounds(layerGeometry) {
-    map.fitBounds(turf.bbox(layerGeometry), { padding: {top: 50, right: 50, bottom: 50, left: 450} });
+    map.fitBounds(turf.bbox(layerGeometry), { padding: {top: 50, right: 50, bottom: 50, left: 450}, duration: 1250 });
     // map.fitBounds(turf.bbox(layerGeometry), { padding: 50 });
   }
 

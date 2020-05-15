@@ -176,7 +176,9 @@ const config = {
             id: 'chapter-10',
             title: '',
             image: '',
-            description: `Overall maximum distance`,
+            description: `The overall maximum distance traveled was by Syracuse University, who trekked over 2800 miles 
+            from Syracuse, New York to Long Beach, California in 2013 as a 4 seed. The extra mileage didn't faze the Orange too much,
+            who went on to compete in the Final Four, ultimately losing to Michigan in the semifinals.`,
             onChapterEnter: [],
             onChapterExit: []
         },
