@@ -86,8 +86,9 @@
         margin-left: 62vw;
     }
     .light {
-        color: #444;
-        background-color: #fafafa;
+      color: #444;
+      background-color: #fafafa;
+      padding: 1rem;
     }
     .dark {
         color: #fafafa;
@@ -103,7 +104,7 @@
     }
 
     .step div {
-        padding:  25px 50px;
+        /*padding:  25px 50px;*/
         line-height: 25px;
         font-size: 13px;
     }
@@ -875,6 +876,16 @@
             applyChapterFilters('Arizona', 'Tucson, AZ');
           } else if (id === 'chapter-10') {
             applyChapterFilters('Syracuse', 'San Jose, CA');
+          } else if (id === 'chapter-11') {
+            filters.school = 'DePaul';
+            selectSchoolOnMap(sites);  // todo adjust to slow pan and zoom
+          } else if (id === 'chapter-12') {
+            filters.school = 'Virginia';  // todo sort sites high to low to order seeds properly
+            selectSchoolOnMap(sites);
+          } else if (id === 'chapter-13') {
+            resetExtent();
+            filters.weighted = true;
+            applyWeights(schools);
           }
 
         // .step div {padding: 25px 50px;}
@@ -1309,21 +1320,26 @@
       // update global filters
       filters.weighted = e.target.checked;
 
-      // set weighted distance if toggle checked - if not, set regular unweighted distance
-      const property = setProperty();
-      const stops = createStops(geojson, property);
-
-      map.setPaintProperty('schools', 'circle-radius', { property: property, stops: stops });
-
-      // TODO fix error this causes when toggling back and forth
-      // apply selected school circle radius based on data-driven radiuses
-      map.setPaintProperty('selected-school', 'circle-radius',
-        { property: property, stops: createStops(map.getSource('selected-school')['_data'], property) }
-      );
-
-      // adjust average distance circle based on weighted toggle status, divide property by set value for mean and max values only
-      map.setPaintProperty('avg-distance', 'circle-radius', highlights[property] / adjustPropCircles(property),);
+      // separate fn to apply weights so no error occurs from setting weighted filter with checked value
+      applyWeights(geojson);
     });
+  }
+
+  function applyWeights(geojson) {
+    // set weighted distance if toggle checked - if not, set regular unweighted distance
+    const property = setProperty();
+    const stops = createStops(geojson, property);
+
+    map.setPaintProperty('schools', 'circle-radius', { property: property, stops: stops });
+
+    // TODO fix error this causes when toggling back and forth
+    // apply selected school circle radius based on data-driven radiuses
+    map.setPaintProperty('selected-school', 'circle-radius',
+      { property: property, stops: createStops(map.getSource('selected-school')['_data'], property) }
+    );
+
+    // adjust average distance circle based on weighted toggle status, divide property by set value for mean and max values only
+    map.setPaintProperty('avg-distance', 'circle-radius', highlights[property] / adjustPropCircles(property));
   }
 
   function adjustPropCircles(property) {

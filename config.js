@@ -89,6 +89,14 @@ const config = {
             <li>3: 742.7582078752471</li>
             <li>4: 922.6727014730162</li>
             </ul>
+            
+            <div class="doot" style="display: flex !important;">
+                <div class="t" style="height: 2rem; width: 25%; background: blue; border: 1px black solid;"></div>
+                <div class="t" style="height: 2rem; width: 25%; background: blue; border: 1px black solid;"></div>
+                <div class="t" style="height: 2rem; width: 25%; background: blue; border: 1px black solid;"></div>
+                <div class="t" style="height: 2rem; width: 25%; background: blue; border: 1px black solid;"></div>
+          
+            </div>
             `,
             location: {
                 center: [-113.72917, 48.58938],
@@ -102,46 +110,46 @@ const config = {
             ],
             onChapterExit: []
         },
-        {
-            id: 'chapter-4',
-            title: '',
-            image: '',
-            description: `One seeds averaged a travel distance of roughly 376 miles, approximately the same distance from
-            Minneapolis, Minnesota to Kansas City, Missouri, where 1 seed University of Minnesota Golden Gophers played in 1997.
-            `,
-            onChapterEnter: [],
-            onChapterExit: []
-        },
-        {
-            id: 'chapter-5',
-            title: '',
-            image: '',
-            description: `Two seeds averaged a travel distance of roughly 513 miles, approximately the same distance from
-            Lexington, Kentucky to Jacksonville, Florida, where 2 seed University of Kentucky Wildcats played in 2019.
-            `,
-            onChapterEnter: [],
-            onChapterExit: []
-        },
-        {
-            id: 'chapter-6',
-            title: '',
-            image: '',
-            description: `Three seeds averaged a travel distance of roughly 742 miles, approximately the same distance from
-            Austin, Texas to Denver, Colorado, where 3 seed University of Texas Longhorns played in 2004.
-            `,
-            onChapterEnter: [],
-            onChapterExit: []
-        },
-        {
-            id: 'chapter-7',
-            title: '',
-            image: '',
-            description: `Four seeds averaged a travel distance of roughly 922 miles, approximately the same distance from
-            San Diego, California to Spokane, Washington, where 4 seed San Diego State University Aztecs played in 2014.
-            `,
-            onChapterEnter: [],
-            onChapterExit: []
-        },
+        // {
+        //     id: 'chapter-4',
+        //     title: '',
+        //     image: '',
+        //     description: `One seeds averaged a travel distance of roughly 376 miles, approximately the same distance from
+        //     Minneapolis, Minnesota to Kansas City, Missouri, where 1 seed University of Minnesota Golden Gophers played in 1997.
+        //     `,
+        //     onChapterEnter: [],
+        //     onChapterExit: []
+        // },
+        // {
+        //     id: 'chapter-5',
+        //     title: '',
+        //     image: '',
+        //     description: `Two seeds averaged a travel distance of roughly 513 miles, approximately the same distance from
+        //     Lexington, Kentucky to Jacksonville, Florida, where 2 seed University of Kentucky Wildcats played in 2019.
+        //     `,
+        //     onChapterEnter: [],
+        //     onChapterExit: []
+        // },
+        // {
+        //     id: 'chapter-6',
+        //     title: '',
+        //     image: '',
+        //     description: `Three seeds averaged a travel distance of roughly 742 miles, approximately the same distance from
+        //     Austin, Texas to Denver, Colorado, where 3 seed University of Texas Longhorns played in 2004.
+        //     `,
+        //     onChapterEnter: [],
+        //     onChapterExit: []
+        // },
+        // {
+        //     id: 'chapter-7',
+        //     title: '',
+        //     image: '',
+        //     description: `Four seeds averaged a travel distance of roughly 922 miles, approximately the same distance from
+        //     San Diego, California to Spokane, Washington, where 4 seed San Diego State University Aztecs played in 2014.
+        //     `,
+        //     onChapterEnter: [],
+        //     onChapterExit: []
+        // },
         {
             id: 'chapter-8',
             title: '',
@@ -186,7 +194,9 @@ const config = {
             id: 'chapter-11',
             title: '',
             image: '',
-            description: `Mean and median distance (unweighted)`,
+            description: `The school with the lowest mean distance traveled is technically DePaul University, who have 
+            only made one appearance as a top seed since 1985. The Blue Demons stayed in their home metro Chicago as a 3
+            seed in 1987, traveling fewer than 15 miles.`,
             onChapterEnter: [],
             onChapterExit: []
         },
@@ -195,7 +205,13 @@ const config = {
             id: 'chapter-12',
             title: '',
             image: '',
-            description: `WEIGHTED description, Mean and median distance (weighted)`,
+            description: `More data paints a more accurate picture, so filtering for schools that have made at least 5
+            appearances as a top seed since 1985, the school with the lowest mean distance traveled is University of Virginia,
+            who traveled a mean distance of 234 miles. 
+            
+            <br>The Cavaliers famously lost to the UMBC in 2018, the first ever 1 seed bested by a 16 seed in the history of
+            the NCAA tournament (having traveled 227 miles to Charlotte, North Carolina from Charlottesville, Virginia). 
+            UVA went on to redeem themselves by winning their first national title the following year in 2019.`,
             onChapterEnter: [],
             onChapterExit: []
         },
@@ -203,7 +219,17 @@ const config = {
             id: 'chapter-13',
             title: '',
             image: '',
-            description: `Minimum mean (weighted or unweighted?) `,
+            description: `The selection committee gives geographic preference based on seeds, so you would expect a team with 
+            more appearances as a 1 seed to have a lower mean travel distance than a school with more appearances as a 4 seed.
+            
+            <br>To normalize the data, distances were also calculated with the following weights applied based on seed values.
+            <ul>
+                <li>1 seeds: 1.00</li>
+                <li>2 seeds: 0.75</li>
+                <li>3 seeds: 0.50</li>
+                <li>4 seeds: 0.25</li>
+            </ul>
+            `,
             onChapterEnter: [],
             onChapterExit: []
         },
