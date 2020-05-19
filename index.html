@@ -645,16 +645,6 @@
     before: 'sites',
   };
 
-  siteDetails = {
-    id: 'sites',
-    type: 'circle',
-    paint: {
-
-    },
-    visibility: 'visible',
-    before: '',
-  };
-
   d1AllDetails = {
     id: 'd1-all',
     type: 'circle',
@@ -858,10 +848,13 @@
 
           // TODO add chapter in beginning for methodology, e.g. using city instead of arena, equal area proj, etc.
           // TODO scroll by index instead?
-          if (id === 'chapter-3') {
+
+          if (id === 'chapter-2') {
             resetExtent();
             map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
-
+          } else if (id === 'chapter-3') {
+            resetExtent();
+            map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
           } else if (id === 'chapter-4') {  // todo create object w school info to streamline this
             applyChapterFilters('Minnesota', 'Kansas City, MO');
           } else if (id === 'chapter-5') {
@@ -877,18 +870,62 @@
           } else if (id === 'chapter-10') {
             applyChapterFilters('Syracuse', 'San Jose, CA');
           } else if (id === 'chapter-11') {
-            filters.school = 'DePaul';
+            filters.school = 'DePaul';  // todo hide grayed out schools in this view
             selectSchoolOnMap(sites);  // todo adjust to slow pan and zoom
           } else if (id === 'chapter-12') {
             filters.school = 'Virginia';  // todo sort sites high to low to order seeds properly
             selectSchoolOnMap(sites);
           } else if (id === 'chapter-13') {
             resetExtent();
-            filters.weighted = true;
+            filters.weighted = true;  // todo fix how this affects reset extent
             applyWeights(schools);
+          } else if (id === 'chapter-14') {
+            filters.school = 'Ohio State';
+            selectSchoolOnMap(sites);
+          } else if (id === 'chapter-15') {
+            filters.school = 'Virginia Tech';
+            selectSchoolOnMap(sites);
+          } else if (id === 'chapter-16') {
+            filters.school = 'St. John\'s';
+            selectSchoolOnMap(sites);
+          } else if (id === 'chapter-17') {
+            resetExtent();
+          //  #5F4690,#1D6996,#38A6A5,#0F8554,#73AF48,#EDAD08,#E17C05,#CC503E,#94346E,#6F4070,#994E95,#666666
+            // #7F3C8D,#11A579,#3969AC,#F2B701,#E73F74,#80BA5A,#E68310,#008695,#CF1C90,#f97b72,#4b4b8f,#A5AA99
+            map.setPaintProperty('schools', 'circle-radius', 0);  // todo reset schools style on scroll up and down OR put in sep layer
+            map.setPaintProperty('schools', 'circle-opacity', 1);
+            map.setPaintProperty('schools', 'circle-color',
+              ['match', ['get', 'conference'],
+                'American Athletic Conference', '#7F3C8D',
+                'Atlantic 10 Conference', '#11A579',
+                'Atlantic Coast Conference', '#3969AC',
+                'Big 12 Conference', '#F2B701',
+                'Big East Conference', '#E73F74',
+                'Big Ten Conference', '#80BA5A',
+                'Missouri Valley Conference', '#E68310',
+                'Mountain West Conference', '#008695',
+                'Pac-12 Conference', '#CF1C90',
+                'Southeastern Conference', '#f97b72',
+                'West Coast Conference', '#4b4b8f', '#666666'
+              ]);
+
+            const conferences = ['Pac-12 Conference', 'West Coast Conference', 'Mountain West Conference',
+              'Big 12 Conference', 'American Athletic Conference', 'Southeastern Conference', 'Atlantic Coast Conference',
+              'Atlantic 10 Conference', 'Big East Conference', 'Big Ten Conference', 'Missouri Valley Conference',
+
+            ];
+            let count = 250;
+            const styles = [];
+
+            conferences.forEach(conf => {
+              setTimeout(() => {
+                styles.push(conf, 8);
+                map.setPaintProperty('schools', 'circle-radius', ['match', ['get', 'conference'], ...styles, 0]);
+              }, count += 250);
+            });
+
           }
 
-        // .step div {padding: 25px 50px;}
 
           if (response.index === config.chapters.length - 1) {
 
@@ -1401,7 +1438,7 @@
     // empty hoverId, resets on each school mouseover
     let hoverId = null;
 
-    map.on('mouseenter', 'schools', (e) => {
+    map.on('mousemove', 'schools', (e) => {
       // change cursor to pointer to indicate clickability
       this.map.getCanvas().style.cursor = 'pointer';
 
@@ -1437,7 +1474,7 @@
     const layers = ['sites', 'line'];
     layers.forEach(layer => {
       // TODO fix bug where site label doesnt work over a school, ex: Iowa site in Nashville overwitten by Vandy
-      map.on('mouseenter', layer, (e) => {
+      map.on('mousemove', layer, (e) => {
         applySiteLabelStyles(e.features[0].properties);
       });
 

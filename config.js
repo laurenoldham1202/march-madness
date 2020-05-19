@@ -39,7 +39,11 @@ const config = {
                 {layer: 'd1-all', opacity: 0.15},
                 {layer: 'd1-trim', opacity: 1},
             ],
-            onChapterExit: []
+            onChapterExit: [
+                {layer: 'd1-all', opacity: 0},
+                {layer: 'd1-trim', opacity: 0},
+                {layer: 'schools', opacity: 0.7}
+            ]
         },
         {
             id: 'chapter-2',
@@ -209,9 +213,10 @@ const config = {
             appearances as a top seed since 1985, the school with the lowest mean distance traveled is University of Virginia,
             who traveled a mean distance of 234 miles. 
             
-            <br>The Cavaliers famously lost to the UMBC in 2018, the first ever 1 seed bested by a 16 seed in the history of
-            the NCAA tournament (having traveled 227 miles to Charlotte, North Carolina from Charlottesville, Virginia). 
-            UVA went on to redeem themselves by winning their first national title the following year in 2019.`,
+            <br>This geographic advantage has had mixed results for the Cavaliers, who famously lost to the UMBC in 2018,
+             the first ever 1 seed bested by a 16 seed in the history of the NCAA tournament (having traveled 227 miles 
+             to Charlotte, North Carolina from Charlottesville, Virginia). UVA went on to redeem themselves by winning 
+             their first national title the following year in 2019.`,
             onChapterEnter: [],
             onChapterExit: []
         },
@@ -237,7 +242,72 @@ const config = {
             id: 'chapter-14',
             title: '',
             image: '',
-            description: `Maximum mean (weighted or unweighted?)`,
+            description: `Accounting for the weighted metric, the lowest WEIGHTED distance traveled by a school with at least
+            5 appearances is The University of Ohio. The Buckeyes have had 11 appearances as a top seed since 1985, averaging
+            a weighted travel distance of only 74 miles (352 miles unweighted).`,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
+            id: 'chapter-15',
+            title: '',
+            image: '',
+            description: `The school with the highest mean travel distance is Virginia Tech; similar to DePaul, the Hokies
+             have only made one appearance as a top seed, resulting in an average travel distance of 2577 miles (the distance
+             between Blacksburg, Virginia and San Jose, California, where Virginia Tech played as a 4 seed in 2019).`,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
+            id: 'chapter-16',
+            title: '',
+            image: '',
+            description: `The school with the highest mean travel distance with at least 5 appearances is St. John's University
+             in Queens, New York. The Red Storm traveled an average of 1803 miles over 5 appearances. St. John's also represents
+             the highest WEIGHTED mean travel distance at 1501 miles. Interestingly, the Red Storm have fared better geographically
+             as lower seeds than as higher seeds - they traveled 2000+ miles in all three of their appearances as a 1 and 2 seed,
+             but only between 600-900 miles as a 3 and 4 seed. 
+             `,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
+            id: 'chapter-17',
+            title: '',
+            image: '',
+            description: `Like many sports, the NCAA divides schools into different conferences that are often geographically clustered.`,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
+            id: 'chapter-18',
+            title: '',
+            image: '',
+            description: ``,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
+            id: 'chapter-19',
+            title: '',
+            image: '',
+            description: ``,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
+            id: 'chapter-20',
+            title: '',
+            image: '',
+            description: ``,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
+            id: 'chapter-21',
+            title: '',
+            image: '',
+            description: ``,
             onChapterEnter: [],
             onChapterExit: []
         },
