@@ -1,12 +1,13 @@
 const config = {
-    style: 'mapbox://styles/laurenoldham1202/ck9d9t3360puw1ilehqxfc0oa',
+    // style: 'mapbox://styles/laurenoldham1202/ck9d9t3360puw1ilehqxfc0oa',
+    style: 'mapbox://styles/mapbox/light-v10',
     accessToken: 'pk.eyJ1IjoibGF1cmVub2xkaGFtMTIwMiIsImEiOiJjaW55dm9lemUxOGc1dWttMzI5dDI5aGtvIn0.3xAukiULCDm0OId5yIgXOA',
     showMarkers: false,
     theme: 'light',
     alignment: 'left',
-    title: 'March Madness',
-    subtitle: 'Distance of Top Seeded Schools',
-    byline: '',
+    title: 'Going the Distance',
+    subtitle: '',
+    byline: 'March Madness Travel Distance of Top Seeded Schools',
     footer: 'Map created by Lauren Oldham',
     chapters: [
         {
@@ -14,6 +15,9 @@ const config = {
             // title: 'Introduction placeholder',
             // image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/2015-06-19_Glacier_National_Park_%28U.S.%29_8633.jpg/800px-2015-06-19_Glacier_National_Park_%28U.S.%29_8633.jpg',
             description: `Every year in March, the top 68 Division 1 men's college basketball programs are selected to compete for the NCAA's national championship title in a single-elimination competition colloquially called March Madness. While the selection process and tournament format for March Madness have changed considerably since its inception in 1939, countless fans have become devoted to understanding and predicting the tournament field in the study of 'Bracketology.' The modern era of the tournament began in 1985 with a final field of 64 teams and preferential seeding to determine the year's bracket.`,
+            // description: `Each year in March, the top Division I men's college basketball programs in the nation are selected
+            // to compete for the NCAA's National Championship title in a single-elimination competition referred to as
+            // <strong>March Madness</strong>. `,
             location: {
                 center: [-112.5, 41.5],
                 zoom: 3.75,
@@ -77,9 +81,23 @@ const config = {
                 {layer: 'schools', opacity: 0},
             ]
         },
+        {  // TODO add description of what prop circles represent
+          id: 'methodology',
+          title: `Methodogoly`,
+          description: `methodology here`,
+            onChapterEnter: [
+                {layer: 'd1-all', opacity: 0},
+                {layer: 'd1-trim', opacity: 0},
+                {layer: 'schools', opacity: 0.7},
+            ],
+            onChapterExit: [
+                {layer: 'd1-all', opacity: 0},
+                {layer: 'd1-trim', opacity: 0},
+            ]
+        },
         {
             id: 'chapter-3',
-            title: '',
+            title: 'Distances by Seed',
             image: '',
             // TODO add min and max for more of an overall story?
             description: `When looking at raw euclidean distances, the data falls in line with the NCAA's claim of 
@@ -228,7 +246,7 @@ const config = {
             onChapterEnter: [],
             onChapterExit: []
         },
-        {
+        { // TODO add logic to weights, add same styling as seeds
             id: 'chapter-13',
             title: '',
             image: '',
@@ -251,7 +269,7 @@ const config = {
             title: '',
             image: '',
             description: `Accounting for the weighted metric, the lowest WEIGHTED distance traveled by a school with at least
-            5 appearances is The University of Ohio. The Buckeyes have had 11 appearances as a top seed since 1985, averaging
+            5 appearances is The Ohio State University. The Buckeyes have had 11 appearances as a top seed since 1985, averaging
             a weighted travel distance of only 74 miles (352 miles unweighted).`,
             onChapterEnter: [],
             onChapterExit: []
@@ -281,25 +299,48 @@ const config = {
         },
         {
             id: 'chapter-17',
-            title: '',
+            title: 'Distance by Conference',
             image: '',
-            description: `Like many sports, the NCAA divides schools into different conferences that are often geographically clustered.`,
+            description: `Like many sports, the NCAA divides schools into discrete, geographically clustered conferences.
+            Of the 32 D1 conferences, only 11 have produced top seeded teams in March Madness:
+            <ul>
+            <li>American Athletic Conference</li>
+            <li>Atlantic 10 Conference</li>
+            <li>Atlantic Coast Conference</li>
+            <li>Big 12 Conference</li>
+            <li>Big East Conference</li>
+            <li>Big Ten Conference</li>
+            <li>Missouri Valley Conference</li>
+            <li>Mountain West Conference</li>
+            <li>Pac-12 Conference</li>
+            <li>Southeastern Conference</li>
+            <li>West Coast Conference</li>
+            </ul>
+            <br>Does the geography of these conferences affect their travel distance during March Madness?
+            `,
             onChapterEnter: [],
             onChapterExit: []
         },
         {
             id: 'chapter-18',
-            title: '',
+            title: 'Conferences with the Highest Mean Travel Distance',
             image: '',
-            description: ``,
+            description: `The conferences with the highest mean travel distances are two coastal conferences: the Pac-12
+            on the Pacific West coast, who averaged 811 travel miles, and the Atlantic-10 on the Atlantic East coast, 
+            who averaged 969 travel miles.
+            
+            Even applying weights by seed couldn't help these conferences - they remained the two of the farthest traveling
+            conferences, traveling a weighted 460 and 431 miles respectively.`,
             onChapterEnter: [],
             onChapterExit: []
         },
         {
             id: 'chapter-19',
-            title: '',
+            title: 'Conferences with the Lowest Mean Travel Distance',
             image: '',
-            description: ``,
+            description: `On the flip side, the conferences with the lowest mean travel distances are more centrally-located,
+            with the Big 12 traveling an average of 544 miles from the Great Plains region and the American Athletic 
+            Conference traversing the same distance.`,
             onChapterEnter: [],
             onChapterExit: []
         },
