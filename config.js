@@ -81,10 +81,20 @@ const config = {
                 {layer: 'schools', opacity: 0},
             ]
         },
-        {  // TODO add description of what prop circles represent
+        {  // TODO add description of what prop circles represent, rerun as diff crs
+            // TODO remove fitbounds from school selection to give better reference for distances?
           id: 'methodology',
-          title: `Methodogoly`,
-          description: `methodology here`,
+          title: `Methodology`,
+          description: `Tournament data for each 1, 2, 3, and 4 seed and its respective first-round site location was 
+scraped from <a href="https://www.sports-reference.com/cbb/postseason/" target="_blank">Sports Reference</a>. The data was
+cleaned, analyzed, and manipulated primarily using Python 3 libraries (pandas, geopandas, and geocoder) in Jupyter Notebooks.
+
+<br><br>Distances are calculated as raw Euclidean distances, or 'as the crow flies,' and do not account for how teams actually
+traveled to their tournament sites (e.g. flying versus driving). Site locations are also inexact, with coordinates placed
+in the site's city center rather than the exact arena in which the game was played.
+
+<br><br>More information can be found at the <a href="https://github.com/laurenoldham1202/march-madness" target="_blank">project repository</a>.
+`,
             onChapterEnter: [
                 {layer: 'd1-all', opacity: 0},
                 {layer: 'd1-trim', opacity: 0},
@@ -100,7 +110,7 @@ const config = {
             title: 'Distances by Seed',
             image: '',
             // TODO add min and max for more of an overall story?
-            description: `When looking at raw euclidean distances, the data falls in line with the NCAA's claim of 
+            description: `When looking at Euclidean distances, the data falls in line with the NCAA's claim of 
             geographic preference for higher seeds, with 1 seeds averaging the shortest travel distance, 2 seeds averaging
             the second shortest travel distance, 3 seeds average the third shortest travel distance, and 4 seeds traveling
             the furthest of all seeds.
