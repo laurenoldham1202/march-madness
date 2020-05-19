@@ -86,20 +86,28 @@ const config = {
             geographic preference for higher seeds, with 1 seeds averaging the shortest travel distance, 2 seeds averaging
             the second shortest travel distance, 3 seeds average the third shortest travel distance, and 4 seeds traveling
             the furthest of all seeds.
+   
             
-            <ul>
-            <li>1: 376.4681913845625</li>
-            <li>2: 513.247101929549</li>
-            <li>3: 742.7582078752471</li>
-            <li>4: 922.6727014730162</li>
-            </ul>
-            
-            <div class="doot" style="display: flex !important;">
-                <div class="t" style="height: 2rem; width: 25%; background: blue; border: 1px black solid;"></div>
-                <div class="t" style="height: 2rem; width: 25%; background: blue; border: 1px black solid;"></div>
-                <div class="t" style="height: 2rem; width: 25%; background: blue; border: 1px black solid;"></div>
-                <div class="t" style="height: 2rem; width: 25%; background: blue; border: 1px black solid;"></div>
-          
+            <div class="seed-hl-row">
+                <div class="seed-hl" style="background: #80bad1">
+                    <div class="seed-hl-title">1 SEED</div>
+                    <div class="seed-hl-text">376 miles</div>
+                </div> 
+               
+               <div class="seed-hl" style="background: #5694c1">
+                    <div class="seed-hl-title">2 SEED</div>
+                    <div class="seed-hl-text">513 miles</div>
+                </div>
+                       
+               <div class="seed-hl" style="background: #2c6db1">
+                    <div class="seed-hl-title">3 SEED</div>
+                    <div class="seed-hl-text">743 miles</div>
+                </div>
+                       
+               <div class="seed-hl" style="background: #0146a1">
+                    <div class="seed-hl-title">4 SEED</div>
+                    <div class="seed-hl-text">922 miles</div>
+               </div>
             </div>
             `,
             location: {
