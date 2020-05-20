@@ -245,7 +245,7 @@ in the site's city center rather than the exact arena in which the game was play
             id: 'chapter-10',
             title: 'Overall Maximum Travel Distance',
             image: '',
-            description: `The overall maximum distance traveled was by Syracuse University, who trekked over 2800 miles 
+            description: `The overall maximum distance traveled was by Syracuse University, who trekked over 2,800 miles 
             from Syracuse, New York to Long Beach, California in 2013 as a 4 seed. The extra mileage didn't faze the Orange too much,
             who went on to compete in the Final Four, ultimately losing to Michigan in the semifinals.`,
             onChapterEnter: [],
@@ -277,14 +277,14 @@ in the site's city center rather than the exact arena in which the game was play
             onChapterEnter: [],
             onChapterExit: []
         },
-        { // TODO add logic to weights, add same styling as seeds
+        { // TODO add logic to weights, add same styling as seeds, add pre-line style to p class?
             id: 'chapter-13',
             title: 'Weighted Distance',
             image: '',
             description: `The selection committee gives geographic preference based on seeds, so you would expect a team with 
             more appearances as a 1 seed to have a lower mean travel distance than a school with more appearances as a 4 seed.
             
-            <br>To normalize the data, distances were also calculated with the following weights applied based on seed values.
+            <br><br>To normalize the data, distances were also calculated with the following weights applied based on seed values:
 
              <div class="seed-hl-row">
                 <div class="seed-hl" style="background: #80bad1">
@@ -306,6 +306,17 @@ in the site's city center rather than the exact arena in which the game was play
                     <div class="seed-hl-title">4 SEED</div>
                     <div class="seed-hl-text">0.25</div>
                </div>
+            </div>
+            <br>
+            The weights are roughly proportional to the pool of first round site locations. For the 16 top seeded teams,
+            there are 16 possible (non-unique) site locations. 1 seeds get premiere geographic preference (~100% of 
+            teams get optimal placement). 2 seeds get top pick from the remaining pool (12/16), then 3 seeds from that 
+            remaining pool (8/16), and finally, 4 seeds get the remaining pick (4/16). 
+            
+            <div class="footer" style="margin-top: 1.5rem; text-align: right;">
+                <span style="font-size: 0.6rem;">* Proportional circles on the map represent the <strong><u>weighted</u></strong> average
+                travel distance for each school
+                </span>
             </div>
             `,
             onChapterEnter: [],
