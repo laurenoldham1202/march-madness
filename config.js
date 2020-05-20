@@ -19,8 +19,8 @@ const config = {
             // to compete for the NCAA's National Championship title in a single-elimination competition referred to as
             // <strong>March Madness</strong>. `,
             location: {
-                center: [-112.5, 41.5],
-                zoom: 3.75,
+                center: [-116.5, 41.5],
+                zoom: 3.5,
                 pitch: 0.00,
                 bearing: 0.00,
             },
@@ -193,7 +193,7 @@ in the site's city center rather than the exact arena in which the game was play
         {
             id: 'chapter-8',
             title: 'Highlights',
-            image: '',
+            image: '',  // TODO fix 2866 miles stretching last box
             description: `Viewing aggregations at the school level paints a more varied picture of travel distances during
             March Madness, ranging from a minimum travel distance of less than a mile to a maximum travel distance exceeding
             2,800 miles. The overall mean distance traveled for all top four seeded schools from 1985 to 2019 was 639 miles; 
@@ -409,18 +409,18 @@ in the site's city center rather than the exact arena in which the game was play
             description: `So is there any method to the madness? It would appear that way. Generally speaking, a school
             has a better chance at earning a geographic advantage in the first round of March Madness as a higher seed.
             
-            Perhaps unsurprisingly, it is also advantageous to be a more centrally-located school rather than geographically
+            <br><br>Perhaps unsurprisingly, it is also advantageous to be a more centrally-located school rather than geographically
             isolated on a coast (despite there being many more urban centers with arenas in the more densely populated 
             East Coast).
             
-            Outliers will come into play every year and it's not perfect system, but the math checks out.
+            <br><br>Outliers will come into play every year and it's not perfect system, but the math checks out.
             
-            Explore the interactive map to see how your school fares in March Madness travels!
+            <br><br>Explore the interactive map to see how your school fares in March Madness travels!
             `,
             onChapterEnter: [],
             onChapterExit: []
         },
-        {
+        {  // TODO add this to conclusion, remove restart story button, have button toggle mode toggle
             id: 'final-chapter',
             title: '',
             image: '',

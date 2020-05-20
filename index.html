@@ -875,10 +875,10 @@
           // TODO scroll by index instead?
 
           if (id === 'chapter-2') {
-            resetExtent();
+            resetExtent(true);
             map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
           } else if (id === 'chapter-3') {
-            resetExtent();
+            resetExtent(true);
             map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
           } else if (id === 'chapter-4') {  // todo create object w school info to streamline this
             applyChapterFilters('Minnesota', 'Kansas City, MO');
@@ -889,7 +889,7 @@
           } else if (id === 'chapter-7') {
             applyChapterFilters('San Diego State', 'Spokane, WA');
           } else if (id === 'chapter-8') {
-            resetExtent();
+            resetExtent(true);
           } else if (id === 'chapter-9') {
             applyChapterFilters('Arizona', 'Tucson, AZ');
           } else if (id === 'chapter-10') {
@@ -901,7 +901,7 @@
             filters.school = 'Virginia';  // todo sort sites high to low to order seeds properly
             selectSchoolOnMap(sites);
           } else if (id === 'chapter-13') {
-            resetExtent();
+            resetExtent(true);
             filters.weighted = true;  // todo fix how this affects reset extent
             applyWeights(schools);
           } else if (id === 'chapter-14') {
@@ -955,13 +955,11 @@
             map.setFilter('schools', ['match', ['get', 'conference'], ['Pac-12 Conference', 'Atlantic 10 Conference'], true, false]);
           } else if (id === 'chapter-19') {
             // match multiple filter values
+            // TODO apply styles on scroll ip
             map.setFilter('schools', ['match', ['get', 'conference'], ['American Athletic Conference', 'Big 12 Conference'], true, false]);
           } else if (id === 'chapter-20') {
-            // map.setFilter('schools', ['has', 'school_common_name']);
-            resetExtent();
+            resetExtent(true);
             resetAllFilters();
-            // match multiple filter values
-            // map.setFilter('schools', ['match', ['get', 'conference'], ['American Athletic Conference', 'Big 12 Conference'], true, false]);
           }
 
 
@@ -1111,7 +1109,7 @@
     });
   }
 
-  function resetExtent() {
+  function resetExtent(storyMode = false) {
 
     map.setBearing(0);  // todo create fn?
     map.setPitch(0);
@@ -1141,8 +1139,13 @@
 
     layerGeometry.coordinates = [layerCoords];
 
-    // fit bounds to school layer
-    fitMapBounds(layerGeometry);
+    if (storyMode) {
+      map.setCenter([-116.5, 41.5]);
+      map.setZoom(3.5);
+    } else {
+      // fit bounds to school layer
+      fitMapBounds(layerGeometry);
+    }
 
     // reset info card to all school defaults
     setDefaultInfoCard();
