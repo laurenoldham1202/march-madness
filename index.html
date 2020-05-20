@@ -986,9 +986,6 @@
 
   // TODO Consolidate into single chapter?
   function applyChapterFilters(school, site) {
-
-    // filters.school = school;  // todo might not need - call val directly
-    // schoolFilter.val(filters.school);
     schoolFilter.val(school);  // todo school not set to all when entering explore mode from selected schools
     schoolFilter.trigger('change');
 
@@ -1002,9 +999,7 @@
     map.getSource('line')['_data'].features.forEach(line => {
       // find geometry for line that matches the selected school and site
       if (line.properties.site === site && line.properties.school_common_name === school) {
-        // fitMapBounds(line.geometry);  // fit bounds to specific example
-        map.fitBounds(turf.bbox(line.geometry),
-          { padding: { top: 50, right: 50, bottom: 50, left: 450 }, duration: 3000 });
+        fitMapBounds(line.geometry);  // fit bounds to specific example
       }
     });
 
@@ -1114,8 +1109,6 @@
     map.setBearing(0);  // todo create fn?
     map.setPitch(0);
     map.setLayoutProperty('schools', 'visibility', 'visible');
-    // map.setLayoutProperty('d1-all', 'visibility', 'none');
-    // map.setLayoutProperty('d1-trim', 'visibility', 'none');
 
     // reset default gray color to info box infoHeader
     infoHeader.css('background', '#414140');
@@ -1129,7 +1122,6 @@
     map.setPaintProperty('schools', 'circle-color', '#E27600');
     map.setPaintProperty('schools', 'circle-opacity', 0.7);
 
-    // TODO create function for here and sites - might not be best because sites loop includes other conditions
     const layerGeometry = {type: 'Polygon', coordinates: []};
     const layerCoords = [];
 
@@ -1140,8 +1132,7 @@
     layerGeometry.coordinates = [layerCoords];
 
     if (storyMode) {
-      map.setCenter([-116.5, 41.5]);
-      map.setZoom(3.5);
+      map.flyTo({center: [-116.5, 41.5], zoom: 3.5});
     } else {
       // fit bounds to school layer
       fitMapBounds(layerGeometry);
@@ -1151,8 +1142,9 @@
     setDefaultInfoCard();
   }
 
+  // TODO additional bounds for story mode?
   function fitMapBounds(layerGeometry) {
-    map.fitBounds(turf.bbox(layerGeometry), { padding: {top: 50, right: 50, bottom: 50, left: 450}, duration: 1250 });
+    map.fitBounds(turf.bbox(layerGeometry), { padding: {top: 50, right: 50, bottom: 50, left: 450}, duration: 3000 });
     // map.fitBounds(turf.bbox(layerGeometry), { padding: 50 });
   }
 
