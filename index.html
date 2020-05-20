@@ -981,6 +981,11 @@
           } else if (id === 'chapter-20') {
             resetExtent(true);
             resetAllFilters();
+          } else if (id === 'chapter-19.5') {
+            // resetExtent(true);
+            // resetAllFilters();
+            map.setFilter('schools', ['match', ['get', 'conference'], ['Southeastern Conference', 'Big 12 Conference', 'Atlantic Coast Conference', 'Missouri Valley Conference', 'Mountain West Conference'], true, false]);
+
           }
 
 

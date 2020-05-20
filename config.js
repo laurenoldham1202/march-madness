@@ -333,6 +333,19 @@ in the site's city center rather than the exact arena in which the game was play
             onChapterEnter: [],
             onChapterExit: []
         },
+      {
+        id: 'chapter-16',
+        title: 'Longest Weighted Average and Overall Travel Distance',
+        image: '',
+        description: `The school with the highest mean travel distance with at least 5 appearances is St. John's University
+             in Queens, New York. The Red Storm traveled an average of 1,604 miles over 5 appearances. St. John's also represents
+             the highest WEIGHTED mean travel distance at 1,323 miles. Interestingly, the Red Storm have fared better geographically
+             as lower seeds than as higher seeds - they traveled 1,900+ miles in all three of their appearances as a 1 and 2 seed,
+             but only between 500-900 miles as a 3 and 4 seed. 
+             `,
+        onChapterEnter: [],
+        onChapterExit: []
+      },
         {
             id: 'chapter-15',
             title: 'Longest Average Travel Distance',
@@ -343,19 +356,7 @@ in the site's city center rather than the exact arena in which the game was play
             onChapterEnter: [],
             onChapterExit: []
         },
-        {
-            id: 'chapter-16',
-            title: 'Longest Weighted Average and Overall Travel Distance',
-            image: '',
-            description: `The school with the highest mean travel distance with at least 5 appearances is St. John's University
-             in Queens, New York. The Red Storm traveled an average of 1,604 miles over 5 appearances. St. John's also represents
-             the highest WEIGHTED mean travel distance at 1,323 miles. Interestingly, the Red Storm have fared better geographically
-             as lower seeds than as higher seeds - they traveled 1,900+ miles in all three of their appearances as a 1 and 2 seed,
-             but only between 500-900 miles as a 3 and 4 seed. 
-             `,
-            onChapterEnter: [],
-            onChapterExit: []
-        },
+
         {
             id: 'chapter-17',
             title: 'Distance by Conference',
@@ -363,17 +364,17 @@ in the site's city center rather than the exact arena in which the game was play
             description: `Like many sports, the NCAA divides schools into discrete, geographically clustered conferences.
             Of the 32 D1 conferences, only 11 have produced top seeded teams in March Madness:
             <ul>
-            <li>American Athletic Conference</li>
-            <li>Atlantic 10 Conference</li>
-            <li>Atlantic Coast Conference</li>
-            <li>Big 12 Conference</li>
-            <li>Big East Conference</li>
-            <li>Big Ten Conference</li>
-            <li>Missouri Valley Conference</li>
-            <li>Mountain West Conference</li>
-            <li>Pac-12 Conference</li>
-            <li>Southeastern Conference</li>
-            <li>West Coast Conference</li>
+              <li>American Athletic Conference</li>
+              <li>Atlantic 10 Conference</li>
+              <li>Atlantic Coast Conference</li>
+              <li>Big 12 Conference</li>
+              <li>Big East Conference</li>
+              <li>Big Ten Conference</li>
+              <li>Missouri Valley Conference</li>
+              <li>Mountain West Conference</li>
+              <li>Pac-12 Conference</li>
+              <li>Southeastern Conference</li>
+              <li>West Coast Conference</li>
             </ul>
             <br>Does the geography of these conferences affect their travel distance during March Madness?
             `,
@@ -382,14 +383,14 @@ in the site's city center rather than the exact arena in which the game was play
         },
         {
             id: 'chapter-18',
-            title: 'Conferences with the Highest Mean Travel Distance',
+            title: 'Conferences with the Longest Mean Travel Distance',
             image: '',
             description: `The conferences with the highest mean travel distances are two coastal conferences: the Pac-12
-            on the Pacific West coast, who averaged 811 travel miles, and the Atlantic-10 on the Atlantic East coast, 
-            who averaged 969 travel miles.
+            on the Pacific West coast, who averaged 773 travel miles, and the Atlantic-10 on the Atlantic East coast, 
+            who averaged 832 travel miles.
             
-            Even applying weights by seed couldn't help these conferences - they remained the two of the farthest traveling
-            conferences, traveling a weighted 460 and 431 miles respectively.`,
+            Even applying weights by seed couldn't help these conferences - they remained the first and third longest traveling
+            conferences, traveling a weighted 442 and 375 miles respectively.`,
             onChapterEnter: [],
             onChapterExit: []
         },
@@ -398,11 +399,25 @@ in the site's city center rather than the exact arena in which the game was play
             title: 'Conferences with the Lowest Mean Travel Distance',
             image: '',
             description: `On the flip side, the conferences with the lowest mean travel distances are more centrally-located,
-            with the Big 12 traveling an average of 544 miles from the Great Plains region and the American Athletic 
-            Conference traversing the same distance.`,
+            with the Big 12 traveling an average of 506 miles from the Great Plains region and the American Athletic 
+            Conference traversing and average 494 miles.`,
             onChapterEnter: [],
             onChapterExit: []
         },
+      {
+        id: 'chapter-19.5',
+        title: 'Conferences with the Lowest Weighted Mean Travel Distance',
+        image: '',
+        description: `Applying weights to the conference distances, however, paints an unclear picture of any geographic trends. 
+        These conferences are vaguely concentrated in the Great Plains/Southeast, but are not strictly bound there.
+        
+        The Missouri Valley Conference has the overall shortest weighted travel distance at 142 miles, but only has 2 March
+        Madness appearances. Four conferences have weighted travel distances between 280 and 288 miles: Big 12 (280 miles),
+        Atlantic Coast Conference (282 miles), Mountain West Conference (283 miles), and Southeastern Conference (288 miles).
+        `,
+        onChapterEnter: [],
+        onChapterExit: []
+      },
         {
             id: 'chapter-20',
             title: 'Conclusion',
