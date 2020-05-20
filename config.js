@@ -119,22 +119,22 @@ in the site's city center rather than the exact arena in which the game was play
             <div class="seed-hl-row">
                 <div class="seed-hl" style="background: #80bad1">
                     <div class="seed-hl-title">1 SEED</div>
-                    <div class="seed-hl-text">376 miles</div>
+                    <div class="seed-hl-text">353 miles</div>
                 </div> 
                
                <div class="seed-hl" style="background: #5694c1">
                     <div class="seed-hl-title">2 SEED</div>
-                    <div class="seed-hl-text">513 miles</div>
+                    <div class="seed-hl-text">482 miles</div>
                 </div>
                        
                <div class="seed-hl" style="background: #2c6db1">
                     <div class="seed-hl-title">3 SEED</div>
-                    <div class="seed-hl-text">743 miles</div>
+                    <div class="seed-hl-text">689 miles</div>
                 </div>
                        
                <div class="seed-hl" style="background: #0146a1">
                     <div class="seed-hl-title">4 SEED</div>
-                    <div class="seed-hl-text">922 miles</div>
+                    <div class="seed-hl-text">829 miles</div>
                </div>
             </div>
             `,
@@ -196,28 +196,28 @@ in the site's city center rather than the exact arena in which the game was play
             image: '',  // TODO fix 2866 miles stretching last box
             description: `Viewing aggregations at the school level paints a more varied picture of travel distances during
             March Madness, ranging from a minimum travel distance of less than a mile to a maximum travel distance exceeding
-            2,800 miles. The overall mean distance traveled for all top four seeded schools from 1985 to 2019 was 639 miles; 
-            the median distance traveled clocked in a bit lower at 413 miles, perhaps a more accurate representation that 
+            2,400 miles. The overall mean distance traveled for all top four seeded schools from 1985 to 2019 was 588 miles; 
+            the median distance traveled clocked in a bit lower at 394 miles, perhaps a more accurate representation that 
             lessens the influence of outliers.
             
               <div class="seed-hl-row">                 
                <div class="seed-hl" style="background: #0146a1">
                     <div class="seed-hl-title">MEAN</div>
-                    <div class="seed-hl-text">639 miles</div>
+                    <div class="seed-hl-text">588 miles</div>
                 </div>
                        
                <div class="seed-hl" style="background: #0146a1">
                     <div class="seed-hl-title">MED</div>
-                    <div class="seed-hl-text">413 miles</div>
+                    <div class="seed-hl-text">394 miles</div>
                </div>
                 <div class="seed-hl" style="background: #0146a1">
                     <div class="seed-hl-title">MIN</div>
-                    <div class="seed-hl-text">0.38 miles</div>
+                    <div class="seed-hl-text">0.42 miles</div>
                 </div> 
                
                <div class="seed-hl" style="background: #0146a1">
                     <div class="seed-hl-title">MAX</div>
-                    <div class="seed-hl-text">2,886 miles</div>
+                    <div class="seed-hl-text">2,452 miles</div>
                 </div>
             </div>
             `,
@@ -232,7 +232,7 @@ in the site's city center rather than the exact arena in which the game was play
         },
         {
             id: 'chapter-9',
-            title: 'Overall Minimum Travel Distance',
+            title: 'Overall Shortest Travel Distance',
             image: '',
             description: `The University of Arizona traveled the overall shortest distance, barely leaving campus to travel 
             less than half a mile to their first round site in Tucson in 2000 as a 1 seed. Unfortunately for the Wildcats,
@@ -241,37 +241,38 @@ in the site's city center rather than the exact arena in which the game was play
             onChapterEnter: [],
             onChapterExit: []
         },
-        {
-            id: 'chapter-10',
-            title: 'Overall Maximum Travel Distance',
-            image: '',
-            description: `The overall maximum distance traveled was by Syracuse University, who trekked over 2,800 miles 
-            from Syracuse, New York to Long Beach, California in 2013 as a 4 seed. The extra mileage didn't faze the Orange too much,
-            who went on to compete in the Final Four, ultimately losing to Michigan in the semifinals.`,
-            onChapterEnter: [],
-            onChapterExit: []
-        },
+        // {
+        //     id: 'chapter-10',
+        //     title: 'Overall Maximum Travel Distance',
+        //     image: '',
+        //     description: `The overall maximum distance traveled was by Syracuse University, who trekked over 2,800 miles
+        //     from Syracuse, New York to Long Beach, California in 2013 as a 4 seed. The extra mileage didn't faze the Orange too much,
+        //     who went on to compete in the Final Four, ultimately losing to Michigan in the semifinals.`,
+        //     description: ``,
+        //     onChapterEnter: [],
+        //     onChapterExit: []
+        // },
         {
             id: 'chapter-11',
-            title: 'Lowest Average Travel Distance',
+            title: 'Shortest Average Travel Distance',
             image: '',
             description: `The school with the lowest mean distance traveled is technically DePaul University, who have 
             only made one appearance as a top seed since 1985. The Blue Demons stayed in their home metro Chicago as a 3
-            seed in 1987, traveling fewer than 15 miles.`,
+            seed in 1987, traveling fewer than 13 miles.`,
             onChapterEnter: [],
             onChapterExit: []
         },
 
         {
             id: 'chapter-12',
-            title: 'Lowest Average Travel Distance (with 5+ Appearances)',
+            title: 'Shortest Average Travel Distance (with 5+ Appearances)',
             image: '',
             description: `More data paints a more accurate picture, so filtering for schools that have made at least 5
             appearances as a top seed since 1985, the school with the lowest mean distance traveled is University of Virginia,
-            who traveled a mean distance of 234 miles. 
+            who traveled a mean distance of 237 miles. 
             
             <br>This geographic advantage has had mixed results for the Cavaliers, who famously lost to the UMBC in 2018,
-             the first ever 1 seed bested by a 16 seed in the history of the NCAA tournament (having traveled 227 miles 
+             the first ever 1 seed bested by a 16 seed in the history of the NCAA tournament (having traveled 234 miles 
              to Charlotte, North Carolina from Charlottesville, Virginia). UVA went on to redeem themselves by winning 
              their first national title the following year in 2019.`,
             onChapterEnter: [],
@@ -324,33 +325,33 @@ in the site's city center rather than the exact arena in which the game was play
         },
         {
             id: 'chapter-14',
-            title: 'Lowest Weighted Average Travel Distance (5+ Appearances)',
+            title: 'Shortest Weighted Average Travel Distance (5+ Appearances)',
             image: '',
             description: `Accounting for the weighted metric, the lowest WEIGHTED distance traveled by a school with at least
             5 appearances is The Ohio State University. The Buckeyes have had 11 appearances as a top seed since 1985, averaging
-            a weighted travel distance of only 74 miles (352 miles unweighted).`,
+            a weighted travel distance of only 135 miles (318 miles unweighted).`,
             onChapterEnter: [],
             onChapterExit: []
         },
         {
             id: 'chapter-15',
-            title: 'Highest Average Travel Distance',
+            title: 'Longest Average Travel Distance',
             image: '',
             description: `The school with the highest mean travel distance is Virginia Tech; similar to DePaul, the Hokies
-             have only made one appearance as a top seed, resulting in an average travel distance of 2,577 miles (the distance
+             have only made one appearance as a top seed, resulting in an average travel distance of 2,261 miles (the distance
              between Blacksburg, Virginia and San Jose, California, where Virginia Tech played as a 4 seed in 2019).`,
             onChapterEnter: [],
             onChapterExit: []
         },
         {
             id: 'chapter-16',
-            title: 'Highest Weighted Average Travel Distance',
+            title: 'Longest Weighted Average and Overall Travel Distance',
             image: '',
             description: `The school with the highest mean travel distance with at least 5 appearances is St. John's University
-             in Queens, New York. The Red Storm traveled an average of 1,803 miles over 5 appearances. St. John's also represents
-             the highest WEIGHTED mean travel distance at 1,501 miles. Interestingly, the Red Storm have fared better geographically
-             as lower seeds than as higher seeds - they traveled 2,000+ miles in all three of their appearances as a 1 and 2 seed,
-             but only between 600-900 miles as a 3 and 4 seed. 
+             in Queens, New York. The Red Storm traveled an average of 1,604 miles over 5 appearances. St. John's also represents
+             the highest WEIGHTED mean travel distance at 1,323 miles. Interestingly, the Red Storm have fared better geographically
+             as lower seeds than as higher seeds - they traveled 1,900+ miles in all three of their appearances as a 1 and 2 seed,
+             but only between 500-900 miles as a 3 and 4 seed. 
              `,
             onChapterEnter: [],
             onChapterExit: []
