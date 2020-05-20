@@ -192,13 +192,34 @@ in the site's city center rather than the exact arena in which the game was play
         // },
         {
             id: 'chapter-8',
-            title: '',
+            title: 'Highlights',
             image: '',
             description: `Viewing aggregations at the school level paints a more varied picture of travel distances during
             March Madness, ranging from a minimum travel distance of less than a mile to a maximum travel distance exceeding
-            2800 miles. The overall mean distance traveled for all top four seeded schools from 1985 to 2019 was 639 miles; 
+            2,800 miles. The overall mean distance traveled for all top four seeded schools from 1985 to 2019 was 639 miles; 
             the median distance traveled clocked in a bit lower at 413 miles, perhaps a more accurate representation that 
             lessens the influence of outliers.
+            
+              <div class="seed-hl-row">                 
+               <div class="seed-hl" style="background: #0146a1">
+                    <div class="seed-hl-title">MEAN</div>
+                    <div class="seed-hl-text">639 miles</div>
+                </div>
+                       
+               <div class="seed-hl" style="background: #0146a1">
+                    <div class="seed-hl-title">MED</div>
+                    <div class="seed-hl-text">413 miles</div>
+               </div>
+                <div class="seed-hl" style="background: #0146a1">
+                    <div class="seed-hl-title">MIN</div>
+                    <div class="seed-hl-text">0.38 miles</div>
+                </div> 
+               
+               <div class="seed-hl" style="background: #0146a1">
+                    <div class="seed-hl-title">MAX</div>
+                    <div class="seed-hl-text">2,886 miles</div>
+                </div>
+            </div>
             `,
             location: {
                 center: [-112.5, 41.5],
@@ -211,7 +232,7 @@ in the site's city center rather than the exact arena in which the game was play
         },
         {
             id: 'chapter-9',
-            title: '',
+            title: 'Overall Minimum Travel Distance',
             image: '',
             description: `The University of Arizona traveled the overall shortest distance, barely leaving campus to travel 
             less than half a mile to their first round site in Tucson in 2000 as a 1 seed. Unfortunately for the Wildcats,
@@ -222,7 +243,7 @@ in the site's city center rather than the exact arena in which the game was play
         },
         {
             id: 'chapter-10',
-            title: '',
+            title: 'Overall Maximum Travel Distance',
             image: '',
             description: `The overall maximum distance traveled was by Syracuse University, who trekked over 2800 miles 
             from Syracuse, New York to Long Beach, California in 2013 as a 4 seed. The extra mileage didn't faze the Orange too much,
@@ -232,7 +253,7 @@ in the site's city center rather than the exact arena in which the game was play
         },
         {
             id: 'chapter-11',
-            title: '',
+            title: 'Lowest Average Travel Distance',
             image: '',
             description: `The school with the lowest mean distance traveled is technically DePaul University, who have 
             only made one appearance as a top seed since 1985. The Blue Demons stayed in their home metro Chicago as a 3
@@ -243,7 +264,7 @@ in the site's city center rather than the exact arena in which the game was play
 
         {
             id: 'chapter-12',
-            title: '',
+            title: 'Lowest Average Travel Distance (with 5+ Appearances)',
             image: '',
             description: `More data paints a more accurate picture, so filtering for schools that have made at least 5
             appearances as a top seed since 1985, the school with the lowest mean distance traveled is University of Virginia,
@@ -258,25 +279,41 @@ in the site's city center rather than the exact arena in which the game was play
         },
         { // TODO add logic to weights, add same styling as seeds
             id: 'chapter-13',
-            title: '',
+            title: 'Weighted Distance',
             image: '',
             description: `The selection committee gives geographic preference based on seeds, so you would expect a team with 
             more appearances as a 1 seed to have a lower mean travel distance than a school with more appearances as a 4 seed.
             
             <br>To normalize the data, distances were also calculated with the following weights applied based on seed values.
-            <ul>
-                <li>1 seeds: 1.00</li>
-                <li>2 seeds: 0.75</li>
-                <li>3 seeds: 0.50</li>
-                <li>4 seeds: 0.25</li>
-            </ul>
+
+             <div class="seed-hl-row">
+                <div class="seed-hl" style="background: #80bad1">
+                    <div class="seed-hl-title">1 SEED</div>
+                    <div class="seed-hl-text">1.00</div>
+                </div> 
+               
+               <div class="seed-hl" style="background: #5694c1">
+                    <div class="seed-hl-title">2 SEED</div>
+                    <div class="seed-hl-text">0.75</div>
+                </div>
+                       
+               <div class="seed-hl" style="background: #2c6db1">
+                    <div class="seed-hl-title">3 SEED</div>
+                    <div class="seed-hl-text">0.50</div>
+                </div>
+                       
+               <div class="seed-hl" style="background: #0146a1">
+                    <div class="seed-hl-title">4 SEED</div>
+                    <div class="seed-hl-text">0.25</div>
+               </div>
+            </div>
             `,
             onChapterEnter: [],
             onChapterExit: []
         },
         {
             id: 'chapter-14',
-            title: '',
+            title: 'Lowest Weighted Average Travel Distance (5+ Appearances)',
             image: '',
             description: `Accounting for the weighted metric, the lowest WEIGHTED distance traveled by a school with at least
             5 appearances is The Ohio State University. The Buckeyes have had 11 appearances as a top seed since 1985, averaging
@@ -286,22 +323,22 @@ in the site's city center rather than the exact arena in which the game was play
         },
         {
             id: 'chapter-15',
-            title: '',
+            title: 'Highest Average Travel Distance',
             image: '',
             description: `The school with the highest mean travel distance is Virginia Tech; similar to DePaul, the Hokies
-             have only made one appearance as a top seed, resulting in an average travel distance of 2577 miles (the distance
+             have only made one appearance as a top seed, resulting in an average travel distance of 2,577 miles (the distance
              between Blacksburg, Virginia and San Jose, California, where Virginia Tech played as a 4 seed in 2019).`,
             onChapterEnter: [],
             onChapterExit: []
         },
         {
             id: 'chapter-16',
-            title: '',
+            title: 'Highest Weighted Average Travel Distance',
             image: '',
             description: `The school with the highest mean travel distance with at least 5 appearances is St. John's University
-             in Queens, New York. The Red Storm traveled an average of 1803 miles over 5 appearances. St. John's also represents
-             the highest WEIGHTED mean travel distance at 1501 miles. Interestingly, the Red Storm have fared better geographically
-             as lower seeds than as higher seeds - they traveled 2000+ miles in all three of their appearances as a 1 and 2 seed,
+             in Queens, New York. The Red Storm traveled an average of 1,803 miles over 5 appearances. St. John's also represents
+             the highest WEIGHTED mean travel distance at 1,501 miles. Interestingly, the Red Storm have fared better geographically
+             as lower seeds than as higher seeds - they traveled 2,000+ miles in all three of their appearances as a 1 and 2 seed,
              but only between 600-900 miles as a 3 and 4 seed. 
              `,
             onChapterEnter: [],
@@ -356,17 +393,19 @@ in the site's city center rather than the exact arena in which the game was play
         },
         {
             id: 'chapter-20',
-            title: '',
+            title: 'Conclusion',
             image: '',
-            description: ``,
-            onChapterEnter: [],
-            onChapterExit: []
-        },
-        {
-            id: 'chapter-21',
-            title: '',
-            image: '',
-            description: ``,
+            description: `So is there any method to the madness? It would appear that way. Generally speaking, a school
+            has a better chance at earning a geographic advantage in the first round of March Madness as a higher seed.
+            
+            Perhaps unsurprisingly, it is also advantageous to be a more centrally-located school rather than geographically
+            isolated on a coast (despite there being many more urban centers with arenas in the more densely populated 
+            East Coast).
+            
+            Outliers will come into play every year and it's not perfect system, but the math checks out.
+            
+            Explore the interactive map to see how your school fares in March Madness travels!
+            `,
             onChapterEnter: [],
             onChapterExit: []
         },

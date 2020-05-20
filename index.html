@@ -956,6 +956,12 @@
           } else if (id === 'chapter-19') {
             // match multiple filter values
             map.setFilter('schools', ['match', ['get', 'conference'], ['American Athletic Conference', 'Big 12 Conference'], true, false]);
+          } else if (id === 'chapter-20') {
+            // map.setFilter('schools', ['has', 'school_common_name']);
+            resetExtent();
+            resetAllFilters();
+            // match multiple filter values
+            // map.setFilter('schools', ['match', ['get', 'conference'], ['American Athletic Conference', 'Big 12 Conference'], true, false]);
           }
 
 
@@ -1082,8 +1088,8 @@
   function resetFilter(filter) {
     // reset 'mean' instead of 'all' for statFilter and true for weighted toggle
     filter.val(filter === statFilter ? 'mean' : filter === weightedToggle ? false : 'all');
-    filter.trigger('change');  // trigger change event
-    // console.log(filters);  // TODO need to trigger weightedToggle to be set to false
+    filter.trigger(filter.val === weightedToggle ? 'click' : 'change');  // trigger change event
+    filters.weighted = false;  // manually set weighted filter to false
   }
 
   function resetAllFilters(excludeFilter = null) {
