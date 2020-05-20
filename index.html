@@ -356,8 +356,8 @@
   </div>
 
   <div class="label">
-    <div class="label-text">hello</div>
-    <div class="label-subtext">goodbye</div>
+    <div class="label-text"></div>
+    <div class="label-subtext"></div>
   </div>
 
   <div class="sidebar">
@@ -451,6 +451,14 @@
         <div class="info-text card-5-subtext">unique schools</div>
       </div>
     </div>
+
+<!--    <div class="info-footer" style="width: 100%; display: flex;">-->
+<!--      <div class="footer-left" style="width: 50%; visibility: hidden;">< School</div>-->
+<!--      <div class="footer-right" style="margin-left: auto; width: 50%; text-align: right;">-->
+<!--        <button class="footer-right-btn">Seed ></button>-->
+<!--      </div>-->
+<!--    </div>-->
+
   </div>
 
 </div>
@@ -774,13 +782,18 @@
   }
 
   // TODO Delete old json, replace with new
-  const sitesJson = d3.json('data/cleaned/sites-all-edit.json');
-  const schoolsJson = d3.json('data/cleaned/schools-agg.json');
-  const seedsJson = d3.json('data/cleaned/seeds-by-school.json');
-  const seedsAggJson = d3.json('data/cleaned/seeds-overall.json');
-  const confJson = d3.json('data/cleaned/conference-agg.json');
+  // const sitesJson = d3.json('data/cleaned/sites-all-edit.json');
+  const sitesJson = d3.json('data/edits/distances-sites-GCD.json');
+  // const schoolsJson = d3.json('data/cleaned/schools-agg.json');
+  const schoolsJson = d3.json('data/edits/schools-wtAvg.json');
+  // const seedsJson = d3.json('data/cleaned/seeds-by-school.json');
+  const seedsJson = d3.json('data/edits/seeds-by-school.json');
+  // const seedsAggJson = d3.json('data/cleaned/seeds-overall.json');
+  const seedsAggJson = d3.json('data/edits/seeds-overall.json');
+  // const confJson = d3.json('data/cleaned/conference-agg.json');
+  const confJson = d3.json('data/edits/conference-agg.json');
   const colorsJson = d3.json('data/cleaned/school-colors.json');
-  const d1Json = d3.json('data/tmp/d1-schools-master.json');  // TODO fix geocoding errors
+  const d1Json = d3.json('data/tmp/d1-schools-master.json');
 
   Promise.all([sitesJson, schoolsJson, seedsJson, seedsAggJson, confJson, colorsJson, d1Json]).then(onLoad);
 
@@ -804,6 +817,7 @@
 
     //  geojsons created by reading jupyter notebook output CSVs into QGIS and converted
     map.on('load', () => {
+
 
       createLayer(d1AllDetails, d1);
 
@@ -830,6 +844,10 @@
       selectStat(schools);
 
       defaultMap();
+
+      enterExploreMode();
+
+      clickFooterBtn(seedsAgg, seeds);
 
       // STORYTELLING MODE  todo place in fn
       // todo move map div abs position to not have to add padding once story mode is exited, reset bearing on resetExtent
@@ -984,6 +1002,33 @@
             chapter.onChapterExit.forEach(setLayerOpacity);
           }
         });
+    });
+  }
+
+  function clickFooterBtn(seedsAgg) {
+    $('.footer-right').on('click', (e) => {
+        console.log(seedsAgg);
+        $('.footer-left').addClass('visible');
+        if (filters.school === 'all') {
+
+          console.log($('.info-text'));
+          const seedInfoCard = {
+            // header: 'All Top Seeded Schools 1985 - 2019',
+            card1: seedsAgg.features[0].properties.mean_dist.toFixed() + ' miles',
+            card1text: `Mean distance traveled as a <strong>1 seed</strong> `,
+            card2: seedsAgg.features[1].properties.mean_dist.toFixed() + ' miles',
+            card2text: `Mean distance traveled as a <strong>2 seed</strong> `,
+            card3: seedsAgg.features[2].properties.mean_dist.toFixed() + ' miles',
+            card3text: `Mean distance traveled as a <strong>3 seed</strong> `,
+            card4: seedsAgg.features[3].properties.mean_dist.toFixed() + ' miles',
+            card4text: `Mean distance traveled as a <strong>4 seed</strong> `,
+            card5: '',
+            card5text: '',
+          };
+          updateInfoCard(seedInfoCard);
+        } else {
+
+        }
     });
   }
 
@@ -1189,6 +1234,7 @@
     let max = null;
 
     map.getSource('schools')['_data'].features.forEach(feature => {
+
       // selected school
       if (feature.properties.school_common_name === filters.school) {
 
@@ -1205,6 +1251,7 @@
         sites.features.forEach(site => {
           // filter sites for the selected school
           if (site.properties.school_common_name === feature.properties.school_common_name) {
+            // console.log(site);
             // push site coordinates to single array
             layerCoords.push(site.geometry.coordinates);
             // wrap coords
@@ -1214,6 +1261,11 @@
             createLineFeatures(lineFeatures, site, feature);
           }
 
+          if (site.properties.distance.toFixed(4) > 480 && site.properties.distance.toFixed(4) < 485) {
+            console.log(site.properties);
+
+          }
+          // console.log(feature.properties.min_dist.toFixed(4));
           // TODO fix w new weighted vs unweighted
           // set minimum and maximum distances for info cards
           // iterate through sites and match to the min and max distances traveled, to fixed with for exact match
@@ -1488,7 +1540,7 @@
       // apply selected stat distance in label subtext
       labelSubText.text(`${e.features[0].properties[setProperty()].toFixed()} miles (${statFriendlyName()} distance traveled)`);
 
-      // apply dark stroke on mouseover
+      // apply dark stroke on mouseover  // TODO fix - this doesn't seem to be working?
       if (hoverId) {
         map.setFeatureState({ source: 'schools', id: hoverId }, { hovered: false });
       }
