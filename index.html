@@ -629,15 +629,15 @@
   };
 
   highlights = {
-    'mean_dist': 639,
-    '50%_dist': 413,
-    'min_dist': 0.39,
-    'max_dist': 2866,
+    'mean_dist': 588,
+    '50%_dist': 394,
+    'min_dist': 0.42,
+    'max_dist': 2452,
     'count_dist': 87,
-    'mean_wtDist': 341,
-    '50%_wtDist': 229,
-    'min_wtDist': 0.39,
-    'max_wtDist': 2781,  // St johns to long beach ca 1986
+    'mean_wtDist': 317,
+    '50%_wtDist': 215,
+    'min_wtDist': 0.42,
+    'max_wtDist': 2452,  // St johns to long beach ca 1986
     'count_wtDist': 87,
   };
 
@@ -1066,8 +1066,8 @@
       card3: highlights[setProperty('min')] + ' miles',
       card3text: 'University of Arizona to Tucson, AZ as a 1 seed in 2000',
       card4: highlights[setProperty('max')] + ' miles',
-      card4text: 'Syracuse University to San Jose, CA as a 4 seed in 2013',
-      // card4text: 'St. John\'s University to Long Beach, CA as a 1 seed in 1986',
+      // card4text: 'Syracuse University to San Jose, CA as a 4 seed in 2013',
+      card4text: 'St. John\'s University to Long Beach, CA as a 1 seed in 1986',
       card5: 87,
       card5text: 'Different schools with appearances',
     };
@@ -1091,7 +1091,8 @@
       colors.features.forEach(color => {
         if (school.properties.school_common_name === color.name) {
           school.properties['color_1'] = color['color_1'];
-          school.properties['color_2'] = color['color_2'];
+          // TODO change colors for yellows
+          school.properties['color_2'] = color['color_2'] === '#FFF' ? color['color_1'] : color['color_2'];
           school.properties['color_neutral'] = color['color_neutral'];
         }
       });
@@ -1261,11 +1262,6 @@
             createLineFeatures(lineFeatures, site, feature);
           }
 
-          if (site.properties.distance.toFixed(4) > 480 && site.properties.distance.toFixed(4) < 485) {
-            console.log(site.properties);
-
-          }
-          // console.log(feature.properties.min_dist.toFixed(4));
           // TODO fix w new weighted vs unweighted
           // set minimum and maximum distances for info cards
           // iterate through sites and match to the min and max distances traveled, to fixed with for exact match
@@ -1526,7 +1522,7 @@
     // empty hoverId, resets on each school mouseover
     let hoverId = null;
 
-    map.on('mousemove', 'schools', (e) => {
+    map.on('mouseover', 'schools', (e) => {
       // change cursor to pointer to indicate clickability
       this.map.getCanvas().style.cursor = 'pointer';
 
@@ -1562,7 +1558,7 @@
     const layers = ['sites', 'line'];
     layers.forEach(layer => {
       // TODO fix bug where site label doesnt work over a school, ex: Iowa site in Nashville overwitten by Vandy
-      map.on('mousemove', layer, (e) => {
+      map.on('mouseover', layer, (e) => {
         applySiteLabelStyles(e.features[0].properties);
       });
 
