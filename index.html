@@ -856,7 +856,7 @@
 
       // enterExploreMode();
 
-      clickFooterBtn(seedsAgg, seeds);
+      clickFooterBtn(seedsAgg, seeds, sites);
 
       // STORYTELLING MODE  todo place in fn
       // todo move map div abs position to not have to add padding once story mode is exited, reset bearing on resetExtent
@@ -1019,11 +1019,12 @@
     });
   }
 
-  function clickFooterBtn(seedsAgg, seeds) {
+  function clickFooterBtn(seedsAgg, seeds, sites) {
     $('.footer-right').on('click', (e) => {
       const val = {};
         // console.log(seedsAgg);
         $('.footer-left').addClass('visible');
+        $('.footer-right').css('visibility', 'hidden');
         if (filters.school === 'all') {
 
           // TODO add info-text to updateInfoCard obj
@@ -1066,6 +1067,16 @@
             }
           })
         }
+    });
+
+    $('.footer-left').on('click', (e) => {
+      $('.footer-left').removeClass('visible');
+      $('.footer-right').css('visibility', 'visible');
+      if (filters.school === 'all') {
+        setDefaultInfoCard();
+      } else {
+        selectSchoolOnMap(sites);
+      }
     });
   }
 
