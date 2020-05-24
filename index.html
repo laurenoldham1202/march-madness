@@ -753,6 +753,7 @@
   conferenceFilter = $('#conferenceFilter');
   statFilter = $('#statFilter');
   infoHeader = $('.info-header');
+  infoText = $('.info-text');
 
   mapDiv = $('#map');
 
@@ -1028,7 +1029,12 @@
         if (filters.school === 'all') {
 
           // TODO add info-text to updateInfoCard obj
-          // console.log($('.info-text'));
+          console.log($('.info-text'));
+          $('.info-text')[0].innerText = 'one';
+          $('.info-text')[1].innerText = 'one';
+          $('.info-text')[2].innerText = 'one';
+          $('.info-text')[3].innerText = 'one';
+
           const seedInfoCard = {
             // header: 'All Top Seeded Schools 1985 - 2019',
             card1: seedsAgg.features[0].properties.mean_dist.toFixed() + ' miles',
