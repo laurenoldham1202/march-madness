@@ -1017,6 +1017,7 @@
         $('.footer-left').addClass('visible');
         if (filters.school === 'all') {
 
+          // TODO add info-text to updateInfoCard obj
           // console.log($('.info-text'));
           const seedInfoCard = {
             // header: 'All Top Seeded Schools 1985 - 2019',
@@ -1033,33 +1034,21 @@
           };
           updateInfoCard(seedInfoCard);
         } else {
-          // console.log(seeds);
           seeds.features.forEach(school => {
-            // console.log(school);
             if (filters.school === school.properties.school_common_name) {
-              // console.log(school.properties.seed);
-              // const vals = {1: null, 2: null, 3: null, 4: null};
+              // create object of all seed values
               val[school.properties.seed] = school.properties;
-
-              console.log(val);
-              if (school.properties.seed === 1) {
-                // console.log(school.properties.mean.toFixed());
-                // console.log(school.properties.seed === 1 ? school.properties.mean.toFixed() + ' miles' : '-');
-              }
-
-              // console.log(school);
 
               const card = {
                 // header: 'All Top Seeded Schools 1985 - 2019',
-                // card1: `${val[1] ? val[1].mean.toFixed() : ''} miles` || '-',
                 card1: val[1] ? val[1].mean.toFixed() + ' miles' : '-',
-                card1text: `Mean distance traveled as a <strong>1 seed</strong> `,
+                card1text: `${val[1] ? val[1].count : 0} appearances as a 1 seed`,
                 card2: val[2] ? val[2].mean.toFixed() + ' miles' : '-',
-                card2text: `Mean distance traveled as a <strong>2 seed</strong> `,
+                card2text: `${val[2] ? val[2].count : 0} appearances as a 2 seed`,
                 card3: val[3] ? val[3].mean.toFixed() + ' miles' : '-',
-                card3text: `Mean distance traveled as a <strong>3 seed</strong> `,
+                card3text: `${val[3] ? val[3].count : 0} appearances as a 3 seed`,
                 card4: val[4] ? val[4].mean.toFixed() + ' miles' : '-',
-                card4text: `Mean distance traveled as a <strong>4 seed</strong> `,
+                card4text: `${val[4] ? val[4].count : 0} appearances as a 4 seed`,
                 card5: '',
                 card5text: '',
               };
