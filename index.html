@@ -423,7 +423,7 @@
       <div class="info-row">
         <div class="info-stat capital-font card-1"></div>
         <div class="info-text">
-          mean distance traveled
+          <div class="card-1-header">mean distance traveled</div>
           <div class="info-subtext card-1-subtext">Average for top seeded schools 1985 - 2019</div>
         </div>
       </div>
@@ -431,21 +431,23 @@
       <div class="info-row">
         <div class="info-stat capital-font card-2"></div>
         <div class="info-text">
-          median distance traveled
+          <div class="card-2-header">median distance traveled</div>
           <div class="info-subtext card-2-subtext">Average for top seeded schools 1985 - 2019</div>
         </div>
       </div>
 
       <div class="info-row">
         <div class="info-stat capital-font card-3"></div>
-        <div class="info-text">minimum distance traveled
+        <div class="info-text">
+          <div class="card-3-header">minimum distance traveled</div>
           <div class="info-subtext card-3-subtext"></div>
         </div>
       </div>
 
       <div class="info-row">
         <div class="info-stat capital-font card-4"></div>
-        <div class="info-text">maximum distance traveled
+        <div class="info-text">
+          <div class="card-4-header">maximum distance traveled</div>
           <div class="info-subtext card-4-subtext"></div>
         </div>
       </div>
@@ -1029,24 +1031,24 @@
         if (filters.school === 'all') {
 
           // TODO add info-text to updateInfoCard obj
-          console.log($('.info-text'));
-          $('.info-text')[0].innerText = 'one';
-          $('.info-text')[1].innerText = 'one';
-          $('.info-text')[2].innerText = 'one';
-          $('.info-text')[3].innerText = 'one';
+          // TODO persist school or seed view when school is selected? update on select school, reset extent
+          $('.card-1-header').html('mean distance of all <strong>1 seeds</strong> ');
+          $('.card-2-header').html('mean distance of all <strong>2 seeds</strong> ');
+          $('.card-3-header').html('mean distance of all <strong>3 seeds</strong> ');
+          $('.card-4-header').html('mean distance of all <strong>4 seeds</strong> ');
 
           const seedInfoCard = {
             // header: 'All Top Seeded Schools 1985 - 2019',
             card1: seedsAgg.features[0].properties.mean_dist.toFixed() + ' miles',
-            card1text: `Mean distance traveled as a <strong>1 seed</strong> `,
+            card1text: ``,
             card2: seedsAgg.features[1].properties.mean_dist.toFixed() + ' miles',
-            card2text: `Mean distance traveled as a <strong>2 seed</strong> `,
+            card2text: ``,
             card3: seedsAgg.features[2].properties.mean_dist.toFixed() + ' miles',
-            card3text: `Mean distance traveled as a <strong>3 seed</strong> `,
+            card3text: ``,
             card4: seedsAgg.features[3].properties.mean_dist.toFixed() + ' miles',
-            card4text: `Mean distance traveled as a <strong>4 seed</strong> `,
-            card5: '',
-            card5text: '',
+            card4text: ``,
+            // card5: '',  // TODO persist count?
+            // card5text: '',
           };
           updateInfoCard(seedInfoCard);
         } else {
@@ -1055,18 +1057,32 @@
               // create object of all seed values
               val[school.properties.seed] = school.properties;
 
+              // TODO create fn, innerHTML erases card subtexts
+              $('.card-1-header').html('mean distance as a <strong>1 seed</strong>');
+              $('.card-2-header').html('mean distance as a <strong>2 seed</strong>');
+              $('.card-3-header').html('mean distance as a <strong>3 seed</strong>');
+              $('.card-4-header').html('mean distance as a <strong>4 seed</strong>');
+
               const card = {
                 // header: 'All Top Seeded Schools 1985 - 2019',
                 card1: val[1] ? val[1].mean.toFixed() + ' miles' : '-',
-                card1text: `${val[1] ? val[1].count : 0} appearances as a 1 seed`,
+                // card1text: `${val[1] ? val[1].count : 0} appearances as a 1 seed`,
+                // card1text: `- ${val[1] ? val[1].count : 0} appearances as a 1 seed
+                // - median distance: ${val[1] ? val[1]['50%'].toFixed() : ''}
+                // - shortest distance: ${val[1] ? val[1].min.toFixed() : ''}
+                // - farther distance: ${val[1] ? val[1].max.toFixed() : ''}`,
+                card1text: applyInfoSeedText(val, 1),
                 card2: val[2] ? val[2].mean.toFixed() + ' miles' : '-',
-                card2text: `${val[2] ? val[2].count : 0} appearances as a 2 seed`,
+                // card2text: `${val[2] ? val[2].count : 0} appearances as a 2 seed`,
+                card2text: applyInfoSeedText(val, 2),
                 card3: val[3] ? val[3].mean.toFixed() + ' miles' : '-',
-                card3text: `${val[3] ? val[3].count : 0} appearances as a 3 seed`,
+                // card3text: `${val[3] ? val[3].count : 0} appearances as a 3 seed`,
+                card3text: applyInfoSeedText(val, 3),
                 card4: val[4] ? val[4].mean.toFixed() + ' miles' : '-',
-                card4text: `${val[4] ? val[4].count : 0} appearances as a 4 seed`,
-                card5: '',
-                card5text: '',
+                // card4text: `${val[4] ? val[4].count : 0} appearances as a 4 seed`,
+                card4text: applyInfoSeedText(val, 4),
+                // card5: '',
+                // card5text: '',
               };
               updateInfoCard(card);
 
@@ -1084,6 +1100,18 @@
         selectSchoolOnMap(sites);
       }
     });
+  }
+
+  function applyInfoSeedText(value, seed) {
+    if (value[seed]) {
+      return `- ${value[seed].count} appearances as a ${seed} seed
+      - median distance: ${value[seed]['50%'].toFixed()} miles
+      - shortest distance: ${value[seed].min.toFixed()} miles
+      - farthest distance: ${value[seed].max.toFixed()} miles
+      `;
+    } else {
+      return `No appearances as a ${seed} seed`;
+    }
   }
 
   // TODO Consolidate into single chapter?
