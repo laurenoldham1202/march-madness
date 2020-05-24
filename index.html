@@ -452,12 +452,12 @@
       </div>
     </div>
 
-<!--    <div class="info-footer" style="width: 100%; display: flex;">-->
-<!--      <div class="footer-left" style="width: 50%; visibility: hidden;">< School</div>-->
-<!--      <div class="footer-right" style="margin-left: auto; width: 50%; text-align: right;">-->
-<!--        <button class="footer-right-btn">Seed ></button>-->
-<!--      </div>-->
-<!--    </div>-->
+    <div class="info-footer" style="width: 100%; display: flex;">
+      <div class="footer-left" style="width: 50%; visibility: hidden;">< School</div>
+      <div class="footer-right" style="margin-left: auto; width: 50%; text-align: right;">
+        <button class="footer-right-btn">Seed ></button>
+      </div>
+    </div>
 
   </div>
 
@@ -1010,13 +1010,14 @@
     });
   }
 
-  function clickFooterBtn(seedsAgg) {
+  function clickFooterBtn(seedsAgg, seeds) {
     $('.footer-right').on('click', (e) => {
-        console.log(seedsAgg);
+      const val = {};
+        // console.log(seedsAgg);
         $('.footer-left').addClass('visible');
         if (filters.school === 'all') {
 
-          console.log($('.info-text'));
+          // console.log($('.info-text'));
           const seedInfoCard = {
             // header: 'All Top Seeded Schools 1985 - 2019',
             card1: seedsAgg.features[0].properties.mean_dist.toFixed() + ' miles',
@@ -1032,7 +1033,40 @@
           };
           updateInfoCard(seedInfoCard);
         } else {
+          // console.log(seeds);
+          seeds.features.forEach(school => {
+            // console.log(school);
+            if (filters.school === school.properties.school_common_name) {
+              // console.log(school.properties.seed);
+              // const vals = {1: null, 2: null, 3: null, 4: null};
+              val[school.properties.seed] = school.properties;
 
+              console.log(val);
+              if (school.properties.seed === 1) {
+                // console.log(school.properties.mean.toFixed());
+                // console.log(school.properties.seed === 1 ? school.properties.mean.toFixed() + ' miles' : '-');
+              }
+
+              // console.log(school);
+
+              const card = {
+                // header: 'All Top Seeded Schools 1985 - 2019',
+                // card1: `${val[1] ? val[1].mean.toFixed() : ''} miles` || '-',
+                card1: val[1] ? val[1].mean.toFixed() + ' miles' : '-',
+                card1text: `Mean distance traveled as a <strong>1 seed</strong> `,
+                card2: val[2] ? val[2].mean.toFixed() + ' miles' : '-',
+                card2text: `Mean distance traveled as a <strong>2 seed</strong> `,
+                card3: val[3] ? val[3].mean.toFixed() + ' miles' : '-',
+                card3text: `Mean distance traveled as a <strong>3 seed</strong> `,
+                card4: val[4] ? val[4].mean.toFixed() + ' miles' : '-',
+                card4text: `Mean distance traveled as a <strong>4 seed</strong> `,
+                card5: '',
+                card5text: '',
+              };
+              updateInfoCard(card);
+
+            }
+          })
         }
     });
   }
