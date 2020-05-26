@@ -754,8 +754,16 @@
   seedFilter = $('#seedFilter');
   conferenceFilter = $('#conferenceFilter');
   statFilter = $('#statFilter');
+
+  // info card divs
   infoHeader = $('.info-header');
-  infoText = $('.info-text');
+  infoText = $('.info-text')
+  infoBtnSchool = $('.footer-left');
+  infoBtnSeed = $('.footer-right');
+  card1Header = $('.card-1-header');
+  card2Header = $('.card-2-header');
+  card3Header = $('.card-3-header');
+  card4Header = $('.card-4-header');
 
   mapDiv = $('#map');
 
@@ -1023,19 +1031,19 @@
   }
 
   function clickFooterBtn(seedsAgg, seeds, sites) {
-    $('.footer-right').on('click', (e) => {
+    infoBtnSeed.on('click', (e) => {
       const val = {};
         // console.log(seedsAgg);
-        $('.footer-left').addClass('visible');
-        $('.footer-right').css('visibility', 'hidden');
+      infoBtnSchool.addClass('visible');
+        infoBtnSeed.css('visibility', 'hidden');
         if (filters.school === 'all') {
 
           // TODO add info-text to updateInfoCard obj
           // TODO persist school or seed view when school is selected? update on select school, reset extent
-          $('.card-1-header').html('mean distance of all <strong>1 seeds</strong> ');
-          $('.card-2-header').html('mean distance of all <strong>2 seeds</strong> ');
-          $('.card-3-header').html('mean distance of all <strong>3 seeds</strong> ');
-          $('.card-4-header').html('mean distance of all <strong>4 seeds</strong> ');
+          card1Header.html('mean distance of all <strong>1 seeds</strong> ');
+          card2Header.html('mean distance of all <strong>2 seeds</strong> ');
+          card3Header.html('mean distance of all <strong>3 seeds</strong> ');
+          card4Header.html('mean distance of all <strong>4 seeds</strong> ');
 
           const seedInfoCard = {
             // header: 'All Top Seeded Schools 1985 - 2019',
@@ -1058,10 +1066,10 @@
               val[school.properties.seed] = school.properties;
 
               // TODO create fn
-              $('.card-1-header').html('mean distance as a <strong>1 seed</strong>');
-              $('.card-2-header').html('mean distance as a <strong>2 seed</strong>');
-              $('.card-3-header').html('mean distance as a <strong>3 seed</strong>');
-              $('.card-4-header').html('mean distance as a <strong>4 seed</strong>');
+              card1Header.html('mean distance as a <strong>1 seed</strong>');
+              card2Header.html('mean distance as a <strong>2 seed</strong>');
+              card3Header.html('mean distance as a <strong>3 seed</strong>');
+              card4Header.html('mean distance as a <strong>4 seed</strong>');
 
               const card = {
                 // header: 'All Top Seeded Schools 1985 - 2019',
@@ -1091,19 +1099,25 @@
         }
     });
 
-    $('.footer-left').on('click', (e) => {
-      $('.footer-left').removeClass('visible');
-      $('.footer-right').css('visibility', 'visible');
-      $('.card-1-header').html('mean distance traveled');
-      $('.card-2-header').html('median distance traveled');
-      $('.card-3-header').html('minimum distance traveled');
-      $('.card-4-header').html('maximum distance traveled');
+    infoBtnSchool.on('click', (e) => {
+
+      resetInfoCard();
+
       if (filters.school === 'all') {
         setDefaultInfoCard();
       } else {
         selectSchoolOnMap(sites);
       }
     });
+  }
+
+  function resetInfoCard() {
+    infoBtnSchool.removeClass('visible');
+    infoBtnSeed.css('visibility', 'visible');
+    card1Header.html('mean distance traveled');
+    card2Header.html('median distance traveled');
+    card3Header.html('minimum distance traveled');
+    card4Header.html('maximum distance traveled');
   }
 
   function applyInfoSeedText(value, seed) {
@@ -1241,6 +1255,8 @@
 
   function resetExtent(storyMode = false) {
 
+    infoBtnSchool.trigger('click');
+
     map.setBearing(0);  // todo create fn?
     map.setPitch(0);
     map.setLayoutProperty('schools', 'visibility', 'visible');
@@ -1316,6 +1332,10 @@
   }
 
   function selectSchoolOnMap(sites) {  // TODO iterate over layer source instead of geojson directly
+
+    // reset info card to 'school' view any time a new school is selected
+    resetInfoCard();
+
     const lineFeatures = [];
     let min = null;
     let max = null;
