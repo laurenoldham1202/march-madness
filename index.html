@@ -1057,7 +1057,7 @@
               // create object of all seed values
               val[school.properties.seed] = school.properties;
 
-              // TODO create fn, innerHTML erases card subtexts
+              // TODO create fn
               $('.card-1-header').html('mean distance as a <strong>1 seed</strong>');
               $('.card-2-header').html('mean distance as a <strong>2 seed</strong>');
               $('.card-3-header').html('mean distance as a <strong>3 seed</strong>');
@@ -1094,6 +1094,10 @@
     $('.footer-left').on('click', (e) => {
       $('.footer-left').removeClass('visible');
       $('.footer-right').css('visibility', 'visible');
+      $('.card-1-header').html('mean distance traveled');
+      $('.card-2-header').html('median distance traveled');
+      $('.card-3-header').html('minimum distance traveled');
+      $('.card-4-header').html('maximum distance traveled');
       if (filters.school === 'all') {
         setDefaultInfoCard();
       } else {
@@ -1151,7 +1155,7 @@
       // card4text: 'Syracuse University to San Jose, CA as a 4 seed in 2013',
       card4text: 'St. John\'s University to Long Beach, CA as a 1 seed in 1986',
       card5: 87,
-      card5text: 'Different schools with appearances',
+      card5text: 'different schools with appearances',
     };
     updateInfoCard(defaultInfoCard);
   }
