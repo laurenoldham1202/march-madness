@@ -1015,30 +1015,36 @@
   }
 
   function plotLegend() {
+
+    const coordPairs = [
+      [-98.5795, 39.8283],
+      [-98.5795, 40.8283],
+      [-98.5795, 38.8283],
+      [-95.5795, 39.8283],
+      [-101.5795, 39.8283],
+      [-93.5795, 35.8283],
+      [-103.5795, 43.8283],
+      [-103.5795, 35.8283],
+      [-93.5795, 43.8283],
+      [-98.5795, 32.8283],
+      [-98.5795, 46.8283],
+      [-87.5795, 39.8283],
+      [-109.5795, 39.8283],
+    ];
+
+    const pairMap = {0: 'center', 1: '1seed', 2: '1seed', 3: '2seed', 4: '2seed', 5: '3seed', 6: '3seed', 7: '3seed', 8: '3seed', 9: '4seed', 10: '4seed', 11: '4seed', 12: '4seed'};
+
+    const features = [];
+    coordPairs.forEach((pair, i) => {
+      features.push({type: 'Feature', geometry: {type: 'Point', coordinates: pair}, properties: {type: pairMap[i]}})
+    });
+    console.log(features);
+
     map.addSource('legend', {
       type: 'geojson',
       data: {
         type: 'FeatureCollection',
-        features: [
-          {type: 'Feature', geometry: {type: 'Point', coordinates: [-98.5795, 39.8283]}, properties: {type: 'center'}},
-
-          {type: 'Feature', geometry: {type: 'Point', coordinates: [-98.5795, 40.8283]}, properties: {type: '1seed'}},
-          {type: 'Feature', geometry: {type: 'Point', coordinates: [-98.5795, 38.8283]}, properties: {type: '1seed'}},
-
-          {type: 'Feature', geometry: {type: 'Point', coordinates: [-95.5795, 39.8283]}, properties: {type: '2seed'}},
-          {type: 'Feature', geometry: {type: 'Point', coordinates: [-101.5795, 39.8283]}, properties: {type: '2seed'}},
-
-          {type: 'Feature', geometry: {type: 'Point', coordinates: [-93.5795, 35.8283]}, properties: {type: '3seed'}},
-          {type: 'Feature', geometry: {type: 'Point', coordinates: [-103.5795, 43.8283]}, properties: {type: '3seed'}},
-          {type: 'Feature', geometry: {type: 'Point', coordinates: [-103.5795, 35.8283]}, properties: {type: '3seed'}},
-          {type: 'Feature', geometry: {type: 'Point', coordinates: [-93.5795, 43.8283]}, properties: {type: '3seed'}},
-
-          {type: 'Feature', geometry: {type: 'Point', coordinates: [-98.5795, 32.8283]}, properties: {type: '4seed'}},
-          {type: 'Feature', geometry: {type: 'Point', coordinates: [-98.5795, 46.8283]}, properties: {type: '4seed'}},
-          {type: 'Feature', geometry: {type: 'Point', coordinates: [-87.5795, 39.8283]}, properties: {type: '4seed'}},
-          {type: 'Feature', geometry: {type: 'Point', coordinates: [-109.5795, 39.8283]}, properties: {type: '4seed'}},
-
-        ]
+        features: features
       }
     });
 
