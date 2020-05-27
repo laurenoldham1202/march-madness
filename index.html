@@ -935,14 +935,41 @@
                   {type: 'Feature', geometry: {type: 'Point', coordinates: [-103.5795, 35.8283]}, properties: {type: '3seed'}},
                   {type: 'Feature', geometry: {type: 'Point', coordinates: [-93.5795, 43.8283]}, properties: {type: '3seed'}},
 
-                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-109.5795, 32.8283]}, properties: {type: '4seed'}},
-                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-87.5795, 46.8283]}, properties: {type: '4seed'}},
-                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-87.5795, 32.8283]}, properties: {type: '4seed'}},
-                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-109.5795, 46.8283]}, properties: {type: '4seed'}},
+                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-98.5795, 32.8283]}, properties: {type: '4seed'}},
+                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-98.5795, 46.8283]}, properties: {type: '4seed'}},
+                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-87.5795, 39.8283]}, properties: {type: '4seed'}},
+                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-109.5795, 39.8283]}, properties: {type: '4seed'}},
 
                 ]
               }
             });
+
+            map.addSource('legend-lines', {
+              type: 'geojson',
+              data: {
+                type: 'FeatureCollection',
+                features: [
+                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-98.5795, 40.8283]]}},
+                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-98.5795, 38.8283]]}},
+
+                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-95.5795, 39.8283]]}},
+                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-101.5795, 39.8283]]}},
+
+                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-93.5795, 35.8283]]}},
+                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-103.5795, 43.8283]]}},
+                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-103.5795, 35.8283]]}},
+                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-93.5795, 43.8283]]}},
+
+                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-98.5795, 32.8283]]}},
+                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-98.5795, 46.8283]]}},
+                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-87.5795, 39.8283]]}},
+                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-109.5795, 39.8283]]}},
+                ]
+              }
+            });
+
+
+
             map.addLayer({
               id: 'legend-point',
               type: 'circle',
@@ -952,6 +979,17 @@
                 'circle-radius': ['match', ['get', 'type'], 'center', 7, '1seed', 5, '2seed', 8, '3seed', 11, '4seed', 14, 7],
               }
             });
+
+            map.addLayer({
+              id: 'legend-lines',
+              type: 'line',
+              source: 'legend-lines',
+              paint: {
+                'line-color': '#404041',
+                'line-opacity': 0.8
+              }
+            }, 'legend-point');
+
           }
 
           if (id === 'chapter-2') {
@@ -1434,6 +1472,7 @@
 
         // push linestring features to line layer source
         map.getSource('line').setData({ type: 'FeatureCollection', features: lineFeatures });
+        console.log(lineFeatures);
 
         // difference between school averages and overall averages // TODO add min and max avg? or compare against overall min and max?
         const diffDistMed = (feature.properties['50%_dist'] - highlights['50%_dist']).toFixed();
