@@ -346,10 +346,10 @@
 <div id="map" class="map-story-mode"></div>
 
 <div class="btn-group btn-group-toggle app-mode-toggle" data-toggle="buttons">
-  <label class="btn btn-secondary active">
+  <label class="btn btn-secondary active" id="toggle-story-mode">
     <input type="radio" name="options" id="map-story" checked> Story Mode
   </label>
-  <label class="btn btn-secondary">
+  <label class="btn btn-secondary" id="toggle-explore-mode">
     <input type="radio" name="options" id="map-explore"> Explore Mode
   </label>
 </div>
@@ -783,6 +783,7 @@
   function enterExploreMode() {
     story.detach();
     mapExplorer.css('visibility', 'visible');
+    // $('.footer-btn').css('visibility', 'visible');
     map.setLayoutProperty('d1-all', 'visibility', 'none');
     map.setLayoutProperty('d1-trim', 'visibility', 'none');
 
@@ -792,6 +793,9 @@
 
   function enterStoryMode() {
     mapExplorer.css('visibility', 'hidden');
+    // TODO fix how button displays when toggling back tostory mode
+    // $('.footer-btn').css('visibility', 'hidden');
+
     $('body').append(story);
 
     map.setLayoutProperty('d1-all', 'visibility', 'visible');
@@ -955,9 +959,7 @@
             filters.school = 'St. John\'s';
             selectSchoolOnMap(sites);
           } else if (id === 'chapter-17') {
-            resetExtent();
-          //  #5F4690,#1D6996,#38A6A5,#0F8554,#73AF48,#EDAD08,#E17C05,#CC503E,#94346E,#6F4070,#994E95,#666666
-            // #7F3C8D,#11A579,#3969AC,#F2B701,#E73F74,#80BA5A,#E68310,#008695,#CF1C90,#f97b72,#4b4b8f,#A5AA99
+            resetExtent(true);
             map.setFilter('schools', ['has', 'school_common_name']);
             map.setPaintProperty('schools', 'circle-radius', 0);  // todo reset schools style on scroll up and down OR put in sep layer
             map.setPaintProperty('schools', 'circle-opacity', 1);
@@ -999,8 +1001,8 @@
             // TODO apply styles on scroll ip
             map.setFilter('schools', ['match', ['get', 'conference'], ['American Athletic Conference', 'Big 12 Conference'], true, false]);
           } else if (id === 'chapter-20') {
-            resetExtent(true);
             resetAllFilters();
+            resetExtent(true);
           } else if (id === 'chapter-19.5') {
             // resetExtent(true);
             // resetAllFilters();
@@ -1013,11 +1015,10 @@
 
             $('#explore-mode').on('click', () => {
               enterExploreMode();
+              $('#toggle-story-mode').removeClass('active');
+              $('#toggle-explore-mode').addClass('active');
             });
 
-            $('#story-mode').on('click', () => {
-              // Todo restart story, jump to top
-            });
           }
         })
         .onStepExit(response => {
@@ -1153,6 +1154,8 @@
 
     // TODO toggle schools back on
     map.setLayoutProperty('schools', 'visibility', 'none');
+    map.setPaintProperty('line', 'line-width', 2);
+    // map.setPaintProperty('line', 'line-color', '#404041');
   }
 
   function setDefaultInfoCard() {
