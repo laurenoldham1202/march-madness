@@ -83,7 +83,7 @@ const config = {
         },
         {  // TODO add description of what prop circles represent, rerun as diff crs
             // TODO remove fitbounds from school selection to give better reference for distances?
-          id: 'methodology',
+          id: 'methodology',  // TODO fix id
           title: `Methodology`,
           description: `Tournament data for each 1, 2, 3, and 4 seed and its respective first-round site location was 
 scraped from <a href="https://www.sports-reference.com/cbb/postseason/" target="_blank">Sports Reference</a>. The data was

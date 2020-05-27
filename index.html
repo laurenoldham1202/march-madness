@@ -863,6 +863,14 @@
 
       defaultMap();
 
+      // TODO add symbols back for explore mode?
+      // hide map labels for explorer view
+      map.style.stylesheet.layers.forEach((layer) => {
+        if (layer.type === 'symbol') {
+          map.removeLayer(layer.id);
+        }
+      });
+
       // enterExploreMode();
 
       clickFooterBtn(seedsAgg, seeds, sites);
@@ -899,19 +907,52 @@
               // todo do transitions on scroll up?
               map.setPaintProperty('d1-trim', 'circle-radius', 8);
             }, 250);
-
-            // const random = [];
-            // d1.features.forEach((feature, i) => {
-            //   if (i < 64) {
-            //     random.push(feature.properties.common_nam);  // TODO bubble out?
-            //   }
-            // });
-            // map.setFilter('d1', ['match', ['get', 'common_nam'], random, true, false]);
           }
 
           // TODO add chapter in beginning for methodology, e.g. using city instead of arena, equal area proj, etc.
           // TODO scroll by index instead?
           // TODO create 'legend' with centered point and spokes with distances/sites, explain how to read map
+
+          if (id === 'methodology') {
+
+            map.setLayoutProperty('schools', 'visibility', 'none');
+
+            map.addSource('legend', {
+              type: 'geojson',
+              data: {
+                type: 'FeatureCollection',
+                features: [
+                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-98.5795, 39.8283]}, properties: {type: 'center'}},
+
+                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-98.5795, 40.8283]}, properties: {type: '1seed'}},
+                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-98.5795, 38.8283]}, properties: {type: '1seed'}},
+
+                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-95.5795, 39.8283]}, properties: {type: '2seed'}},
+                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-101.5795, 39.8283]}, properties: {type: '2seed'}},
+
+                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-93.5795, 35.8283]}, properties: {type: '3seed'}},
+                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-103.5795, 43.8283]}, properties: {type: '3seed'}},
+                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-103.5795, 35.8283]}, properties: {type: '3seed'}},
+                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-93.5795, 43.8283]}, properties: {type: '3seed'}},
+
+                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-109.5795, 32.8283]}, properties: {type: '4seed'}},
+                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-87.5795, 46.8283]}, properties: {type: '4seed'}},
+                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-87.5795, 32.8283]}, properties: {type: '4seed'}},
+                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-109.5795, 46.8283]}, properties: {type: '4seed'}},
+
+                ]
+              }
+            });
+            map.addLayer({
+              id: 'legend-point',
+              type: 'circle',
+              source: 'legend',
+              paint: {
+                'circle-color': ['match', ['get', 'type'], 'center', '#E27600', '1seed', '#80bad1', '2seed', '#5694c1', '3seed', '#2c6db1', '4seed', '#0146a1', 'black'],
+                'circle-radius': ['match', ['get', 'type'], 'center', 7, '1seed', 5, '2seed', 8, '3seed', 11, '4seed', 14, 7],
+              }
+            });
+          }
 
           if (id === 'chapter-2') {
             resetExtent(true);
@@ -936,9 +977,11 @@
           } else if (id === 'chapter-11') {
             filters.school = 'DePaul';  // todo hide grayed out schools in this view
             selectSchoolOnMap(sites);  // todo adjust to slow pan and zoom
+            map.setLayoutProperty('schools', 'visibility', 'none');
           } else if (id === 'chapter-12') {
             filters.school = 'Virginia';  // todo sort sites high to low to order seeds properly
             selectSchoolOnMap(sites);
+            map.setLayoutProperty('schools', 'visibility', 'none');
           } else if (id === 'chapter-13') {
             resetExtent(true);
             filters.weighted = true;  // todo fix how this affects reset extent
@@ -946,46 +989,21 @@
           } else if (id === 'chapter-14') {
             filters.school = 'Ohio State';
             selectSchoolOnMap(sites);
+            map.setLayoutProperty('schools', 'visibility', 'none');
+
           } else if (id === 'chapter-15') {
             filters.school = 'Virginia Tech';
             selectSchoolOnMap(sites);
+            map.setLayoutProperty('schools', 'visibility', 'none');
+
           } else if (id === 'chapter-16') {
             filters.school = 'St. John\'s';
             selectSchoolOnMap(sites);
+            map.setLayoutProperty('schools', 'visibility', 'none');
+
           } else if (id === 'chapter-17') {
             resetExtent(true);
-            map.setFilter('schools', ['has', 'school_common_name']);
-            map.setPaintProperty('schools', 'circle-radius', 0);  // todo reset schools style on scroll up and down OR put in sep layer
-            map.setPaintProperty('schools', 'circle-opacity', 1);
-            map.setPaintProperty('schools', 'circle-color',
-              ['match', ['get', 'conference'],
-                'American Athletic Conference', '#7F3C8D',
-                'Atlantic 10 Conference', '#11A579',
-                'Atlantic Coast Conference', '#3969AC',
-                'Big 12 Conference', '#F2B701',
-                'Big East Conference', '#E73F74',
-                'Big Ten Conference', '#80BA5A',
-                'Missouri Valley Conference', '#E68310',
-                'Mountain West Conference', '#008695',
-                'Pac-12 Conference', '#CF1C90',
-                'Southeastern Conference', '#f97b72',
-                'West Coast Conference', '#4b4b8f', '#666666'
-              ]);
-
-            // TODO move map to right so story doesnt cover
-            const conferences = ['Pac-12 Conference', 'West Coast Conference', 'Mountain West Conference',
-              'Big 12 Conference', 'American Athletic Conference', 'Southeastern Conference', 'Atlantic Coast Conference',
-              'Atlantic 10 Conference', 'Big East Conference', 'Big Ten Conference', 'Missouri Valley Conference',
-            ];
-            let count = 250;
-            const styles = [];
-
-            conferences.forEach(conf => {
-              setTimeout(() => {
-                styles.push(conf, 8);
-                map.setPaintProperty('schools', 'circle-radius', ['match', ['get', 'conference'], ...styles, 0]);
-              }, count += 250);
-            });
+            animateConferences();
 
           } else if (id === 'chapter-18') {
             // match multiple filter values
@@ -1000,8 +1018,9 @@
           } else if (id === 'chapter-19.5') {
             // resetExtent(true);
             // resetAllFilters();
-            map.setFilter('schools', ['match', ['get', 'conference'], ['Southeastern Conference', 'Big 12 Conference', 'Atlantic Coast Conference', 'Missouri Valley Conference', 'Mountain West Conference'], true, false]);
-
+            map.setFilter('schools', ['match', ['get', 'conference'],
+              ['Southeastern Conference', 'Big 12 Conference',
+                'Atlantic Coast Conference', 'Missouri Valley Conference', 'Mountain West Conference'], true, false]);
           }
 
 
@@ -1022,6 +1041,40 @@
             chapter.onChapterExit.forEach(setLayerOpacity);
           }
         });
+    });
+  }
+
+  function animateConferences() {
+    map.setFilter('schools', ['has', 'school_common_name']);
+    map.setPaintProperty('schools', 'circle-radius', 0);  // todo reset schools style on scroll up and down OR put in sep layer
+    map.setPaintProperty('schools', 'circle-opacity', 1);
+    map.setPaintProperty('schools', 'circle-color',
+      ['match', ['get', 'conference'],
+        'American Athletic Conference', '#7F3C8D',
+        'Atlantic 10 Conference', '#11A579',
+        'Atlantic Coast Conference', '#3969AC',
+        'Big 12 Conference', '#F2B701',
+        'Big East Conference', '#E73F74',
+        'Big Ten Conference', '#80BA5A',
+        'Missouri Valley Conference', '#E68310',
+        'Mountain West Conference', '#008695',
+        'Pac-12 Conference', '#CF1C90',
+        'Southeastern Conference', '#f97b72',
+        'West Coast Conference', '#4b4b8f', '#666666'
+      ]);
+
+    const conferences = ['Pac-12 Conference', 'West Coast Conference', 'Mountain West Conference',
+      'Big 12 Conference', 'American Athletic Conference', 'Southeastern Conference', 'Atlantic Coast Conference',
+      'Atlantic 10 Conference', 'Big East Conference', 'Big Ten Conference', 'Missouri Valley Conference',
+    ];
+    let count = 250;
+    const styles = [];
+
+    conferences.forEach(conf => {
+      setTimeout(() => {
+        styles.push(conf, 8);
+        map.setPaintProperty('schools', 'circle-radius', ['match', ['get', 'conference'], ...styles, 0]);
+      }, count += 250);
     });
   }
 
