@@ -18,12 +18,20 @@ const config = {
             // description: `Each year in March, the top Division I men's college basketball programs in the nation are selected
             // to compete for the NCAA's National Championship title in a single-elimination competition referred to as
             // <strong>March Madness</strong>. `,
-            description: `Every year in March, college basketball fans anxiously await Selection Sunday to see if their team made the NCAA Men’s Basketball National Championship tournament, affectionately referred to as March Madness. March Madness is a three week-long single-elimination tournament in which 64 teams compete to take home the highly coveted National Championship title. The fun isn’t just reserved for fans - countless people from all across the globe fill out tournament brackets and bet on which teams will make deep runs and ultimately win it all. 
-
-
-While coaches, teams, and fans alike want to see their preferred team effortlessly stroll through the Sweet Sixteen, Elite Eight, and Final Four to play in the National Championship game, they first have to survive the first weekend of the tournament. Putting the ‘madness’ into March Madness, the first and second rounds of the tournament (Round of 64 and Round of 32, respectively) are historically filled with the most chaos, with underdog teams defying odds by knocking out highly favored teams early on. Because of the precedence for upsets in the first round of the tournament, there is a lot of focus on the matchups and locations for each competing team. 
-
-`,
+            description: `Every year in March, college basketball fans anxiously await Selection Sunday to see if their 
+team made the NCAA Men’s Basketball National Championship tournament, affectionately referred to as March Madness. March
+ Madness is a three week-long single-elimination tournament in which 64 teams compete to take home the highly coveted 
+ National Championship title. The fun isn’t just reserved for fans - countless people from all across the globe fill out
+  tournament brackets and bet on which teams will make deep runs and ultimately win it all. 
+            
+            <br><br>While coaches, teams, and fans alike want to see their preferred team effortlessly stroll through 
+            the Sweet Sixteen, Elite Eight, and Final Four to play in the National Championship game, they first have to
+             survive the first weekend of the tournament. Putting the ‘madness’ into March Madness, the first and second
+              rounds of the tournament (Round of 64 and Round of 32, respectively) are historically filled with the most
+               chaos, with underdog teams defying odds by knocking out highly favored teams early on. Because of the 
+               precedence for upsets in the first round of the tournament, there is a lot of focus on the matchups and 
+               locations for each competing team.
+            `,
             location: {
                 center: [-116.5, 41.5],
                 zoom: 3.5,
@@ -49,10 +57,16 @@ While coaches, teams, and fans alike want to see their preferred team effortless
             // title: 'More details',
             image: '',
             // description: `In theory, higher ranked teams are rewarded by playing the lowest ranked teams in the tournament. Furthermore, according to the NCAA's selection process, top seeded teams are to have geographic preference over lower seeded teams in the first two rounds of the tournament (if possible - other factors are considered). I want to analyze the first/second round sites for each of the top 4 seeded teams (four teams in each seed for 16 total top teams each year) from 1985 to 2020 to establish patterns, potential biases, and test the NCAA's claim of geographic preference.`,
-            description: `Selection Sunday does more than just determine who gets into the tournament - it also determines where the chosen teams play, who they play against, and how highly they are ranked. 
+            description: `Selection Sunday does more than just determine who gets into the tournament - it also 
+determines where the chosen teams play, who they play against, and how highly they are ranked.
 
-
-Each team is listed from best to worst with an overall rank, a number 1 to 64*, in which 1 represents the overall best team in the tournament and 64 represents the worst. These rankings are then grouped into 16 seeds of four teams each, wherein 1 seeds are the best teams and 16 seeds are the worst teams. Many considerations go into the creation of March Madness brackets, but the idea is that higher seeds are rewarded for their regular season performance by playing against the lowest ranked teams. Additionally, the selection committee is supposed to give top ranked teams geographic preference in their first round sites.`,
+              <br><br>Each team is listed from best to worst with an overall rank, a number 1 to 64*, in which 1 
+              represents the overall best team in the tournament and 64 represents the worst. These rankings are then 
+              grouped into 16 seeds of four teams each, wherein 1 seeds are the best teams and 16 seeds are the worst 
+              teams. Many considerations go into the creation of March Madness brackets, but the idea is that higher 
+              seeds are rewarded for their regular season performance by playing against the lowest ranked teams. 
+              Additionally, the selection committee is supposed to give top ranked teams geographic preference in their 
+              first round sites.`,
             onChapterEnter: [
                 // {layer: 'd1-all', opacity: 0.15},
                 // {layer: 'd1-trim', opacity: 1},
@@ -67,7 +81,29 @@ Each team is listed from best to worst with an overall rank, a number 1 to 64*, 
             id: 'chapter-2',
             title: '',
             image: '',
-            description: `Obsessed with so-called 'chaos,' college basketball fans thrive on the unpredictability of the first and second rounds of the NCAA tournament. While higher ranked/seeded teams are expected to make deep runs, it is not uncommon for them to get upset by lower ranked teams (sorry UVA fans). Teams want every advantage they can entering the first weekend of the tournament. The advantage of playing at a site closer to the school location is both pragmatic and psychological. The players are still attending classes, so it is logistically easier to travel shorter distances. Furthermore, playing closer to the school allows the team's fan base and families a better opportunity to watch them play, giving them as much of a home court advantage as possible.`,
+            description: `Why does the first round site location matter?
+            <br><br>
+            Because March Madness is a single-elimination tournament, teams only have one shot in each round to advance to the next level.
+            All teams put their best foot forward, but there's no room for an off game - one bad night can (and has) cost the best team in the nation
+            a shot at the national title. Many lower ranked teams don't make it into the tournament very often and have the tenacity to try to become
+            the next Cinderella story.
+            
+            <br><br>Teams want every advantage at their disposal when going into the tournament, and having a closer first-round 
+            site can be incredibly beneficial both physically and psychologically. Student athletes still officially 
+            attend classes during the tournament, so shorter travel times are logistically easier; not only that, but 
+            traveling long distances via bus or air can be physically draining. Games are played from early morning to 
+            late at night across multiple time zones, so it's also ideal to play in or near your home time zone. Perhaps
+            most importantly, playing near your school allows your fanbase to easily travel to the games, simulating
+            as much of a <a href="https://kenpom.com/blog/mining-point-spread-data-home-court-advantage/" target="_blank">
+            home court advantage</a> as possible. When the tides turn against a team in a game, nothing fires them up 
+            like a raucous home crowd.
+            
+            <br><br>The NCAA Selection Committee claims to give geographic preference to the top seeds in order of their rank - 
+            one seeds get the highest preference, then two seeds, then three, then four (remaining seeds are not given
+            explicit geographic considerations). So is it true? I analyzed March Madness tournament data from 2015 to 
+            2019 to put the claim to the test.
+            `,
+            // description: `Obsessed with so-called 'chaos,' college basketball fans thrive on the unpredictability of the first and second rounds of the NCAA tournament. While higher ranked/seeded teams are expected to make deep runs, it is not uncommon for them to get upset by lower ranked teams (sorry UVA fans). Teams want every advantage they can entering the first weekend of the tournament. The advantage of playing at a site closer to the school location is both pragmatic and psychological. The players are still attending classes, so it is logistically easier to travel shorter distances. Furthermore, playing closer to the school allows the team's fan base and families a better opportunity to watch them play, giving them as much of a home court advantage as possible.`,
 
              //  `The entire field of teams is ranked 1 to 68, with 1 being the top or best team overall, and 68
              // being the lowest/worst. The teams are further divided into four regions of sixteen teams each (only 64
@@ -86,7 +122,7 @@ Each team is listed from best to worst with an overall rank, a number 1 to 64*, 
                 // {layer: 'schools', opacity: 0},
                 // {layer: 'd1-all', opacity: 0},
                 // {layer: 'd1-trim', opacity: 0},
-                {layer: 'schools', opacity: 0.7},
+                // {layer: 'schools', opacity: 0.7},
 
             ],
             onChapterExit: [
@@ -103,7 +139,8 @@ Each team is listed from best to worst with an overall rank, a number 1 to 64*, 
 scraped from <a href="https://www.sports-reference.com/cbb/postseason/" target="_blank">Sports Reference</a>. The data was
 cleaned, analyzed, and manipulated primarily using Python 3 libraries (pandas, geopandas, and geocoder) in Jupyter Notebooks.
 
-<br><br>Distances are calculated as raw Euclidean distances, or 'as the crow flies,' and do not account for how teams actually
+<br><br>Distances are calculated as Great Circle distances with the haversine formula, or 'as the crow flies,' i.e. the
+shortest possible distance between two points. This distance calculation does not account for how teams actually
 traveled to their tournament sites (e.g. flying versus driving). Site locations are also inexact, with coordinates placed
 in the site's city center rather than the exact arena in which the game was played.
 
@@ -113,15 +150,15 @@ in the site's city center rather than the exact arena in which the game was play
                 {layer: 'legend-lines', opacity: 1},
                 {layer: 'legend-point', opacity: 1},
 
-                {layer: 'd1-all', opacity: 0},
-                {layer: 'd1-trim', opacity: 0},
-                {layer: 'schools', opacity: 0.7},
+                // {layer: 'd1-all', opacity: 0},
+                // {layer: 'd1-trim', opacity: 0},
+                // {layer: 'schools', opacity: 0.7},
             ],
             onChapterExit: [
                 {layer: 'legend-lines', opacity: 0},
                 {layer: 'legend-point', opacity: 0},
-                {layer: 'd1-all', opacity: 0},
-                {layer: 'd1-trim', opacity: 0},
+                // {layer: 'd1-all', opacity: 0},
+                // {layer: 'd1-trim', opacity: 0},
             ]
         },
         {
@@ -129,10 +166,10 @@ in the site's city center rather than the exact arena in which the game was play
             title: 'Distances by Seed',
             image: '',
             // TODO add min and max for more of an overall story?
-            description: `When looking at Euclidean distances, the data falls in line with the NCAA's claim of 
+            description: `Analysis of data from 1985 to 2019 falls in line with the NCAA's claim of 
             geographic preference for higher seeds, with 1 seeds averaging the shortest travel distance, 2 seeds averaging
             the second shortest travel distance, 3 seeds average the third shortest travel distance, and 4 seeds traveling
-            the furthest of all seeds.
+            the furthest of all top ranked seeds.
    
             
             <div class="seed-hl-row">

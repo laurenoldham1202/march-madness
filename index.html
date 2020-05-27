@@ -1071,6 +1071,7 @@
       type: 'circle',
       source: 'legend',
       paint: {
+        'circle-opacity': 0,
         'circle-color': ['match', ['get', 'type'], 'center', '#E27600', '1seed', '#80bad1', '2seed', '#5694c1', '3seed', '#2c6db1', '4seed', '#0146a1', 'black'],
         'circle-radius': ['match', ['get', 'type'], 'center', 7, '1seed', 5, '2seed', 8, '3seed', 11, '4seed', 14, 7],
       }
@@ -1082,7 +1083,7 @@
       source: 'legend-lines',
       paint: {
         'line-color': '#404041',
-        'line-opacity': 0.8
+        'line-opacity': 0,
       }
     }, 'legend-point');
   }
