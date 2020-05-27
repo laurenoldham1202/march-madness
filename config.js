@@ -14,10 +14,16 @@ const config = {
             id: 'intro',
             // title: 'Introduction placeholder',
             // image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/2015-06-19_Glacier_National_Park_%28U.S.%29_8633.jpg/800px-2015-06-19_Glacier_National_Park_%28U.S.%29_8633.jpg',
-            description: `Every year in March, the top 68 Division 1 men's college basketball programs are selected to compete for the NCAA's national championship title in a single-elimination competition colloquially called March Madness. While the selection process and tournament format for March Madness have changed considerably since its inception in 1939, countless fans have become devoted to understanding and predicting the tournament field in the study of 'Bracketology.' The modern era of the tournament began in 1985 with a final field of 64 teams and preferential seeding to determine the year's bracket.`,
+            // description: `Every year in March, the top 68 Division 1 men's college basketball programs are selected to compete for the NCAA's national championship title in a single-elimination competition colloquially called March Madness. While the selection process and tournament format for March Madness have changed considerably since its inception in 1939, countless fans have become devoted to understanding and predicting the tournament field in the study of 'Bracketology.' The modern era of the tournament began in 1985 with a final field of 64 teams and preferential seeding to determine the year's bracket.`,
             // description: `Each year in March, the top Division I men's college basketball programs in the nation are selected
             // to compete for the NCAA's National Championship title in a single-elimination competition referred to as
             // <strong>March Madness</strong>. `,
+            description: `Every year in March, college basketball fans anxiously await Selection Sunday to see if their team made the NCAA Men’s Basketball National Championship tournament, affectionately referred to as March Madness. March Madness is a three week-long single-elimination tournament in which 64 teams compete to take home the highly coveted National Championship title. The fun isn’t just reserved for fans - countless people from all across the globe fill out tournament brackets and bet on which teams will make deep runs and ultimately win it all. 
+
+
+While coaches, teams, and fans alike want to see their preferred team effortlessly stroll through the Sweet Sixteen, Elite Eight, and Final Four to play in the National Championship game, they first have to survive the first weekend of the tournament. Putting the ‘madness’ into March Madness, the first and second rounds of the tournament (Round of 64 and Round of 32, respectively) are historically filled with the most chaos, with underdog teams defying odds by knocking out highly favored teams early on. Because of the precedence for upsets in the first round of the tournament, there is a lot of focus on the matchups and locations for each competing team. 
+
+`,
             location: {
                 center: [-116.5, 41.5],
                 zoom: 3.5,
@@ -25,28 +31,36 @@ const config = {
                 bearing: 0.00,
             },
             onChapterEnter: [
-                {layer: 'd1-all', opacity: 1},
-                {layer: 'schools', opacity: 0},
-                {layer: 'd1-trim', opacity: 0},
+                {layer: 'legend-lines', opacity: 0},
+                {layer: 'legend-point', opacity: 0},
+                // {layer: 'schools', opacity: 0.7},
+
+                // {layer: 'd1-all', opacity: 1},
+                // {layer: 'schools', opacity: 0},
+                // {layer: 'd1-trim', opacity: 0},
             ],
             onChapterExit: [
-                {layer: 'd1-all', opacity: 0.15},
-                {layer: 'd1-trim', opacity: 1},
+                // {layer: 'd1-all', opacity: 0.15},
+                // {layer: 'd1-trim', opacity: 1},
             ]
         },
         {
             id: 'chapter-1',
             // title: 'More details',
             image: '',
-            description: `In theory, higher ranked teams are rewarded by playing the lowest ranked teams in the tournament. Furthermore, according to the NCAA's selection process, top seeded teams are to have geographic preference over lower seeded teams in the first two rounds of the tournament (if possible - other factors are considered). I want to analyze the first/second round sites for each of the top 4 seeded teams (four teams in each seed for 16 total top teams each year) from 1985 to 2020 to establish patterns, potential biases, and test the NCAA's claim of geographic preference.`,
+            // description: `In theory, higher ranked teams are rewarded by playing the lowest ranked teams in the tournament. Furthermore, according to the NCAA's selection process, top seeded teams are to have geographic preference over lower seeded teams in the first two rounds of the tournament (if possible - other factors are considered). I want to analyze the first/second round sites for each of the top 4 seeded teams (four teams in each seed for 16 total top teams each year) from 1985 to 2020 to establish patterns, potential biases, and test the NCAA's claim of geographic preference.`,
+            description: `Selection Sunday does more than just determine who gets into the tournament - it also determines where the chosen teams play, who they play against, and how highly they are ranked. 
+
+
+Each team is listed from best to worst with an overall rank, a number 1 to 64*, in which 1 represents the overall best team in the tournament and 64 represents the worst. These rankings are then grouped into 16 seeds of four teams each, wherein 1 seeds are the best teams and 16 seeds are the worst teams. Many considerations go into the creation of March Madness brackets, but the idea is that higher seeds are rewarded for their regular season performance by playing against the lowest ranked teams. Additionally, the selection committee is supposed to give top ranked teams geographic preference in their first round sites.`,
             onChapterEnter: [
-                {layer: 'd1-all', opacity: 0.15},
-                {layer: 'd1-trim', opacity: 1},
+                // {layer: 'd1-all', opacity: 0.15},
+                // {layer: 'd1-trim', opacity: 1},
             ],
             onChapterExit: [
-                {layer: 'd1-all', opacity: 0},
-                {layer: 'd1-trim', opacity: 0},
-                {layer: 'schools', opacity: 0.7}
+                // {layer: 'd1-all', opacity: 0},
+                // {layer: 'd1-trim', opacity: 0},
+                // {layer: 'schools', opacity: 0.7}
             ]
         },
         {
@@ -70,14 +84,14 @@ const config = {
             // },
             onChapterEnter: [
                 // {layer: 'schools', opacity: 0},
-                {layer: 'd1-all', opacity: 0},
-                {layer: 'd1-trim', opacity: 0},
+                // {layer: 'd1-all', opacity: 0},
+                // {layer: 'd1-trim', opacity: 0},
                 {layer: 'schools', opacity: 0.7},
 
             ],
             onChapterExit: [
-                {layer: 'd1-all', opacity: 1},
-                {layer: 'd1-trim', opacity: 1},
+                // {layer: 'd1-all', opacity: 1},
+                // {layer: 'd1-trim', opacity: 1},
                 {layer: 'schools', opacity: 0},
             ]
         },
@@ -96,11 +110,16 @@ in the site's city center rather than the exact arena in which the game was play
 <br><br>More information can be found at the <a href="https://github.com/laurenoldham1202/march-madness" target="_blank">project repository</a>.
 `,
             onChapterEnter: [
+                {layer: 'legend-lines', opacity: 1},
+                {layer: 'legend-point', opacity: 1},
+
                 {layer: 'd1-all', opacity: 0},
                 {layer: 'd1-trim', opacity: 0},
                 {layer: 'schools', opacity: 0.7},
             ],
             onChapterExit: [
+                {layer: 'legend-lines', opacity: 0},
+                {layer: 'legend-point', opacity: 0},
                 {layer: 'd1-all', opacity: 0},
                 {layer: 'd1-trim', opacity: 0},
             ]

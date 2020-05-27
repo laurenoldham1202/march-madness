@@ -688,32 +688,32 @@
     before: 'sites',
   };
 
-  d1AllDetails = {
-    id: 'd1-all',
-    type: 'circle',
-    paint: {
-      // 'circle-radius': 0
-      'circle-radius': 1,
-      'circle-color': '#E27600',
-    },
-    visibility: 'visible',
-    before: '',
-  };
-
-  d1TrimDetails = {
-    id: 'd1-trim',
-    type: 'circle',
-    paint: {
-      // 'circle-radius': 0
-      'circle-radius': 1,
-      'circle-color': '#E27600',
-      'circle-stroke-color': '#414140',
-      'circle-stroke-width': 1,
-
-    },
-    visibility: 'visible',
-    before: '',
-  };
+  // d1AllDetails = {
+  //   id: 'd1-all',
+  //   type: 'circle',
+  //   paint: {
+  //     // 'circle-radius': 0
+  //     'circle-radius': 1,
+  //     'circle-color': '#E27600',
+  //   },
+  //   visibility: 'visible',
+  //   before: '',
+  // };
+  //
+  // d1TrimDetails = {
+  //   id: 'd1-trim',
+  //   type: 'circle',
+  //   paint: {
+  //     // 'circle-radius': 0
+  //     'circle-radius': 1,
+  //     'circle-color': '#E27600',
+  //     'circle-stroke-color': '#414140',
+  //     'circle-stroke-width': 1,
+  //
+  //   },
+  //   visibility: 'visible',
+  //   before: '',
+  // };
 
   siteDetails = {
     id: 'sites',
@@ -779,12 +779,13 @@
   // dynamically apply info card defaults before jsons are loaded
   setDefaultInfoCard();
 
+
   function enterExploreMode() {
     story.detach();
     mapExplorer.css('visibility', 'visible');
     // $('.footer-btn').css('visibility', 'visible');
-    map.setLayoutProperty('d1-all', 'visibility', 'none');
-    map.setLayoutProperty('d1-trim', 'visibility', 'none');
+    // map.setLayoutProperty('d1-all', 'visibility', 'none');
+    // map.setLayoutProperty('d1-trim', 'visibility', 'none');
 
     resetExtent();
     resetAllFilters();
@@ -797,8 +798,8 @@
 
     $('body').append(story);
 
-    map.setLayoutProperty('d1-all', 'visibility', 'visible');
-    map.setLayoutProperty('d1-trim', 'visibility', 'visible');
+    // map.setLayoutProperty('d1-all', 'visibility', 'visible');
+    // map.setLayoutProperty('d1-trim', 'visibility', 'visible');
 
     resetExtent();
     resetAllFilters();
@@ -836,17 +837,18 @@
     //  geojsons created by reading jupyter notebook output CSVs into QGIS and converted
     map.on('load', () => {
 
+      plotLegend();
 
-      createLayer(d1AllDetails, d1);
-
-      const random = [];
-      d1.features.forEach((feature, i) => {
-        if (i < 64) {
-          random.push(feature);  // TODO bubble out?
-        }
-      });
-
-      createLayer(d1TrimDetails, { type: 'FeatureCollection', features: random });
+      // createLayer(d1AllDetails, d1);
+      //
+      // const random = [];
+      // d1.features.forEach((feature, i) => {
+      //   if (i < 64) {
+      //     random.push(feature);  // TODO bubble out?
+      //   }
+      // });
+      //
+      // createLayer(d1TrimDetails, { type: 'FeatureCollection', features: random });
 
       createAllLayers(schools, sites);
 
@@ -898,15 +900,16 @@
           }
 
           if (id === 'intro') {
-            // map.setFilter('d1', ['match', ['get', 'common_nam'], d1.features.map(x => x.properties.common_nam), true, false]);
-            setTimeout(() => {
-              map.setPaintProperty('d1-all', 'circle-radius', 5);
-            }, 250);
-          } else if (id === 'chapter-1') {
-            setTimeout(() => {
-              // todo do transitions on scroll up?
-              map.setPaintProperty('d1-trim', 'circle-radius', 8);
-            }, 250);
+            resetExtent(true);
+          //   // map.setFilter('d1', ['match', ['get', 'common_nam'], d1.features.map(x => x.properties.common_nam), true, false]);
+          //   setTimeout(() => {
+          //     map.setPaintProperty('d1-all', 'circle-radius', 5);
+          //   }, 250);
+          // } else if (id === 'chapter-1') {
+          //   setTimeout(() => {
+          //     // todo do transitions on scroll up?
+          //     map.setPaintProperty('d1-trim', 'circle-radius', 8);
+          //   }, 250);
           }
 
           // TODO add chapter in beginning for methodology, e.g. using city instead of arena, equal area proj, etc.
@@ -917,78 +920,7 @@
 
             map.setLayoutProperty('schools', 'visibility', 'none');
 
-            map.addSource('legend', {
-              type: 'geojson',
-              data: {
-                type: 'FeatureCollection',
-                features: [
-                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-98.5795, 39.8283]}, properties: {type: 'center'}},
 
-                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-98.5795, 40.8283]}, properties: {type: '1seed'}},
-                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-98.5795, 38.8283]}, properties: {type: '1seed'}},
-
-                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-95.5795, 39.8283]}, properties: {type: '2seed'}},
-                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-101.5795, 39.8283]}, properties: {type: '2seed'}},
-
-                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-93.5795, 35.8283]}, properties: {type: '3seed'}},
-                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-103.5795, 43.8283]}, properties: {type: '3seed'}},
-                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-103.5795, 35.8283]}, properties: {type: '3seed'}},
-                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-93.5795, 43.8283]}, properties: {type: '3seed'}},
-
-                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-98.5795, 32.8283]}, properties: {type: '4seed'}},
-                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-98.5795, 46.8283]}, properties: {type: '4seed'}},
-                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-87.5795, 39.8283]}, properties: {type: '4seed'}},
-                  {type: 'Feature', geometry: {type: 'Point', coordinates: [-109.5795, 39.8283]}, properties: {type: '4seed'}},
-
-                ]
-              }
-            });
-
-            map.addSource('legend-lines', {
-              type: 'geojson',
-              data: {
-                type: 'FeatureCollection',
-                features: [
-                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-98.5795, 40.8283]]}},
-                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-98.5795, 38.8283]]}},
-
-                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-95.5795, 39.8283]]}},
-                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-101.5795, 39.8283]]}},
-
-                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-93.5795, 35.8283]]}},
-                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-103.5795, 43.8283]]}},
-                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-103.5795, 35.8283]]}},
-                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-93.5795, 43.8283]]}},
-
-                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-98.5795, 32.8283]]}},
-                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-98.5795, 46.8283]]}},
-                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-87.5795, 39.8283]]}},
-                  {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-109.5795, 39.8283]]}},
-                ]
-              }
-            });
-
-
-
-            map.addLayer({
-              id: 'legend-point',
-              type: 'circle',
-              source: 'legend',
-              paint: {
-                'circle-color': ['match', ['get', 'type'], 'center', '#E27600', '1seed', '#80bad1', '2seed', '#5694c1', '3seed', '#2c6db1', '4seed', '#0146a1', 'black'],
-                'circle-radius': ['match', ['get', 'type'], 'center', 7, '1seed', 5, '2seed', 8, '3seed', 11, '4seed', 14, 7],
-              }
-            });
-
-            map.addLayer({
-              id: 'legend-lines',
-              type: 'line',
-              source: 'legend-lines',
-              paint: {
-                'line-color': '#404041',
-                'line-opacity': 0.8
-              }
-            }, 'legend-point');
 
           }
 
@@ -1080,6 +1012,79 @@
           }
         });
     });
+  }
+
+  function plotLegend() {
+    map.addSource('legend', {
+      type: 'geojson',
+      data: {
+        type: 'FeatureCollection',
+        features: [
+          {type: 'Feature', geometry: {type: 'Point', coordinates: [-98.5795, 39.8283]}, properties: {type: 'center'}},
+
+          {type: 'Feature', geometry: {type: 'Point', coordinates: [-98.5795, 40.8283]}, properties: {type: '1seed'}},
+          {type: 'Feature', geometry: {type: 'Point', coordinates: [-98.5795, 38.8283]}, properties: {type: '1seed'}},
+
+          {type: 'Feature', geometry: {type: 'Point', coordinates: [-95.5795, 39.8283]}, properties: {type: '2seed'}},
+          {type: 'Feature', geometry: {type: 'Point', coordinates: [-101.5795, 39.8283]}, properties: {type: '2seed'}},
+
+          {type: 'Feature', geometry: {type: 'Point', coordinates: [-93.5795, 35.8283]}, properties: {type: '3seed'}},
+          {type: 'Feature', geometry: {type: 'Point', coordinates: [-103.5795, 43.8283]}, properties: {type: '3seed'}},
+          {type: 'Feature', geometry: {type: 'Point', coordinates: [-103.5795, 35.8283]}, properties: {type: '3seed'}},
+          {type: 'Feature', geometry: {type: 'Point', coordinates: [-93.5795, 43.8283]}, properties: {type: '3seed'}},
+
+          {type: 'Feature', geometry: {type: 'Point', coordinates: [-98.5795, 32.8283]}, properties: {type: '4seed'}},
+          {type: 'Feature', geometry: {type: 'Point', coordinates: [-98.5795, 46.8283]}, properties: {type: '4seed'}},
+          {type: 'Feature', geometry: {type: 'Point', coordinates: [-87.5795, 39.8283]}, properties: {type: '4seed'}},
+          {type: 'Feature', geometry: {type: 'Point', coordinates: [-109.5795, 39.8283]}, properties: {type: '4seed'}},
+
+        ]
+      }
+    });
+
+    map.addSource('legend-lines', {
+      type: 'geojson',
+      data: {
+        type: 'FeatureCollection',
+        features: [
+          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-98.5795, 40.8283]]}},
+          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-98.5795, 38.8283]]}},
+
+          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-95.5795, 39.8283]]}},
+          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-101.5795, 39.8283]]}},
+
+          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-93.5795, 35.8283]]}},
+          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-103.5795, 43.8283]]}},
+          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-103.5795, 35.8283]]}},
+          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-93.5795, 43.8283]]}},
+
+          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-98.5795, 32.8283]]}},
+          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-98.5795, 46.8283]]}},
+          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-87.5795, 39.8283]]}},
+          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-109.5795, 39.8283]]}},
+        ]
+      }
+    });
+
+    map.addLayer({
+      id: 'legend-point',
+      type: 'circle',
+      source: 'legend',
+      paint: {
+        'circle-color': ['match', ['get', 'type'], 'center', '#E27600', '1seed', '#80bad1', '2seed', '#5694c1', '3seed', '#2c6db1', '4seed', '#0146a1', 'black'],
+        'circle-radius': ['match', ['get', 'type'], 'center', 7, '1seed', 5, '2seed', 8, '3seed', 11, '4seed', 14, 7],
+      }
+    });
+
+    map.addLayer({
+      id: 'legend-lines',
+      type: 'line',
+      source: 'legend-lines',
+      paint: {
+        'line-color': '#404041',
+        'line-opacity': 0.8
+      }
+    }, 'legend-point');
   }
 
   function animateConferences() {
