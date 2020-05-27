@@ -1016,66 +1016,37 @@
 
   function plotLegend() {
 
-    const coordPairs = [
-      [-98.5795, 39.8283],
-      [-98.5795, 40.8283],
-      [-98.5795, 38.8283],
-      [-95.5795, 39.8283],
-      [-101.5795, 39.8283],
-      [-93.5795, 35.8283],
-      [-103.5795, 43.8283],
-      [-103.5795, 35.8283],
-      [-93.5795, 43.8283],
-      [-98.5795, 32.8283],
-      [-98.5795, 46.8283],
-      [-87.5795, 39.8283],
-      [-109.5795, 39.8283],
-    ];
+    // all coordinate pairs for legend points
+    const coordPairs = [[-98.5795, 39.8283], [-98.5795, 40.8283], [-98.5795, 38.8283], [-95.5795, 39.8283],
+      [-101.5795, 39.8283], [-93.5795, 35.8283], [-103.5795, 43.8283], [-103.5795, 35.8283],
+      [-93.5795, 43.8283], [-98.5795, 32.8283], [-98.5795, 46.8283], [-87.5795, 39.8283], [-109.5795, 39.8283],];
 
-    const pairMap = {0: 'center', 1: '1seed', 2: '1seed', 3: '2seed', 4: '2seed', 5: '3seed', 6: '3seed', 7: '3seed', 8: '3seed', 9: '4seed', 10: '4seed', 11: '4seed', 12: '4seed'};
+    // map to associate data type with each feature properties
+    const pairMap = {0: 'center', 1: '1seed', 2: '1seed', 3: '2seed', 4: '2seed', 5: '3seed', 6: '3seed',
+      7: '3seed', 8: '3seed', 9: '4seed', 10: '4seed', 11: '4seed', 12: '4seed'};
 
-    const features = [];
+    const pointFeatures = [];
+    const lineFeatures = [];
     coordPairs.forEach((pair, i) => {
-      features.push({type: 'Feature', geometry: {type: 'Point', coordinates: pair}, properties: {type: pairMap[i]}})
-    });
-    console.log(features);
+      // push point feature coordinates and associated data type for styling
+      pointFeatures.push({type: 'Feature', geometry: {type: 'Point', coordinates: pair}, properties: {type: pairMap[i]}});
 
-    map.addSource('legend', {
-      type: 'geojson',
-      data: {
-        type: 'FeatureCollection',
-        features: features
-      }
-    });
-
-    map.addSource('legend-lines', {
-      type: 'geojson',
-      data: {
-        type: 'FeatureCollection',
-        features: [
-          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-98.5795, 40.8283]]}},
-          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-98.5795, 38.8283]]}},
-
-          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-95.5795, 39.8283]]}},
-          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-101.5795, 39.8283]]}},
-
-          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-93.5795, 35.8283]]}},
-          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-103.5795, 43.8283]]}},
-          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-103.5795, 35.8283]]}},
-          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-93.5795, 43.8283]]}},
-
-          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-98.5795, 32.8283]]}},
-          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-98.5795, 46.8283]]}},
-          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-87.5795, 39.8283]]}},
-          {type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], [-109.5795, 39.8283]]}},
-        ]
+      if (i > 0) {  // skip first point, which represents school/center
+        // push linestring features from center to each point
+        lineFeatures.push({type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], pair]}});
       }
     });
 
     map.addLayer({
       id: 'legend-point',
       type: 'circle',
-      source: 'legend',
+      source: {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: pointFeatures
+        }
+      },
       paint: {
         'circle-opacity': 0,
         'circle-color': ['match', ['get', 'type'], 'center', '#E27600', '1seed', '#80bad1', '2seed', '#5694c1', '3seed', '#2c6db1', '4seed', '#0146a1', 'black'],
@@ -1086,7 +1057,13 @@
     map.addLayer({
       id: 'legend-lines',
       type: 'line',
-      source: 'legend-lines',
+      source:  {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: lineFeatures
+        }
+      },
       paint: {
         'line-color': '#404041',
         'line-opacity': 0,
