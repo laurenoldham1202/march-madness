@@ -433,24 +433,12 @@ in the site's city center rather than the exact arena in which the game was play
             
             <br><br>Explore the interactive map to see how your school fares in March Madness travels!
             
-<!--             <div class="buttons" style="display: flex;">-->
+             <div class="buttons" style="text-align: center;">
               <button class="button" id="explore-mode">Explore Map</button>
-<!--             </div>-->
+             </div>
             `,
             onChapterEnter: [],
             onChapterExit: []
         },
-//         {  // TODO add this to conclusion, remove restart story button, have button toggle mode toggle
-//             id: 'final-chapter',
-//             title: '',
-//             image: '',
-//             description: `
-// <!--            <div class="buttons" style="display: flex;">-->
-// <!--              <button class="button" id="explore-mode">Explore Map</button>-->
-// <!--             </div>-->
-//             `,
-//             onChapterEnter: [],
-//             onChapterExit: []
-//         }
     ]
 };
