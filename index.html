@@ -461,7 +461,7 @@
       <div class="footer-left" style="width: 50%; visibility: hidden;">
         <button type="button" class="btn btn-secondary footer-btn">< School</button>
       </div>
-      <div class="footer-right" style="margin-left: auto; width: 50%; text-align: right;">
+      <div class="footer-right" style="margin-left: auto; width: 50%; text-align: right; visibility: hidden;">
         <button type="button" class="btn btn-secondary footer-btn">Seed ></button>
 
 <!--        <button class="footer-right-btn"-->
@@ -768,6 +768,17 @@
 
   story = $('#story');
 
+  $('.footer-left').on('click', () => {
+
+    resetInfoCard();
+
+    if (filters.school === 'all') {
+      setDefaultInfoCard();
+    } else {
+      selectSchoolOnMap(sites);
+    }
+  });
+
   $('.app-mode-toggle').on('click', (e) => {
     if (e.target.innerText === 'Story Mode') {
       enterStoryMode();
@@ -783,12 +794,15 @@
   function enterExploreMode() {
     story.detach();
     mapExplorer.css('visibility', 'visible');
+
     // $('.footer-btn').css('visibility', 'visible');
     // map.setLayoutProperty('d1-all', 'visibility', 'none');
     // map.setLayoutProperty('d1-trim', 'visibility', 'none');
 
     resetExtent();
     resetAllFilters();
+    infoBtnSeed.addClass('visible');
+
   }
 
   function enterStoryMode() {
@@ -803,6 +817,9 @@
 
     resetExtent();
     resetAllFilters();
+    // infoBtnSeed.css('visibility', 'hidden');
+    infoBtnSeed.removeClass('visible');
+
   }
 
   // TODO Delete old json, replace with new
@@ -833,6 +850,8 @@
     // iterate over schools and seeds geojson layers before manipulating map
     // push schools to schoolFilter dropdown, apply seed values to school feature properties
     iterateGeojsonSource(schools, seeds, colors);
+    clickFooterBtn(seedsAgg, seeds, sites);
+
 
     //  geojsons created by reading jupyter notebook output CSVs into QGIS and converted
     map.on('load', () => {
@@ -875,7 +894,7 @@
 
       // enterExploreMode();
 
-      clickFooterBtn(seedsAgg, seeds, sites);
+      // clickFooterBtn(seedsAgg, seeds, sites);
 
       // STORYTELLING MODE  todo place in fn
       // todo move map div abs position to not have to add padding once story mode is exited, reset bearing on resetExtent
@@ -1110,7 +1129,8 @@
       const val = {};
         // console.log(seedsAgg);
       infoBtnSchool.addClass('visible');
-        infoBtnSeed.css('visibility', 'hidden');
+      infoBtnSeed.removeClass('visible');
+        // infoBtnSeed.css('visibility', 'hidden');
         if (filters.school === 'all') {
 
           // TODO add info-text to updateInfoCard obj
@@ -1174,21 +1194,22 @@
         }
     });
 
-    infoBtnSchool.on('click', (e) => {
-
-      resetInfoCard();
-
-      if (filters.school === 'all') {
-        setDefaultInfoCard();
-      } else {
-        selectSchoolOnMap(sites);
-      }
-    });
+    // infoBtnSchool.on('click', () => {
+    //
+    //   resetInfoCard();
+    //
+    //   if (filters.school === 'all') {
+    //     setDefaultInfoCard();
+    //   } else {
+    //     selectSchoolOnMap(sites);
+    //   }
+    // });
   }
 
   function resetInfoCard() {
     infoBtnSchool.removeClass('visible');
-    infoBtnSeed.css('visibility', 'visible');
+    infoBtnSeed.addClass('visible');
+    // infoBtnSeed.css('visibility', 'visible');
     card1Header.html('mean distance traveled');
     card2Header.html('median distance traveled');
     card3Header.html('minimum distance traveled');
