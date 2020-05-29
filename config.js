@@ -124,6 +124,8 @@ determines where the chosen teams play, who they play against, and how highly th
             //     bearing: 36.00
             // },
             onChapterEnter: [
+                {layer: 'legend-lines', opacity: 0},
+                {layer: 'legend-point', opacity: 0},
                 // {layer: 'schools', opacity: 0},
                 // {layer: 'd1-all', opacity: 0},
                 // {layer: 'd1-trim', opacity: 0},
@@ -164,6 +166,8 @@ in the site's city center rather than the exact arena in which the game was play
             id: 'legend',
             title: 'Reading the Map',
             description: `
+            <div class="legend-header" style="background: #EEE; width: 100%; padding: 0.25rem; margin-bottom: 1rem; border-radius: 4px; text-align: center;">Schools (Mean Travel Distance in Miles)</div>
+
             <div class="d" style="width: 100%; display: flex;">
 
 <div class="dot" style="width: 8px; height: 8px;"></div>
@@ -176,26 +180,45 @@ in the site's city center rather than the exact arena in which the game was play
             <div class="d" style="width: 100%; display: flex;">
 
 <div class="y" style="width: 38px;">250</div>
-<div class="y" style="width: 46px;">250</div>
-<div class="y" style="width: 53px;">250</div>
-<div class="y" style="width: 61px;">250</div>
-<div class="y" style="width: 74px;">250</div>
-<div class="y" style="width: 107px;">250</div>
+<div class="y" style="width: 46px;">500</div>
+<div class="y" style="width: 53px;">750</div>
+<div class="y" style="width: 61px;">1000</div>
+<div class="y" style="width: 74px;">1500</div>
+<div class="y" style="width: 107px;">2500</div>
+</div> 
+           
+<div class="legend-header" style="background: #EEE; width: 100%;
+ padding: 0.25rem; margin-bottom: 1rem; border-radius: 4px; text-align: center;">Site Locations Based on Seed Values</div>
+
+            <div class="d" style="width: 100%; display: flex;">
+
+<div class="dot" style="width: 10px; height: 10px; background: #80bad1 !important;"></div>
+<div class="dot" style="width: 16px; height: 16px; background: #5694c1 !important;"></div>
+<div class="dot" style="width: 22px; height: 22px; background: #2c6db1 !important;"></div>
+<div class="dot" style="width: 28px; height: 28px; background: #0146a1 !important;"></div>
+</div>
+            <div class="d" style="width: 100%; display: flex;">
+
+<div class="y" style="width: 38px;">1 </div>
+<div class="y" style="width: 46px;">2 </div>
+<div class="y" style="width: 53px;">3 </div>
+<div class="y" style="width: 61px;">4 </div>
+
 </div>
 
-            <svg height="50" width="50"><circle cx="25" cy="25" r="3.8" fill="#E27600"/></svg>
-            <svg height="50" width="50"><circle cx="25" cy="25" r="7.8" fill="#E27600"/></svg> 
-            <svg height="50" width="50"><circle cx="25" cy="25" r="11.5" fill="#E27600"/></svg> 
-            <svg height="50" width="50"><circle cx="25" cy="25" r="15.3" fill="#E27600"/></svg> 
-            <svg height="50" width="50"><circle cx="25" cy="25" r="23" fill="#E27600"/></svg> 
-            <svg height="100" width="100"><circle cx="50" cy="50" r="38.5" fill="#E27600"/></svg> 
+<!--            <svg height="50" width="50"><circle cx="25" cy="25" r="3.8" fill="#E27600"/></svg>-->
+<!--            <svg height="50" width="50"><circle cx="25" cy="25" r="7.8" fill="#E27600"/></svg> -->
+<!--            <svg height="50" width="50"><circle cx="25" cy="25" r="11.5" fill="#E27600"/></svg> -->
+<!--            <svg height="50" width="50"><circle cx="25" cy="25" r="15.3" fill="#E27600"/></svg> -->
+<!--            <svg height="50" width="50"><circle cx="25" cy="25" r="23" fill="#E27600"/></svg> -->
+<!--            <svg height="100" width="100"><circle cx="50" cy="50" r="38.5" fill="#E27600"/></svg> -->
             <div class="d" style="width: 100%; display: flex;">
-            <div class="t" style="width: 50px; height: 50px; text-align: center; margin-right: 0.2rem;">250</div>
-            <div class="t" style="width: 50px; height: 50px; text-align: center; margin-right: 0.2rem;">250</div>
-            <div class="t" style="width: 50px; height: 50px; text-align: center; margin-right: 0.2rem;">250</div>
-            <div class="t" style="width: 50px; height: 50px; text-align: center;margin-right: 0.2rem;">250</div>
-            <div class="t" style="width: 50px; height: 50px; text-align: center;margin-right: 0.2rem;">250</div>
-            <div class="t" style="width: 100px; height: 100px; text-align: center;margin-right: 0.2rem;">250</div>
+<!--            <div class="t" style="width: 50px; height: 50px; text-align: center; margin-right: 0.2rem;">250</div>-->
+<!--            <div class="t" style="width: 50px; height: 50px; text-align: center; margin-right: 0.2rem;">250</div>-->
+<!--            <div class="t" style="width: 50px; height: 50px; text-align: center; margin-right: 0.2rem;">250</div>-->
+<!--            <div class="t" style="width: 50px; height: 50px; text-align: center;margin-right: 0.2rem;">250</div>-->
+<!--            <div class="t" style="width: 50px; height: 50px; text-align: center;margin-right: 0.2rem;">250</div>-->
+<!--            <div class="t" style="width: 100px; height: 100px; text-align: center;margin-right: 0.2rem;">250</div>-->
 <!--            <div class="e" style="width: 16.66%;">250</div>-->
 <!--            <div class="e" style="width: 16.66%;">500</div>-->
 <!--            <div class="e" style="width: 16.66%;">750</div>-->
@@ -207,10 +230,11 @@ in the site's city center rather than the exact arena in which the game was play
             onChapterEnter: [
                 {layer: 'legend-lines', opacity: 1},
                 {layer: 'legend-point', opacity: 1},
+                {layer: 'schools', opacity: 0},
             ],
             onChapterExit: [
-                // {layer: 'legend-lines', opacity: 0},
-                // {layer: 'legend-point', opacity: 0},
+                {layer: 'legend-lines', opacity: 0},
+                {layer: 'legend-point', opacity: 0},
             ]
         },
         {
