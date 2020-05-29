@@ -34,12 +34,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Bungee+Inline&display=swap" rel="stylesheet">
 
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
   <style>
     body {
         margin:0;
         padding:0;
         /*font-family: sans-serif;*/
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Roboto', sans-serif, bold;
       /*font-family: 'Bungee Inline', cursive;*/
 
     }
@@ -51,7 +52,10 @@
     h1 {
       font-family: 'Bebas Neue', sans-serif;
       /*font-family: 'Bungee Inline', cursive;*/
+    }
 
+    span.bold {
+      font-weight: 900;
     }
 
     #map {
@@ -317,6 +321,14 @@
     }
 
     /* ------------------------------------------------------------ */
+
+    .scroll {
+      display: flex;
+      margin-top: 2rem;
+      float: right;
+      color: #0146a1;
+    }
+
     .seed-hl {
       width: 25%;
       border: 1px #AAA solid;
@@ -339,6 +351,20 @@
       color: #DDD;
       font-weight: 500;
       font-size: 0.75rem !important;
+    }
+
+    .dot {
+      background: red;
+      border-radius: 50px;
+      margin: auto 0.95rem 1rem 0.95rem;
+    }
+
+    .y {
+      background: aqua;
+      border: 1px dotted teal;
+      height: 3rem;
+      text-align: center;
+      font-size: 0.8rem !important;
     }
 
     @media (max-width: 750px) {
@@ -1826,6 +1852,7 @@
 
     const property = setProperty();
     const stops = createStops(schools, property);
+    console.log(stops);
     schoolDetails.paint['circle-radius'] = {property: property, stops: stops};
 
     const layerDetails = [schoolDetails, siteDetails, lineStringDetails, avgDistanceDetails, selectedSchoolDetails];

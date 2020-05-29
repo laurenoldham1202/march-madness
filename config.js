@@ -12,29 +12,15 @@ const config = {
     chapters: [
         {
             id: 'intro',
-            // title: 'Introduction placeholder',
-            // image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/2015-06-19_Glacier_National_Park_%28U.S.%29_8633.jpg/800px-2015-06-19_Glacier_National_Park_%28U.S.%29_8633.jpg',
-            // description: `Every year in March, the top 68 Division 1 men's college basketball programs are selected to compete for the NCAA's national championship title in a single-elimination competition colloquially called March Madness. While the selection process and tournament format for March Madness have changed considerably since its inception in 1939, countless fans have become devoted to understanding and predicting the tournament field in the study of 'Bracketology.' The modern era of the tournament began in 1985 with a final field of 64 teams and preferential seeding to determine the year's bracket.`,
-            // description: `Each year in March, the top Division I men's college basketball programs in the nation are selected
-            // to compete for the NCAA's National Championship title in a single-elimination competition referred to as
-            // <strong>March Madness</strong>. `,
-            description: `<br><br><span class="capital-font" style="font-size: 26pt;">Every year in March,</span> college basketball fans anxiously await Selection Sunday to see if their 
-team made the NCAA Men’s Basketball National Championship tournament, affectionately referred to as March Madness. March
+            // TODO add skip intro option?
+            description: `<br><br><span class="capital-font" style="font-size: 26pt;">Every year in March,</span> 
+college basketball fans anxiously await Selection Sunday to see if their team made the NCAA Men’s Basketball National 
+Championship tournament, affectionately referred to as March Madness. March
  Madness is a three week-long single-elimination tournament in which 64 teams compete to take home the highly coveted 
  National Championship title. The fun isn’t just reserved for fans - countless people from all across the globe fill out
   tournament brackets and bet on which teams will make deep runs and ultimately win it all. 
   
-  <div class="scroll" style="display: flex; margin-top: 2rem; float: right; color: #0146a1">Scroll &#8681;</div>
-            
-<!--            <br><br>While coaches, teams, and fans alike want to see their preferred team effortlessly stroll through -->
-<!--            the Sweet Sixteen, Elite Eight, and Final Four to play in the National Championship game, they first have to-->
-<!--             survive the first weekend of the tournament. Putting the ‘madness’ into March Madness, the first and second-->
-<!--              rounds of the tournament (Round of 64 and Round of 32, respectively) are historically filled with the most-->
-<!--               chaos, with underdog teams defying odds by knocking out highly favored teams early on. Because of the -->
-<!--               precedence for upsets in the first round of the tournament, there is a lot of focus on the matchups and -->
-<!--               locations for each competing team.-->
-               
-<!--               <br><img src="./images/logo.png" alt="march madness logo" style="">-->
+  <div class="scroll">Scroll &#8681;</div>
             `,
             image: './images/logo.png',
             location: {
@@ -67,9 +53,9 @@ team made the NCAA Men’s Basketball National Championship tournament, affectio
             the Sweet Sixteen, Elite Eight, and Final Four to play in the National Championship game, they first have to
              survive the first weekend of the tournament. Putting the ‘madness’ into March Madness, the first and second
               rounds of the tournament (Round of 64 and Round of 32, respectively) are historically filled with the most
-               chaos, with underdog teams defying odds by knocking out highly favored teams early on. Because of the 
+               chaos, with underdog teams defying odds by knocking out highly favored teams early on. <span class="bold">Because of the 
                precedence for upsets in the first round of the tournament, there is a lot of focus on the matchups and 
-               locations for each competing team.
+               locations for each competing team.</span>
                
 <br><br>Selection Sunday does more than just determine who gets into the tournament - it also 
 determines where the chosen teams play, who they play against, and how highly they are ranked.
@@ -77,10 +63,10 @@ determines where the chosen teams play, who they play against, and how highly th
               <br><br>Each team is listed from best to worst with an overall rank, a number 1 to 64*, in which 1 
               represents the overall best team in the tournament and 64 represents the worst. These rankings are then 
               grouped into 16 seeds of four teams each, wherein 1 seeds are the best teams and 16 seeds are the worst 
-              teams. Many considerations go into the creation of March Madness brackets, but the idea is that higher 
-              seeds are rewarded for their regular season performance by playing against the lowest ranked teams. 
-              Additionally, the selection committee is supposed to give top ranked teams geographic preference in their 
-              first round sites.`,
+              teams. Many considerations go into the creation of March Madness brackets, but the idea is that <span class="bold">higher 
+              seeds are rewarded for their regular season performance by playing against the lowest ranked teams. </span>
+              Additionally, <span class="bold">the selection committee is supposed to give top ranked teams geographic preference in their 
+              first round sites.</span>`,
             onChapterEnter: [
                 // {layer: 'd1-all', opacity: 0.15},
                 // {layer: 'd1-trim', opacity: 1},
@@ -93,29 +79,34 @@ determines where the chosen teams play, who they play against, and how highly th
         },
         {
             id: 'chapter-2',
-            title: '',
+            title: 'Why Does the First Round Site Matter?',
             image: '',
-            description: `Why does the first round site location matter?
-            <br><br>
-            Because March Madness is a single-elimination tournament, teams only have one shot in each round to advance to the next level.
+            // TODO style list items more nicely
+            description: `
+            <span class="bold">Because March Madness is a single-elimination tournament, teams only have one shot in each round to advance to the next level.</span>
             All teams put their best foot forward, but there's no room for an off game - one bad night can (and has) cost the best team in the nation
             a shot at the national title. Many lower ranked teams don't make it into the tournament very often and have the tenacity to try to become
             the next Cinderella story.
-            
+           
             <br><br>Teams want every advantage at their disposal when going into the tournament, and having a closer first-round 
-            site can be incredibly beneficial both physically and psychologically. Student athletes still officially 
+            site can be incredibly beneficial both physically and psychologically.
+             <ul>
+             <li>Student athletes still officially 
             attend classes during the tournament, so shorter travel times are logistically easier; not only that, but 
-            traveling long distances via bus or air can be physically draining. Games are played from early morning to 
-            late at night across multiple time zones, so it's also ideal to play in or near your home time zone. Perhaps
+            traveling long distances via bus or air can be physically draining.</li>
+             <li>Games are played from early morning to 
+            late at night across multiple time zones, so it's also ideal to play in or near your home time zone. </li>
+            <li>Perhaps
             most importantly, playing near your school allows your fanbase to easily travel to the games, simulating
             as much of a <a href="https://kenpom.com/blog/mining-point-spread-data-home-court-advantage/" target="_blank">
             home court advantage</a> as possible. When the tides turn against a team in a game, nothing fires them up 
-            like a raucous home crowd.
+            like a raucous home crowd.</li>
+            </ul>
             
-            <br><br>The NCAA Selection Committee claims to give geographic preference to the top seeds in order of their rank - 
+            <span class="bold">The NCAA Selection Committee claims to give geographic preference to the top seeds in order of their rank </span>- 
             one seeds get the highest preference, then two seeds, then three, then four (remaining seeds are not given
-            explicit geographic considerations). So is it true? I analyzed March Madness tournament data from 2015 to 
-            2019 to put the claim to the test.
+            explicit geographic considerations). So is it true? <span class="bold">I analyzed March Madness tournament data from 2015 to 
+            2019 to put the claim to the test.</span>
             `,
             // description: `Obsessed with so-called 'chaos,' college basketball fans thrive on the unpredictability of the first and second rounds of the NCAA tournament. While higher ranked/seeded teams are expected to make deep runs, it is not uncommon for them to get upset by lower ranked teams (sorry UVA fans). Teams want every advantage they can entering the first weekend of the tournament. The advantage of playing at a site closer to the school location is both pragmatic and psychological. The players are still attending classes, so it is logistically easier to travel shorter distances. Furthermore, playing closer to the school allows the team's fan base and families a better opportunity to watch them play, giving them as much of a home court advantage as possible.`,
 
@@ -142,15 +133,15 @@ determines where the chosen teams play, who they play against, and how highly th
             onChapterExit: [
                 // {layer: 'd1-all', opacity: 1},
                 // {layer: 'd1-trim', opacity: 1},
-                {layer: 'schools', opacity: 0},
+                // {layer: 'schools', opacity: 0},
             ]
         },
         {  // TODO add description of what prop circles represent, rerun as diff crs
             // TODO remove fitbounds from school selection to give better reference for distances?
           id: 'methodology',  // TODO fix id
           title: `Methodology`,
-          description: `Tournament data for each 1, 2, 3, and 4 seed and its respective first-round site location was 
-scraped from <a href="https://www.sports-reference.com/cbb/postseason/" target="_blank">Sports Reference</a>. The data was
+          description: `Tournament data for each top seed (1-4) and its respective first-round site location was 
+collected from <a href="https://www.sports-reference.com/cbb/postseason/" target="_blank">Sports Reference</a>. The data was
 cleaned, analyzed, and manipulated primarily using Python 3 libraries (pandas, geopandas, and geocoder) in Jupyter Notebooks.
 
 <br><br>Distances are calculated as Great Circle distances with the haversine formula, or 'as the crow flies,' i.e. the
@@ -163,16 +154,63 @@ in the site's city center rather than the exact arena in which the game was play
             onChapterEnter: [
                 {layer: 'legend-lines', opacity: 1},
                 {layer: 'legend-point', opacity: 1},
-
-                // {layer: 'd1-all', opacity: 0},
-                // {layer: 'd1-trim', opacity: 0},
-                // {layer: 'schools', opacity: 0.7},
             ],
             onChapterExit: [
-                {layer: 'legend-lines', opacity: 0},
-                {layer: 'legend-point', opacity: 0},
-                // {layer: 'd1-all', opacity: 0},
-                // {layer: 'd1-trim', opacity: 0},
+                // {layer: 'legend-lines', opacity: 0},
+                // {layer: 'legend-point', opacity: 0},
+            ]
+        },
+        {
+            id: 'legend',
+            title: 'Reading the Map',
+            description: `
+            <div class="d" style="width: 100%; display: flex;">
+
+<div class="dot" style="width: 8px; height: 8px;"></div>
+<div class="dot" style="width: 16px; height: 16px;"></div>
+<div class="dot" style="width: 23px; height: 23px;"></div>
+<div class="dot" style="width: 31px; height: 31px;"></div>
+<div class="dot" style="width: 44px; height: 44px;"></div>
+<div class="dot" style="width: 77px; height: 77px;"></div>
+</div>
+            <div class="d" style="width: 100%; display: flex;">
+
+<div class="y" style="width: 38px;">250</div>
+<div class="y" style="width: 46px;">250</div>
+<div class="y" style="width: 53px;">250</div>
+<div class="y" style="width: 61px;">250</div>
+<div class="y" style="width: 74px;">250</div>
+<div class="y" style="width: 107px;">250</div>
+</div>
+
+            <svg height="50" width="50"><circle cx="25" cy="25" r="3.8" fill="#E27600"/></svg>
+            <svg height="50" width="50"><circle cx="25" cy="25" r="7.8" fill="#E27600"/></svg> 
+            <svg height="50" width="50"><circle cx="25" cy="25" r="11.5" fill="#E27600"/></svg> 
+            <svg height="50" width="50"><circle cx="25" cy="25" r="15.3" fill="#E27600"/></svg> 
+            <svg height="50" width="50"><circle cx="25" cy="25" r="23" fill="#E27600"/></svg> 
+            <svg height="100" width="100"><circle cx="50" cy="50" r="38.5" fill="#E27600"/></svg> 
+            <div class="d" style="width: 100%; display: flex;">
+            <div class="t" style="width: 50px; height: 50px; text-align: center; margin-right: 0.2rem;">250</div>
+            <div class="t" style="width: 50px; height: 50px; text-align: center; margin-right: 0.2rem;">250</div>
+            <div class="t" style="width: 50px; height: 50px; text-align: center; margin-right: 0.2rem;">250</div>
+            <div class="t" style="width: 50px; height: 50px; text-align: center;margin-right: 0.2rem;">250</div>
+            <div class="t" style="width: 50px; height: 50px; text-align: center;margin-right: 0.2rem;">250</div>
+            <div class="t" style="width: 100px; height: 100px; text-align: center;margin-right: 0.2rem;">250</div>
+<!--            <div class="e" style="width: 16.66%;">250</div>-->
+<!--            <div class="e" style="width: 16.66%;">500</div>-->
+<!--            <div class="e" style="width: 16.66%;">750</div>-->
+<!--            <div class="e" style="width: 16.66%;">1000</div>-->
+<!--            <div class="e" style="width: 16.66%;">1500</div>-->
+<!--            <div class="e" style="width: 16.66%;">2500</div>-->
+</div>
+            `,
+            onChapterEnter: [
+                {layer: 'legend-lines', opacity: 1},
+                {layer: 'legend-point', opacity: 1},
+            ],
+            onChapterExit: [
+                // {layer: 'legend-lines', opacity: 0},
+                // {layer: 'legend-point', opacity: 0},
             ]
         },
         {
