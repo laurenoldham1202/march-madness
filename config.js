@@ -18,20 +18,25 @@ const config = {
             // description: `Each year in March, the top Division I men's college basketball programs in the nation are selected
             // to compete for the NCAA's National Championship title in a single-elimination competition referred to as
             // <strong>March Madness</strong>. `,
-            description: `Every year in March, college basketball fans anxiously await Selection Sunday to see if their 
+            description: `<br><br><span class="capital-font" style="font-size: 26pt;">Every year in March,</span> college basketball fans anxiously await Selection Sunday to see if their 
 team made the NCAA Men’s Basketball National Championship tournament, affectionately referred to as March Madness. March
  Madness is a three week-long single-elimination tournament in which 64 teams compete to take home the highly coveted 
  National Championship title. The fun isn’t just reserved for fans - countless people from all across the globe fill out
   tournament brackets and bet on which teams will make deep runs and ultimately win it all. 
+  
+  <div class="scroll" style="display: flex; margin-top: 2rem; float: right; color: #0146a1">Scroll &#8681;</div>
             
-            <br><br>While coaches, teams, and fans alike want to see their preferred team effortlessly stroll through 
-            the Sweet Sixteen, Elite Eight, and Final Four to play in the National Championship game, they first have to
-             survive the first weekend of the tournament. Putting the ‘madness’ into March Madness, the first and second
-              rounds of the tournament (Round of 64 and Round of 32, respectively) are historically filled with the most
-               chaos, with underdog teams defying odds by knocking out highly favored teams early on. Because of the 
-               precedence for upsets in the first round of the tournament, there is a lot of focus on the matchups and 
-               locations for each competing team.
+<!--            <br><br>While coaches, teams, and fans alike want to see their preferred team effortlessly stroll through -->
+<!--            the Sweet Sixteen, Elite Eight, and Final Four to play in the National Championship game, they first have to-->
+<!--             survive the first weekend of the tournament. Putting the ‘madness’ into March Madness, the first and second-->
+<!--              rounds of the tournament (Round of 64 and Round of 32, respectively) are historically filled with the most-->
+<!--               chaos, with underdog teams defying odds by knocking out highly favored teams early on. Because of the -->
+<!--               precedence for upsets in the first round of the tournament, there is a lot of focus on the matchups and -->
+<!--               locations for each competing team.-->
+               
+<!--               <br><img src="./images/logo.png" alt="march madness logo" style="">-->
             `,
+            image: './images/logo.png',
             location: {
                 center: [-116.5, 41.5],
                 zoom: 3.5,
@@ -54,10 +59,19 @@ team made the NCAA Men’s Basketball National Championship tournament, affectio
         },
         {
             id: 'chapter-1',
-            // title: 'More details',
+            title: 'Selection Sunday',
             image: '',
             // description: `In theory, higher ranked teams are rewarded by playing the lowest ranked teams in the tournament. Furthermore, according to the NCAA's selection process, top seeded teams are to have geographic preference over lower seeded teams in the first two rounds of the tournament (if possible - other factors are considered). I want to analyze the first/second round sites for each of the top 4 seeded teams (four teams in each seed for 16 total top teams each year) from 1985 to 2020 to establish patterns, potential biases, and test the NCAA's claim of geographic preference.`,
-            description: `Selection Sunday does more than just determine who gets into the tournament - it also 
+            description: `
+            While coaches, teams, and fans alike want to see their preferred team effortlessly stroll through 
+            the Sweet Sixteen, Elite Eight, and Final Four to play in the National Championship game, they first have to
+             survive the first weekend of the tournament. Putting the ‘madness’ into March Madness, the first and second
+              rounds of the tournament (Round of 64 and Round of 32, respectively) are historically filled with the most
+               chaos, with underdog teams defying odds by knocking out highly favored teams early on. Because of the 
+               precedence for upsets in the first round of the tournament, there is a lot of focus on the matchups and 
+               locations for each competing team.
+               
+<br><br>Selection Sunday does more than just determine who gets into the tournament - it also 
 determines where the chosen teams play, who they play against, and how highly they are ranked.
 
               <br><br>Each team is listed from best to worst with an overall rank, a number 1 to 64*, in which 1 
