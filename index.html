@@ -817,16 +817,16 @@
 
   story = $('#story');
 
-  $('.footer-left').on('click', () => {
-
-    resetInfoCard();
-
-    if (filters.school === 'all') {
-      setDefaultInfoCard();
-    } else {
-      selectSchoolOnMap(sites);
-    }
-  });
+  // $('.footer-left').on('click', () => {
+  //
+  //   resetInfoCard();
+  //
+  //   if (filters.school === 'all') {
+  //     setDefaultInfoCard();
+  //   } else {
+  //     selectSchoolOnMap(sites);
+  //   }
+  // });
 
   $('.app-mode-toggle').on('click', (e) => {
     if (e.target.innerText === 'Story Mode') {
@@ -1118,7 +1118,7 @@
       paint: {
         'circle-radius': 9,
         'circle-color': 'transparent',
-        'circle-stroke-opacity': 0.7,
+        'circle-stroke-opacity': 0,
         'circle-stroke-color': '#AA5F0E',
         'circle-stroke-width': 2,
       }
@@ -1262,16 +1262,16 @@
         }
     });
 
-    // infoBtnSchool.on('click', () => {
-    //
-    //   resetInfoCard();
-    //
-    //   if (filters.school === 'all') {
-    //     setDefaultInfoCard();
-    //   } else {
-    //     selectSchoolOnMap(sites);
-    //   }
-    // });
+    infoBtnSchool.on('click', () => {
+
+      resetInfoCard();
+
+      if (filters.school === 'all') {
+        setDefaultInfoCard();
+      } else {
+        selectSchoolOnMap(sites);
+      }
+    });
   }
 
   function resetInfoCard() {

@@ -126,6 +126,8 @@ determines where the chosen teams play, who they play against, and how highly th
             onChapterEnter: [
                 {layer: 'legend-lines', opacity: 0},
                 {layer: 'legend-point', opacity: 0},
+                {layer: 'legend-point-avg', opacity: 0},
+
                 // {layer: 'schools', opacity: 0},
                 // {layer: 'd1-all', opacity: 0},
                 // {layer: 'd1-trim', opacity: 0},
@@ -156,6 +158,7 @@ in the site's city center rather than the exact arena in which the game was play
             onChapterEnter: [
                 {layer: 'legend-lines', opacity: 1},
                 {layer: 'legend-point', opacity: 1},
+                {layer: 'legend-point-avg', opacity: 1},
             ],
             onChapterExit: [
                 // {layer: 'legend-lines', opacity: 0},
@@ -169,13 +172,13 @@ in the site's city center rather than the exact arena in which the game was play
             description: `
 
 <strong>Schools</strong> are represented as proportional circles on the map (based on their unweighted mean travel 
-distance - this field can be changed in <em>Explore Mode</em>). The overall average distance traveled for all schools is
-represented as a  
+distance - this field can be changed in <em>Explore Mode</em>). The overall average travel distance for all schools is
+represented as a dark orange circle outline.
 
 <!--<div class="legend-header" style="background: #EEE; width: 100%; padding: 0.25rem; margin-bottom: 1rem; border-radius: 4px; text-align: center;">Schools (Mean Travel Distance in Miles)</div>-->
 
 <div class="legend-container">
-<div class="legend-header" style="background: #EEE; width: 379px; padding: 0.25rem; margin-bottom: 1rem; border-radius: 4px; text-align: center;">Schools (Mean Travel Distance in Miles)</div>
+<!--<div class="legend-header" style="background: #EEE; width: 379px; padding: 0.25rem; margin: 1rem 0; border-radius: 4px; text-align: center;">Schools (Mean Travel Distance in Miles)</div>-->
 
 <!--Schools (Mean Travel Distance in Miles)-->
     <div class="legend-row">
@@ -195,7 +198,12 @@ represented as a
         <div class="legend-label" style="width: 74px;">1500</div>
         <div class="legend-label" style="width: 107px;">2500</div>
     </div> 
-</div>         
+</div>
+<br>
+<strong>Tournament sites</strong> are also represented as proportional circles based on the school's seed in that 
+year's tournament. These circles are also colored on a gradient scale from light blue for higher seeds to dark blue for
+lower seeds.
+<br><br>
 <!--<div class="legend-header" style="background: #EEE; width: 100%;-->
 <!-- padding: 0.25rem; margin-bottom: 1rem; border-radius: 4px; text-align: center;">Site Locations Based on Seed Values</div>-->
 
@@ -211,7 +219,13 @@ represented as a
     <div class="legend-label" style="width: 53px;">3 </div>
     <div class="legend-label" style="width: 61px;">4 </div>
 </div>
-
+<br>
+<strong>Linestrings</strong> connect the school to the site location to visualize the distance between the two points.
+<hr>
+According to the selection process, a school with fair site locations should see a radial pattern with 1 seed sites
+closest to the school, 2 seeds farther out, and so on, with 4 seed sites the farthest from the school. 4 seed sites that
+are close and 1 seed sites that are far from schools are particularly noteworthy for breaking the pattern of higher seed
+= closer site.
 <!--            <svg height="50" width="50"><circle cx="25" cy="25" r="3.8" fill="#E27600"/></svg>-->
 <!--            <svg height="50" width="50"><circle cx="25" cy="25" r="7.8" fill="#E27600"/></svg> -->
 <!--            <svg height="50" width="50"><circle cx="25" cy="25" r="11.5" fill="#E27600"/></svg> -->
@@ -236,11 +250,13 @@ represented as a
             onChapterEnter: [
                 {layer: 'legend-lines', opacity: 1},
                 {layer: 'legend-point', opacity: 1},
+                {layer: 'legend-point-avg', opacity: 1},
                 {layer: 'schools', opacity: 0},
             ],
             onChapterExit: [
                 {layer: 'legend-lines', opacity: 0},
                 {layer: 'legend-point', opacity: 0},
+                {layer: 'legend-point-avg', opacity: 0},
             ]
         },
         {
