@@ -353,13 +353,24 @@
       font-size: 0.75rem !important;
     }
 
-    .dot {
+    .circle {
       background: #E27600;
       border-radius: 50px;
+      /*border: 2px solid #AA5F0E;*/
       margin: auto 0.95rem 1rem 0.95rem;
     }
 
-    .y {
+    .legend-container {
+      /*width: 100%;*/
+      text-align: center !important;
+    }
+
+    .legend-row {
+      /*width: 100%;*/
+      display: flex;
+    }
+
+    .legend-label {
       background: #EEE;
       border: 1px solid white;
       /*background: #FFF;*/
@@ -1086,11 +1097,30 @@
     const lineFeatures = [];
     coordPairs.forEach((pair, i) => {
       // push point feature coordinates and associated data type for styling
-      pointFeatures.push({type: 'Feature', geometry: {type: 'Point', coordinates: pair}, properties: {type: pairMap[i]}});
+      pointFeatures.push( {type: 'Feature', geometry: {type: 'Point', coordinates: pair}, properties: {type: pairMap[i]}});
 
       if (i > 0) {  // skip first point, which represents school/center
         // push linestring features from center to each point
         lineFeatures.push({type: 'Feature', geometry: {type: 'LineString', coordinates: [[-98.5795, 39.8283], pair]}});
+      }
+    });
+
+    map.addLayer({
+      id: 'legend-point-avg',
+      type: 'circle',
+      source: {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: [{type: 'Feature', geometry: {type: 'Point', coordinates: [-98.5795, 39.8283]}}]
+        }
+      },
+      paint: {
+        'circle-radius': 9,
+        'circle-color': 'transparent',
+        'circle-stroke-opacity': 0.7,
+        'circle-stroke-color': '#AA5F0E',
+        'circle-stroke-width': 2,
       }
     });
 

@@ -165,45 +165,51 @@ in the site's city center rather than the exact arena in which the game was play
         {
             id: 'legend',
             title: 'Reading the Map',
+            // TODO adjust these styles for responsive design
             description: `
-            <div class="legend-header" style="background: #EEE; width: 100%; padding: 0.25rem; margin-bottom: 1rem; border-radius: 4px; text-align: center;">Schools (Mean Travel Distance in Miles)</div>
 
-            <div class="d" style="width: 100%; display: flex;">
+<strong>Schools</strong> are represented as proportional circles on the map (based on their unweighted mean travel 
+distance - this field can be changed in <em>Explore Mode</em>). The overall average distance traveled for all schools is
+represented as a  
 
-<div class="dot" style="width: 8px; height: 8px;"></div>
-<div class="dot" style="width: 16px; height: 16px;"></div>
-<div class="dot" style="width: 23px; height: 23px;"></div>
-<div class="dot" style="width: 31px; height: 31px;"></div>
-<div class="dot" style="width: 44px; height: 44px;"></div>
-<div class="dot" style="width: 77px; height: 77px;"></div>
+<!--<div class="legend-header" style="background: #EEE; width: 100%; padding: 0.25rem; margin-bottom: 1rem; border-radius: 4px; text-align: center;">Schools (Mean Travel Distance in Miles)</div>-->
+
+<div class="legend-container">
+<div class="legend-header" style="background: #EEE; width: 379px; padding: 0.25rem; margin-bottom: 1rem; border-radius: 4px; text-align: center;">Schools (Mean Travel Distance in Miles)</div>
+
+<!--Schools (Mean Travel Distance in Miles)-->
+    <div class="legend-row">
+        <div class="circle" style="width: 8px; height: 8px;"></div>
+        <div class="circle" style="width: 16px; height: 16px;"></div>
+        <div class="circle" style="width: 23px; height: 23px;"></div>
+        <div class="circle" style="width: 31px; height: 31px;"></div>
+        <div class="circle" style="width: 44px; height: 44px;"></div>
+        <div class="circle" style="width: 77px; height: 77px;"></div>
+    </div>
+    
+    <div class="legend-row">
+        <div class="legend-label" style="width: 38px;">250</div>
+        <div class="legend-label" style="width: 46px;">500</div>
+        <div class="legend-label" style="width: 53px;">750</div>
+        <div class="legend-label" style="width: 61px;">1000</div>
+        <div class="legend-label" style="width: 74px;">1500</div>
+        <div class="legend-label" style="width: 107px;">2500</div>
+    </div> 
+</div>         
+<!--<div class="legend-header" style="background: #EEE; width: 100%;-->
+<!-- padding: 0.25rem; margin-bottom: 1rem; border-radius: 4px; text-align: center;">Site Locations Based on Seed Values</div>-->
+
+<div class="legend-row">
+    <div class="circle" style="width: 10px; height: 10px; background: #80bad1 !important;"></div>
+    <div class="circle" style="width: 16px; height: 16px; background: #5694c1 !important;"></div>
+    <div class="circle" style="width: 22px; height: 22px; background: #2c6db1 !important;"></div>
+    <div class="circle" style="width: 28px; height: 28px; background: #0146a1 !important;"></div>
 </div>
-            <div class="d" style="width: 100%; display: flex;">
-
-<div class="y" style="width: 38px;">250</div>
-<div class="y" style="width: 46px;">500</div>
-<div class="y" style="width: 53px;">750</div>
-<div class="y" style="width: 61px;">1000</div>
-<div class="y" style="width: 74px;">1500</div>
-<div class="y" style="width: 107px;">2500</div>
-</div> 
-           
-<div class="legend-header" style="background: #EEE; width: 100%;
- padding: 0.25rem; margin-bottom: 1rem; border-radius: 4px; text-align: center;">Site Locations Based on Seed Values</div>
-
-            <div class="d" style="width: 100%; display: flex;">
-
-<div class="dot" style="width: 10px; height: 10px; background: #80bad1 !important;"></div>
-<div class="dot" style="width: 16px; height: 16px; background: #5694c1 !important;"></div>
-<div class="dot" style="width: 22px; height: 22px; background: #2c6db1 !important;"></div>
-<div class="dot" style="width: 28px; height: 28px; background: #0146a1 !important;"></div>
-</div>
-            <div class="d" style="width: 100%; display: flex;">
-
-<div class="y" style="width: 38px;">1 </div>
-<div class="y" style="width: 46px;">2 </div>
-<div class="y" style="width: 53px;">3 </div>
-<div class="y" style="width: 61px;">4 </div>
-
+<div class="legend-row">
+    <div class="legend-label" style="width: 38px;">1 </div>
+    <div class="legend-label" style="width: 46px;">2 </div>
+    <div class="legend-label" style="width: 53px;">3 </div>
+    <div class="legend-label" style="width: 61px;">4 </div>
 </div>
 
 <!--            <svg height="50" width="50"><circle cx="25" cy="25" r="3.8" fill="#E27600"/></svg>-->
