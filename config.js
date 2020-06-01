@@ -174,13 +174,9 @@ in the site's city center rather than the exact arena in which the game was play
 <strong>Schools</strong> are represented as proportional circles on the map (based on their unweighted mean travel 
 distance - this field can be changed in <em>Explore Mode</em>). The overall average travel distance for all schools is
 represented as a dark orange circle outline.
-
-<!--<div class="legend-header" style="background: #EEE; width: 100%; padding: 0.25rem; margin-bottom: 1rem; border-radius: 4px; text-align: center;">Schools (Mean Travel Distance in Miles)</div>-->
-
 <div class="legend-container">
 <!--<div class="legend-header" style="background: #EEE; width: 379px; padding: 0.25rem; margin: 1rem 0; border-radius: 4px; text-align: center;">Schools (Mean Travel Distance in Miles)</div>-->
 
-<!--Schools (Mean Travel Distance in Miles)-->
     <div class="legend-row">
         <div class="circle" style="width: 8px; height: 8px;"></div>
         <div class="circle" style="width: 16px; height: 16px;"></div>
@@ -226,26 +222,6 @@ According to the selection process, a school with fair site locations should see
 closest to the school, 2 seeds farther out, and so on, with 4 seed sites the farthest from the school. 4 seed sites that
 are close and 1 seed sites that are far from schools are particularly noteworthy for breaking the pattern of higher seed
 = closer site.
-<!--            <svg height="50" width="50"><circle cx="25" cy="25" r="3.8" fill="#E27600"/></svg>-->
-<!--            <svg height="50" width="50"><circle cx="25" cy="25" r="7.8" fill="#E27600"/></svg> -->
-<!--            <svg height="50" width="50"><circle cx="25" cy="25" r="11.5" fill="#E27600"/></svg> -->
-<!--            <svg height="50" width="50"><circle cx="25" cy="25" r="15.3" fill="#E27600"/></svg> -->
-<!--            <svg height="50" width="50"><circle cx="25" cy="25" r="23" fill="#E27600"/></svg> -->
-<!--            <svg height="100" width="100"><circle cx="50" cy="50" r="38.5" fill="#E27600"/></svg> -->
-            <div class="d" style="width: 100%; display: flex;">
-<!--            <div class="t" style="width: 50px; height: 50px; text-align: center; margin-right: 0.2rem;">250</div>-->
-<!--            <div class="t" style="width: 50px; height: 50px; text-align: center; margin-right: 0.2rem;">250</div>-->
-<!--            <div class="t" style="width: 50px; height: 50px; text-align: center; margin-right: 0.2rem;">250</div>-->
-<!--            <div class="t" style="width: 50px; height: 50px; text-align: center;margin-right: 0.2rem;">250</div>-->
-<!--            <div class="t" style="width: 50px; height: 50px; text-align: center;margin-right: 0.2rem;">250</div>-->
-<!--            <div class="t" style="width: 100px; height: 100px; text-align: center;margin-right: 0.2rem;">250</div>-->
-<!--            <div class="e" style="width: 16.66%;">250</div>-->
-<!--            <div class="e" style="width: 16.66%;">500</div>-->
-<!--            <div class="e" style="width: 16.66%;">750</div>-->
-<!--            <div class="e" style="width: 16.66%;">1000</div>-->
-<!--            <div class="e" style="width: 16.66%;">1500</div>-->
-<!--            <div class="e" style="width: 16.66%;">2500</div>-->
-</div>
             `,
             onChapterEnter: [
                 {layer: 'legend-lines', opacity: 1},
@@ -469,7 +445,7 @@ are close and 1 seed sites that are far from schools are particularly noteworthy
             remaining pool (8/16), and finally, 4 seeds get the remaining pick (4/16). 
             
             <div class="footer" style="margin-top: 1.5rem; text-align: right;">
-                <span style="font-size: 0.6rem;">* Proportional circles on the map represent the <strong><u>weighted</u></strong> average
+                <span style="font-size: 0.85rem;">* Proportional circles on the map represent the <strong><u>weighted</u></strong> average
                 travel distance for each school
                 </span>
             </div>
@@ -517,19 +493,20 @@ are close and 1 seed sites that are far from schools are particularly noteworthy
             image: '',
             description: `Like many sports, the NCAA divides schools into discrete, geographically clustered conferences.
             Of the 32 D1 conferences, only 11 have produced top seeded teams in March Madness:
-            <ul>
-              <li>American Athletic Conference</li>
-              <li>Atlantic 10 Conference</li>
-              <li>Atlantic Coast Conference</li>
-              <li>Big 12 Conference</li>
-              <li>Big East Conference</li>
-              <li>Big Ten Conference</li>
-              <li>Missouri Valley Conference</li>
-              <li>Mountain West Conference</li>
-              <li>Pac-12 Conference</li>
-              <li>Southeastern Conference</li>
-              <li>West Coast Conference</li>
-            </ul>
+            
+            <div class="conference-list" style="margin-top: 1rem;">
+              <div class="conference" style="background: #7F3C8D">American Athletic Conference</div>
+              <div class="conference" style="background: #11A579">Atlantic 10 Conference</div>
+              <div class="conference" style="background: #3969AC">Atlantic Coast Conference</div>
+              <div class="conference" style="background: #F2B701">Big 12  Conference</div>
+              <div class="conference" style="background: #E73F74">Big East Conference</div>
+              <div class="conference" style="background: #80BA5A">Big Ten Conference</div>
+              <div class="conference" style="background: #E68310">Missouri Valley Conference</div>
+              <div class="conference" style="background: #008695">Mountain West Conference</div>
+              <div class="conference" style="background: #CF1C90">Pac-12 Conference</div>
+              <div class="conference" style="background: #f97b72">Southeastern Conference</div>
+              <div class="conference" style="background: #4b4b8f">AWest Coast Conference</div>
+            </div>
             <br>Does the geography of these conferences affect their travel distance during March Madness?
             `,
             onChapterEnter: [],
