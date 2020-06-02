@@ -876,7 +876,7 @@
 
     resetExtent();
     resetAllFilters();
-    // infoBtnSeed.css('visibility', 'hidden');
+    infoBtnSeed.css('visibility', 'hidden');
     infoBtnSeed.removeClass('visible');
 
   }
@@ -978,7 +978,9 @@
           }
 
           if (id === 'intro') {
-            resetExtent(true);
+            map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
+
+            // resetExtent(true);
           //   // map.setFilter('d1', ['match', ['get', 'common_nam'], d1.features.map(x => x.properties.common_nam), true, false]);
           //   setTimeout(() => {
           //     map.setPaintProperty('d1-all', 'circle-radius', 5);
@@ -1005,7 +1007,7 @@
           if (id === 'chapter-2') {
             resetExtent(true);
             map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
-          } else if (id === 'chapter-3') {
+          } else if (id === 'chapter-3') {  // TODO check white stroke styling
             resetExtent(true);
             map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
           } else if (id === 'chapter-4') {  // todo create object w school info to streamline this
@@ -1431,7 +1433,11 @@
 
   function resetExtent(storyMode = false) {
 
-    infoBtnSchool.trigger('click');
+    if (storyMode) {
+      infoBtnSchool.trigger('click');
+      // reset info card to all school defaults
+      setDefaultInfoCard();
+    }
 
     map.setBearing(0);  // todo create fn?
     map.setPitch(0);
@@ -1465,8 +1471,8 @@
       fitMapBounds(layerGeometry);
     }
 
-    // reset info card to all school defaults
-    setDefaultInfoCard();
+    // // reset info card to all school defaults
+    // setDefaultInfoCard();
   }
 
   // TODO additional bounds for story mode?

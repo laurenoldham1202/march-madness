@@ -32,7 +32,7 @@ Championship tournament, affectionately referred to as March Madness. March
             onChapterEnter: [
                 {layer: 'legend-lines', opacity: 0},
                 {layer: 'legend-point', opacity: 0},
-                // {layer: 'schools', opacity: 0.7},
+                {layer: 'schools', opacity: 0.7},
 
                 // {layer: 'd1-all', opacity: 1},
                 // {layer: 'schools', opacity: 0},
@@ -148,7 +148,7 @@ determines where the chosen teams play, who they play against, and how highly th
 collected from <a href="https://www.sports-reference.com/cbb/postseason/" target="_blank">Sports Reference</a>. The data was
 cleaned, analyzed, and manipulated primarily using Python 3 libraries (pandas, geopandas, and geocoder) in Jupyter Notebooks.
 
-<br><br>Distances are calculated as Great Circle distances with the haversine formula, or 'as the crow flies,' i.e. the
+<br><br>Distances are calculated as <strong>Great Circle distances</strong> with the haversine formula, or 'as the crow flies,' i.e. the
 shortest possible distance between two points. This distance calculation does not account for how teams actually
 traveled to their tournament sites (e.g. flying versus driving). Site locations are also inexact, with coordinates placed
 in the site's city center rather than the exact arena in which the game was played.
