@@ -911,6 +911,7 @@
     iterateGeojsonSource(schools, seeds, colors);
     clickFooterBtn(seedsAgg, seeds, sites);
 
+    console.log(schools);
 
     //  geojsons created by reading jupyter notebook output CSVs into QGIS and converted
     map.on('load', () => {
@@ -1382,14 +1383,15 @@
       // TODO Move to node script?
       // apply seed property to schools geojson to match with seed dropdown values
       seeds.features.forEach(seed => {
+        console.log(seed);
         if (school.properties.school_common_name === seed.properties.school_common_name) {
-          if (seed.properties.seed === '1.0') {
+          if (seed.properties.seed === 1) {
             school.properties['oneSeed'] = seed.properties;
-          } else if (seed.properties.seed === '2.0') {
+          } else if (seed.properties.seed === 2) {
             school.properties['twoSeed'] = seed.properties;
-          } else if (seed.properties.seed === '3.0') {
+          } else if (seed.properties.seed === 3) {
             school.properties['threeSeed'] = seed.properties;
-          } else if (seed.properties.seed === '4.0') {
+          } else if (seed.properties.seed === 4) {
             school.properties['fourSeed'] = seed.properties;
           }
         }
@@ -1568,7 +1570,6 @@
 
         // push linestring features to line layer source
         map.getSource('line').setData({ type: 'FeatureCollection', features: lineFeatures });
-        console.log(lineFeatures);
 
         // difference between school averages and overall averages // TODO add min and max avg? or compare against overall min and max?
         const diffDistMed = (feature.properties['50%_dist'] - highlights['50%_dist']).toFixed();
@@ -1678,17 +1679,23 @@
     });
   }
 
+  // TODO SEED FILTER BROKEN
   function selectSeedOrConf(filterUI, filter) {
     filterUI.on('change', (e) => {
       // apply selected conference to filters
       filters[filter] = e.target.value;
+      // console.log(e.target.value);
 
       // loop through schools layer
       map.getSource('schools')['_data'].features.forEach(school => {
+        // console.log(school);
         // if a school is currently selected but does not belong to the selected conference, reset to default map view
         if (school.properties.school_common_name === filters.school) {
           const schoolMissingFilter = filter === 'conference' ? school.properties[filter] !== filters[filter] :
             !Object.keys(school.properties).includes(filters[filter]);
+
+          // console.log(!Object.keys(school.properties).includes(filters[filter]))
+
           if (schoolMissingFilter) { // TODO REMOVE IF YOU HIDE ALL OTHER SCHOOLS WHEN SCHOOL IS SELECTED
             // TODO remove selected school and set selected filter?
             resetExtent();  // hides selected school, sites, lines, etc. and resets bounds
@@ -1707,6 +1714,7 @@
   // TODO allow multiple conference selections?
   function selectConference() {
     selectSeedOrConf(conferenceFilter, 'conference');
+
   }
 
   function selectSeed() {
@@ -1903,7 +1911,6 @@
 
     const property = setProperty();
     const stops = createStops(schools, property);
-    console.log(stops);
     schoolDetails.paint['circle-radius'] = {property: property, stops: stops};
 
     const layerDetails = [schoolDetails, siteDetails, lineStringDetails, avgDistanceDetails, selectedSchoolDetails];
