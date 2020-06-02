@@ -368,8 +368,18 @@ are close and 1 seed sites that are far from schools are particularly noteworthy
             <strong>less than half a mile</strong> to their first round site in Tucson in 2000 as a 1 seed. Unfortunately for the Wildcats,
             the close proximity didn't give them enough of a boost to beat out Wisconsin in the second round of the 
             tournament.`,
-            onChapterEnter: [],
-            onChapterExit: []
+            // location: {
+            //     center: { lon: -110.95127, lat: 32.22568 },
+            //     zoom: 14.75,
+            //     pitch: 60.00,
+            //     bearing: -91.64
+            // },
+            onChapterEnter: [
+                {layer: 'chapter-9-points', opacity: 1},
+            ],
+            onChapterExit: [
+                {layer: 'chapter-9-points', opacity: 0},
+            ]
         },
         // {
         //     id: 'chapter-10',

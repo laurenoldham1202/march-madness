@@ -931,6 +931,24 @@
 
       createAllLayers(schools, sites);
 
+      // map.addLayer({
+      //   id: 'chapter-9-points',
+      //   type: 'circle',
+      //   source: {
+      //     type: 'geojson',
+      //     data: {
+      //       type: 'FeatureCollection',
+      //       features: [
+      //         {type: 'Feature', geometry: {type: 'Point', coordinates: [-110.97688411537951, 32.22877495], properties: {type: 'school'}}},
+      //         {type: 'Feature', geometry: {type: 'Point', coordinates: [-110.946060, 32.230226], properties: {type: 'site'}}}
+      //       ]
+      //     }
+      //   },
+      //   paint: {
+      //     'circle-color': ['match', ['get', 'type'], 'school', 'red', 'site', 'blue', 'green']
+      //   }
+      // });
+
       onSiteHover();
       onSchoolHover();
 
@@ -1022,7 +1040,9 @@
           } else if (id === 'chapter-8') {
             resetExtent(true);
           } else if (id === 'chapter-9') {
-            applyChapterFilters('Arizona', 'Tucson, AZ');
+
+
+            // applyChapterFilters('Arizona', 'Tucson, AZ');
           } else if (id === 'chapter-10') {
             applyChapterFilters('Syracuse', 'San Jose, CA');
           } else if (id === 'chapter-11') {
@@ -1383,7 +1403,6 @@
       // TODO Move to node script?
       // apply seed property to schools geojson to match with seed dropdown values
       seeds.features.forEach(seed => {
-        console.log(seed);
         if (school.properties.school_common_name === seed.properties.school_common_name) {
           if (seed.properties.seed === 1) {
             school.properties['oneSeed'] = seed.properties;
