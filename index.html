@@ -1433,7 +1433,9 @@
 
   function resetExtent(storyMode = false) {
 
-    if (storyMode) {
+    // only run if in explore mode - otherwise causes bug where seed btn is shown in story mode
+    if (!storyMode) {
+      // return to default view with seed btn visible and school btn hidden
       infoBtnSchool.trigger('click');
       // reset info card to all school defaults
       setDefaultInfoCard();
