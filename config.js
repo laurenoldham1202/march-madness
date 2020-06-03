@@ -375,10 +375,10 @@ are close and 1 seed sites that are far from schools are particularly noteworthy
             //     bearing: -91.64
             // },
             onChapterEnter: [
-                {layer: 'chapter-9-points', opacity: 1},
+                // {layer: 'chapter-9-points', opacity: 1},
             ],
             onChapterExit: [
-                {layer: 'chapter-9-points', opacity: 0},
+                // {layer: 'chapter-9-points', opacity: 0},
             ]
         },
         // {

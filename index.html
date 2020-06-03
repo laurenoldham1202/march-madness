@@ -161,11 +161,11 @@
       background: #eee;
     }
 
-    .app-mode-toggle {
-      position: fixed;
-      top: 0.5rem;
-      right: 0.5rem;
-    }
+    /*.app-mode-toggle {*/
+    /*  position: fixed;*/
+    /*  top: 0.5rem;*/
+    /*  right: 0.5rem;*/
+    /*}*/
 
     .button {
       margin: 1rem;
@@ -391,6 +391,50 @@
       font-size: 0.8rem !important;
     }
 
+
+
+    .chapter-progress {
+      position: fixed;
+      top: 0;
+      right: 235px;
+      left: 0;
+      /*height: 3rem;*/
+      background: pink;
+      display: flex;
+    }
+
+    .chapter {
+      /*width: 4rem;*/
+      /*width: auto;*/
+      width: 5.25%;
+      /*background: rgba(0,0,0,0.5);*/
+      background: #0146a1;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      height: 0.75rem;
+    }
+
+    .active-chapter {
+      background: #E27600;
+    }
+
+    .chapter-list {
+      width: 100%;
+      display: flex;
+      /*background: rgba(0,0,0,0.5);*/
+    }
+
+
+    .toolbar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      display: flex;
+      z-index: 2000;
+      /*height: 5rem;*/
+      /*background: mediumpurple;*/
+    }
+
     @media (max-width: 750px) {
       #features {
         width: 90vw;
@@ -403,14 +447,28 @@
 
 <div id="map" class="map-story-mode"></div>
 
-<div class="btn-group btn-group-toggle app-mode-toggle" data-toggle="buttons">
-  <label class="btn btn-secondary active" id="toggle-story-mode">
-    <input type="radio" name="options" id="map-story" checked> Story Mode
-  </label>
-  <label class="btn btn-secondary" id="toggle-explore-mode">
-    <input type="radio" name="options" id="map-explore"> Explore Mode
-  </label>
+<div class="toolbar">
+  <div class="chapter-list"></div>
+  <div class="btn-group btn-group-toggle app-mode-toggle" data-toggle="buttons">
+    <label class="btn btn-secondary active" id="toggle-story-mode">
+      <input type="radio" name="options" id="map-story" checked> Story Mode
+    </label>
+    <label class="btn btn-secondary" id="toggle-explore-mode">
+      <input type="radio" name="options" id="map-explore"> Explore Mode
+    </label>
+  </div>
 </div>
+
+<!--<div class="chapter-progress"></div>-->
+
+<!--<div class="btn-group btn-group-toggle app-mode-toggle" data-toggle="buttons">-->
+<!--  <label class="btn btn-secondary active" id="toggle-story-mode">-->
+<!--    <input type="radio" name="options" id="map-story" checked> Story Mode-->
+<!--  </label>-->
+<!--  <label class="btn btn-secondary" id="toggle-explore-mode">-->
+<!--    <input type="radio" name="options" id="map-explore"> Explore Mode-->
+<!--  </label>-->
+<!--</div>-->
 
 <div class="map-explore">
   <div class="map-control">
@@ -849,10 +907,24 @@
   // dynamically apply info card defaults before jsons are loaded
   setDefaultInfoCard();
 
+  generateChapterBtns();
+
+  function generateChapterBtns() {
+    console.log(config.chapters);
+    config.chapters.forEach((chapter, index) => {
+      // $('.chapter-progress').append(`<div class='chapter'>${chapter.id}</div>`);
+      $('.chapter-list').append(`<div class='chapter' id="chapter-${chapter.id}"></div>`);
+    });
+  }
+
+  function clickChapter() {
+
+  }
 
   function enterExploreMode() {
     story.detach();
     mapExplorer.css('visibility', 'visible');
+    $('.chapter-list').css('visibility', 'hidden');
 
     // $('.footer-btn').css('visibility', 'visible');
     // map.setLayoutProperty('d1-all', 'visibility', 'none');
@@ -866,6 +938,8 @@
 
   function enterStoryMode() {
     mapExplorer.css('visibility', 'hidden');
+    $('.chapter-list').css('visibility', 'visible');
+
     // TODO fix how button displays when toggling back tostory mode
     // $('.footer-btn').css('visibility', 'hidden');
 
@@ -996,6 +1070,9 @@
             chapter.onChapterEnter.forEach(setLayerOpacity);
           }
 
+          console.log(chapter.id);
+          $(`#chapter-${chapter.id}`).addClass('active-chapter');
+
           if (id === 'intro') {
             map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
 
@@ -1042,7 +1119,7 @@
           } else if (id === 'chapter-9') {
 
 
-            // applyChapterFilters('Arizona', 'Tucson, AZ');
+            applyChapterFilters('Arizona', 'Tucson, AZ');
           } else if (id === 'chapter-10') {
             applyChapterFilters('Syracuse', 'San Jose, CA');
           } else if (id === 'chapter-11') {
@@ -1111,6 +1188,8 @@
           if (chapter.onChapterExit.length > 0) {
             chapter.onChapterExit.forEach(setLayerOpacity);
           }
+          $(`#chapter-${chapter.id}`).removeClass('active-chapter');
+
         });
     });
   }
