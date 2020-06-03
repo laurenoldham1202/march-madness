@@ -925,16 +925,8 @@
   // dynamically apply info card defaults before jsons are loaded
   setDefaultInfoCard();
 
-  // generateChapterBtns();
+  // handle chapter progress bar, clicks, mouseover, etc.
   handleChapters();
-
-  function generateChapterBtns() {
-    // console.log(config.chapters);
-    config.chapters.forEach((chapter, index) => {
-      // $('.chapter-progress').append(`<div class='chapter'>${chapter.id}</div>`);
-      $('.chapter-list').append(`<div class='chapter' id="block-${chapter.id}"></div>`);
-    });
-  }
 
   function handleChapters() {
     generateChapterBtns();
@@ -943,17 +935,20 @@
     mouseOutChapter();
   }
 
+  function generateChapterBtns() {
+    // dynamically push up chapter blocks for each story chapter
+    config.chapters.forEach(chapter => {
+      $('.chapter-list').append(`<div class='chapter' id="block-${chapter.id}"></div>`);
+    });
+  }
+
   function clickChapter() {
     $('.chapter').on('click', (e) => {
+      // split chapter id from 'block-' prefix to match with chapter
       const chapterId = e.target.id.split('block-')[1];
-      // console.log(config);
-      // console.log(scroller);
-
-      // $('#chapter-9').addClass('active');
+      // scroll to the selected chapter with some padding
       $(window).scrollTop($(`#${chapterId}`).offset().top - 100);
-
     });
-
   }
 
   function mouseOverChapter() {
@@ -961,30 +956,22 @@
     // TODO add mouseover style
     // TODO adjust RESET EXTENT btn
     $('.chapter').on('mouseover', (e) => {
-
+      const tooltip = $('.chapter-tooltip');
+      // on mouseover, apply chapter title for the selected div chapter id
       config.chapters.forEach(chapter => {
         if (chapter.id === e.target.id.split('block-')[1]) {
-          console.log(chapter.title);
-
-          $('.chapter-tooltip').text(chapter.title || 'Introduction');
-
+          tooltip.text(chapter.title || 'Introduction');
         }
       });
-      // console.log(config.chapters.map(x => x.id === e.target.id.split('block-')[1]));
-      // console.log(config.chapters);
-      // $('.chapter-tooltip').text(e.target.id.split('block-')[1]);
 
-
-      $('.chapter-tooltip').css('left', e.target.offsetLeft);  // TODO create offset?
-      $('.chapter-tooltip').css('visibility', 'visible');
-
-
-      // $(window).scrollTop($(`#${chapterId}`).offset().top - 100);
-
+      // toggle visibility and place each tooltip below chapter block
+      tooltip.css('left', e.target.offsetLeft);
+      tooltip.css('visibility', 'visible');
     });
   }
 
   function mouseOutChapter() {
+    // clear tooltip on mouseout
     $('.chapter').on('mouseout', () => {
       $('.chapter-tooltip').css('visibility', 'hidden');
     });
