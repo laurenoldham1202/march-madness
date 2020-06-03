@@ -411,6 +411,7 @@
       background: #0146a1;
       border: 1px solid rgba(255, 255, 255, 0.4);
       height: 0.75rem;
+      cursor: pointer;
     }
 
     .active-chapter {
@@ -908,17 +909,26 @@
   setDefaultInfoCard();
 
   generateChapterBtns();
+  clickChapter();
 
   function generateChapterBtns() {
-    console.log(config.chapters);
+    // console.log(config.chapters);
     config.chapters.forEach((chapter, index) => {
       // $('.chapter-progress').append(`<div class='chapter'>${chapter.id}</div>`);
-      $('.chapter-list').append(`<div class='chapter' id="chapter-${chapter.id}"></div>`);
+      $('.chapter-list').append(`<div class='chapter' id="block-${chapter.id}"></div>`);
     });
   }
 
   function clickChapter() {
+    $('.chapter').on('click', (e) => {
+      const chapterId = e.target.id.split('block-')[1];
+      // console.log(config);
+      // console.log(scroller);
 
+      // $('#chapter-9').addClass('active');
+      $(window).scrollTop($(`#${chapterId}`).offset().top - 100);
+
+    });
   }
 
   function enterExploreMode() {
@@ -984,8 +994,6 @@
     // push schools to schoolFilter dropdown, apply seed values to school feature properties
     iterateGeojsonSource(schools, seeds, colors);
     clickFooterBtn(seedsAgg, seeds, sites);
-
-    console.log(schools);
 
     //  geojsons created by reading jupyter notebook output CSVs into QGIS and converted
     map.on('load', () => {
@@ -1070,8 +1078,8 @@
             chapter.onChapterEnter.forEach(setLayerOpacity);
           }
 
-          console.log(chapter.id);
-          $(`#chapter-${chapter.id}`).addClass('active-chapter');
+          // console.log(chapter.id);
+          $(`#block-${chapter.id}`).addClass('active-chapter');
 
           if (id === 'intro') {
             map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
@@ -1163,7 +1171,7 @@
           } else if (id === 'chapter-20') {
             resetAllFilters();
             resetExtent(true);
-          } else if (id === 'chapter-19.5') {
+          } else if (id === 'chapter-21') {
             // resetExtent(true);
             // resetAllFilters();
             map.setFilter('schools', ['match', ['get', 'conference'],
@@ -1188,7 +1196,7 @@
           if (chapter.onChapterExit.length > 0) {
             chapter.onChapterExit.forEach(setLayerOpacity);
           }
-          $(`#chapter-${chapter.id}`).removeClass('active-chapter');
+          $(`#block-${chapter.id}`).removeClass('active-chapter');
 
         });
     });

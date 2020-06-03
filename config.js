@@ -555,7 +555,7 @@ first and only National Championship was won in 1960, decades before modern seed
             onChapterExit: []
         },
       {
-        id: 'chapter-19.5',
+        id: 'chapter-21',
         title: 'Conferences with the Lowest Weighted Mean Travel Distance',
         image: '',
         description: `Applying weights to the conference distances, however, paints an unclear picture of any geographic trends. 
