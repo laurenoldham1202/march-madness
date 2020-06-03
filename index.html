@@ -1126,6 +1126,8 @@
           $(`#block-${chapter.id}`).addClass('active-chapter');
 
           if (id === 'intro') {
+
+            infoBtnSeed.removeClass('visible');
             map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
 
             // resetExtent(true);
