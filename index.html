@@ -167,6 +167,10 @@
     /*  right: 0.5rem;*/
     /*}*/
 
+    .btn {
+      width: 8rem;
+    }
+
     .button {
       margin: 1rem;
       border-radius: 4px;
@@ -921,8 +925,8 @@
   // dynamically apply info card defaults before jsons are loaded
   setDefaultInfoCard();
 
-  generateChapterBtns();
-  clickChapter();
+  // generateChapterBtns();
+  handleChapters();
 
   function generateChapterBtns() {
     // console.log(config.chapters);
@@ -930,6 +934,13 @@
       // $('.chapter-progress').append(`<div class='chapter'>${chapter.id}</div>`);
       $('.chapter-list').append(`<div class='chapter' id="block-${chapter.id}"></div>`);
     });
+  }
+
+  function handleChapters() {
+    generateChapterBtns();
+    clickChapter();
+    mouseOverChapter();
+    mouseOutChapter();
   }
 
   function clickChapter() {
@@ -943,10 +954,13 @@
 
     });
 
+  }
+
+  function mouseOverChapter() {
     // TODO adjust for plotting on top of buttons
     // TODO add mouseover style
+    // TODO adjust RESET EXTENT btn
     $('.chapter').on('mouseover', (e) => {
-      // console.log(e.target.offsetLeft);
 
       config.chapters.forEach(chapter => {
         if (chapter.id === e.target.id.split('block-')[1]) {
@@ -968,10 +982,11 @@
       // $(window).scrollTop($(`#${chapterId}`).offset().top - 100);
 
     });
+  }
 
+  function mouseOutChapter() {
     $('.chapter').on('mouseout', () => {
       $('.chapter-tooltip').css('visibility', 'hidden');
-
     });
   }
 
