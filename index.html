@@ -1114,28 +1114,32 @@
     //  geojsons created by reading jupyter notebook output CSVs into QGIS and converted
     map.on('load', () => {
 
-      // TODO top schools first - slide explains top schools, then sites and why they matter
-      map.addLayer({
-        id: 'tourney-lines',
-        type: 'line',
-        source: {type: 'geojson', data: tourney},
-        paint: {
-          'line-color': '#414140',
-          'line-opacity': 0.5,
-          'line-dasharray': [3, 3]
-        },
-        filter: ['==', '$type', 'LineString']
-      });
+      // // TODO top schools first - slide explains top schools, then sites and why they matter
+      // map.addLayer({
+      //   id: 'tourney-lines',
+      //   type: 'line',
+      //   source: {type: 'geojson', data: tourney},
+      //   paint: {
+      //     'line-color': '#414140',
+      //     'line-opacity': 0.5,
+      //     'line-dasharray': [3, 3]
+      //   },
+      //   filter: ['==', '$type', 'LineString']
+      // });
 
       map.addLayer({
         id: 'tourney',
         type: 'circle',
         source: {type: 'geojson', data: tourney},
         paint: {
+          'circle-radius': 10,
+          'circle-stroke-color': '#FFF',
+          'circle-stroke-opacity': 0.8,
+          'circle-stroke-width': 1,
           'circle-color': ['match', ['get', 'seed'], 1, '#80bad1', 2, '#5694c1', 3, '#2c6db1', 4, '#0146a1', 'orange'],
         },
-        filter: ['==', '$type', 'Point']
-        // filter: ['all', ['==', '$type', 'Point'], ['==', 'seed', 2]]
+        // filter: ['==', '$type', 'Point']
+        filter: ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'school']]
 
       });
 

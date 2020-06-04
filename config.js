@@ -113,6 +113,14 @@ Championship tournament, affectionately referred to as March Madness. March
             </div>            
           
             `,
+            location: {
+                center: { lon: -95.19207, lat: 37.96458 },
+                zoom: 4.96,
+                pitch: 0,
+                bearing: 0
+                // pitch: 60.00,
+                // bearing: 28.00
+            },
             onChapterEnter: [
                 // {layer: 'd1-all', opacity: 0.15},
                 // {layer: 'd1-trim', opacity: 1},
@@ -128,32 +136,32 @@ Championship tournament, affectionately referred to as March Madness. March
             title: 'Why Does the First Round Site Matter?',
             image: '',
             // TODO style list items more nicely
-            description: `
-            <span class="bold">Because March Madness is a single-elimination tournament, teams only have one shot in each round to advance to the next level.</span>
-            All teams put their best foot forward, but there's no room for an off game - one bad night can (and has) cost the best team in the nation
-            a shot at the national title. Many lower ranked teams don't make it into the tournament very often and have the tenacity to try to become
-            the next Cinderella story.
-           
-            <br><br>Teams want every advantage at their disposal when going into the tournament, and having a closer first-round 
-            site can be incredibly beneficial both physically and psychologically.
-             <ul>
-             <li>Student athletes still officially 
-            attend classes during the tournament, so shorter travel times are logistically easier; not only that, but 
-            traveling long distances via bus or air can be physically draining.</li>
-             <li>Games are played from early morning to 
-            late at night across multiple time zones, so it's also ideal to play in or near your home time zone. </li>
-            <li>Perhaps
-            most importantly, playing near your school allows your fanbase to easily travel to the games, simulating
-            as much of a <a href="https://kenpom.com/blog/mining-point-spread-data-home-court-advantage/" target="_blank">
-            home court advantage</a> as possible. When the tides turn against a team in a game, nothing fires them up 
-            like a raucous home crowd.</li>
-            </ul>
-            
-            <span class="bold">The NCAA Selection Committee claims to give geographic preference to the top seeds in order of their rank </span>- 
-            one seeds get the highest preference, then two seeds, then three, then four (remaining seeds are not given
-            explicit geographic considerations). So is it true? <span class="bold">I analyzed March Madness tournament data from 2015 to 
-            2019 to put the claim to the test.</span>
-            `,
+            // description: `
+            // <span class="bold">Because March Madness is a single-elimination tournament, teams only have one shot in each round to advance to the next level.</span>
+            // All teams put their best foot forward, but there's no room for an off game - one bad night can (and has) cost the best team in the nation
+            // a shot at the national title. Many lower ranked teams don't make it into the tournament very often and have the tenacity to try to become
+            // the next Cinderella story.
+            //
+            // <br><br>Teams want every advantage at their disposal when going into the tournament, and having a closer first-round
+            // site can be incredibly beneficial both physically and psychologically.
+            //  <ul>
+            //  <li>Student athletes still officially
+            // attend classes during the tournament, so shorter travel times are logistically easier; not only that, but
+            // traveling long distances via bus or air can be physically draining.</li>
+            //  <li>Games are played from early morning to
+            // late at night across multiple time zones, so it's also ideal to play in or near your home time zone. </li>
+            // <li>Perhaps
+            // most importantly, playing near your school allows your fanbase to easily travel to the games, simulating
+            // as much of a <a href="https://kenpom.com/blog/mining-point-spread-data-home-court-advantage/" target="_blank">
+            // home court advantage</a> as possible. When the tides turn against a team in a game, nothing fires them up
+            // like a raucous home crowd.</li>
+            // </ul>
+            //
+            // <span class="bold">The NCAA Selection Committee claims to give geographic preference to the top seeds in order of their rank </span>-
+            // one seeds get the highest preference, then two seeds, then three, then four (remaining seeds are not given
+            // explicit geographic considerations). So is it true? <span class="bold">I analyzed March Madness tournament data from 2015 to
+            // 2019 to put the claim to the test.</span>
+            // `,
             // description: `Obsessed with so-called 'chaos,' college basketball fans thrive on the unpredictability of the first and second rounds of the NCAA tournament. While higher ranked/seeded teams are expected to make deep runs, it is not uncommon for them to get upset by lower ranked teams (sorry UVA fans). Teams want every advantage they can entering the first weekend of the tournament. The advantage of playing at a site closer to the school location is both pragmatic and psychological. The players are still attending classes, so it is logistically easier to travel shorter distances. Furthermore, playing closer to the school allows the team's fan base and families a better opportunity to watch them play, giving them as much of a home court advantage as possible.`,
 
              //  `The entire field of teams is ranked 1 to 68, with 1 being the top or best team overall, and 68
@@ -169,6 +177,24 @@ Championship tournament, affectionately referred to as March Madness. March
             //     pitch: 39.50,
             //     bearing: 36.00
             // },
+            description: `
+            According to the NCAA Selection Committee, <strong>top teams are given geographic preference when determining
+            <em>where</em> they play in the first round of the tournament</strong>.
+            
+            <br><br>
+            Playing closer to 'home' can be extremely advantageous during the tournament. Not only does it reduce time 
+            spent traveling, but more importantly, <strong>it simulates a home court advantage</strong> by allowing fan
+            bases to easily travel to the games.
+            
+            <br><br>When one bad play can ruin a top team's chance at the National Championship title, they need every
+            edge they can get when entering the tournament.
+            
+            <br><br>
+            <span class="bold">The NCAA Selection Committee claims to give geographic preference to the top seeds in order of their rank </span>- 
+            one seeds get the highest preference, then two seeds, then three, then four (remaining seeds are not given
+            explicit geographic considerations). So is it true? <span class="bold">I analyzed March Madness tournament data from 2015 to
+            2019 to put the claim to the test.</span>
+            `,
             onChapterEnter: [
                 {layer: 'legend-lines', opacity: 0},
                 {layer: 'legend-point', opacity: 0},
