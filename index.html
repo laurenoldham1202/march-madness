@@ -952,37 +952,15 @@
     }
   });
 
-  $('#story-seed-1').on('mouseover', (e) => {
-    // filter: ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'site']]
-
-    map.setFilter('tourney-sites', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'site'], ['==', 'seed', 1]]);
-    map.setFilter('tourney', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'school'], ['==', 'seed', 1]]);
-    // map.setFilter('tourney', ['==', 'seed', 1]);
-    map.setFilter('tourney-lines', ['==', 'seed', 1]);
-  });
-  $('#story-seed-2').on('mouseover', (e) => {
-    map.setFilter('tourney-sites', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'site'], ['==', 'seed', 2]]);
-    // map.setFilter('tourney', ['==', 'seed', 2]);
-    map.setFilter('tourney', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'school'], ['==', 'seed', 2]]);
-
-    map.setFilter('tourney-lines', ['==', 'seed', 2]);
+  const storySeeds =  [$('#story-seed-1'), $('#story-seed-2'), $('#story-seed-3'), $('#story-seed-4')];
+  storySeeds.forEach((story, i) => {
+    story.on('mouseover', () => {
+      map.setFilter('tourney-sites', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'site'], ['==', 'seed', i+1]]);
+      map.setFilter('tourney', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'school'], ['==', 'seed', i+1]]);
+      map.setFilter('tourney-lines', ['==', 'seed', i+1]);
+    });
   });
 
-  $('#story-seed-3').on('mouseover', (e) => {
-    map.setFilter('tourney-sites', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'site'], ['==', 'seed', 3]]);
-    // map.setFilter('tourney', ['==', 'seed', 2]);
-    map.setFilter('tourney', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'school'], ['==', 'seed', 3]]);
-
-    map.setFilter('tourney-lines', ['==', 'seed', 3]);
-  });
-
-  $('#story-seed-4').on('mouseover', (e) => {
-    map.setFilter('tourney-sites', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'site'], ['==', 'seed', 4]]);
-    // map.setFilter('tourney', ['==', 'seed', 2]);
-    map.setFilter('tourney', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'school'], ['==', 'seed', 4]]);
-
-    map.setFilter('tourney-lines', ['==', 'seed', 4]);
-  });
   // dynamically apply info card defaults before jsons are loaded
   setDefaultInfoCard();
 
@@ -1015,7 +993,6 @@
   function mouseOverChapter() {
     // TODO adjust for plotting on top of buttons
     // TODO add mouseover style
-    // TODO adjust RESET EXTENT btn
     $('.chapter').on('mouseover', (e) => {
       const tooltip = $('.chapter-tooltip');
       // on mouseover, apply chapter title for the selected div chapter id
