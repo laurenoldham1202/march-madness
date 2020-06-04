@@ -343,7 +343,7 @@
 
     .seed-hl-row {
       display: flex;
-      margin-top: 1rem;
+      /*margin-top: 1rem;*/
     }
 
     .seed-hl-text {
@@ -450,6 +450,36 @@
       z-index: 2000;
       /*height: 5rem;*/
       /*background: mediumpurple;*/
+    }
+
+
+    .small-text > .seed-hl {
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    .seed-one {
+      background: #80bad1;
+    }
+
+    .seed-two {
+      color: whitesmoke;
+      background: #5694c1;
+    }
+
+    .seed-three {
+      color: whitesmoke;
+      background: #2c6db1;
+    }
+
+    .seed-four {
+      color: whitesmoke;
+      background: #0146a1;
+    }
+
+    .seed-label {
+      margin: 1.5rem 0 0.25rem 0;
+      text-align: center;
     }
 
     @media (max-width: 750px) {
@@ -1024,8 +1054,10 @@
   const confJson = d3.json('data/edits/conference-agg.json');
   const colorsJson = d3.json('data/cleaned/school-colors.json');
   const d1Json = d3.json('data/tmp/d1-schools-master.json');
+  // const tourney2019 = d3.json('data/created/tourney-2019.json');
+  const tourney2019 = d3.json('data/created/tourney-2012.json');
 
-  Promise.all([sitesJson, schoolsJson, seedsJson, seedsAggJson, confJson, colorsJson, d1Json]).then(onLoad);
+  Promise.all([sitesJson, schoolsJson, seedsJson, seedsAggJson, confJson, colorsJson, d1Json, tourney2019]).then(onLoad);
 
   function onLoad(data) {
     const sites = data[0];
@@ -1035,6 +1067,44 @@
     const conf = data[4];
     const colors = data[5];
     const d1 = data[6];
+    const tourney = data[7];
+    console.log(tourney);
+
+    const sites12 = tourney.features.slice(0, 16);
+    const schools12 = tourney.features.slice(16, 32);
+    // console.log(sites12);
+    // console.log(schools12);
+
+    const lines = [];
+    sites12.forEach(site => {
+      schools12.forEach(school => {
+        if (site.properties.school_common_name === school.properties.school_common_name) {
+          // console.log(site);
+          lines.push({type: 'Feature', geometry: {type: 'LineString', coordinates: [site.geometry.coordinates, school.geometry.coordinates]}});
+        }
+      });
+    });
+
+    console.log(JSON.stringify(lines));
+
+    // const s =[];
+    // const d = [];
+    // sites.features.forEach(site => {
+    //   if (site.properties.year === 2012) {
+    //     s.push(site);
+    //   }
+    // });
+    // console.log(s);
+    //
+    // s.map(x => x.properties.school_common_name).forEach(name => {
+    //   schools.features.forEach(school => {
+    //     if (school.properties.school_common_name === name) {
+    //       d.push(school);
+    //     }
+    //   });
+    // });
+    //
+    // console.log(JSON.stringify([...s, ...d]));
 
     // iterate over schools and seeds geojson layers before manipulating map
     // push schools to schoolFilter dropdown, apply seed values to school feature properties
@@ -1043,6 +1113,32 @@
 
     //  geojsons created by reading jupyter notebook output CSVs into QGIS and converted
     map.on('load', () => {
+
+      // TODO top schools first - slide explains top schools, then sites and why they matter
+      map.addLayer({
+        id: 'tourney-lines',
+        type: 'line',
+        source: {type: 'geojson', data: tourney},
+        paint: {
+          'line-color': '#414140',
+          'line-opacity': 0.5,
+          'line-dasharray': [3, 3]
+        },
+        filter: ['==', '$type', 'LineString']
+      });
+
+      map.addLayer({
+        id: 'tourney',
+        type: 'circle',
+        source: {type: 'geojson', data: tourney},
+        paint: {
+          'circle-color': ['match', ['get', 'seed'], 1, '#80bad1', 2, '#5694c1', 3, '#2c6db1', 4, '#0146a1', 'orange'],
+        },
+        filter: ['==', '$type', 'Point']
+        // filter: ['all', ['==', '$type', 'Point'], ['==', 'seed', 2]]
+
+      });
+
 
       plotLegend();
 

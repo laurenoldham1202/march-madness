@@ -32,7 +32,8 @@ Championship tournament, affectionately referred to as March Madness. March
             onChapterEnter: [
                 {layer: 'legend-lines', opacity: 0},
                 {layer: 'legend-point', opacity: 0},
-                {layer: 'schools', opacity: 0.7},
+                // {layer: 'schools', opacity: 0.7},
+                {layer: 'schools', opacity: 0},
 
                 // {layer: 'd1-all', opacity: 1},
                 // {layer: 'schools', opacity: 0},
@@ -45,28 +46,73 @@ Championship tournament, affectionately referred to as March Madness. March
         },
         {
             id: 'chapter-1',
-            title: 'Selection Sunday',
+            title: 'Tournament Seeding',
+            // title: 'Selection Sunday',
             image: '',
             // description: `In theory, higher ranked teams are rewarded by playing the lowest ranked teams in the tournament. Furthermore, according to the NCAA's selection process, top seeded teams are to have geographic preference over lower seeded teams in the first two rounds of the tournament (if possible - other factors are considered). I want to analyze the first/second round sites for each of the top 4 seeded teams (four teams in each seed for 16 total top teams each year) from 1985 to 2020 to establish patterns, potential biases, and test the NCAA's claim of geographic preference.`,
+//             description: `
+//             While coaches, teams, and fans alike want to see their preferred team effortlessly stroll through
+//             the Sweet Sixteen, Elite Eight, and Final Four to play in the National Championship game, they first have to
+//              survive the first weekend of the tournament. Putting the ‘madness’ into March Madness, the first and second
+//               rounds of the tournament (Round of 64 and Round of 32, respectively) are historically filled with the most
+//                chaos, with underdog teams defying odds by knocking out highly favored teams early on. <span class="bold">Because of the
+//                precedence for upsets in the first round of the tournament, there is a lot of focus on the matchups and
+//                locations for each competing team.</span>
+//
+// <br><br>Selection Sunday does more than just determine who gets into the tournament - it also
+// determines where the chosen teams play, who they play against, and how highly they are ranked.
+//
+//               <br><br>Each team is listed from best to worst with an overall rank, a number 1 to 64*, in which 1
+//               represents the overall best team in the tournament and 64 represents the worst. These rankings are then
+//               grouped into 16 seeds of four teams each, wherein 1 seeds are the best teams and 16 seeds are the worst
+//               teams. Many considerations go into the creation of March Madness brackets, but the idea is that <span class="bold">higher
+//               seeds are rewarded for their regular season performance by playing against the lowest ranked teams. </span>
+//               Additionally, <span class="bold">the selection committee is supposed to give top ranked teams geographic preference in their
+//               first round sites.</span>`,
             description: `
-            While coaches, teams, and fans alike want to see their preferred team effortlessly stroll through 
-            the Sweet Sixteen, Elite Eight, and Final Four to play in the National Championship game, they first have to
-             survive the first weekend of the tournament. Putting the ‘madness’ into March Madness, the first and second
-              rounds of the tournament (Round of 64 and Round of 32, respectively) are historically filled with the most
-               chaos, with underdog teams defying odds by knocking out highly favored teams early on. <span class="bold">Because of the 
-               precedence for upsets in the first round of the tournament, there is a lot of focus on the matchups and 
-               locations for each competing team.</span>
-               
-<br><br>Selection Sunday does more than just determine who gets into the tournament - it also 
-determines where the chosen teams play, who they play against, and how highly they are ranked.
-
-              <br><br>Each team is listed from best to worst with an overall rank, a number 1 to 64*, in which 1 
-              represents the overall best team in the tournament and 64 represents the worst. These rankings are then 
-              grouped into 16 seeds of four teams each, wherein 1 seeds are the best teams and 16 seeds are the worst 
-              teams. Many considerations go into the creation of March Madness brackets, but the idea is that <span class="bold">higher 
-              seeds are rewarded for their regular season performance by playing against the lowest ranked teams. </span>
-              Additionally, <span class="bold">the selection committee is supposed to give top ranked teams geographic preference in their 
-              first round sites.</span>`,
+            Before the tournament starts, schools are grouped into ranked seeds to determine their position in the 
+            bracket, which dictates <em>where</em> and <em>who</em> they play. 
+            
+            <br><br>
+            64 teams are grouped into 16 seeds. The first 4 seeds (1-4) are considered the best seeds and represent the 
+            top teams in the tournament.
+            
+            <br><br>
+            For example, during the 2012 tournament:
+            
+            <div class="seed-label">One Seeds (overall best teams)</div>
+            <div class="seed-hl-row small-text">
+              <div class="seed-hl seed-one">UNC</div>
+              <div class="seed-hl seed-one">Kentucky</div>
+              <div class="seed-hl seed-one">Michigan St.</div>
+              <div class="seed-hl seed-one">Syracuse</div>
+            </div>            
+                      
+            <div class="seed-label">Two Seeds (second overall best teams)</div>
+            <div class="seed-hl-row small-text">
+              <div class="seed-hl seed-two">Kansas</div>
+              <div class="seed-hl seed-two">Duke</div>
+              <div class="seed-hl seed-two">Missouri</div>
+              <div class="seed-hl seed-two">Ohio State</div>
+            </div>            
+                                
+            <div class="seed-label">Three Seeds (third overall best teams)</div>
+            <div class="seed-hl-row small-text">
+              <div class="seed-hl seed-three">Georgetown</div>
+              <div class="seed-hl seed-three">Baylor</div>
+              <div class="seed-hl seed-three">Marquette</div>
+              <div class="seed-hl seed-three">Florida State</div>
+            </div>            
+                                          
+            <div class="seed-label">Four Seeds (fourth overall best teams)</div>
+            <div class="seed-hl-row small-text">
+              <div class="seed-hl seed-four">Michigan</div>
+              <div class="seed-hl seed-four">Indiana</div>
+              <div class="seed-hl seed-four">Louisville</div>
+              <div class="seed-hl seed-four">Wisconsin</div>
+            </div>            
+          
+            `,
             onChapterEnter: [
                 // {layer: 'd1-all', opacity: 0.15},
                 // {layer: 'd1-trim', opacity: 1},
