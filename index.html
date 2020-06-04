@@ -1164,14 +1164,16 @@
         type: 'circle',
         source: {type: 'geojson', data: tourney},
         paint: {
-          // 'circle-radius': 10,
-          'circle-radius': ['match', ['get', 'seed'], 1, 5, 2, 8, 3, 11, 4, 14, 5],
+          'circle-radius': 10,
+          // 'circle-radius': ['match', ['get', 'seed'], 1, 5, 2, 8, 3, 11, 4, 14, 5],
 
-          'circle-stroke-color': '#FFF',
-          'circle-stroke-opacity': 0.8,
-          'circle-stroke-width': 1,
+          // 'circle-stroke-color': '#FFF',
+          'circle-opacity': 0,
+          // 'circle-stroke-opacity': 0,
+          // 'circle-stroke-width': 1,
           'circle-color': ['match', ['get', 'seed'], 1, '#80bad1', 2, '#5694c1', 3, '#2c6db1', 4, '#0146a1', 'orange'],
         },
+        // layout: {visibility: 'none'},
         // filter: ['==', '$type', 'Point']
         filter: ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'school']]
       });
@@ -1181,13 +1183,14 @@
         type: 'circle',
         source: {type: 'geojson', data: tourney},
         paint: {
-          'circle-radius': 5,
-
-          'circle-stroke-color': '#FFF',
-          'circle-opacity': 0.8,
-          'circle-stroke-width': 1,
-          'circle-color': '#414140',
+          'circle-radius': 6.5,
+          'circle-opacity': 0,
+          // 'circle-stroke-color': '#FFF',
+          // 'circle-opacity': 0.8,
+          // 'circle-stroke-width': 1,
+          'circle-color': '#555',
         },
+        // layout: {visibility: 'none'},
         // filter: ['==', '$type', 'Point']
         filter: ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'site']]
       });
@@ -1197,10 +1200,11 @@
         type: 'line',
         source: {type: 'geojson', data: tourney},
         paint: {
-          'line-color': '#414140',
-          'line-opacity': 0.5,
+          'line-color': '#666',
+          'line-opacity': 0,
           'line-dasharray': [3, 3]
         },
+        // layout: {visibility: 'none'},
         // filter: ['==', '$type', 'Point']
         filter: ['==', '$type', 'LineString']
       }, 'tourney');
@@ -1320,7 +1324,15 @@
 
           }
 
+
+          if (id === 'chapter-1') {
+            map.setFilter('tourney-sites', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'site']]);
+            map.setFilter('tourney', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'school']]);
+            map.setFilter('tourney-lines', ['has', 'seed']);
+          }
           if (id === 'chapter-2') {
+
+
             // resetExtent(true);
             // map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
           } else if (id === 'chapter-3') {  // TODO check white stroke styling

@@ -122,6 +122,9 @@ Championship tournament, affectionately referred to as March Madness. March
                 // bearing: 28.00
             },
             onChapterEnter: [
+                {layer: 'tourney', opacity: 1},
+                // {layer: 'tourney-lines', opacity: 0},
+                // {layer: 'tourney', opacity: 1},
                 // {layer: 'd1-all', opacity: 0.15},
                 // {layer: 'd1-trim', opacity: 1},
             ],
@@ -171,12 +174,12 @@ Championship tournament, affectionately referred to as March Madness. March
              // against the worst performing teams through this system, wherein a better team plays against a worse team to
              // help pave an easier path to the National Championship game.`,
 
-            // location: {
-            //     center: [-113.72917, 48.58938],
-            //     zoom: 12.92,
-            //     pitch: 39.50,
-            //     bearing: 36.00
-            // },
+            location: {
+                center: [-116.5, 41.5],
+                zoom: 3.5,
+                pitch: 0.00,
+                bearing: 0.00,
+            },
             description: `
             According to the NCAA Selection Committee, <strong>top teams are given geographic preference when determining
             <em>where</em> they play in the first round of the tournament</strong>.
@@ -214,6 +217,10 @@ Championship tournament, affectionately referred to as March Madness. March
             </div>
             `,
             onChapterEnter: [
+                {layer: 'tourney-sites', opacity: 1},
+                {layer: 'tourney-lines', opacity: 1},
+                {layer: 'tourney', opacity: 1},
+
                 {layer: 'legend-lines', opacity: 0},
                 {layer: 'legend-point', opacity: 0},
                 {layer: 'legend-point-avg', opacity: 0},
@@ -225,6 +232,9 @@ Championship tournament, affectionately referred to as March Madness. March
 
             ],
             onChapterExit: [
+                {layer: 'tourney-sites', opacity: 0},
+                {layer: 'tourney-lines', opacity: 0},
+                {layer: 'tourney', opacity: 0},
                 // {layer: 'd1-all', opacity: 1},
                 // {layer: 'd1-trim', opacity: 1},
                 // {layer: 'schools', opacity: 0},
