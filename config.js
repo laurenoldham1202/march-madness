@@ -115,7 +115,7 @@ Championship tournament, affectionately referred to as March Madness. March
             `,
             location: {
                 center: { lon: -95.19207, lat: 37.96458 },
-                zoom: 4.96,
+                zoom: 4.7,
                 pitch: 0,
                 bearing: 0
                 // pitch: 60.00,
@@ -194,6 +194,24 @@ Championship tournament, affectionately referred to as March Madness. March
             one seeds get the highest preference, then two seeds, then three, then four (remaining seeds are not given
             explicit geographic considerations). So is it true? <span class="bold">I analyzed March Madness tournament data from 2015 to
             2019 to put the claim to the test.</span>
+            
+            <div class="seed-hl-row">
+                <div class="seed-hl" id="story-seed-1" style="background: #80bad1">
+                    <div class="seed-hl-text">1 Seeds</div>
+                </div> 
+               
+               <div class="seed-hl" id="story-seed-2" style="background: #5694c1">
+                    <div class="seed-hl-text">2 Seeds</div>
+                </div>
+                       
+               <div class="seed-hl" id="story-seed-3" style="background: #2c6db1">
+                    <div class="seed-hl-text">3 Seeds</div>
+                </div>
+                       
+               <div class="seed-hl" id="story-seed-4" style="background: #0146a1">
+                    <div class="seed-hl-text">4 Seeds</div>
+               </div>
+            </div>
             `,
             onChapterEnter: [
                 {layer: 'legend-lines', opacity: 0},
@@ -203,7 +221,7 @@ Championship tournament, affectionately referred to as March Madness. March
                 // {layer: 'schools', opacity: 0},
                 // {layer: 'd1-all', opacity: 0},
                 // {layer: 'd1-trim', opacity: 0},
-                // {layer: 'schools', opacity: 0.7},
+                {layer: 'schools', opacity: 0},
 
             ],
             onChapterExit: [

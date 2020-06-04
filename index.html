@@ -952,6 +952,37 @@
     }
   });
 
+  $('#story-seed-1').on('mouseover', (e) => {
+    // filter: ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'site']]
+
+    map.setFilter('tourney-sites', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'site'], ['==', 'seed', 1]]);
+    map.setFilter('tourney', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'school'], ['==', 'seed', 1]]);
+    // map.setFilter('tourney', ['==', 'seed', 1]);
+    map.setFilter('tourney-lines', ['==', 'seed', 1]);
+  });
+  $('#story-seed-2').on('mouseover', (e) => {
+    map.setFilter('tourney-sites', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'site'], ['==', 'seed', 2]]);
+    // map.setFilter('tourney', ['==', 'seed', 2]);
+    map.setFilter('tourney', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'school'], ['==', 'seed', 2]]);
+
+    map.setFilter('tourney-lines', ['==', 'seed', 2]);
+  });
+
+  $('#story-seed-3').on('mouseover', (e) => {
+    map.setFilter('tourney-sites', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'site'], ['==', 'seed', 3]]);
+    // map.setFilter('tourney', ['==', 'seed', 2]);
+    map.setFilter('tourney', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'school'], ['==', 'seed', 3]]);
+
+    map.setFilter('tourney-lines', ['==', 'seed', 3]);
+  });
+
+  $('#story-seed-4').on('mouseover', (e) => {
+    map.setFilter('tourney-sites', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'site'], ['==', 'seed', 4]]);
+    // map.setFilter('tourney', ['==', 'seed', 2]);
+    map.setFilter('tourney', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'school'], ['==', 'seed', 4]]);
+
+    map.setFilter('tourney-lines', ['==', 'seed', 4]);
+  });
   // dynamically apply info card defaults before jsons are loaded
   setDefaultInfoCard();
 
@@ -1068,7 +1099,7 @@
     const colors = data[5];
     const d1 = data[6];
     const tourney = data[7];
-    console.log(tourney);
+    // console.log(tourney);
 
     const sites12 = tourney.features.slice(0, 16);
     const schools12 = tourney.features.slice(16, 32);
@@ -1080,12 +1111,12 @@
       schools12.forEach(school => {
         if (site.properties.school_common_name === school.properties.school_common_name) {
           // console.log(site);
-          lines.push({type: 'Feature', geometry: {type: 'LineString', coordinates: [site.geometry.coordinates, school.geometry.coordinates]}});
+          lines.push({type: 'Feature', properties: {seed: site.properties.seed}, geometry: {type: 'LineString', coordinates: [site.geometry.coordinates, school.geometry.coordinates]}});
         }
       });
     });
 
-    console.log(JSON.stringify(lines));
+    // console.log(JSON.stringify(lines));
 
     // const s =[];
     // const d = [];
@@ -1111,6 +1142,7 @@
     iterateGeojsonSource(schools, seeds, colors);
     clickFooterBtn(seedsAgg, seeds, sites);
 
+
     //  geojsons created by reading jupyter notebook output CSVs into QGIS and converted
     map.on('load', () => {
 
@@ -1132,7 +1164,9 @@
         type: 'circle',
         source: {type: 'geojson', data: tourney},
         paint: {
-          'circle-radius': 10,
+          // 'circle-radius': 10,
+          'circle-radius': ['match', ['get', 'seed'], 1, 5, 2, 8, 3, 11, 4, 14, 5],
+
           'circle-stroke-color': '#FFF',
           'circle-stroke-opacity': 0.8,
           'circle-stroke-width': 1,
@@ -1140,8 +1174,38 @@
         },
         // filter: ['==', '$type', 'Point']
         filter: ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'school']]
-
       });
+
+      map.addLayer({
+        id: 'tourney-sites',
+        type: 'circle',
+        source: {type: 'geojson', data: tourney},
+        paint: {
+          'circle-radius': 5,
+
+          'circle-stroke-color': '#FFF',
+          'circle-opacity': 0.8,
+          'circle-stroke-width': 1,
+          'circle-color': '#414140',
+        },
+        // filter: ['==', '$type', 'Point']
+        filter: ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'site']]
+      });
+
+      map.addLayer({
+        id: 'tourney-lines',
+        type: 'line',
+        source: {type: 'geojson', data: tourney},
+        paint: {
+          'line-color': '#414140',
+          'line-opacity': 0.5,
+          'line-dasharray': [3, 3]
+        },
+        // filter: ['==', '$type', 'Point']
+        filter: ['==', '$type', 'LineString']
+      }, 'tourney');
+
+
 
 
       plotLegend();
@@ -1257,8 +1321,8 @@
           }
 
           if (id === 'chapter-2') {
-            resetExtent(true);
-            map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
+            // resetExtent(true);
+            // map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
           } else if (id === 'chapter-3') {  // TODO check white stroke styling
             resetExtent(true);
             map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
