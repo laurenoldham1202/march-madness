@@ -32,14 +32,16 @@ Championship tournament, affectionately referred to as March Madness. March
             onChapterEnter: [
                 {layer: 'legend-lines', opacity: 0},
                 {layer: 'legend-point', opacity: 0},
-                // {layer: 'schools', opacity: 0.7},
-                {layer: 'schools', opacity: 0},
+                {layer: 'schools', opacity: 0.7},
+                // {layer: 'schools', opacity: 1},
 
                 // {layer: 'd1-all', opacity: 1},
                 // {layer: 'schools', opacity: 0},
                 // {layer: 'd1-trim', opacity: 0},
             ],
             onChapterExit: [
+                {layer: 'schools', opacity: 0},
+
                 // {layer: 'd1-all', opacity: 0.15},
                 // {layer: 'd1-trim', opacity: 1},
             ]
@@ -74,8 +76,8 @@ Championship tournament, affectionately referred to as March Madness. March
             bracket, which dictates <em>where</em> and <em>who</em> they play. 
             
             <br><br>
-            64 teams are grouped into 16 seeds. The first 4 seeds (1-4) are considered the best seeds and represent the 
-            top teams in the tournament.
+            64 teams are grouped into 16 seeds. <strong>The first 4 seeds (1-4) are considered the best seeds and represent the 
+            top teams in the tournament.</strong>
             
             <br><br>
             For example, during the 2012 tournament:
@@ -189,15 +191,17 @@ Championship tournament, affectionately referred to as March Madness. March
             spent traveling, but more importantly, <strong>it simulates a home court advantage</strong> by allowing fan
             bases to easily travel to the games.
             
-            <br><br>When one bad play can ruin a top team's chance at the National Championship title, they need every
-            edge they can get when entering the tournament.
-            
+<!--            <br><br>When one bad play can ruin a top team's chance at the National Championship title, they need every-->
+<!--            edge they can get when entering the tournament.-->
+<!--            -->
             <br><br>
             <span class="bold">The NCAA Selection Committee claims to give geographic preference to the top seeds in order of their rank </span>- 
             one seeds get the highest preference, then two seeds, then three, then four (remaining seeds are not given
             explicit geographic considerations). So is it true? <span class="bold">I analyzed March Madness tournament data from 2015 to
             2019 to put the claim to the test.</span>
             
+            <br><br>
+            <div style="text-align: center">Mouse over seeds to display first-round site on the map</div>
             <div class="seed-hl-row">
                 <div class="seed-hl" id="story-seed-1" style="background: #80bad1">
                     <div class="seed-hl-text">1 Seeds</div>
