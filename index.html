@@ -1107,7 +1107,7 @@
             map.setFilter('tourney', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'school']]);
             map.setFilter('tourney-lines', ['has', 'seed']);
           } else if (id === 'chapter-2') {
-
+            $('#story-seed-1').trigger('mouseover');
           } else if (id === 'chapter-3') {
             triggerAnimation();
           } else if (id === 'chapter-4') {
@@ -1164,16 +1164,15 @@
             resetExtent(true);
           }
 
-
-
+          // if final chapter
           if (response.index === config.chapters.length - 1) {
-
+            // create new click event each time chapter is enter, or else unique div ID is overwritten
             $('#explore-mode').on('click', () => {
               enterExploreMode();
+              // toggle story/explore mode toggle in toolbar
               $('#toggle-story-mode').removeClass('active');
               $('#toggle-explore-mode').addClass('active');
             });
-
           }
         })
         .onStepExit(response => {
@@ -1182,8 +1181,9 @@
           if (chapter.onChapterExit.length > 0) {
             chapter.onChapterExit.forEach(setLayerOpacity);
           }
-          $(`#block-${chapter.id}`).removeClass('active-chapter');
 
+          // remove orange active chapter styling when exiting chapter
+          $(`#block-${chapter.id}`).removeClass('active-chapter');
         });
     });
   }
@@ -1684,7 +1684,6 @@
             createLineFeatures(lineFeatures, site, feature);
           }
 
-          // TODO fix w new weighted vs unweighted
           // set minimum and maximum distances for info cards
           // iterate through sites and match to the min and max distances traveled, to fixed with for exact match
           if (site.properties.distance.toFixed(4) === feature.properties.min_dist.toFixed(4)) {
@@ -1705,7 +1704,6 @@
         const diffDistMed = (feature.properties['50%_dist'] - highlights['50%_dist']).toFixed();
         const differenceDist = (feature.properties.mean_dist - highlights.mean_dist).toFixed();
 
-        // TODO look into projection/distance calc, messed up cincy and louisville
         const inputs = {
           header: feature.properties.school_full_name,
           card1: `${feature.properties.mean_dist.toFixed()} miles`,
@@ -1757,7 +1755,6 @@
     // return lineFeatures;
   }
 
-  // TODO create legend for average distance prop circle size?
   function setAvgDistanceLayer(feature) {  // TODO rename fn
     // create formatted mapbox/geojson feature to apply to avg-distance layer source
     const avgDistance = [{
@@ -1809,7 +1806,6 @@
     });
   }
 
-  // TODO SEED FILTER BROKEN
   function selectSeedOrConf(filterUI, filter) {
     filterUI.on('change', (e) => {
       // apply selected conference to filters
@@ -1882,7 +1878,6 @@
 
     map.setPaintProperty('schools', 'circle-radius', { property: property, stops: stops });
 
-    // TODO fix error this causes when toggling back and forth
     // apply selected school circle radius based on data-driven radiuses
     map.setPaintProperty('selected-school', 'circle-radius',
       { property: property, stops: createStops(map.getSource('selected-school')['_data'], property) }
@@ -1897,7 +1892,6 @@
       property === 'count_dist' || property === 'count_wtDist' ? 1 : 65;
   }
 
-  // TODO Create hardcoded stops with class breaks for easier differentiating, maybe legend too?
   function createStops(geojson, property) {
     const values = [];
     const stops = [];

@@ -122,7 +122,7 @@ Championship tournament, affectionately referred to as March Madness. March
             2019 to put the claim to the test.</span>
             
             <br><br>
-            <div style="text-align: center">Mouse over seeds to display first-round site on the map</div>
+            <div style="text-align: center">Mouse over seeds to display first-round site on the map
             <div class="seed-hl-row">
                 <div class="seed-hl" id="story-seed-1" style="background: #80bad1">
                     <div class="seed-hl-text">1 Seeds</div>
@@ -140,14 +140,12 @@ Championship tournament, affectionately referred to as March Madness. March
                     <div class="seed-hl-text">4 Seeds</div>
                </div>
             </div>
+            </div>
             `,
             onChapterEnter: [
                 {layer: 'tourney-sites', opacity: 1},
                 {layer: 'tourney-lines', opacity: 1},
                 {layer: 'tourney', opacity: 1},
-                {layer: 'legend-lines', opacity: 0},
-                {layer: 'legend-point', opacity: 0},
-                {layer: 'legend-point-avg', opacity: 0},
                 {layer: 'schools', opacity: 0},
             ],
             onChapterExit: [
@@ -156,9 +154,9 @@ Championship tournament, affectionately referred to as March Madness. March
                 {layer: 'tourney', opacity: 0},
             ]
         },
-        {  // TODO add description of what prop circles represent, rerun as diff crs
+        {
             // TODO remove fitbounds from school selection to give better reference for distances?
-          id: 'chapter-3',  // TODO fix id
+          id: 'chapter-3',
           title: `Methodology`,
           description: `
 Tournament data for each top seed (1-4) and its respective first-round site location was 
