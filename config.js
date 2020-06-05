@@ -1,19 +1,16 @@
 const config = {
-    // style: 'mapbox://styles/laurenoldham1202/ck9d9t3360puw1ilehqxfc0oa',
-    style: 'mapbox://styles/mapbox/light-v10',
+    style: 'mapbox://styles/laurenoldham1202/ck9d9t3360puw1ilehqxfc0oa',
+    // style: 'mapbox://styles/mapbox/light-v10',
     accessToken: 'pk.eyJ1IjoibGF1cmVub2xkaGFtMTIwMiIsImEiOiJjaW55dm9lemUxOGc1dWttMzI5dDI5aGtvIn0.3xAukiULCDm0OId5yIgXOA',
     showMarkers: false,
     theme: 'light',
     alignment: 'left',
-    // title: 'Going the Distance',
-    // subtitle: '',
-    // byline: 'March Madness Travel Distance of Top Seeded Schools',
     footer: 'Map created by Lauren Oldham',
     chapters: [
         {
             id: 'intro',
-            // TODO add skip intro option?
-            description: `<br><br><span class="capital-font" style="font-size: 26pt;">Every year in March,</span> 
+            description: `
+<br><br><span class="capital-font" style="font-size: 26pt;">Every year in March,</span> 
 college basketball fans anxiously await Selection Sunday to see if their team made the NCAA Men’s Basketball National 
 Championship tournament, affectionately referred to as March Madness. March
  Madness is a three week-long single-elimination tournament in which 64 teams compete to take home the highly coveted 
@@ -33,44 +30,14 @@ Championship tournament, affectionately referred to as March Madness. March
                 {layer: 'legend-lines', opacity: 0},
                 {layer: 'legend-point', opacity: 0},
                 {layer: 'schools', opacity: 0.7},
-                // {layer: 'schools', opacity: 1},
-
-                // {layer: 'd1-all', opacity: 1},
-                // {layer: 'schools', opacity: 0},
-                // {layer: 'd1-trim', opacity: 0},
             ],
             onChapterExit: [
                 {layer: 'schools', opacity: 0},
-
-                // {layer: 'd1-all', opacity: 0.15},
-                // {layer: 'd1-trim', opacity: 1},
             ]
         },
         {
             id: 'chapter-1',
             title: 'Tournament Seeding',
-            // title: 'Selection Sunday',
-            image: '',
-            // description: `In theory, higher ranked teams are rewarded by playing the lowest ranked teams in the tournament. Furthermore, according to the NCAA's selection process, top seeded teams are to have geographic preference over lower seeded teams in the first two rounds of the tournament (if possible - other factors are considered). I want to analyze the first/second round sites for each of the top 4 seeded teams (four teams in each seed for 16 total top teams each year) from 1985 to 2020 to establish patterns, potential biases, and test the NCAA's claim of geographic preference.`,
-//             description: `
-//             While coaches, teams, and fans alike want to see their preferred team effortlessly stroll through
-//             the Sweet Sixteen, Elite Eight, and Final Four to play in the National Championship game, they first have to
-//              survive the first weekend of the tournament. Putting the ‘madness’ into March Madness, the first and second
-//               rounds of the tournament (Round of 64 and Round of 32, respectively) are historically filled with the most
-//                chaos, with underdog teams defying odds by knocking out highly favored teams early on. <span class="bold">Because of the
-//                precedence for upsets in the first round of the tournament, there is a lot of focus on the matchups and
-//                locations for each competing team.</span>
-//
-// <br><br>Selection Sunday does more than just determine who gets into the tournament - it also
-// determines where the chosen teams play, who they play against, and how highly they are ranked.
-//
-//               <br><br>Each team is listed from best to worst with an overall rank, a number 1 to 64*, in which 1
-//               represents the overall best team in the tournament and 64 represents the worst. These rankings are then
-//               grouped into 16 seeds of four teams each, wherein 1 seeds are the best teams and 16 seeds are the worst
-//               teams. Many considerations go into the creation of March Madness brackets, but the idea is that <span class="bold">higher
-//               seeds are rewarded for their regular season performance by playing against the lowest ranked teams. </span>
-//               Additionally, <span class="bold">the selection committee is supposed to give top ranked teams geographic preference in their
-//               first round sites.</span>`,
             description: `
             Before the tournament starts, schools are grouped into ranked seeds to determine their position in the 
             bracket, which dictates <em>where</em> and <em>who</em> they play. 
@@ -113,7 +80,6 @@ Championship tournament, affectionately referred to as March Madness. March
               <div class="seed-hl seed-four">Louisville</div>
               <div class="seed-hl seed-four">Wisconsin</div>
             </div>            
-          
             `,
             location: {
                 center: { lon: -95.19207, lat: 37.96458 },
@@ -125,57 +91,14 @@ Championship tournament, affectionately referred to as March Madness. March
             },
             onChapterEnter: [
                 {layer: 'tourney', opacity: 1},
-                // {layer: 'tourney-lines', opacity: 0},
-                // {layer: 'tourney', opacity: 1},
-                // {layer: 'd1-all', opacity: 0.15},
-                // {layer: 'd1-trim', opacity: 1},
             ],
-            onChapterExit: [
-                // {layer: 'd1-all', opacity: 0},
-                // {layer: 'd1-trim', opacity: 0},
-                // {layer: 'schools', opacity: 0.7}
-            ]
+            onChapterExit: []
         },
         {
             id: 'chapter-2',
             title: 'Why Does the First Round Site Matter?',
             image: '',
             // TODO style list items more nicely
-            // description: `
-            // <span class="bold">Because March Madness is a single-elimination tournament, teams only have one shot in each round to advance to the next level.</span>
-            // All teams put their best foot forward, but there's no room for an off game - one bad night can (and has) cost the best team in the nation
-            // a shot at the national title. Many lower ranked teams don't make it into the tournament very often and have the tenacity to try to become
-            // the next Cinderella story.
-            //
-            // <br><br>Teams want every advantage at their disposal when going into the tournament, and having a closer first-round
-            // site can be incredibly beneficial both physically and psychologically.
-            //  <ul>
-            //  <li>Student athletes still officially
-            // attend classes during the tournament, so shorter travel times are logistically easier; not only that, but
-            // traveling long distances via bus or air can be physically draining.</li>
-            //  <li>Games are played from early morning to
-            // late at night across multiple time zones, so it's also ideal to play in or near your home time zone. </li>
-            // <li>Perhaps
-            // most importantly, playing near your school allows your fanbase to easily travel to the games, simulating
-            // as much of a <a href="https://kenpom.com/blog/mining-point-spread-data-home-court-advantage/" target="_blank">
-            // home court advantage</a> as possible. When the tides turn against a team in a game, nothing fires them up
-            // like a raucous home crowd.</li>
-            // </ul>
-            //
-            // <span class="bold">The NCAA Selection Committee claims to give geographic preference to the top seeds in order of their rank </span>-
-            // one seeds get the highest preference, then two seeds, then three, then four (remaining seeds are not given
-            // explicit geographic considerations). So is it true? <span class="bold">I analyzed March Madness tournament data from 2015 to
-            // 2019 to put the claim to the test.</span>
-            // `,
-            // description: `Obsessed with so-called 'chaos,' college basketball fans thrive on the unpredictability of the first and second rounds of the NCAA tournament. While higher ranked/seeded teams are expected to make deep runs, it is not uncommon for them to get upset by lower ranked teams (sorry UVA fans). Teams want every advantage they can entering the first weekend of the tournament. The advantage of playing at a site closer to the school location is both pragmatic and psychological. The players are still attending classes, so it is logistically easier to travel shorter distances. Furthermore, playing closer to the school allows the team's fan base and families a better opportunity to watch them play, giving them as much of a home court advantage as possible.`,
-
-             //  `The entire field of teams is ranked 1 to 68, with 1 being the top or best team overall, and 68
-             // being the lowest/worst. The teams are further divided into four regions of sixteen teams each (only 64
-             // teams make the official bracket), with top teams having higher seeds (1-4) and worse teams having lower
-             // seeds (5-16). The NCAA Selection Committee rewards the best performing teams in the field by pitting them
-             // against the worst performing teams through this system, wherein a better team plays against a worse team to
-             // help pave an easier path to the National Championship game.`,
-
             location: {
                 center: [-116.5, 41.5],
                 zoom: 3.5,
@@ -191,9 +114,6 @@ Championship tournament, affectionately referred to as March Madness. March
             spent traveling, but more importantly, <strong>it simulates a home court advantage</strong> by allowing fan
             bases to easily travel to the games.
             
-<!--            <br><br>When one bad play can ruin a top team's chance at the National Championship title, they need every-->
-<!--            edge they can get when entering the tournament.-->
-<!--            -->
             <br><br>
             <span class="bold">The NCAA Selection Committee claims to give geographic preference to the top seeds in order of their rank </span>- 
             one seeds get the highest preference, then two seeds, then three, then four (remaining seeds are not given
@@ -224,31 +144,23 @@ Championship tournament, affectionately referred to as March Madness. March
                 {layer: 'tourney-sites', opacity: 1},
                 {layer: 'tourney-lines', opacity: 1},
                 {layer: 'tourney', opacity: 1},
-
                 {layer: 'legend-lines', opacity: 0},
                 {layer: 'legend-point', opacity: 0},
                 {layer: 'legend-point-avg', opacity: 0},
-
-                // {layer: 'schools', opacity: 0},
-                // {layer: 'd1-all', opacity: 0},
-                // {layer: 'd1-trim', opacity: 0},
                 {layer: 'schools', opacity: 0},
-
             ],
             onChapterExit: [
                 {layer: 'tourney-sites', opacity: 0},
                 {layer: 'tourney-lines', opacity: 0},
                 {layer: 'tourney', opacity: 0},
-                // {layer: 'd1-all', opacity: 1},
-                // {layer: 'd1-trim', opacity: 1},
-                // {layer: 'schools', opacity: 0},
             ]
         },
         {  // TODO add description of what prop circles represent, rerun as diff crs
             // TODO remove fitbounds from school selection to give better reference for distances?
           id: 'methodology',  // TODO fix id
           title: `Methodology`,
-          description: `Tournament data for each top seed (1-4) and its respective first-round site location was 
+          description: `
+Tournament data for each top seed (1-4) and its respective first-round site location was 
 collected from <a href="https://www.sports-reference.com/cbb/postseason/" target="_blank">Sports Reference</a>. The data was
 cleaned, analyzed, and manipulated primarily using Python 3 libraries (pandas, geopandas, and geocoder) in Jupyter Notebooks.
 
@@ -260,13 +172,12 @@ in the site's city center rather than the exact arena in which the game was play
 <br><br>More information can be found at the <a href="https://github.com/laurenoldham1202/march-madness" target="_blank">project repository</a>.
 `,
             onChapterEnter: [
-                {layer: 'legend-lines', opacity: 1},
-                {layer: 'legend-point', opacity: 1},
-                {layer: 'legend-point-avg', opacity: 1},
+                {layer: 'route', opacity: 1},
+                {layer: 'point', opacity: 1},
             ],
             onChapterExit: [
-                // {layer: 'legend-lines', opacity: 0},
-                // {layer: 'legend-point', opacity: 0},
+                {layer: 'route', opacity: 0},
+                {layer: 'point', opacity: 0},
             ]
         },
         {
@@ -274,7 +185,6 @@ in the site's city center rather than the exact arena in which the game was play
             title: 'Reading the Map',
             // TODO adjust these styles for responsive design
             description: `
-
 <strong>Schools</strong> are represented as proportional circles on the map (based on their unweighted mean travel 
 distance - this field can be changed in <em>Explore Mode</em>). The overall average travel distance for all schools is
 represented as a dark orange circle outline.
@@ -304,8 +214,6 @@ represented as a dark orange circle outline.
 year's tournament. These circles are also colored on a gradient scale from light blue for higher seeds to dark blue for
 lower seeds.
 <br><br>
-<!--<div class="legend-header" style="background: #EEE; width: 100%;-->
-<!-- padding: 0.25rem; margin-bottom: 1rem; border-radius: 4px; text-align: center;">Site Locations Based on Seed Values</div>-->
 
 <div class="legend-row">
     <div class="circle" style="width: 10px; height: 10px; background: #80bad1 !important;"></div>
@@ -326,7 +234,7 @@ According to the selection process, a school with fair site locations should see
 closest to the school, 2 seeds farther out, and so on, with 4 seed sites the farthest from the school. 4 seed sites that
 are close and 1 seed sites that are far from schools are particularly noteworthy for breaking the pattern of higher seed
 = closer site.
-            `,
+`,
             onChapterEnter: [
                 {layer: 'legend-lines', opacity: 1},
                 {layer: 'legend-point', opacity: 1},
@@ -349,7 +257,6 @@ are close and 1 seed sites that are far from schools are particularly noteworthy
             the second shortest travel distance, 3 seeds average the third shortest travel distance, and 4 seeds traveling
             the furthest of all top ranked seeds</strong>.
    
-            
             <div class="seed-hl-row">
                 <div class="seed-hl" style="background: #80bad1">
                     <div class="seed-hl-title">1 SEED</div>
@@ -384,51 +291,12 @@ are close and 1 seed sites that are far from schools are particularly noteworthy
             ],
             onChapterExit: []
         },
-        // {
-        //     id: 'chapter-4',
-        //     title: '',
-        //     image: '',
-        //     description: `One seeds averaged a travel distance of roughly 376 miles, approximately the same distance from
-        //     Minneapolis, Minnesota to Kansas City, Missouri, where 1 seed University of Minnesota Golden Gophers played in 1997.
-        //     `,
-        //     onChapterEnter: [],
-        //     onChapterExit: []
-        // },
-        // {
-        //     id: 'chapter-5',
-        //     title: '',
-        //     image: '',
-        //     description: `Two seeds averaged a travel distance of roughly 513 miles, approximately the same distance from
-        //     Lexington, Kentucky to Jacksonville, Florida, where 2 seed University of Kentucky Wildcats played in 2019.
-        //     `,
-        //     onChapterEnter: [],
-        //     onChapterExit: []
-        // },
-        // {
-        //     id: 'chapter-6',
-        //     title: '',
-        //     image: '',
-        //     description: `Three seeds averaged a travel distance of roughly 742 miles, approximately the same distance from
-        //     Austin, Texas to Denver, Colorado, where 3 seed University of Texas Longhorns played in 2004.
-        //     `,
-        //     onChapterEnter: [],
-        //     onChapterExit: []
-        // },
-        // {
-        //     id: 'chapter-7',
-        //     title: '',
-        //     image: '',
-        //     description: `Four seeds averaged a travel distance of roughly 922 miles, approximately the same distance from
-        //     San Diego, California to Spokane, Washington, where 4 seed San Diego State University Aztecs played in 2014.
-        //     `,
-        //     onChapterEnter: [],
-        //     onChapterExit: []
-        // },
         {
             id: 'chapter-8',
             title: 'Highlights',
             image: '',  // TODO fix 2866 miles stretching last box
-            description: `Viewing aggregations at the school level paints a more varied picture of travel distances during
+            description: `
+Viewing aggregations at the school level paints a more varied picture of travel distances during
             March Madness, ranging from the <strong>shortest travel distance of less than a mile</strong> to the <strong>farthest travel distance exceeding
             2,400 miles</strong>. The <strong>overall mean distance traveled for all top four seeded schools from 1985 to 2019 was 588 miles</strong>; 
             the <strong>median distance traveled clocked in a bit lower at 394 miles</strong>, perhaps a more accurate representation that 
@@ -472,37 +340,18 @@ are close and 1 seed sites that are far from schools are particularly noteworthy
             <strong>less than half a mile</strong> to their first round site in Tucson in 2000 as a 1 seed. Unfortunately for the Wildcats,
             the close proximity didn't give them enough of a boost to beat out Wisconsin in the second round of the 
             tournament.`,
-            // location: {
-            //     center: { lon: -110.95127, lat: 32.22568 },
-            //     zoom: 14.75,
-            //     pitch: 60.00,
-            //     bearing: -91.64
-            // },
-            onChapterEnter: [
-                // {layer: 'chapter-9-points', opacity: 1},
-            ],
-            onChapterExit: [
-                // {layer: 'chapter-9-points', opacity: 0},
-            ]
+            onChapterEnter: [],
+            onChapterExit: []
         },
-        // {
-        //     id: 'chapter-10',
-        //     title: 'Overall Maximum Travel Distance',
-        //     image: '',
-        //     description: `The overall maximum distance traveled was by Syracuse University, who trekked over 2,800 miles
-        //     from Syracuse, New York to Long Beach, California in 2013 as a 4 seed. The extra mileage didn't faze the Orange too much,
-        //     who went on to compete in the Final Four, ultimately losing to Michigan in the semifinals.`,
-        //     description: ``,
-        //     onChapterEnter: [],
-        //     onChapterExit: []
-        // },
         {
             id: 'chapter-11',
             title: 'Shortest Average Travel Distance',
             image: '',
-            description: `The school with the lowest mean distance traveled is technically <strong>DePaul University</strong>, who have 
+            description: `
+The school with the lowest mean distance traveled is technically <strong>DePaul University</strong>, who have 
             only made one appearance as a top seed since 1985. The Blue Demons stayed in their home metro Chicago as a 3
-            seed in 1987, traveling <strong>fewer than 13 miles</strong>.`,
+            seed in 1987, traveling <strong>fewer than 13 miles</strong>.
+`,
             onChapterEnter: [],
             onChapterExit: []
         },
