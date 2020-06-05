@@ -854,33 +854,6 @@
     before: 'sites',
   };
 
-  // d1AllDetails = {
-  //   id: 'd1-all',
-  //   type: 'circle',
-  //   paint: {
-  //     // 'circle-radius': 0
-  //     'circle-radius': 1,
-  //     'circle-color': '#E27600',
-  //   },
-  //   visibility: 'visible',
-  //   before: '',
-  // };
-  //
-  // d1TrimDetails = {
-  //   id: 'd1-trim',
-  //   type: 'circle',
-  //   paint: {
-  //     // 'circle-radius': 0
-  //     'circle-radius': 1,
-  //     'circle-color': '#E27600',
-  //     'circle-stroke-color': '#414140',
-  //     'circle-stroke-width': 1,
-  //
-  //   },
-  //   visibility: 'visible',
-  //   before: '',
-  // };
-
   siteDetails = {
     id: 'sites',
     type: 'circle',
@@ -933,17 +906,6 @@
   mapDiv = $('#map');
 
   story = $('#story');
-
-  // $('.footer-left').on('click', () => {
-  //
-  //   resetInfoCard();
-  //
-  //   if (filters.school === 'all') {
-  //     setDefaultInfoCard();
-  //   } else {
-  //     selectSchoolOnMap(sites);
-  //   }
-  // });
 
   $('.app-mode-toggle').on('click', (e) => {
     if (e.target.innerText === 'Story Mode') {
@@ -1021,38 +983,29 @@
     });
   }
 
+  // TODO clear any layer that's NOT school layer when entering explore mode
   function enterExploreMode() {
+    // remove story and toggle visibility of explore sidebar on
     story.detach();
     mapExplorer.css('visibility', 'visible');
+
+    // hide progress bar
     $('.chapter-list').css('visibility', 'hidden');
 
-    // $('.footer-btn').css('visibility', 'visible');
-    // map.setLayoutProperty('d1-all', 'visibility', 'none');
-    // map.setLayoutProperty('d1-trim', 'visibility', 'none');
-
+    // reset default map view
     resetExtent();
     resetAllFilters();
-    infoBtnSeed.addClass('visible');
-
+    infoBtnSeed.addClass('visible');  // display 'seed >' button
   }
 
   function enterStoryMode() {
     mapExplorer.css('visibility', 'hidden');
     $('.chapter-list').css('visibility', 'visible');
-
-    // TODO fix how button displays when toggling back tostory mode
-    // $('.footer-btn').css('visibility', 'hidden');
-
     $('body').append(story);
-
-    // map.setLayoutProperty('d1-all', 'visibility', 'visible');
-    // map.setLayoutProperty('d1-trim', 'visibility', 'visible');
 
     resetExtent();
     resetAllFilters();
-    infoBtnSeed.css('visibility', 'hidden');
     infoBtnSeed.removeClass('visible');
-
   }
 
   // TODO Delete old json, replace with new
@@ -1082,43 +1035,6 @@
     const colors = data[5];
     const d1 = data[6];
     const tourney = data[7];
-    // console.log(tourney);
-
-    const sites12 = tourney.features.slice(0, 16);
-    const schools12 = tourney.features.slice(16, 32);
-    // console.log(sites12);
-    // console.log(schools12);
-
-    const lines = [];
-    sites12.forEach(site => {
-      schools12.forEach(school => {
-        if (site.properties.school_common_name === school.properties.school_common_name) {
-          // console.log(site);
-          lines.push({type: 'Feature', properties: {seed: site.properties.seed}, geometry: {type: 'LineString', coordinates: [site.geometry.coordinates, school.geometry.coordinates]}});
-        }
-      });
-    });
-
-    // console.log(JSON.stringify(lines));
-
-    // const s =[];
-    // const d = [];
-    // sites.features.forEach(site => {
-    //   if (site.properties.year === 2012) {
-    //     s.push(site);
-    //   }
-    // });
-    // console.log(s);
-    //
-    // s.map(x => x.properties.school_common_name).forEach(name => {
-    //   schools.features.forEach(school => {
-    //     if (school.properties.school_common_name === name) {
-    //       d.push(school);
-    //     }
-    //   });
-    // });
-    //
-    // console.log(JSON.stringify([...s, ...d]));
 
     // iterate over schools and seeds geojson layers before manipulating map
     // push schools to schoolFilter dropdown, apply seed values to school feature properties
@@ -1129,117 +1045,26 @@
     //  geojsons created by reading jupyter notebook output CSVs into QGIS and converted
     map.on('load', () => {
 
-      // // TODO top schools first - slide explains top schools, then sites and why they matter
-      // map.addLayer({
-      //   id: 'tourney-lines',
-      //   type: 'line',
-      //   source: {type: 'geojson', data: tourney},
-      //   paint: {
-      //     'line-color': '#414140',
-      //     'line-opacity': 0.5,
-      //     'line-dasharray': [3, 3]
-      //   },
-      //   filter: ['==', '$type', 'LineString']
-      // });
-
-      map.addLayer({
-        id: 'tourney',
-        type: 'circle',
-        source: {type: 'geojson', data: tourney},
-        paint: {
-          'circle-radius': 10,
-          // 'circle-radius': ['match', ['get', 'seed'], 1, 5, 2, 8, 3, 11, 4, 14, 5],
-
-          // 'circle-stroke-color': '#FFF',
-          'circle-opacity': 0,
-          // 'circle-stroke-opacity': 0,
-          // 'circle-stroke-width': 1,
-          'circle-color': ['match', ['get', 'seed'], 1, '#80bad1', 2, '#5694c1', 3, '#2c6db1', 4, '#0146a1', 'orange'],
-        },
-        // layout: {visibility: 'none'},
-        // filter: ['==', '$type', 'Point']
-        filter: ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'school']]
-      });
-
-      map.addLayer({
-        id: 'tourney-sites',
-        type: 'circle',
-        source: {type: 'geojson', data: tourney},
-        paint: {
-          'circle-radius': 6.5,
-          'circle-opacity': 0,
-          // 'circle-stroke-color': '#FFF',
-          // 'circle-opacity': 0.8,
-          // 'circle-stroke-width': 1,
-          'circle-color': '#555',
-        },
-        // layout: {visibility: 'none'},
-        // filter: ['==', '$type', 'Point']
-        filter: ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'site']]
-      });
-
-      map.addLayer({
-        id: 'tourney-lines',
-        type: 'line',
-        source: {type: 'geojson', data: tourney},
-        paint: {
-          'line-color': '#666',
-          'line-opacity': 0,
-          'line-dasharray': [3, 3]
-        },
-        // layout: {visibility: 'none'},
-        // filter: ['==', '$type', 'Point']
-        filter: ['==', '$type', 'LineString']
-      }, 'tourney');
-
-
-
-
+      // plot 2012 tournament example and legend, which are displayed in story mode chapters
+      plot2012example(tourney);
       plotLegend();
 
-      // createLayer(d1AllDetails, d1);
-      //
-      // const random = [];
-      // d1.features.forEach((feature, i) => {
-      //   if (i < 64) {
-      //     random.push(feature);  // TODO bubble out?
-      //   }
-      // });
-      //
-      // createLayer(d1TrimDetails, { type: 'FeatureCollection', features: random });
-
+      // generate all map layers
       createAllLayers(schools, sites);
 
-      // map.addLayer({
-      //   id: 'chapter-9-points',
-      //   type: 'circle',
-      //   source: {
-      //     type: 'geojson',
-      //     data: {
-      //       type: 'FeatureCollection',
-      //       features: [
-      //         {type: 'Feature', geometry: {type: 'Point', coordinates: [-110.97688411537951, 32.22877495], properties: {type: 'school'}}},
-      //         {type: 'Feature', geometry: {type: 'Point', coordinates: [-110.946060, 32.230226], properties: {type: 'site'}}}
-      //       ]
-      //     }
-      //   },
-      //   paint: {
-      //     'circle-color': ['match', ['get', 'type'], 'school', 'red', 'site', 'blue', 'green']
-      //   }
-      // });
-
+      // map events
       onSiteHover();
       onSchoolHover();
-
       onSchoolClick(sites);
-      onWeightedToggle(schools);
 
+      // explore sidebar filter events
+      onWeightedToggle(schools);
       selectSchool(sites);
       selectConference();
       selectSeed();
       selectStat(schools);
 
-      defaultMap();
+      displayDefaultMap();
 
       // TODO add symbols back for explore mode?
       // hide map labels for explorer view
@@ -1248,10 +1073,6 @@
           map.removeLayer(layer.id);
         }
       });
-
-      // enterExploreMode();
-
-      // clickFooterBtn(seedsAgg, seeds, sites);
 
       // STORYTELLING MODE  todo place in fn
       // todo move map div abs position to not have to add padding once story mode is exited, reset bearing on resetExtent
@@ -1275,7 +1096,7 @@
             chapter.onChapterEnter.forEach(setLayerOpacity);
           }
 
-          // console.log(chapter.id);
+          // highlight the active chapter with orange in progress bar
           $(`#block-${chapter.id}`).addClass('active-chapter');
 
           if (id === 'intro') {
@@ -1301,18 +1122,6 @@
 
           if (id === 'methodology') {
             triggerAnimation();
-            // // San Francisco
-            // var origin = turf.point([-122.414, 37.776]);
-            //
-            // // Washington DC
-            // var destination = turf.point([-77.032, 38.913]);
-            //
-            // console.log(turf.distance(origin, destination, {units: 'miles'}))
-
-            // map.setLayoutProperty('schools', 'visibility', 'none');
-
-            // San Francisco
-
           }
 
 
@@ -1491,6 +1300,44 @@
         'line-opacity': 0,
       }
     }, 'legend-point');
+  }
+
+  function plot2012example(tourney) {
+    map.addLayer({
+      id: 'tourney',
+      type: 'circle',
+      source: {type: 'geojson', data: tourney},
+      paint: {
+        'circle-radius': 10,
+        'circle-opacity': 0,
+        'circle-color': ['match', ['get', 'seed'], 1, '#80bad1', 2, '#5694c1', 3, '#2c6db1', 4, '#0146a1', 'orange'],
+      },
+      filter: ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'school']]
+    });
+
+    map.addLayer({
+      id: 'tourney-sites',
+      type: 'circle',
+      source: {type: 'geojson', data: tourney},
+      paint: {
+        'circle-radius': 6.5,
+        'circle-opacity': 0,
+        'circle-color': '#555',
+      },
+      filter: ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'site']]
+    });
+
+    map.addLayer({
+      id: 'tourney-lines',
+      type: 'line',
+      source: {type: 'geojson', data: tourney},
+      paint: {
+        'line-color': '#666',
+        'line-opacity': 0,
+        'line-dasharray': [3, 3]
+      },
+      filter: ['==', '$type', 'LineString']
+    }, 'tourney');
   }
 
   function animateConferences() {
@@ -1747,7 +1594,7 @@
     });
   }
 
-  function defaultMap() {
+  function displayDefaultMap() {
     $('#extent').on('click', () => {
       resetExtent();
       resetAllFilters();

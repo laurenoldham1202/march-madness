@@ -27,6 +27,7 @@ Championship tournament, affectionately referred to as March Madness. March
                 bearing: 0.00,
             },
             onChapterEnter: [
+                {layer: 'tourney', opacity: 0},
                 {layer: 'legend-lines', opacity: 0},
                 {layer: 'legend-point', opacity: 0},
                 {layer: 'schools', opacity: 0.7},
