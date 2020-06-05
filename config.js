@@ -124,7 +124,7 @@ Championship tournament, affectionately referred to as March Madness. March
             <br><br>
             <div style="text-align: center">Mouse over seeds to display first-round site on the map
             <div class="seed-hl-row">
-                <div class="seed-hl" id="story-seed-1" style="background: #80bad1">
+                <div class="seed-hl seed-hl-active" id="story-seed-1" style="background: #80bad1">
                     <div class="seed-hl-text">1 Seeds</div>
                 </div> 
                

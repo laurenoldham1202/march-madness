@@ -342,6 +342,10 @@
       cursor: pointer;
     }
 
+    .seed-hl-active {
+      box-shadow: 0 0 0 0.2rem rgba(130,138,145,0.65);
+    }
+
     .seed-hl-row {
       display: flex;
       /*margin-top: 1rem;*/
@@ -928,9 +932,19 @@
     const storySeeds =  [$('#story-seed-1'), $('#story-seed-2'), $('#story-seed-3'), $('#story-seed-4')];
     storySeeds.forEach((story, i) => {
       story.on('mouseover', () => {
+        // remove first box's default highlight if another box is moused over (otherwise, seed 1 stays highlighted unless mouseleaves)
+        if (i !== 0) {
+          $('#story-seed-1').removeClass('seed-hl-active');
+        }
+        story.addClass('seed-hl-active');  // highlight seed box
         map.setFilter('tourney-sites', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'site'], ['==', 'seed', i+1]]);
         map.setFilter('tourney', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'school'], ['==', 'seed', i+1]]);
         map.setFilter('tourney-lines', ['==', 'seed', i+1]);
+      });
+
+      story.on('mouseleave', () => {
+        // remove highlighted style on mouseout
+        story.removeClass('seed-hl-active');
       });
     });
   }
@@ -1041,7 +1055,6 @@
     iterateGeojsonSource(schools, seeds, colors);
     clickFooterBtn(seedsAgg, seeds, sites);
 
-
     //  geojsons created by reading jupyter notebook output CSVs into QGIS and converted
     map.on('load', () => {
 
@@ -1107,6 +1120,7 @@
             map.setFilter('tourney', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'school']]);
             map.setFilter('tourney-lines', ['has', 'seed']);
           } else if (id === 'chapter-2') {
+            // display one seeds as default view in chapter-2
             $('#story-seed-1').trigger('mouseover');
           } else if (id === 'chapter-3') {
             triggerAnimation();
