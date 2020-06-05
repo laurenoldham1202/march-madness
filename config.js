@@ -158,7 +158,7 @@ Championship tournament, affectionately referred to as March Madness. March
         },
         {  // TODO add description of what prop circles represent, rerun as diff crs
             // TODO remove fitbounds from school selection to give better reference for distances?
-          id: 'methodology',  // TODO fix id
+          id: 'chapter-3',  // TODO fix id
           title: `Methodology`,
           description: `
 Tournament data for each top seed (1-4) and its respective first-round site location was 
@@ -182,7 +182,7 @@ in the site's city center rather than the exact arena in which the game was play
             ]
         },
         {
-            id: 'legend',
+            id: 'chapter-4',
             title: 'Reading the Map',
             // TODO adjust these styles for responsive design
             description: `
@@ -249,7 +249,7 @@ are close and 1 seed sites that are far from schools are particularly noteworthy
             ]
         },
         {
-            id: 'chapter-3',
+            id: 'chapter-5',
             title: 'Distances by Seed',
             image: '',
             // TODO add min and max for more of an overall story?
@@ -293,7 +293,7 @@ are close and 1 seed sites that are far from schools are particularly noteworthy
             onChapterExit: []
         },
         {
-            id: 'chapter-8',
+            id: 'chapter-6',
             title: 'Highlights',
             image: '',  // TODO fix 2866 miles stretching last box
             description: `
@@ -334,7 +334,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
             onChapterExit: []
         },
         {
-            id: 'chapter-9',
+            id: 'chapter-7',
             title: 'Overall Shortest Travel Distance',
             image: '',
             description: `The <strong>University of Arizona</strong> traveled the overall shortest distance, barely leaving campus to travel 
@@ -345,7 +345,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
             onChapterExit: []
         },
         {
-            id: 'chapter-11',
+            id: 'chapter-8',
             title: 'Shortest Average Travel Distance',
             image: '',
             description: `
@@ -358,7 +358,7 @@ The school with the lowest mean distance traveled is technically <strong>DePaul 
         },
 
         {
-            id: 'chapter-12',
+            id: 'chapter-9',
             title: 'Shortest Average Travel Distance (with 5+ Appearances)',
             image: '',
             description: `Many schools have only made one or two appearances as a top seeded school, so filtering for schools that have made at least 5
@@ -373,7 +373,7 @@ The school with the lowest mean distance traveled is technically <strong>DePaul 
             onChapterExit: []
         },
         { // TODO add logic to weights, add same styling as seeds, add pre-line style to p class?
-            id: 'chapter-13',
+            id: 'chapter-10',
             title: 'Weighted Distance',
             image: '',
             description: `The selection committee gives geographic preference based on seeds, so you would expect a team with 
@@ -418,7 +418,7 @@ The school with the lowest mean distance traveled is technically <strong>DePaul 
             onChapterExit: []
         },
         {
-            id: 'chapter-14',
+            id: 'chapter-11',
             title: 'Shortest Weighted Average Travel Distance (5+ Appearances)',
             image: '',
             description: `Accounting for the weighted metric, the lowest WEIGHTED distance traveled by a school with at least
@@ -432,7 +432,7 @@ first and only National Championship was won in 1960, decades before modern seed
             onChapterExit: []
         },
       {
-        id: 'chapter-16',
+        id: 'chapter-12',
         title: 'Longest Weighted Average and Overall Travel Distance',
         image: '',
         description: `The school with the highest mean travel distance with at least 5 appearances is <strong>St. John's University</strong>
@@ -447,7 +447,7 @@ first and only National Championship was won in 1960, decades before modern seed
         onChapterExit: []
       },
         {
-            id: 'chapter-15',
+            id: 'chapter-13',
             title: 'Longest Average Travel Distance',
             image: '',
             description: `The school with the highest mean travel distance is <strong>Virginia Tech University</strong>; similar to DePaul, the Hokies
@@ -458,7 +458,7 @@ first and only National Championship was won in 1960, decades before modern seed
         },
 
         {
-            id: 'chapter-17',
+            id: 'chapter-14',
             title: 'Distance by Conference',
             image: '',
             description: `Like many sports, the NCAA divides schools into discrete, geographically clustered conferences.
@@ -483,7 +483,7 @@ first and only National Championship was won in 1960, decades before modern seed
             onChapterExit: []
         },
         {
-            id: 'chapter-18',
+            id: 'chapter-15',
             title: 'Conferences with the Longest Mean Travel Distance',
             image: '',
             description: `The conferences with the highest mean travel distances are two coastal conferences: the 
@@ -497,7 +497,7 @@ first and only National Championship was won in 1960, decades before modern seed
             onChapterExit: []
         },
         {
-            id: 'chapter-19',
+            id: 'chapter-16',
             title: 'Conferences with the Lowest Mean Travel Distance',
             image: '',
             description: `On the flip side, the conferences with the lowest mean travel distances are more centrally-
@@ -509,7 +509,7 @@ first and only National Championship was won in 1960, decades before modern seed
             onChapterExit: []
         },
       {
-        id: 'chapter-21',
+        id: 'chapter-17',
         title: 'Conferences with the Lowest Weighted Mean Travel Distance',
         image: '',
         description: `Applying weights to the conference distances, however, paints an unclear picture of any geographic trends. 
@@ -523,7 +523,7 @@ first and only National Championship was won in 1960, decades before modern seed
         onChapterExit: []
       },
         {
-            id: 'chapter-20',
+            id: 'chapter-18',
             title: 'Conclusion',
             image: '',
             description: `So is there any method to the madness? It would appear that way. Generally speaking, a school

@@ -1100,108 +1100,70 @@
           $(`#block-${chapter.id}`).addClass('active-chapter');
 
           if (id === 'intro') {
-
             infoBtnSeed.removeClass('visible');
             map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
-
-            // resetExtent(true);
-          //   // map.setFilter('d1', ['match', ['get', 'common_nam'], d1.features.map(x => x.properties.common_nam), true, false]);
-          //   setTimeout(() => {
-          //     map.setPaintProperty('d1-all', 'circle-radius', 5);
-          //   }, 250);
-          // } else if (id === 'chapter-1') {
-          //   setTimeout(() => {
-          //     // todo do transitions on scroll up?
-          //     map.setPaintProperty('d1-trim', 'circle-radius', 8);
-          //   }, 250);
-          }
-
-          // TODO add chapter in beginning for methodology, e.g. using city instead of arena, equal area proj, etc.
-          // TODO scroll by index instead?
-          // TODO create 'legend' with centered point and spokes with distances/sites, explain how to read map
-
-          if (id === 'methodology') {
-            triggerAnimation();
-          }
-
-
-          if (id === 'chapter-1') {
+          } else if (id === 'chapter-1') {
             map.setFilter('tourney-sites', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'site']]);
             map.setFilter('tourney', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'school']]);
             map.setFilter('tourney-lines', ['has', 'seed']);
-          }
-          if (id === 'chapter-2') {
+          } else if (id === 'chapter-2') {
 
+          } else if (id === 'chapter-3') {
+            triggerAnimation();
+          } else if (id === 'chapter-4') {
 
-            // resetExtent(true);
-            // map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
-          } else if (id === 'chapter-3') {  // TODO check white stroke styling
+          } else if (id === 'chapter-5') {  // TODO check white stroke styling
             resetExtent(true);
             map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
-          } else if (id === 'chapter-4') {  // todo create object w school info to streamline this
-            applyChapterFilters('Minnesota', 'Kansas City, MO');
-          } else if (id === 'chapter-5') {
-            applyChapterFilters('Kentucky', 'Jacksonville, FL');
           } else if (id === 'chapter-6') {
-            applyChapterFilters('Texas', 'Denver, CO');
-          } else if (id === 'chapter-7') {
-            applyChapterFilters('San Diego State', 'Spokane, WA');
-          } else if (id === 'chapter-8') {
             resetExtent(true);
-          } else if (id === 'chapter-9') {
-
-
+          } else if (id === 'chapter-7') {
             applyChapterFilters('Arizona', 'Tucson, AZ');
-          } else if (id === 'chapter-10') {
-            applyChapterFilters('Syracuse', 'San Jose, CA');
-          } else if (id === 'chapter-11') {
+          // } else if (id === 'chapter-10') {
+          //   applyChapterFilters('Syracuse', 'San Jose, CA');
+          } else if (id === 'chapter-8') {
             filters.school = 'DePaul';  // todo hide grayed out schools in this view
             selectSchoolOnMap(sites);  // todo adjust to slow pan and zoom
             map.setLayoutProperty('schools', 'visibility', 'none');
-          } else if (id === 'chapter-12') {
+          } else if (id === 'chapter-9') {
             filters.school = 'Virginia';  // todo sort sites high to low to order seeds properly
             selectSchoolOnMap(sites);
             map.setLayoutProperty('schools', 'visibility', 'none');
-          } else if (id === 'chapter-13') {
+          } else if (id === 'chapter-10') {
             resetExtent(true);
             filters.weighted = true;  // todo fix how this affects reset extent
             applyWeights(schools);
-          } else if (id === 'chapter-14') {
+          } else if (id === 'chapter-11') {
             filters.school = 'Ohio State';
             selectSchoolOnMap(sites);
             map.setLayoutProperty('schools', 'visibility', 'none');
-
-          } else if (id === 'chapter-15') {
-            filters.school = 'Virginia Tech';
-            selectSchoolOnMap(sites);
-            map.setLayoutProperty('schools', 'visibility', 'none');
-
-          } else if (id === 'chapter-16') {
+          } else if (id === 'chapter-12') {
             filters.school = 'St. John\'s';
             selectSchoolOnMap(sites);
             map.setLayoutProperty('schools', 'visibility', 'none');
-
-          } else if (id === 'chapter-17') {
+          } else if (id === 'chapter-13') {
+            filters.school = 'Virginia Tech';
+            selectSchoolOnMap(sites);
+            map.setLayoutProperty('schools', 'visibility', 'none');
+          } else if (id === 'chapter-14') {
             resetExtent(true);
             animateConferences();
-
-          } else if (id === 'chapter-18') {
+          } else if (id === 'chapter-15') {
             // match multiple filter values
             map.setFilter('schools', ['match', ['get', 'conference'], ['Pac-12 Conference', 'Atlantic 10 Conference'], true, false]);
-          } else if (id === 'chapter-19') {
+          } else if (id === 'chapter-16') {
             // match multiple filter values
             // TODO apply styles on scroll ip
             map.setFilter('schools', ['match', ['get', 'conference'], ['American Athletic Conference', 'Big 12 Conference'], true, false]);
-          } else if (id === 'chapter-20') {
-            resetAllFilters();
-            resetExtent(true);
-          } else if (id === 'chapter-21') {
-            // resetExtent(true);
-            // resetAllFilters();
+          } else if (id === 'chapter-17') {
             map.setFilter('schools', ['match', ['get', 'conference'],
               ['Southeastern Conference', 'Big 12 Conference',
                 'Atlantic Coast Conference', 'Missouri Valley Conference', 'Mountain West Conference'], true, false]);
+          } else if (id === 'chapter-18') {
+            resetAllFilters();
+            resetExtent(true);
           }
+
 
 
           if (response.index === config.chapters.length - 1) {
