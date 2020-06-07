@@ -487,6 +487,22 @@
       text-align: center;
     }
 
+    .hidden-panel {
+      max-height: 0;
+      overflow: hidden;
+    }
+
+    .display-more {
+      margin: 1rem 0;
+      color: #0146a1;
+      cursor: pointer;
+    }
+
+    .open-panel {
+      height: auto;
+      overflow: visible;
+    }
+
     @media (max-width: 750px) {
       #features {
         width: 90vw;
@@ -945,6 +961,23 @@
 
   // handle chapter progress bar, clicks, mouseover, etc.
   handleChapters();
+
+  toggleStoryPanel();
+
+  function toggleStoryPanel() {
+    $('.display-more').on('click', (e) => {
+      const defaultText = 'Click to see schools below ▾';
+      if (e.target.innerText === defaultText) {
+        $('.one-count').addClass('open-panel');
+        $('.one-count').removeClass('hidden-panel');
+        $('.display-more').html(`Hide schools &#9652;`);
+      } else {
+        $('.one-count').removeClass('open-panel');
+        $('.one-count').addClass('hidden-panel');
+        $('.display-more').html(defaultText);
+      }
+    });
+  }
 
   function handleStorySeeds() {
     const storySeeds =  [$('#story-seed-1'), $('#story-seed-2'), $('#story-seed-3'), $('#story-seed-4')];

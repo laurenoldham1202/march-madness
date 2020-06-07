@@ -553,6 +553,33 @@ first and only National Championship was won in 1960, decades before modern seed
              1 top-
              seed appearance: Depaul University (~13 miles) and Virginia Tech University (~2261 miles), respectively.
             
+            <div class="display-more">Click to see schools below &#9662;</div>
+            <div class="one-count hidden-panel">
+                <div class="seed-hl-row">
+                    <div class="seed-hl">VCU</div>
+                    <div class="seed-hl">Virginia Tech</div>
+                    <div class="seed-hl">Dayton</div>
+                    <div class="seed-hl">St. Louis</div>
+                </div>            
+                <div class="seed-hl-row">
+                    <div class="seed-hl">Creighton</div>
+                    <div class="seed-hl">Minnesota</div>
+                    <div class="seed-hl">TCU</div>
+                    <div class="seed-hl">Houston</div>
+                </div>            
+                <div class="seed-hl-row">
+                    <div class="seed-hl">Loyola-Chicago</div>
+                    <div class="seed-hl">California</div>
+                    <div class="seed-hl">Texas A&M</div>
+                    <div class="seed-hl">Nebraska</div>
+                </div>            
+                <div class="seed-hl-row">
+                    <div class="seed-hl">Southern Illinois</div>
+                    <div class="seed-hl">Butler</div>
+                    <div class="seed-hl">La Salle</div>
+                    <div class="seed-hl">DePaul</div>
+                </div>
+            </div>
             `,
             onChapterEnter: [],
             onChapterExit: []
