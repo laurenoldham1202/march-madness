@@ -184,11 +184,8 @@ in the site's city center rather than the exact arena in which the game was play
             // TODO adjust these styles for responsive design
             description: `
 <strong>Schools</strong> are represented as proportional circles on the map (based on their unweighted mean travel 
-distance - this field can be changed in <em>Explore Mode</em>). The overall average travel distance for all schools is
-represented as a dark orange circle outline.
+distance.
 <div class="legend-container">
-<!--<div class="legend-header" style="background: #EEE; width: 379px; padding: 0.25rem; margin: 1rem 0; border-radius: 4px; text-align: center;">Schools (Mean Travel Distance in Miles)</div>-->
-
     <div class="legend-row">
         <div class="circle" style="width: 8px; height: 8px;"></div>
         <div class="circle" style="width: 16px; height: 16px;"></div>
@@ -209,8 +206,7 @@ represented as a dark orange circle outline.
 </div>
 <br>
 <strong>Tournament sites</strong> are also represented as proportional circles based on the school's seed in that 
-year's tournament. These circles are also colored on a gradient scale from light blue for higher seeds to dark blue for
-lower seeds.
+year's tournament.
 <br><br>
 
 <div class="legend-row">
@@ -227,11 +223,11 @@ lower seeds.
 </div>
 <br>
 <strong>Linestrings</strong> connect the school to the site location to visualize the distance between the two points.
-<hr>
-According to the selection process, a school with fair site locations should see a radial pattern with 1 seed sites
-closest to the school, 2 seeds farther out, and so on, with 4 seed sites the farthest from the school. 4 seed sites that
-are close and 1 seed sites that are far from schools are particularly noteworthy for breaking the pattern of higher seed
-= closer site.
+<!--<hr>-->
+<!--According to the selection process, a school with fair site locations should see a radial pattern with 1 seed sites-->
+<!--closest to the school, 2 seeds farther out, and so on, with 4 seed sites the farthest from the school. 4 seed sites that-->
+<!--are close and 1 seed sites that are far from schools are particularly noteworthy for breaking the pattern of higher seed-->
+<!--= closer site.-->
 `,
             onChapterEnter: [
                 {layer: 'legend-lines', opacity: 1},
@@ -284,8 +280,7 @@ are close and 1 seed sites that are far from schools are particularly noteworthy
                 bearing: 36.00
             },
             onChapterEnter: [
-                {layer: 'd1-all', opacity: 0},
-                {layer: 'd1-trim', opacity: 0},
+                {layer: 'schools', opacity: 0.7},
             ],
             onChapterExit: []
         },
@@ -537,6 +532,36 @@ first and only National Championship was won in 1960, decades before modern seed
              <div class="buttons" style="text-align: center;">
               <button class="button" id="explore-mode">Explore Map</button>
              </div>
+            `,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+
+        {
+            id: 'chapter-19',
+            title: 'Schools with 1 Appearance',
+            image: '',
+            description: `
+            For many schools, making it into the tournament is a huge accomplishment by itself - earning a top seed is
+            even more uncommon.
+            
+            <br><br>Of the 87 schools to have earned a top seed since 1985, <strong>sixteen of them made only
+            a single appearance</strong> with that ranking, traveling a mean distance of <strong>809 miles</strong> (221
+            miles above the overall average).
+            
+            <br><br>Notably, both the <strong>shortest and longest average travel distances</strong> are for schools with 1 top-
+            seed appearance: Depaul University (~13 miles) and Virginia Tech University (~2261 miles), respectively.
+            
+            `,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
+            id: 'chapter-20',
+            title: 'Schools with 10+ Appearances',
+            image: '',
+            description: `
+            561
             `,
             onChapterEnter: [],
             onChapterExit: []

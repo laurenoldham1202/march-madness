@@ -1208,6 +1208,18 @@
             resetExtent(true);
           }
 
+
+
+          if (id === 'chapter-19') {
+            const oneCount = ['VCU','Virginia Tech','Dayton','Saint Louis','Creighton','Minnesota','TCU','Houston','Loyola–Chicago','California','Texas A&M','Nebraska','Southern Illinois','Butler','La Salle','DePaul'];
+            map.setFilter('schools', ['match', ['get', 'school_common_name'], oneCount, true, false]);
+          } else if (id === 'chapter-20') {
+            const tenCount = ['Michigan', 'Arizona', 'UConn', 'Maryland', 'UCLA', 'Indiana', 'Cincinnati', 'Kentucky', 'Pittsburgh', 'North Carolina', 'Louisville', 'Purdue', 'Michigan State', 'Kansas', 'Oklahoma', 'Syracuse', 'Georgetown', 'Florida', 'Duke', 'Villanova', 'Illinois', 'Ohio State'];
+            map.setFilter('schools', ['match', ['get', 'school_common_name'], tenCount, true, false]);
+
+          }
+          // 1 appearance: ['VCU','Virginia Tech','Dayton','Saint Louis','Creighton','Minnesota','TCU','Houston','Loyola–Chicago','California','Texas A&M','Nebraska','Southern Illinois','Butler','La Salle','DePaul']
+
           // if final chapter
           if (response.index === config.chapters.length - 1) {
             // create new click event each time chapter is enter, or else unique div ID is overwritten
@@ -1989,13 +2001,16 @@
     // empty hoverId, resets on each school mouseover
     let hoverId = null;
 
-    map.on('mouseover', 'schools', (e) => {
+    map.on('mousemove', 'schools', (e) => {
       // change cursor to pointer to indicate clickability
       this.map.getCanvas().style.cursor = 'pointer';
 
       // reset basic school style for popup
       // TODO add +/- overall avg?
-      label.css('background', '#414140');
+
+      // University of Iowa, Creighton, Mizzou, Purdue, Georgia IT, VCU, La Salle
+      console.log(e.features[0].properties);
+      label.css('background', e.features[0].properties['color_1']);
       label.css('color', 'whitesmoke');
 
       label.addClass('visible');  // make popup visible on school mouseover
