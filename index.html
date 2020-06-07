@@ -1027,6 +1027,7 @@
     // reset default map view
     resetExtent();
     resetAllFilters();
+    clearStoryLayers();  // clear all story-mode only layers
     infoBtnSeed.addClass('visible');  // display 'seed >' button
   }
 
@@ -1038,6 +1039,20 @@
     resetExtent();
     resetAllFilters();
     infoBtnSeed.removeClass('visible');
+  }
+
+  function clearStoryLayers() {
+    // layers from story mode that are for display purposes only
+    const layers = ['tourney', 'tourney-sites', 'tourney-lines', 'route', 'point', 'legend-lines', 'legend-point', 'legend-point-avg'];
+    layers.forEach(layer => {  // loop through each layer
+      if (map.getLayer(layer) && layer !== 'point') {  // if layer exists and is not 'point' layer
+        // set layer type opacity to 0 - set circle-stroke-opacity to 0 for point-avg layer only
+        map.setPaintProperty(layer, `${map.getLayer(layer).type}${layer === 'legend-point-avg' ? '-stroke' : ''}-opacity`, 0);
+      } else if (map.getLayer(layer)) {
+        // if 'point' icon, remove layer entirely (cannot set icon opacity)
+        map.removeLayer(layer);
+      }
+    });
   }
 
   // TODO Delete old json, replace with new
