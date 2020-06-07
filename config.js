@@ -545,12 +545,13 @@ first and only National Championship was won in 1960, decades before modern seed
             For many schools, making it into the tournament is a huge accomplishment by itself - earning a top seed is
             even more uncommon.
             
-            <br><br>Of the 87 schools to have earned a top seed since 1985, <strong>sixteen of them made only
+            <br><br>Of the 87 schools to have earned a top seed since 1985, <strong>16 of them made only
             a single appearance</strong> with that ranking, traveling a mean distance of <strong>809 miles</strong> (221
             miles above the overall average).
             
-            <br><br>Notably, both the <strong>shortest and longest average travel distances</strong> are for schools with 1 top-
-            seed appearance: Depaul University (~13 miles) and Virginia Tech University (~2261 miles), respectively.
+            <br><br>Notably, both the <strong>shortest and longest average travel distances</strong> are for schools with
+             1 top-
+             seed appearance: Depaul University (~13 miles) and Virginia Tech University (~2261 miles), respectively.
             
             `,
             onChapterEnter: [],
@@ -561,7 +562,9 @@ first and only National Championship was won in 1960, decades before modern seed
             title: 'Schools with 10+ Appearances',
             image: '',
             description: `
-            561
+            On the flip side, many schools have strong programs that consistently perform at the top level - <strong>22
+            schools have made 10 or more appearances as a top seed</strong>, traveling a mean distance very close to the
+            overall average at <strong>561 miles</strong> (17 miles below overall average).
             `,
             onChapterEnter: [],
             onChapterExit: []
