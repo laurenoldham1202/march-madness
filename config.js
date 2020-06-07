@@ -33,7 +33,7 @@ Championship tournament, affectionately referred to as March Madness. March
                 {layer: 'schools', opacity: 0.7},
             ],
             onChapterExit: [
-                {layer: 'schools', opacity: 0},
+                // {layer: 'schools', opacity: 0},
             ]
         },
         {
@@ -87,10 +87,9 @@ Championship tournament, affectionately referred to as March Madness. March
                 zoom: 4.7,
                 pitch: 0,
                 bearing: 0
-                // pitch: 60.00,
-                // bearing: 28.00
             },
             onChapterEnter: [
+                {layer: 'schools', opacity: 0},
                 {layer: 'tourney', opacity: 1},
             ],
             onChapterExit: []

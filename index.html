@@ -498,6 +498,16 @@
       .scroll {
         margin-top: 1rem;
       }
+
+      .circle {
+        margin: auto 0.75rem 1rem 0.75rem;
+      }
+    }
+
+    @media (max-width: 1215px) {
+      .circle {
+        margin: auto 0.5rem 1rem 0.5rem;
+      }
     }
 
     @media (max-height: 850px) {
@@ -791,10 +801,10 @@
     transformRequest: transformRequest
   });
 
-  marker = new mapboxgl.Marker();
-  if (config.showMarkers) {
-      marker.setLngLat(config.chapters[0].location.center).addTo(map);
-  }
+  // marker = new mapboxgl.Marker();
+  // if (config.showMarkers) {
+  //     marker.setLngLat(config.chapters[0].location.center).addTo(map);
+  // }
 
   // instantiate the scrollama
   scroller = scrollama();
