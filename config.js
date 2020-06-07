@@ -556,28 +556,28 @@ first and only National Championship was won in 1960, decades before modern seed
             <div class="display-more">Click to see schools below &#9662;</div>
             <div class="one-count hidden-panel">
                 <div class="seed-hl-row">
-                    <div class="seed-hl">VCU</div>
-                    <div class="seed-hl">Virginia Tech</div>
-                    <div class="seed-hl">Dayton</div>
-                    <div class="seed-hl">St. Louis</div>
+                    <div class="seed-hl" style="background:#FFB300">VCU</div>
+                    <div class="seed-hl" style="background:#630031"><div class="seed-hl-text">Virginia Tech</div></div>
+                    <div class="seed-hl" style="background:#CE1141"><div class="seed-hl-text">Dayton</div></div>
+                    <div class="seed-hl" style="background:#003DA5"><div class="seed-hl-text">St. Louis</div></div>
                 </div>            
                 <div class="seed-hl-row">
-                    <div class="seed-hl">Creighton</div>
-                    <div class="seed-hl">Minnesota</div>
-                    <div class="seed-hl">TCU</div>
-                    <div class="seed-hl">Houston</div>
+                    <div class="seed-hl" style="background:#005CA9"><div class="seed-hl-text">Creighton</div></div>
+                    <div class="seed-hl" style="background:#7A0019"><div class="seed-hl-text">Minnesota</div></div>
+                    <div class="seed-hl" style="background:#4D1979"><div class="seed-hl-text">TCU</div></div>
+                    <div class="seed-hl" style="background:#C8102E"><div class="seed-hl-text">Houston</div></div>
                 </div>            
                 <div class="seed-hl-row">
-                    <div class="seed-hl">Loyola-Chicago</div>
-                    <div class="seed-hl">California</div>
-                    <div class="seed-hl">Texas A&M</div>
-                    <div class="seed-hl">Nebraska</div>
+                    <div class="seed-hl" style="background:#922247"><div class="seed-hl-text">Loyola-Chicago</div></div>
+                    <div class="seed-hl" style="background:#003262"><div class="seed-hl-text">California</div></div>
+                    <div class="seed-hl" style="background:#500000"><div class="seed-hl-text">Texas A&M</div></div>
+                    <div class="seed-hl" style="background:#E41C38"><div class="seed-hl-text">Nebraska</div></div>
                 </div>            
                 <div class="seed-hl-row">
-                    <div class="seed-hl">Southern Illinois</div>
-                    <div class="seed-hl">Butler</div>
-                    <div class="seed-hl">La Salle</div>
-                    <div class="seed-hl">DePaul</div>
+                    <div class="seed-hl" style="background:#720000"><div class="seed-hl-text">Southern Illinois</div></div>
+                    <div class="seed-hl" style="background:#13294B"><div class="seed-hl-text">Butler</div></div>
+                    <div class="seed-hl" style="background:#FFCC00">La Salle</div>
+                    <div class="seed-hl" style="background:#005EB8"><div class="seed-hl-text">DePaul</div></div>
                 </div>
             </div>
             `,

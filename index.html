@@ -962,19 +962,34 @@
   // handle chapter progress bar, clicks, mouseover, etc.
   handleChapters();
 
-  toggleStoryPanel();
-
-  function toggleStoryPanel() {
+  function toggleStoryPanel(colors) {
     $('.display-more').on('click', (e) => {
       const defaultText = 'Click to see schools below ▾';
       if (e.target.innerText === defaultText) {
         $('.one-count').addClass('open-panel');
         $('.one-count').removeClass('hidden-panel');
         $('.display-more').html(`Hide schools &#9652;`);
+
+        const oneCount = ['VCU','Virginia Tech','Dayton','Saint Louis','Creighton','Minnesota','TCU','Houston','Loyola–Chicago','California','Texas A&M','Nebraska','Southern Illinois','Butler','La Salle','DePaul'];
+        const schoolStyles = [];
+        // console.log(colors);
+        colors.features.forEach(school => {
+          // console.log(school.name);
+          oneCount.forEach(item => {
+            if (item === school.name) {
+              // console.log(school)
+              schoolStyles.push(item, school.color_1);
+            }
+          });
+        });
+        schoolStyles.push('#AAA');
+        console.log(schoolStyles);
+        map.setPaintProperty('schools', 'circle-color', ['match', ['get', 'school_common_name'], ...schoolStyles]);
       } else {
         $('.one-count').removeClass('open-panel');
         $('.one-count').addClass('hidden-panel');
         $('.display-more').html(defaultText);
+        map.setPaintProperty('schools', 'circle-color', '#E27600');
       }
     });
   }
@@ -1117,6 +1132,7 @@
     // push schools to schoolFilter dropdown, apply seed values to school feature properties
     iterateGeojsonSource(schools, seeds, colors);
     clickFooterBtn(seedsAgg, seeds, sites);
+    toggleStoryPanel(colors);
 
     //  geojsons created by reading jupyter notebook output CSVs into QGIS and converted
     map.on('load', () => {
@@ -1246,6 +1262,7 @@
           if (id === 'chapter-19') {
             const oneCount = ['VCU','Virginia Tech','Dayton','Saint Louis','Creighton','Minnesota','TCU','Houston','Loyola–Chicago','California','Texas A&M','Nebraska','Southern Illinois','Butler','La Salle','DePaul'];
             map.setFilter('schools', ['match', ['get', 'school_common_name'], oneCount, true, false]);
+
           } else if (id === 'chapter-20') {
             const tenCount = ['Michigan', 'Arizona', 'UConn', 'Maryland', 'UCLA', 'Indiana', 'Cincinnati', 'Kentucky', 'Pittsburgh', 'North Carolina', 'Louisville', 'Purdue', 'Michigan State', 'Kansas', 'Oklahoma', 'Syracuse', 'Georgetown', 'Florida', 'Duke', 'Villanova', 'Illinois', 'Ohio State'];
             map.setFilter('schools', ['match', ['get', 'school_common_name'], tenCount, true, false]);
