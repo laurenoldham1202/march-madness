@@ -457,19 +457,26 @@ first and only National Championship was won in 1960, decades before modern seed
             Of the 32 D1 conferences, only 11 have produced top seeded teams in March Madness:
             
             <div class="conference-list" style="margin-top: 1rem;">
-              <div class="conference" style="background: #7F3C8D">American Athletic Conference</div>
-              <div class="conference" style="background: #11A579">Atlantic 10 Conference</div>
-              <div class="conference" style="background: #3969AC">Atlantic Coast Conference</div>
-              <div class="conference" style="background: #F2B701">Big 12  Conference</div>
-              <div class="conference" style="background: #E73F74">Big East Conference</div>
-              <div class="conference" style="background: #80BA5A">Big Ten Conference</div>
-              <div class="conference" style="background: #E68310">Missouri Valley Conference</div>
-              <div class="conference" style="background: #008695">Mountain West Conference</div>
-              <div class="conference" style="background: #CF1C90">Pac-12 Conference</div>
-              <div class="conference" style="background: #f97b72">Southeastern Conference</div>
-              <div class="conference" style="background: #4b4b8f">West Coast Conference</div>
+              <div class="conference-row">
+                  <div class="conference" style="background: #7F3C8D">American Athletic Conference</div>
+                  <div class="conference" style="background: #11A579">Atlantic 10 Conference</div>
+                  <div class="conference" style="background: #3969AC">Atlantic Coast Conference</div>
+                  <div class="conference" style="background: #F2B701">Big 12  Conference</div>
+              </div>
+              <div class="conference-row">
+                  <div class="conference" style="background: #E73F74">Big East Conference</div>
+                  <div class="conference" style="background: #80BA5A">Big Ten Conference</div>
+                  <div class="conference" style="background: #E68310">Missouri Valley Conference</div>
+                  <div class="conference" style="background: #008695">Mountain West Conference</div>
+              </div>
+              <div class="conference-row">
+                  <div class="conference" style="background: #CF1C90">Pac-12 Conference</div>
+                  <div class="conference" style="background: #f97b72">Southeastern Conference</div>
+                  <div class="conference" style="background: #4b4b8f">West Coast Conference</div>
+                  <div class="conference" style="background: transparent"></div>
+              </div>
             </div>
-            <br>Does the geography of these conferences affect their travel distance during March Madness?
+            Does the geography of these conferences affect their travel distance during March Madness?
             `,
             onChapterEnter: [],
             onChapterExit: []
