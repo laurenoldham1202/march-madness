@@ -524,6 +524,43 @@
       .circle {
         margin: auto 0.5rem 1rem 0.5rem;
       }
+
+      #features.lefty {
+        width: 100% !important;
+        margin-left: 0 !important;
+        /* width: 33vw; */
+        /* margin-left: 5vw; */
+      }
+
+      .step img {
+        width: 300px;
+      }
+
+      .light {
+        color: #444;
+        background-color: #fafafa;
+        padding: 2rem;
+        margin-bottom: 20rem;
+        /*max-height: 500px;*/
+        /*overflow: scroll;*/
+        /* padding-bottom: 10rem; */
+      }
+      /*#story {*/
+      /*  position: absolute;*/
+      /*  top: 0;*/
+      /*  bottom: 0;*/
+      /*  right: 0;*/
+      /*  left: 0;*/
+      /*}*/
+
+      /*!* or #features? *!*/
+      /*.lefty {*/
+      /*  height: 20rem;*/
+      /*  position: fixed;*/
+      /*  top: 0;*/
+      /*  overflow: hidden;*/
+      /*  overflow-y: scroll;*/
+      /*}*/
     }
 
     @media (max-height: 850px) {
@@ -1184,10 +1221,18 @@
             chapter.onChapterEnter.forEach(setLayerOpacity);
           }
 
+          // console.log(window);
+          if (window.outerWidth <= 1215) {
+            console.log(chapter);
+          }
+
           // highlight the active chapter with orange in progress bar
           $(`#block-${chapter.id}`).addClass('active-chapter');
 
           if (id === 'intro') {
+
+
+
             infoBtnSeed.removeClass('visible');
             map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
           } else if (id === 'chapter-1') {
@@ -1716,7 +1761,8 @@
     layerGeometry.coordinates = [layerCoords];
 
     if (storyMode) {
-      map.flyTo({center: [-116.5, 41.5], zoom: 3.5});
+      const center = window.outerWidth <= 1250 ? [-98.5795, 39.8283] : [-116.5, 41.5];
+      map.flyTo({center: center, zoom: 3.5});
     } else {
       // fit bounds to school layer
       fitMapBounds(layerGeometry);
@@ -1728,8 +1774,11 @@
 
   // TODO additional bounds for story mode?
   function fitMapBounds(layerGeometry) {
-    map.fitBounds(turf.bbox(layerGeometry), { padding: {top: 50, right: 50, bottom: 50, left: 450}, duration: 3000 });
-    // map.fitBounds(turf.bbox(layerGeometry), { padding: 50 });
+    const isSmallScreen = window.outerWidth <= 1215;  // determine if browser is small screen
+    const padding = isSmallScreen ? 250 : 50;  // if browser is small screen, increase padding - extra left for storymode
+    map.fitBounds(turf.bbox(layerGeometry), { padding:
+        {top: padding, right: padding, bottom: padding, left: isSmallScreen ? padding : 450},
+      duration: 3000 });
   }
 
   // TODO make additional dropdown for special cases, i.e. blue bloods, etc.? Add slider for numbers of appearances?
