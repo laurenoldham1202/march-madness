@@ -539,7 +539,7 @@ first and only National Championship was won in 1960, decades before modern seed
 
         {
             id: 'chapter-19',
-            title: 'Schools with 1 Appearance',
+            title: 'Schools with 1 Appearance as Top Seed',
             image: '',
             description: `
             For many schools, making it into the tournament is a huge accomplishment by itself - earning a top seed is
@@ -586,13 +586,110 @@ first and only National Championship was won in 1960, decades before modern seed
         },
         {
             id: 'chapter-20',
-            title: 'Schools with 10+ Appearances',
+            title: 'Schools with 10+ Appearances as Top Seed',
             image: '',
             description: `
             On the flip side, many schools have strong programs that consistently perform at the top level - <strong>22
             schools have made 10 or more appearances as a top seed</strong>, traveling a mean distance very close to the
             overall average at <strong>561 miles</strong> (17 miles below overall average).
             `,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
+            id: 'chapter-21',
+            title: 'Blue Bloods',
+            image: '',
+            description: `
+            Schools that have historically dominated the college basketball scene have achieved an (unofficial) elite 
+            title - <strong>Blue Bloods</strong>. More than just their team colors, Blue Bloods are oftentimes the most 
+            prestigious (and hated) teams in the sport. But more often than not, they <em>do</em> prevail during March 
+            Madness. While the Blue Blood status is up for debate for many teams, the core 4 are:
+            
+            <br><br>
+            <div class="seed-hl-row">
+                <div class="seed-hl" style="background:#7BAFD4">
+                  <div class="seed-hl-title">UNC</div>
+                  <div class="seed-hl-text">457 miles</div>
+                </div>
+                <div class="seed-hl" style="background:#0051BA">
+                  <div class="seed-hl-title">KANSAS</div>
+                  <div class="seed-hl-text">395 miles</div>
+                </div>
+              <div class="seed-hl" style="background:#0033A0">
+                  <div class="seed-hl-title">KENTUCKY</div>
+                  <div class="seed-hl-text">440 miles</div>
+                </div>
+              <div class="seed-hl" style="background:#003087">
+                  <div class="seed-hl-title">DUKE</div>
+                  <div class="seed-hl-text">299 miles</div>
+                </div>
+            </div>
+            
+            <br>
+            
+            <!-- Duke: 299, 200-->
+            <!-- UK: 440, 327-->
+            <!-- UNC: 457, 307-->
+            <!-- Kan: 395, 275-->
+            With a collective <strong>108 March Madness appearances</strong> since 1985, the Blue Bloods traveled an
+            average of only <strong>394 miles</strong> (194 miles below overall average).
+            
+            `,
+            location: {
+                center: { lon: -95.91291, lat: 36.54204 },
+                zoom: 4.5,
+                pitch: 0.00,
+                bearing: 0.00
+            },
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
+            id: 'chapter-22',
+            title: 'Weighted Distance',
+            image: '',
+            description: `
+            Making apples-to-apples comparisons amongst schools based on their mean travel distance is not possible - 
+            travel distances are expected to fluctuate based on the frequency of appearances of each seed in a school's
+            history.
+            
+            <br><br>
+            To allow for more accurate comparison amongst schools, weights were applied based on seed values.
+            
+             <div class="seed-hl-row">
+                <div class="seed-hl" style="background: #80bad1">
+                    <div class="seed-hl-title">1 SEED</div>
+                    <div class="seed-hl-text">1.00</div>
+                </div> 
+               
+               <div class="seed-hl" style="background: #5694c1">
+                    <div class="seed-hl-title">2 SEED</div>
+                    <div class="seed-hl-text">0.75</div>
+                </div>
+                       
+               <div class="seed-hl" style="background: #2c6db1">
+                    <div class="seed-hl-title">3 SEED</div>
+                    <div class="seed-hl-text">0.50</div>
+                </div>
+                       
+               <div class="seed-hl" style="background: #0146a1">
+                    <div class="seed-hl-title">4 SEED</div>
+                    <div class="seed-hl-text">0.25</div>
+               </div>
+            </div>
+            <br>
+            The weights are roughly proportional to the pool of first round site locations. For the 16 top seeded teams,
+            there are 16 possible (non-unique) site locations. 1 seeds get premiere geographic preference (~100% of 
+            teams get optimal placement). 2 seeds get top pick from the remaining pool (12/16), then 3 seeds from that 
+            remaining pool (8/16), and finally, 4 seeds get the remaining pick (4/16).
+            `,
+            location: {
+                center: { lon: -95.91291, lat: 36.54204 },
+                zoom: 4.8,
+                pitch: 0.00,
+                bearing: 0.00
+            },
             onChapterEnter: [],
             onChapterExit: []
         },

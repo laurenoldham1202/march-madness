@@ -972,18 +972,14 @@
 
         const oneCount = ['VCU','Virginia Tech','Dayton','Saint Louis','Creighton','Minnesota','TCU','Houston','Loyola–Chicago','California','Texas A&M','Nebraska','Southern Illinois','Butler','La Salle','DePaul'];
         const schoolStyles = [];
-        // console.log(colors);
         colors.features.forEach(school => {
-          // console.log(school.name);
           oneCount.forEach(item => {
             if (item === school.name) {
-              // console.log(school)
               schoolStyles.push(item, school.color_1);
             }
           });
         });
         schoolStyles.push('#AAA');
-        console.log(schoolStyles);
         map.setPaintProperty('schools', 'circle-color', ['match', ['get', 'school_common_name'], ...schoolStyles]);
       } else {
         $('.one-count').removeClass('open-panel');
@@ -1266,9 +1262,23 @@
           } else if (id === 'chapter-20') {
             const tenCount = ['Michigan', 'Arizona', 'UConn', 'Maryland', 'UCLA', 'Indiana', 'Cincinnati', 'Kentucky', 'Pittsburgh', 'North Carolina', 'Louisville', 'Purdue', 'Michigan State', 'Kansas', 'Oklahoma', 'Syracuse', 'Georgetown', 'Florida', 'Duke', 'Villanova', 'Illinois', 'Ohio State'];
             map.setFilter('schools', ['match', ['get', 'school_common_name'], tenCount, true, false]);
+          } else if (id === 'chapter-21') {
+            const blueBloods = ['Duke', 'Kentucky', 'North Carolina', 'Kansas'];
+            const bb = {'Duke': '#003087', 'Kentucky': '#0033A0', 'North Carolina': '#7BAFD4', 'Kansas': '#0051BA'};
+            map.setFilter('schools', ['match', ['get', 'school_common_name'], Object.keys(bb), true, false]);
 
+            const bbStyles = [];
+            Object.entries(bb).forEach(([school, color]) => {
+              bbStyles.push(school, color);
+            });
+            bbStyles.push('#AAA');
+            map.setPaintProperty('schools', 'circle-color', ['match', ['get', 'school_common_name'], ...bbStyles]);
+          } else if (id === 'chapter-22') {
+            map.setFilter('schools', ['has', 'school_common_name']);
+            resetExtent(true);
+            filters.weighted = true;  // todo fix how this affects reset extent
+            applyWeights(schools);
           }
-          // 1 appearance: ['VCU','Virginia Tech','Dayton','Saint Louis','Creighton','Minnesota','TCU','Houston','Loyola–Chicago','California','Texas A&M','Nebraska','Southern Illinois','Butler','La Salle','DePaul']
 
           // if final chapter
           if (response.index === config.chapters.length - 1) {
@@ -1284,6 +1294,7 @@
         .onStepExit(response => {
           const chapter = config.chapters.find(chap => chap.id === response.element.id);
           response.element.classList.remove('active');
+          // console.log(response.element.id);
           if (chapter.onChapterExit.length > 0) {
             chapter.onChapterExit.forEach(setLayerOpacity);
           }
