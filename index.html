@@ -522,7 +522,7 @@
 
     @media (max-width: 1215px) {
       .circle {
-        margin: auto 0.5rem 1rem 0.5rem;
+        margin: auto 0.95rem 1rem 0.95rem;
       }
 
       #features.lefty {
@@ -1214,14 +1214,10 @@
           const chapter = config.chapters.find(chap => chap.id === id);
           response.element.classList.add('active');
 
-          // console.log(window);
+          // adjust center point in story mode if on small screen
           if (window.outerWidth <= 1215) {
-            // console.log(chapter.location.center);
             if (chapter.location && chapter.location.center.lon === -116.5) {
-              // console.log('adjust!');
-              chapter.location.center = {lon: -98.5795, lat: 39.8283};
-              console.log(chapter.location.center);
-              // [-98.5795, 39.8283]
+              chapter.location.center = {lon: -98.5795, lat: 39.8283};  // TODO create const
             }
           }
 
@@ -1233,18 +1229,13 @@
             chapter.onChapterEnter.forEach(setLayerOpacity);
           }
 
-
-
           // highlight the active chapter with orange in progress bar
           $(`#block-${chapter.id}`).addClass('active-chapter');
 
+          // remove `Seed >` button when in story mode and scrolling through chapters
           infoBtnSeed.removeClass('visible');
 
           if (id === 'intro') {
-
-
-
-            infoBtnSeed.removeClass('visible');
             map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
           } else if (id === 'chapter-1') {
             map.setFilter('tourney-sites', ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'site']]);
