@@ -1213,6 +1213,18 @@
           const id = response.element.id;
           const chapter = config.chapters.find(chap => chap.id === id);
           response.element.classList.add('active');
+
+          // console.log(window);
+          if (window.outerWidth <= 1215) {
+            // console.log(chapter.location.center);
+            if (chapter.location && chapter.location.center.lon === -116.5) {
+              // console.log('adjust!');
+              chapter.location.center = {lon: -98.5795, lat: 39.8283};
+              console.log(chapter.location.center);
+              // [-98.5795, 39.8283]
+            }
+          }
+
           map.flyTo(chapter.location);
           if (config.showMarkers) {
             marker.setLngLat(chapter.location.center);
@@ -1221,13 +1233,12 @@
             chapter.onChapterEnter.forEach(setLayerOpacity);
           }
 
-          // console.log(window);
-          if (window.outerWidth <= 1215) {
-            console.log(chapter);
-          }
+
 
           // highlight the active chapter with orange in progress bar
           $(`#block-${chapter.id}`).addClass('active-chapter');
+
+          infoBtnSeed.removeClass('visible');
 
           if (id === 'intro') {
 

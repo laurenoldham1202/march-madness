@@ -21,7 +21,7 @@ Championship tournament, affectionately referred to as March Madness. March
             `,
             image: './images/logo.png',
             location: {
-                center: [-116.5, 41.5],
+                center: {lon: -116.5, lat: 41.5},
                 zoom: 3.5,
                 pitch: 0.00,
                 bearing: 0.00,
@@ -100,7 +100,7 @@ Championship tournament, affectionately referred to as March Madness. March
             image: '',
             // TODO style list items more nicely
             location: {
-                center: [-116.5, 41.5],
+                center: {lon: -116.5, lat: 41.5},
                 zoom: 3.5,
                 pitch: 0.00,
                 bearing: 0.00,
