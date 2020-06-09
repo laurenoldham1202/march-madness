@@ -325,224 +325,6 @@ Viewing aggregations at the school level paints a more varied picture of travel 
             onChapterEnter: [],
             onChapterExit: []
         },
-        {
-            id: 'chapter-7',
-            title: 'Overall Shortest Travel Distance',
-            image: '',
-            description: `The <strong>University of Arizona</strong> traveled the overall shortest distance, barely leaving campus to travel 
-            <strong>less than half a mile</strong> to their first round site in Tucson in 2000 as a 1 seed. Unfortunately for the Wildcats,
-            the close proximity didn't give them enough of a boost to beat out Wisconsin in the second round of the 
-            tournament.`,
-            onChapterEnter: [],
-            onChapterExit: []
-        },
-        {
-            id: 'chapter-8',
-            title: 'Shortest Average Travel Distance',
-            image: '',
-            description: `
-The school with the lowest mean distance traveled is technically <strong>DePaul University</strong>, who have 
-            only made one appearance as a top seed since 1985. The Blue Demons stayed in their home metro Chicago as a 3
-            seed in 1987, traveling <strong>fewer than 13 miles</strong>.
-`,
-            onChapterEnter: [],
-            onChapterExit: []
-        },
-
-        {
-            id: 'chapter-9',
-            title: 'Shortest Average Travel Distance (with 5+ Appearances)',
-            image: '',
-            description: `Many schools have only made one or two appearances as a top seeded school, so filtering for schools that have made at least 5
-            appearances as a top seed since 1985 paints a more accurate picture of trends. The school with the lowest mean distance traveled is <strong>University of Virginia</strong>,
-            who traveled a mean distance of <strong>237 miles</strong>. 
-            
-            <br><br>This geographic advantage has had mixed results for the Cavaliers, who famously lost to the UMBC in 2018,
-             the first ever 1 seed bested by a 16 seed in the history of the NCAA tournament (having traveled 234 miles 
-             to Charlotte, North Carolina from Charlottesville, Virginia). UVA went on to redeem themselves by winning 
-             their first national title the following year in 2019, having traveled 296 miles to Columbia, South Carolina.`,
-            onChapterEnter: [],
-            onChapterExit: []
-        },
-        { // TODO add logic to weights, add same styling as seeds, add pre-line style to p class?
-            id: 'chapter-10',
-            title: 'Weighted Distance',
-            image: '',
-            description: `The selection committee gives geographic preference based on seeds, so you would expect a team with 
-            more appearances as a 1 seed to have a lower mean travel distance than a school with more appearances as a 4 seed.
-            
-            <br><br><strong>To normalize the data, distances were also calculated with the following weights applied based on seed values:</strong>
-
-             <div class="seed-hl-row">
-                <div class="seed-hl" style="background: #80bad1">
-                    <div class="seed-hl-title">1 SEED</div>
-                    <div class="seed-hl-text">1.00</div>
-                </div> 
-               
-               <div class="seed-hl" style="background: #5694c1">
-                    <div class="seed-hl-title">2 SEED</div>
-                    <div class="seed-hl-text">0.75</div>
-                </div>
-                       
-               <div class="seed-hl" style="background: #2c6db1">
-                    <div class="seed-hl-title">3 SEED</div>
-                    <div class="seed-hl-text">0.50</div>
-                </div>
-                       
-               <div class="seed-hl" style="background: #0146a1">
-                    <div class="seed-hl-title">4 SEED</div>
-                    <div class="seed-hl-text">0.25</div>
-               </div>
-            </div>
-            <br>
-            The weights are roughly proportional to the pool of first round site locations. For the 16 top seeded teams,
-            there are 16 possible (non-unique) site locations. 1 seeds get premiere geographic preference (~100% of 
-            teams get optimal placement). 2 seeds get top pick from the remaining pool (12/16), then 3 seeds from that 
-            remaining pool (8/16), and finally, 4 seeds get the remaining pick (4/16). 
-            
-            <div class="footer" style="margin-top: 1.5rem; text-align: right;">
-                <span style="font-size: 0.85rem;">* Proportional circles on the map represent the <strong><u>weighted</u></strong> average
-                travel distance for each school
-                </span>
-            </div>
-            `,
-            onChapterEnter: [],
-            onChapterExit: []
-        },
-        {
-            id: 'chapter-11',
-            title: 'Shortest Weighted Average Travel Distance (5+ Appearances)',
-            image: '',
-            description: `Accounting for the weighted metric, the lowest WEIGHTED distance traveled by a school with at least
-            5 appearances is <strong>Ohio State University</strong>. The Buckeyes have had 11 appearances as a top seed since 1985, averaging
-            a weighted travel distance of only <strong>135 miles (318 miles unweighted)</strong>.
-
-<br><br>Unfortunately for the Buckeyes, none of their top-seeded appearances resulted in a national title. Ohio State's
-first and only National Championship was won in 1960, decades before modern seeding was established.
-`,
-            onChapterEnter: [],
-            onChapterExit: []
-        },
-      {
-        id: 'chapter-12',
-        title: 'Longest Weighted Average and Overall Travel Distance',
-        image: '',
-        description: `The school with the highest mean travel distance with at least 5 appearances is <strong>St. John's University</strong>
-             in Queens, New York. The Red Storm traveled an average of <strong>1,604 miles</strong> over 5 appearances. St. John's also represents
-             the highest WEIGHTED mean travel distance at 1,323 miles.
-              
-              <br><br>Interestingly, the Red Storm have fared better geographically
-             as lower seeds than as higher seeds - they traveled 1,900+ miles in all three of their appearances as a 1 and 2 seed,
-             but only between 500-900 miles as a 3 and 4 seed. 
-             `,
-        onChapterEnter: [],
-        onChapterExit: []
-      },
-        {
-            id: 'chapter-13',
-            title: 'Longest Average Travel Distance',
-            image: '',
-            description: `The school with the highest mean travel distance is <strong>Virginia Tech University</strong>; similar to DePaul, the Hokies
-             have only made one appearance as a top seed, resulting in an average travel distance of <strong>2,261 miles</strong> (the distance
-             between Blacksburg, Virginia and San Jose, California, where Virginia Tech played as a 4 seed in 2019).`,
-            onChapterEnter: [],
-            onChapterExit: []
-        },
-
-        {
-            id: 'chapter-14',
-            title: 'Distance by Conference',
-            image: '',
-            description: `Like many sports, the NCAA divides schools into discrete, geographically clustered conferences.
-            Of the 32 D1 conferences, only 11 have produced top seeded teams in March Madness:
-            
-            <div class="conference-list" style="margin-top: 1rem;">
-              <div class="conference-row">
-                  <div class="conference" style="background: #7F3C8D">American Athletic Conference</div>
-                  <div class="conference" style="background: #11A579">Atlantic 10 Conference</div>
-                  <div class="conference" style="background: #3969AC">Atlantic Coast Conference</div>
-                  <div class="conference" style="background: #F2B701">Big 12  Conference</div>
-              </div>
-              <div class="conference-row">
-                  <div class="conference" style="background: #E73F74">Big East Conference</div>
-                  <div class="conference" style="background: #80BA5A">Big Ten Conference</div>
-                  <div class="conference" style="background: #E68310">Missouri Valley Conference</div>
-                  <div class="conference" style="background: #008695">Mountain West Conference</div>
-              </div>
-              <div class="conference-row">
-                  <div class="conference" style="background: #CF1C90">Pac-12 Conference</div>
-                  <div class="conference" style="background: #f97b72">Southeastern Conference</div>
-                  <div class="conference" style="background: #4b4b8f">West Coast Conference</div>
-                  <div class="conference" style="background: transparent"></div>
-              </div>
-            </div>
-            Does the geography of these conferences affect their travel distance during March Madness?
-            `,
-            onChapterEnter: [],
-            onChapterExit: []
-        },
-        {
-            id: 'chapter-15',
-            title: 'Conferences with the Longest Mean Travel Distance',
-            image: '',
-            description: `The conferences with the highest mean travel distances are two coastal conferences: the 
-            <span style="color: #CF1C90;"><strong>Pac-12</strong></span>
-            on the Pacific West coast, who averaged <span style="color: #CF1C90;"><strong>773 travel miles</strong></span>, and the <span style="color: #11A579;"><strong>Atlantic 10</strong></span> on the Atlantic East coast, 
-            who averaged <span style="color: #11A579;"><strong>832 travel miles</strong></span>.
-            
-            <br><br>Even applying weights by seed couldn't help these conferences - they remained the first and third longest traveling
-            conferences, traveling a weighted 442 and 375 miles respectively.`,
-            onChapterEnter: [],
-            onChapterExit: []
-        },
-        {
-            id: 'chapter-16',
-            title: 'Conferences with the Lowest Mean Travel Distance',
-            image: '',
-            description: `On the flip side, the conferences with the lowest mean travel distances are more centrally-
-            located, with the <span style="color: #F2B701;"><strong>Big 12 Conference</strong></span> traveling an 
-            average of <span style="color: #F2B701;"><strong>506 miles</strong></span> from the Great Plains region and 
-            the <span style="color: #7F3C8D;"><strong>American Athletic Conference</strong></span> traversing and 
-            average <span style="color: #7F3C8D;"><strong>494 miles</strong></span>.`,
-            onChapterEnter: [],
-            onChapterExit: []
-        },
-      {
-        id: 'chapter-17',
-        title: 'Conferences with the Lowest Weighted Mean Travel Distance',
-        image: '',
-        description: `Applying weights to the conference distances, however, paints an unclear picture of any geographic trends. 
-        These conferences are vaguely concentrated in the Great Plains/Southeast, but are not strictly bound there.
-        
-        <br><br>The <span style="color: #E68310;"><strong>Missouri Valley Conference</strong></span> has the overall shortest weighted travel distance at <span style="color: #E68310;"><strong>142 miles</strong></span>, but only has 2 March
-        Madness appearances. Four conferences have weighted travel distances between 280 and 288 miles: <span style="color: #F2B701;"><strong>Big 12 (280 miles)</strong></span>,
-        <span style="color: #3969AC;"><strong>Atlantic Coast Conference (282 miles)</strong></span>, <span style="color: #008695;"><strong>Mountain West Conference (283 miles)</strong></span>, and <span style="color: #f97b72;"><strong>Southeastern Conference (288 miles)</strong></span>.
-        `,
-        onChapterEnter: [],
-        onChapterExit: []
-      },
-        {
-            id: 'chapter-18',
-            title: 'Conclusion',
-            image: '',
-            description: `So is there any method to the madness? It would appear that way. Generally speaking, a school
-            has a better chance at earning a geographic advantage in the first round of March Madness as a higher seed.
-            
-            <br><br>Perhaps unsurprisingly, it is also advantageous to be a more centrally-located school rather than geographically
-            isolated on a coast (despite there being many more urban centers with arenas in the more densely populated 
-            East Coast).
-            
-            <br><br>Outliers will come into play every year and it's not perfect system, but the math checks out.
-            
-            <br><br>Explore the interactive map to see how your school fares in March Madness travels!
-            
-             <div class="buttons" style="text-align: center;">
-              <button class="button" id="explore-mode">Explore Map</button>
-             </div>
-            `,
-            onChapterEnter: [],
-            onChapterExit: []
-        },
 
         {
             id: 'chapter-19',
@@ -655,6 +437,90 @@ first and only National Championship was won in 1960, decades before modern seed
             onChapterExit: []
         },
         {
+            id: 'chapter-7',
+            title: 'Overall Shortest Travel Distance',
+            image: '',
+            description: `The <strong>University of Arizona</strong> traveled the overall shortest distance, barely leaving campus to travel 
+            <strong>less than half a mile</strong> to their first round site in Tucson in 2000 as a 1 seed. Unfortunately for the Wildcats,
+            the close proximity didn't give them enough of a boost to beat out Wisconsin in the second round of the 
+            tournament.`,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+//         {
+//             id: 'chapter-8',
+//             title: 'Shortest Average Travel Distance',
+//             image: '',
+//             description: `
+// The school with the lowest mean distance traveled is technically <strong>DePaul University</strong>, who have
+//             only made one appearance as a top seed since 1985. The Blue Demons stayed in their home metro Chicago as a 3
+//             seed in 1987, traveling <strong>fewer than 13 miles</strong>.
+// `,
+//             onChapterEnter: [],
+//             onChapterExit: []
+//         },
+
+        // {
+        //     id: 'chapter-9',
+        //     title: 'Shortest Average Travel Distance (with 5+ Appearances)',
+        //     image: '',
+        //     description: `Many schools have only made one or two appearances as a top seeded school, so filtering for schools that have made at least 5
+        //     appearances as a top seed since 1985 paints a more accurate picture of trends. The school with the lowest mean distance traveled is <strong>University of Virginia</strong>,
+        //     who traveled a mean distance of <strong>237 miles</strong>.
+        //
+        //     <br><br>This geographic advantage has had mixed results for the Cavaliers, who famously lost to the UMBC in 2018,
+        //      the first ever 1 seed bested by a 16 seed in the history of the NCAA tournament (having traveled 234 miles
+        //      to Charlotte, North Carolina from Charlottesville, Virginia). UVA went on to redeem themselves by winning
+        //      their first national title the following year in 2019, having traveled 296 miles to Columbia, South Carolina.`,
+        //     onChapterEnter: [],
+        //     onChapterExit: []
+        // },
+        // { // TODO add logic to weights, add same styling as seeds, add pre-line style to p class?
+        //     id: 'chapter-10',
+        //     title: 'Weighted Distance',
+        //     image: '',
+        //     description: `The selection committee gives geographic preference based on seeds, so you would expect a team with
+        //     more appearances as a 1 seed to have a lower mean travel distance than a school with more appearances as a 4 seed.
+        //
+        //     <br><br><strong>To normalize the data, distances were also calculated with the following weights applied based on seed values:</strong>
+        //
+        //      <div class="seed-hl-row">
+        //         <div class="seed-hl" style="background: #80bad1">
+        //             <div class="seed-hl-title">1 SEED</div>
+        //             <div class="seed-hl-text">1.00</div>
+        //         </div>
+        //
+        //        <div class="seed-hl" style="background: #5694c1">
+        //             <div class="seed-hl-title">2 SEED</div>
+        //             <div class="seed-hl-text">0.75</div>
+        //         </div>
+        //
+        //        <div class="seed-hl" style="background: #2c6db1">
+        //             <div class="seed-hl-title">3 SEED</div>
+        //             <div class="seed-hl-text">0.50</div>
+        //         </div>
+        //
+        //        <div class="seed-hl" style="background: #0146a1">
+        //             <div class="seed-hl-title">4 SEED</div>
+        //             <div class="seed-hl-text">0.25</div>
+        //        </div>
+        //     </div>
+        //     <br>
+        //     The weights are roughly proportional to the pool of first round site locations. For the 16 top seeded teams,
+        //     there are 16 possible (non-unique) site locations. 1 seeds get premiere geographic preference (~100% of
+        //     teams get optimal placement). 2 seeds get top pick from the remaining pool (12/16), then 3 seeds from that
+        //     remaining pool (8/16), and finally, 4 seeds get the remaining pick (4/16).
+        //
+        //     <div class="footer" style="margin-top: 1.5rem; text-align: right;">
+        //         <span style="font-size: 0.85rem;">* Proportional circles on the map represent the <strong><u>weighted</u></strong> average
+        //         travel distance for each school
+        //         </span>
+        //     </div>
+        //     `,
+        //     onChapterEnter: [],
+        //     onChapterExit: []
+        // },
+        {
             id: 'chapter-22',
             title: 'Weighted Distance',
             image: '',
@@ -702,5 +568,254 @@ first and only National Championship was won in 1960, decades before modern seed
             onChapterEnter: [],
             onChapterExit: []
         },
+//         {
+//             id: 'chapter-11',
+//             title: 'Shortest Weighted Average Travel Distance (5+ Appearances)',
+//             image: '',
+//             description: `Accounting for the weighted metric, the lowest WEIGHTED distance traveled by a school with at least
+//             5 appearances is <strong>Ohio State University</strong>. The Buckeyes have had 11 appearances as a top seed since 1985, averaging
+//             a weighted travel distance of only <strong>135 miles (318 miles unweighted)</strong>.
+//
+// <br><br>Unfortunately for the Buckeyes, none of their top-seeded appearances resulted in a national title. Ohio State's
+// first and only National Championship was won in 1960, decades before modern seeding was established.
+// `,
+//             onChapterEnter: [],
+//             onChapterExit: []
+//         },
+      {
+        id: 'chapter-12',
+        title: 'Longest Weighted Average and Overall Travel Distance',
+        image: '',
+        description: `The school with the highest mean travel distance with at least 5 appearances is <strong>St. John's University</strong>
+             in Queens, New York. The Red Storm traveled an average of <strong>1,604 miles</strong> over 5 appearances. St. John's also represents
+             the highest WEIGHTED mean travel distance at 1,323 miles.
+              
+              <br><br>Interestingly, the Red Storm have fared better geographically
+             as lower seeds than as higher seeds - they traveled 1,900+ miles in all three of their appearances as a 1 and 2 seed,
+             but only between 500-900 miles as a 3 and 4 seed. 
+             `,
+        onChapterEnter: [],
+        onChapterExit: []
+      },
+        // {
+        //     id: 'chapter-13',
+        //     title: 'Longest Average Travel Distance',
+        //     image: '',
+        //     description: `The school with the highest mean travel distance is <strong>Virginia Tech University</strong>; similar to DePaul, the Hokies
+        //      have only made one appearance as a top seed, resulting in an average travel distance of <strong>2,261 miles</strong> (the distance
+        //      between Blacksburg, Virginia and San Jose, California, where Virginia Tech played as a 4 seed in 2019).`,
+        //     onChapterEnter: [],
+        //     onChapterExit: []
+        // },
+
+        {
+            id: 'chapter-30',  // TODO fix
+            title: 'Michigan placeholder - seed discrepancies',
+            image: '',
+            description: `
+            Another school that has fared notably better as a lower seed is the <strong>University of Michigan</strong>.
+            
+            <br><br>
+            With 13 top-seeded tournament appearances since 1985, the Wolverines traveled an average of only <strong>
+            245 miles</strong> as a 4 seed, while traveling significantly higher distances as 1, 2, and 3 seeds.
+            <br><br>
+            <div class="seed-hl-row">
+                <div class="seed-hl" style="background: #80bad1">
+                    <div class="seed-hl-title">1 SEED</div>
+                    <div class="seed-hl-text">910 miles</div>
+                </div> 
+               
+               <div class="seed-hl" style="background: #5694c1">
+                    <div class="seed-hl-title">2 SEED</div>
+                    <div class="seed-hl-text">414 miles</div>
+                </div>
+                       
+               <div class="seed-hl" style="background: #2c6db1">
+                    <div class="seed-hl-title">3 SEED</div>
+                    <div class="seed-hl-text">1,027 miles</div>
+                </div>
+                       
+               <div class="seed-hl" style="background: #0146a1">
+                    <div class="seed-hl-title">4 SEED</div>
+                    <div class="seed-hl-text">245 miles</div>
+               </div>
+            </div>
+             
+            `,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+
+        {
+            id: 'chapter-31',  // TODO fix
+            title: 'Consistency - Kansas placeholder',
+            image: '',
+            description: `
+            Other schools have far less varied travel distances.
+             
+            <br><br>
+            <strong>The University of Kansas</strong>, located near the exact center of the contiguous United States,
+            has an average distance range from <strong>312 miles as a 1 seed</strong> to <strong>556 miles as a 4 seed</strong>,
+            a difference of only approximately 250 miles.
+            <br><br>
+            <div class="seed-hl-row">
+                <div class="seed-hl" style="background: #80bad1">
+                    <div class="seed-hl-title">1 SEED</div>
+                    <div class="seed-hl-text">312 miles</div>
+                </div> 
+               
+               <div class="seed-hl" style="background: #5694c1">
+                    <div class="seed-hl-title">2 SEED</div>
+                    <div class="seed-hl-text">431 miles</div>
+                </div>
+                       
+               <div class="seed-hl" style="background: #2c6db1">
+                    <div class="seed-hl-title">3 SEED</div>
+                    <div class="seed-hl-text">432 miles</div>
+                </div>
+                       
+               <div class="seed-hl" style="background: #0146a1">
+                    <div class="seed-hl-title">4 SEED</div>
+                    <div class="seed-hl-text">556 miles</div>
+               </div>
+            </div>
+            `,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+
+        {
+            id: 'chapter-32',  // TODO fix
+            title: 'Consistency - Villanova placeholder',
+            image: '',
+            description: `
+            A more recent top-tier program, <strong>Villanova University</strong>, has seen similar consistency and even
+            more favorable travel distances. 
+            
+            <br><br>
+            Having won two of the last 4 national titles (2016, 2018), the Wildcats
+            have an average distance range from <strong>193 miles as a 1 seed</strong> to <strong>381 miles as a 4 seed
+            </strong>, with an overall maximum distance of only 682 miles.
+            
+            <div class="seed-hl-row">
+                <div class="seed-hl" style="background: #80bad1">
+                    <div class="seed-hl-title">1 SEED</div>
+                    <div class="seed-hl-text">193 miles</div>
+                </div> 
+               
+               <div class="seed-hl" style="background: #5694c1">
+                    <div class="seed-hl-title">2 SEED</div>
+                    <div class="seed-hl-text">198 miles</div>
+                </div>
+                       
+               <div class="seed-hl" style="background: #2c6db1">
+                    <div class="seed-hl-title">3 SEED</div>
+                    <div class="seed-hl-text">297 miles</div>
+                </div>
+                       
+               <div class="seed-hl" style="background: #0146a1">
+                    <div class="seed-hl-title">4 SEED</div>
+                    <div class="seed-hl-text">381 miles</div>
+               </div>
+            </div>
+            `,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+
+        {
+            id: 'chapter-14',
+            title: 'Distance by Conference',
+            image: '',
+            description: `Like many sports, the NCAA divides schools into discrete, geographically clustered conferences.
+            Of the 32 D1 conferences, only 11 have produced top seeded teams in March Madness:
+            
+            <div class="conference-list" style="margin-top: 1rem;">
+              <div class="conference-row">
+                  <div class="conference" style="background: #7F3C8D">American Athletic Conference</div>
+                  <div class="conference" style="background: #11A579">Atlantic 10 Conference</div>
+                  <div class="conference" style="background: #3969AC">Atlantic Coast Conference</div>
+                  <div class="conference" style="background: #F2B701">Big 12  Conference</div>
+              </div>
+              <div class="conference-row">
+                  <div class="conference" style="background: #E73F74">Big East Conference</div>
+                  <div class="conference" style="background: #80BA5A">Big Ten Conference</div>
+                  <div class="conference" style="background: #E68310">Missouri Valley Conference</div>
+                  <div class="conference" style="background: #008695">Mountain West Conference</div>
+              </div>
+              <div class="conference-row">
+                  <div class="conference" style="background: #CF1C90">Pac-12 Conference</div>
+                  <div class="conference" style="background: #f97b72">Southeastern Conference</div>
+                  <div class="conference" style="background: #4b4b8f">West Coast Conference</div>
+                  <div class="conference" style="background: transparent"></div>
+              </div>
+            </div>
+            Does the geography of these conferences affect their travel distance during March Madness?
+            `,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
+            id: 'chapter-15',
+            title: 'Conferences with the Longest Mean Travel Distance',
+            image: '',
+            description: `The conferences with the highest mean travel distances are two coastal conferences: the 
+            <span style="color: #CF1C90;"><strong>Pac-12</strong></span>
+            on the Pacific West coast, who averaged <span style="color: #CF1C90;"><strong>773 travel miles</strong></span>, and the <span style="color: #11A579;"><strong>Atlantic 10</strong></span> on the Atlantic East coast, 
+            who averaged <span style="color: #11A579;"><strong>832 travel miles</strong></span>.
+            
+            <br><br>Even applying weights by seed couldn't help these conferences - they remained the first and third longest traveling
+            conferences, traveling a weighted 442 and 375 miles respectively.`,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
+            id: 'chapter-16',
+            title: 'Conferences with the Lowest Mean Travel Distance',
+            image: '',
+            description: `On the flip side, the conferences with the lowest mean travel distances are more centrally-
+            located, with the <span style="color: #F2B701;"><strong>Big 12 Conference</strong></span> traveling an 
+            average of <span style="color: #F2B701;"><strong>506 miles</strong></span> from the Great Plains region and 
+            the <span style="color: #7F3C8D;"><strong>American Athletic Conference</strong></span> traversing and 
+            average <span style="color: #7F3C8D;"><strong>494 miles</strong></span>.`,
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+      {
+        id: 'chapter-17',
+        title: 'Conferences with the Lowest Weighted Mean Travel Distance',
+        image: '',
+        description: `Applying weights to the conference distances, however, paints an unclear picture of any geographic trends. 
+        These conferences are vaguely concentrated in the Great Plains/Southeast, but are not strictly bound there.
+        
+        <br><br>The <span style="color: #E68310;"><strong>Missouri Valley Conference</strong></span> has the overall shortest weighted travel distance at <span style="color: #E68310;"><strong>142 miles</strong></span>, but only has 2 March
+        Madness appearances. Four conferences have weighted travel distances between 280 and 288 miles: <span style="color: #F2B701;"><strong>Big 12 (280 miles)</strong></span>,
+        <span style="color: #3969AC;"><strong>Atlantic Coast Conference (282 miles)</strong></span>, <span style="color: #008695;"><strong>Mountain West Conference (283 miles)</strong></span>, and <span style="color: #f97b72;"><strong>Southeastern Conference (288 miles)</strong></span>.
+        `,
+        onChapterEnter: [],
+        onChapterExit: []
+      },
+        {
+            id: 'chapter-18',
+            title: 'Conclusion',
+            image: '',
+            description: `So is there any method to the madness? It would appear that way. Generally speaking, a school
+            has a better chance at earning a geographic advantage in the first round of March Madness as a higher seed.
+            
+            <br><br>Perhaps unsurprisingly, it is also advantageous to be a more centrally-located school rather than geographically
+            isolated on a coast (despite there being many more urban centers with arenas in the more densely populated 
+            East Coast).
+            
+            <br><br>Outliers will come into play every year and it's not perfect system, but the math checks out.
+            
+            <br><br>Explore the interactive map to see how your school fares in March Madness travels!
+            
+             <div class="buttons" style="text-align: center;">
+              <button class="button" id="explore-mode">Explore Map</button>
+             </div>
+            `,
+            onChapterEnter: [],
+            onChapterExit: []
+        }
     ]
 };

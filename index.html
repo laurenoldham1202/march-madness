@@ -1283,30 +1283,30 @@
             applyChapterFilters('Arizona', 'Tucson, AZ');
           // } else if (id === 'chapter-10') {
           //   applyChapterFilters('Syracuse', 'San Jose, CA');
-          } else if (id === 'chapter-8') {
-            filters.school = 'DePaul';  // todo hide grayed out schools in this view
-            selectSchoolOnMap(sites);  // todo adjust to slow pan and zoom
-            map.setLayoutProperty('schools', 'visibility', 'none');
-          } else if (id === 'chapter-9') {
-            filters.school = 'Virginia';  // todo sort sites high to low to order seeds properly
-            selectSchoolOnMap(sites);
-            map.setLayoutProperty('schools', 'visibility', 'none');
-          } else if (id === 'chapter-10') {
-            resetExtent(true);
-            filters.weighted = true;  // todo fix how this affects reset extent
-            applyWeights(schools);
-          } else if (id === 'chapter-11') {
-            filters.school = 'Ohio State';
-            selectSchoolOnMap(sites);
-            map.setLayoutProperty('schools', 'visibility', 'none');
+          // } else if (id === 'chapter-8') {
+          //   filters.school = 'DePaul';  // todo hide grayed out schools in this view
+          //   selectSchoolOnMap(sites);  // todo adjust to slow pan and zoom
+          //   map.setLayoutProperty('schools', 'visibility', 'none');
+          // } else if (id === 'chapter-9') {
+          //   filters.school = 'Virginia';  // todo sort sites high to low to order seeds properly
+          //   selectSchoolOnMap(sites);
+          //   map.setLayoutProperty('schools', 'visibility', 'none');
+          // } else if (id === 'chapter-10') {
+          //   resetExtent(true);
+          //   filters.weighted = true;  // todo fix how this affects reset extent
+          //   applyWeights(schools);
+          // } else if (id === 'chapter-11') {
+          //   filters.school = 'Ohio State';
+          //   selectSchoolOnMap(sites);
+          //   map.setLayoutProperty('schools', 'visibility', 'none');
           } else if (id === 'chapter-12') {
             filters.school = 'St. John\'s';
             selectSchoolOnMap(sites);
             map.setLayoutProperty('schools', 'visibility', 'none');
-          } else if (id === 'chapter-13') {
-            filters.school = 'Virginia Tech';
-            selectSchoolOnMap(sites);
-            map.setLayoutProperty('schools', 'visibility', 'none');
+          // } else if (id === 'chapter-13') {
+          //   filters.school = 'Virginia Tech';
+          //   selectSchoolOnMap(sites);
+          //   map.setLayoutProperty('schools', 'visibility', 'none');
           } else if (id === 'chapter-14') {
             resetExtent(true);
             animateConferences();
@@ -1341,7 +1341,7 @@
             map.setFilter('schools', ['match', ['get', 'school_common_name'], Object.keys(blueBloods), true, false]);
 
             const bbStyles = [];
-            Object.entries(bb).forEach(([school, color]) => {
+            Object.entries(blueBloods).forEach(([school, color]) => {
               bbStyles.push(school, color);
             });
             bbStyles.push('#AAA');
@@ -1351,8 +1351,22 @@
             resetExtent(true);
             filters.weighted = true;  // todo fix how this affects reset extent
             applyWeights(schools);
+          } else if (id === 'chapter-30') {
+            filters.school = 'Michigan';
+            selectSchoolOnMap(sites);
+            map.setLayoutProperty('schools', 'visibility', 'none');
+          } else if (id === 'chapter-31') {
+            filters.school = 'Kansas';
+            selectSchoolOnMap(sites);
+            map.setLayoutProperty('schools', 'visibility', 'none');
+          } else if (id === 'chapter-32') {
+            filters.school = 'Villanova';
+            selectSchoolOnMap(sites);
+            map.setLayoutProperty('schools', 'visibility', 'none');
           }
 
+          // TODO make sure all styles work on scroll up and down
+          // TODO adjust map for smaller screens so east coast isnt chopped off
           // single shortest distance
           // REMOVE shortest avg
           // REMOVE shortest avg w 5+
