@@ -49,38 +49,41 @@ Championship tournament, affectionately referred to as March Madness. March
             
             <br><br>
             For example, during the 2012 tournament:
+            <br><br>
+            <div class="row">
+                <div class="col">
+                  <strong>1 Seeds</strong> (best)
+                  <div class="seed-hl seed-one seed-hl-col">UNC</div>
+                  <div class="seed-hl seed-one seed-hl-col">Kentucky</div>
+                  <div class="seed-hl seed-one seed-hl-col">Michigan St.</div>
+                  <div class="seed-hl seed-one seed-hl-col">Syracuse</div>
+                </div> 
+                <div class="col">
+                  <strong>2 Seeds</strong> (2nd best)
+                  <div class="seed-hl seed-two seed-hl-col">Kansas</div>
+                  <div class="seed-hl seed-two seed-hl-col">Duke</div>
+                  <div class="seed-hl seed-two seed-hl-col">Missouri</div>
+                  <div class="seed-hl seed-two seed-hl-col">Ohio State</div>
+                </div>
+              
+            </div>
             
-            <div class="seed-label">One Seeds (overall best teams)</div>
-            <div class="seed-hl-row small-text">
-              <div class="seed-hl seed-one">UNC</div>
-              <div class="seed-hl seed-one">Kentucky</div>
-              <div class="seed-hl seed-one">Michigan St.</div>
-              <div class="seed-hl seed-one">Syracuse</div>
-            </div>            
-                      
-            <div class="seed-label">Two Seeds (second overall best teams)</div>
-            <div class="seed-hl-row small-text">
-              <div class="seed-hl seed-two">Kansas</div>
-              <div class="seed-hl seed-two">Duke</div>
-              <div class="seed-hl seed-two">Missouri</div>
-              <div class="seed-hl seed-two">Ohio State</div>
-            </div>            
-                                
-            <div class="seed-label">Three Seeds (third overall best teams)</div>
-            <div class="seed-hl-row small-text">
-              <div class="seed-hl seed-three">Georgetown</div>
-              <div class="seed-hl seed-three">Baylor</div>
-              <div class="seed-hl seed-three">Marquette</div>
-              <div class="seed-hl seed-three">Florida State</div>
-            </div>            
-                                          
-            <div class="seed-label">Four Seeds (fourth overall best teams)</div>
-            <div class="seed-hl-row small-text">
-              <div class="seed-hl seed-four">Michigan</div>
-              <div class="seed-hl seed-four">Indiana</div>
-              <div class="seed-hl seed-four">Louisville</div>
-              <div class="seed-hl seed-four">Wisconsin</div>
-            </div>            
+            <div class="row">
+              <div class="col">
+                  <strong>3 Seeds</strong> (3rd best)
+                  <div class="seed-hl seed-three seed-hl-col">Georgetown</div>
+                  <div class="seed-hl seed-three seed-hl-col">Baylor</div>
+                  <div class="seed-hl seed-three seed-hl-col">Marquette</div>
+                  <div class="seed-hl seed-three seed-hl-col">Florida State</div>
+              </div>
+              <div class="col">
+                <strong>4 Seeds</strong> (4th best)
+                  <div class="seed-hl seed-four seed-hl-col">Michigan</div>
+                  <div class="seed-hl seed-four seed-hl-col">Indiana</div>
+                  <div class="seed-hl seed-four seed-hl-col">Louisville</div>
+                  <div class="seed-hl seed-four seed-hl-col">Wisconsin</div>
+                </div>
+            </div>
             `,
             location: {
                 center: { lon: -95.19207, lat: 37.96458 },
