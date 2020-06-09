@@ -248,7 +248,6 @@ year's tournament.
             id: 'chapter-5',
             title: 'Distances by Seed',
             image: '',
-            // TODO add min and max for more of an overall story?
             description: `Analysis of data from 1985 to 2019 falls in line with the NCAA's claim of 
             geographic preference for higher seeds, with <strong>1 seeds averaging the shortest travel distance, 2 seeds averaging
             the second shortest travel distance, 3 seeds average the third shortest travel distance, and 4 seeds traveling
@@ -779,21 +778,21 @@ Viewing aggregations at the school level paints a more varied picture of travel 
             
             <div class="conference-list" style="margin-top: 1rem;">
               <div class="conference-row">
-                  <div class="conference" style="background: #7F3C8D">American Athletic Conference</div>
-                  <div class="conference" style="background: #11A579">Atlantic 10 Conference</div>
-                  <div class="conference" style="background: #3969AC">Atlantic Coast Conference</div>
-                  <div class="conference" style="background: #F2B701">Big 12  Conference</div>
+                  <div class="conference" style="background: #7F3C8D">American Athletic Conference (544 miles)</div>
+                  <div class="conference" style="background: #11A579">Atlantic 10 Conference (969 miles)</div>
+                  <div class="conference" style="background: #3969AC">Atlantic Coast Conference (600 miles)</div>
+                  <div class="conference" style="background: #F2B701">Big 12 Conference (545 miles)</div>
               </div>
               <div class="conference-row">
-                  <div class="conference" style="background: #E73F74">Big East Conference</div>
-                  <div class="conference" style="background: #80BA5A">Big Ten Conference</div>
-                  <div class="conference" style="background: #E68310">Missouri Valley Conference</div>
-                  <div class="conference" style="background: #008695">Mountain West Conference</div>
+                  <div class="conference" style="background: #E73F74">Big East Conference (700 miles)</div>
+                  <div class="conference" style="background: #80BA5A">Big Ten Conference (698 miles)</div>
+                  <div class="conference" style="background: #E68310">Missouri Valley Conference (671 miles)</div>
+                  <div class="conference" style="background: #008695">Mountain West Conference (629 miles)</div>
               </div>
               <div class="conference-row">
-                  <div class="conference" style="background: #CF1C90">Pac-12 Conference</div>
-                  <div class="conference" style="background: #f97b72">Southeastern Conference</div>
-                  <div class="conference" style="background: #4b4b8f">West Coast Conference</div>
+                  <div class="conference" style="background: #CF1C90">Pac-12 Conference (811 miles)</div>
+                  <div class="conference" style="background: #f97b72">Southeastern Conference (562 miles)</div>
+                  <div class="conference" style="background: #4b4b8f">West Coast Conference (602 miles)</div>
                   <div class="conference" style="background: transparent"></div>
               </div>
             </div>

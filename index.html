@@ -375,8 +375,8 @@
     }
 
     .conference {
-      width: 18rem;
-      /*width: 100%;*/
+      /*width: 18rem;*/
+      width: 100%;
       padding: 0.25rem;
       margin: 0.25rem;
       color: whitesmoke;
@@ -1322,13 +1322,18 @@
             resetExtent(true);
             styleConferences();
           } else if (id === 'chapter-15') {
+            resetExtent(true);
+            styleConferences();
             // match multiple filter values
             map.setFilter('schools', ['match', ['get', 'conference'], ['Pac-12 Conference', 'Atlantic 10 Conference'], true, false]);
           } else if (id === 'chapter-16') {
             // match multiple filter values
-            // TODO apply styles on scroll ip
+            resetExtent(true);
+            styleConferences();
             map.setFilter('schools', ['match', ['get', 'conference'], ['American Athletic Conference', 'Big 12 Conference'], true, false]);
           } else if (id === 'chapter-17') {
+            resetExtent(true);
+            styleConferences();
             map.setFilter('schools', ['match', ['get', 'conference'],
               ['Southeastern Conference', 'Big 12 Conference',
                 'Atlantic Coast Conference', 'Missouri Valley Conference', 'Mountain West Conference'], true, false]);
@@ -1839,23 +1844,20 @@
 
     layerGeometry.coordinates = [layerCoords];
 
+    // TODO Simplify with a master fn
     if (storyMode) {
       const sub = window.innerWidth <= 1380 ? 0.25 : 0;
-      console.log(sub);
       const center = window.innerWidth <= 1250 ? [-98.5795, 39.8283] : [-116.5, 41.5];
       map.flyTo({center: center, zoom: 3.5 - sub });
     } else {
       // fit bounds to school layer
       fitMapBounds(layerGeometry);
     }
-
-    // // reset info card to all school defaults
-    // setDefaultInfoCard();
   }
 
-  // TODO additional bounds for story mode?
+  // TODO Refactor for all screen and storyMode adjustments
   function fitMapBounds(layerGeometry) {
-    const isSmallScreen = window.outerWidth <= 1215;  // determine if browser is small screen
+    const isSmallScreen = window.innerWidth <= 1215;  // determine if browser is small screen
     const padding = isSmallScreen ? 250 : 50;  // if browser is small screen, increase padding - extra left for storymode
     map.fitBounds(turf.bbox(layerGeometry), { padding:
         {top: padding, right: padding, bottom: padding, left: isSmallScreen ? padding : 450},
