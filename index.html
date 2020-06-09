@@ -1336,9 +1336,9 @@
             const tenCount = ['Michigan', 'Arizona', 'UConn', 'Maryland', 'UCLA', 'Indiana', 'Cincinnati', 'Kentucky', 'Pittsburgh', 'North Carolina', 'Louisville', 'Purdue', 'Michigan State', 'Kansas', 'Oklahoma', 'Syracuse', 'Georgetown', 'Florida', 'Duke', 'Villanova', 'Illinois', 'Ohio State'];
             map.setFilter('schools', ['match', ['get', 'school_common_name'], tenCount, true, false]);
           } else if (id === 'chapter-21') {
-            const blueBloods = ['Duke', 'Kentucky', 'North Carolina', 'Kansas'];
-            const bb = {'Duke': '#003087', 'Kentucky': '#0033A0', 'North Carolina': '#7BAFD4', 'Kansas': '#0051BA'};
-            map.setFilter('schools', ['match', ['get', 'school_common_name'], Object.keys(bb), true, false]);
+            // const blueBloods = ['Duke', 'Kentucky', 'North Carolina', 'Kansas'];
+            const blueBloods = {'Duke': '#003087', 'Kentucky': '#0033A0', 'North Carolina': '#7BAFD4', 'Kansas': '#0051BA'};
+            map.setFilter('schools', ['match', ['get', 'school_common_name'], Object.keys(blueBloods), true, false]);
 
             const bbStyles = [];
             Object.entries(bb).forEach(([school, color]) => {
@@ -1353,12 +1353,43 @@
             applyWeights(schools);
           }
 
+          // single shortest distance
+          // REMOVE shortest avg
+          // REMOVE shortest avg w 5+
+          // MOVE? weighted dist
+          // REMOVE shortest weight avg
+          // MOVE? longest average to after weighted slide
+          // REMOVE longest avg
+          // by conf
+          // longest conf
+          // shortest conf
+          // REMOVE? weighted conf
+          // conclusion - reword?
 
-          // STORY: MSU with v similar 1-2-3 seed rankings, same for Kansas
+          // compare blue bloods weighted distances
           // UK does better as a 2 seed than a 1 seed
+          // Michigan has done best as a 4 seed - luck of the draw
+          // STORY: MSU with v similar 1-2-3 seed rankings, same for Kansas - centrally located, always travels apx same
           // Villanova with low overall mean, farthest travel dist
           // Indiana vs. Cincy
           // Illinois - only school w 10+ appearances without apperance as each seed
+
+          // ---NEW ORDER?---
+          // Highlights
+          // Schools w 1 appearance
+          // Schools w 10+
+          // Blue Bloods
+          // Overall shortest travel dist - Az (fringe blue blood)
+          // Weighted
+          // Longest average
+          // Luck of the draw - Michigan does best as 4 seed
+          // Kansas travels very consistently
+          // Villanova also travels consistently, and lower
+          // by conf
+          // longest conf
+          // shortest conf
+          // REMOVE? weighted conf
+          // conclusion - reword?
 
           // if final chapter
           if (response.index === config.chapters.length - 1) {
