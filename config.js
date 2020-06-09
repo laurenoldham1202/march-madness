@@ -386,7 +386,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
             overall average at <strong>561 miles</strong> (17 miles below overall average).
             
             <div class="display-more">Click to see schools below &#9662;</div>
-            <div class="ten-count hidden-panel">
+            <div class="one-count hidden-panel">
                 <div class="seed-hl-row">
                     <div class="seed-hl" style="background:#00274C"><div class="seed-hl-title">Michigan</div></div>
                     <div class="seed-hl" style="background:#CC0033"><div class="seed-hl-title">Arizona</div></div>
@@ -420,6 +420,8 @@ Viewing aggregations at the school level paints a more varied picture of travel 
                 <div class="seed-hl-row">
                     <div class="seed-hl" style="background:#13294B"><div class="seed-hl-title">Illinois</div></div>
                     <div class="seed-hl" style="background:#BB0000"><div class="seed-hl-title">Ohio State</div></div>
+                    <div class="seed-hl" style="visibility: hidden"></div>
+                    <div class="seed-hl" style="visibility: hidden"></div>
                 </div>
             </div>
             `,

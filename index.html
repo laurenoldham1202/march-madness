@@ -1015,6 +1015,7 @@
   // handle chapter progress bar, clicks, mouseover, etc.
   handleChapters();
 
+  // TODO Refactor to handle oneCount and tenCount separately
   function toggleStoryPanel(colors) {
     $('.display-more').on('click', (e) => {
       const defaultText = 'Click to see schools below ▾';
@@ -1023,7 +1024,7 @@
         $('.one-count').removeClass('hidden-panel');
         $('.display-more').html(`Hide schools &#9652;`);
 
-        const oneCount = ['VCU','Virginia Tech','Dayton','Saint Louis','Creighton','Minnesota','TCU','Houston','Loyola–Chicago','California','Texas A&M','Nebraska','Southern Illinois','Butler','La Salle','DePaul'];
+        const oneCount = ['VCU','Virginia Tech','Dayton','Saint Louis','Creighton','Minnesota','TCU','Houston','Loyola–Chicago','California','Texas A&M','Nebraska','Southern Illinois','Butler','La Salle','DePaul','Michigan', 'Arizona', 'UConn', 'Maryland', 'UCLA', 'Indiana', 'Cincinnati', 'Kentucky', 'Pittsburgh', 'North Carolina', 'Louisville', 'Purdue', 'Michigan State', 'Kansas', 'Oklahoma', 'Syracuse', 'Georgetown', 'Florida', 'Duke', 'Villanova', 'Illinois', 'Ohio State'];
         const schoolStyles = [];
         colors.features.forEach(school => {
           oneCount.forEach(item => {
