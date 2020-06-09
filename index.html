@@ -977,6 +977,8 @@
     }
   });
 
+  resizeWindow();
+
   // filter 2012 example on seed box mouseover
   handleStorySeeds();
 
@@ -1059,16 +1061,13 @@
   }
 
   function resizeWindow() {
-
+    $(window).on('resize', (e) => {
+      adjustMapCenter(e.target.outerWidth);
+    });
   }
 
-  function adjustMapCenter(windowWidth,) {
-
-  }
-
-  $(window).on('resize', (e) => {
-
-    const isSmallScreen = e.target.outerWidth <= 1215;
+  function adjustMapCenter(outerWidth) {
+    const isSmallScreen = outerWidth <= 1215;
     const refLon = isSmallScreen ? -116.5 : -98.5795;
     const center = isSmallScreen ? {lon: -98.5795, lat: 39.8283} : {lon: -116.5, lat: 41.5};
 
@@ -1078,7 +1077,7 @@
         map.flyTo(chapter.location);
       }
     });
-  });
+  }
 
   function mouseOverChapter() {
     // TODO adjust for plotting on top of buttons
@@ -1105,7 +1104,6 @@
     });
   }
 
-  // TODO clear any layer that's NOT school layer when entering explore mode
   function enterExploreMode() {
     // remove story and toggle visibility of explore sidebar on
     story.detach();
@@ -1224,11 +1222,7 @@
           response.element.classList.add('active');
 
           // adjust center point in story mode if on small screen
-          if (window.outerWidth <= 1215) {
-            if (chapter.location && chapter.location.center.lon === -116.5) {
-              chapter.location.center = {lon: -98.5795, lat: 39.8283};  // TODO create const
-            }
-          }
+          adjustMapCenter(window.outerWidth);
 
           map.flyTo(chapter.location);
           if (config.showMarkers) {
