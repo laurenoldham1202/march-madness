@@ -348,28 +348,28 @@ Viewing aggregations at the school level paints a more varied picture of travel 
             <div class="display-more">Click to see schools below &#9662;</div>
             <div class="one-count hidden-panel">
                 <div class="seed-hl-row">
-                    <div class="seed-hl" style="background:#FFB300">VCU</div>
-                    <div class="seed-hl" style="background:#630031"><div class="seed-hl-text">Virginia Tech</div></div>
-                    <div class="seed-hl" style="background:#CE1141"><div class="seed-hl-text">Dayton</div></div>
-                    <div class="seed-hl" style="background:#003DA5"><div class="seed-hl-text">St. Louis</div></div>
+                    <div class="seed-hl" style="background:#FFB300"><div class="seed-hl-title" style="color: #444">VCU</div></div>
+                    <div class="seed-hl" style="background:#630031"><div class="seed-hl-title">Virginia Tech</div></div>
+                    <div class="seed-hl" style="background:#CE1141"><div class="seed-hl-title">Dayton</div></div>
+                    <div class="seed-hl" style="background:#003DA5"><div class="seed-hl-title">St. Louis</div></div>
                 </div>            
                 <div class="seed-hl-row">
-                    <div class="seed-hl" style="background:#005CA9"><div class="seed-hl-text">Creighton</div></div>
-                    <div class="seed-hl" style="background:#7A0019"><div class="seed-hl-text">Minnesota</div></div>
-                    <div class="seed-hl" style="background:#4D1979"><div class="seed-hl-text">TCU</div></div>
-                    <div class="seed-hl" style="background:#C8102E"><div class="seed-hl-text">Houston</div></div>
+                    <div class="seed-hl" style="background:#005CA9"><div class="seed-hl-title">Creighton</div></div>
+                    <div class="seed-hl" style="background:#7A0019"><div class="seed-hl-title">Minnesota</div></div>
+                    <div class="seed-hl" style="background:#4D1979"><div class="seed-hl-title">TCU</div></div>
+                    <div class="seed-hl" style="background:#C8102E"><div class="seed-hl-title">Houston</div></div>
                 </div>            
                 <div class="seed-hl-row">
-                    <div class="seed-hl" style="background:#922247"><div class="seed-hl-text">Loyola-Chicago</div></div>
-                    <div class="seed-hl" style="background:#003262"><div class="seed-hl-text">California</div></div>
-                    <div class="seed-hl" style="background:#500000"><div class="seed-hl-text">Texas A&M</div></div>
-                    <div class="seed-hl" style="background:#E41C38"><div class="seed-hl-text">Nebraska</div></div>
+                    <div class="seed-hl" style="background:#922247"><div class="seed-hl-title">Loyola-Chicago</div></div>
+                    <div class="seed-hl" style="background:#003262"><div class="seed-hl-title">California</div></div>
+                    <div class="seed-hl" style="background:#500000"><div class="seed-hl-title">Texas A&M</div></div>
+                    <div class="seed-hl" style="background:#E41C38"><div class="seed-hl-title">Nebraska</div></div>
                 </div>            
                 <div class="seed-hl-row">
-                    <div class="seed-hl" style="background:#720000"><div class="seed-hl-text">Southern Illinois</div></div>
-                    <div class="seed-hl" style="background:#13294B"><div class="seed-hl-text">Butler</div></div>
-                    <div class="seed-hl" style="background:#FFCC00">La Salle</div>
-                    <div class="seed-hl" style="background:#005EB8"><div class="seed-hl-text">DePaul</div></div>
+                    <div class="seed-hl" style="background:#720000"><div class="seed-hl-title">Southern Illinois</div></div>
+                    <div class="seed-hl" style="background:#13294B"><div class="seed-hl-title">Butler</div></div>
+                    <div class="seed-hl" style="background:#FFCC00"><div class="seed-hl-title" style="color: #444">La Salle</div></div>
+                    <div class="seed-hl" style="background:#005EB8"><div class="seed-hl-title">DePaul</div></div>
                 </div>
             </div>
             `,
@@ -384,6 +384,44 @@ Viewing aggregations at the school level paints a more varied picture of travel 
             On the flip side, many schools have strong programs that consistently perform at the top level - <strong>22
             schools have made 10 or more appearances as a top seed</strong>, traveling a mean distance very close to the
             overall average at <strong>561 miles</strong> (17 miles below overall average).
+            
+            <div class="display-more">Click to see schools below &#9662;</div>
+            <div class="ten-count hidden-panel">
+                <div class="seed-hl-row">
+                    <div class="seed-hl" style="background:#00274C"><div class="seed-hl-title">Michigan</div></div>
+                    <div class="seed-hl" style="background:#CC0033"><div class="seed-hl-title">Arizona</div></div>
+                    <div class="seed-hl" style="background:#000E2F"><div class="seed-hl-title">UConn</div></div>
+                    <div class="seed-hl" style="background:#E03A3E"><div class="seed-hl-title">Maryland</div></div>
+                </div>            
+                <div class="seed-hl-row">
+                    <div class="seed-hl" style="background:#2D68C4"><div class="seed-hl-title">UCLA</div></div>
+                    <div class="seed-hl" style="background:#990000"><div class="seed-hl-title">Indiana</div></div>
+                    <div class="seed-hl" style="background:#E00122"><div class="seed-hl-title">Cincinnati</div></div>
+                    <div class="seed-hl" style="background:#0033A0"><div class="seed-hl-title">Kentucky</div></div>
+                </div>            
+                <div class="seed-hl-row">
+                    <div class="seed-hl" style="background:#003594"><div class="seed-hl-title">Pittsburgh</div></div>
+                    <div class="seed-hl" style="background:#7BAFD4"><div class="seed-hl-title" style="color: #444">North Carolina</div></div>
+                    <div class="seed-hl" style="background:#AD0000"><div class="seed-hl-title">Louisville</div></div>
+                    <div class="seed-hl" style="background:#CEB888"><div class="seed-hl-title" style="color: #444">Purdue</div></div>
+                </div>            
+                <div class="seed-hl-row">
+                    <div class="seed-hl" style="background:#18453B"><div class="seed-hl-title">Michigan State</div></div>
+                    <div class="seed-hl" style="background:#0051BA"><div class="seed-hl-title">Kansas</div></div>
+                    <div class="seed-hl" style="background:#841617"><div class="seed-hl-title">Oklahoma</div></div>
+                    <div class="seed-hl" style="background:#D44500"><div class="seed-hl-title">Syracuse</div></div>
+                </div>
+                <div class="seed-hl-row">
+                    <div class="seed-hl" style="background:#041E42"><div class="seed-hl-title">Georgetown</div></div>
+                    <div class="seed-hl" style="background:#FA4616"><div class="seed-hl-title">Florida</div></div>
+                    <div class="seed-hl" style="background:#003087"><div class="seed-hl-title">Duke</div></div>
+                    <div class="seed-hl" style="background:#00205B"><div class="seed-hl-title">Villanova</div></div>
+                </div>
+                <div class="seed-hl-row">
+                    <div class="seed-hl" style="background:#13294B"><div class="seed-hl-title">Illinois</div></div>
+                    <div class="seed-hl" style="background:#BB0000"><div class="seed-hl-title">Ohio State</div></div>
+                </div>
+            </div>
             `,
             onChapterEnter: [],
             onChapterExit: []
