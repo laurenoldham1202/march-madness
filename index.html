@@ -1314,7 +1314,7 @@
           //   map.setLayoutProperty('schools', 'visibility', 'none');
           } else if (id === 'chapter-14') {
             resetExtent(true);
-            animateConferences();
+            styleConferences();
           } else if (id === 'chapter-15') {
             // match multiple filter values
             map.setFilter('schools', ['match', ['get', 'conference'], ['Pac-12 Conference', 'Atlantic 10 Conference'], true, false]);
@@ -1551,9 +1551,9 @@
     }, 'tourney');
   }
 
-  function animateConferences() {
+  function styleConferences() {
     map.setFilter('schools', ['has', 'school_common_name']);
-    map.setPaintProperty('schools', 'circle-radius', 0);  // todo reset schools style on scroll up and down OR put in sep layer
+    map.setPaintProperty('schools', 'circle-radius', 8);  // todo reset schools style on scroll up and down OR put in sep layer
     map.setPaintProperty('schools', 'circle-opacity', 1);
     map.setPaintProperty('schools', 'circle-color',
       ['match', ['get', 'conference'],
@@ -1569,20 +1569,6 @@
         'Southeastern Conference', '#f97b72',
         'West Coast Conference', '#4b4b8f', '#666666'
       ]);
-
-    const conferences = ['Pac-12 Conference', 'West Coast Conference', 'Mountain West Conference',
-      'Big 12 Conference', 'American Athletic Conference', 'Southeastern Conference', 'Atlantic Coast Conference',
-      'Atlantic 10 Conference', 'Big East Conference', 'Big Ten Conference', 'Missouri Valley Conference',
-    ];
-    let count = 250;
-    const styles = [];
-
-    conferences.forEach(conf => {
-      setTimeout(() => {
-        styles.push(conf, 8);
-        map.setPaintProperty('schools', 'circle-radius', ['match', ['get', 'conference'], ...styles, 0]);
-      }, count += 250);
-    });
   }
 
   function clickFooterBtn(seedsAgg, seeds, sites) {
