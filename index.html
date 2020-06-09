@@ -1058,32 +1058,26 @@
     });
   }
 
+  function resizeWindow() {
+
+  }
+
+  function adjustMapCenter(windowWidth,) {
+
+  }
+
   $(window).on('resize', (e) => {
-    // console.log(e.target.outerWidth);
 
-    // adjust center point in story mode if on small screen
-    if (e.target.outerWidth <= 1215) {
-      config.chapters.forEach(chapter => {
-        // console.log($('.active-chapter'));
+    const isSmallScreen = e.target.outerWidth <= 1215;
+    const refLon = isSmallScreen ? -116.5 : -98.5795;
+    const center = isSmallScreen ? {lon: -98.5795, lat: 39.8283} : {lon: -116.5, lat: 41.5};
 
-        if (chapter.location && chapter.location.center.lon === -116.5) {
-          chapter.location.center = {lon: -98.5795, lat: 39.8283};  // TODO create const
-          map.flyTo(chapter.location);
-        }
-      });
-    } else {
-      config.chapters.forEach(chapter => {
-        // console.log($('.active-chapter'));
-
-        if (chapter.location && chapter.location.center.lon === -98.5795) {
-          chapter.location.center = {lon: -116.5, lat: 41.5};  // TODO create const
-          map.flyTo(chapter.location);
-
-        }
-      });
-
-    }
-    // console.log($(window).width());
+    config.chapters.forEach(chapter => {
+      if (chapter.location && chapter.location.center.lon === refLon) {
+        chapter.location.center = center;  // TODO create const
+        map.flyTo(chapter.location);
+      }
+    });
   });
 
   function mouseOverChapter() {
