@@ -1085,7 +1085,7 @@
 
   function resizeWindow() {
     $(window).on('resize', (e) => {
-      adjustMapCenter(e.target.outerWidth);
+      adjustMapCenter(e.target.innerWidth);
     });
   }
 
@@ -1245,7 +1245,7 @@
           response.element.classList.add('active');
 
           // adjust center point in story mode if on small screen
-          adjustMapCenter(window.outerWidth);
+          adjustMapCenter(window.innerWidth);
 
           map.flyTo(chapter.location);
           if (config.showMarkers) {
