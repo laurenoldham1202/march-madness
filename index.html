@@ -294,6 +294,7 @@
       position: absolute;
       top: 0;
       right: 16.25rem;
+      z-index: 2200;
     }
 
     .map-explore {
@@ -1352,6 +1353,13 @@
             applyWeights(schools);
           }
 
+
+          // STORY: MSU with v similar 1-2-3 seed rankings, same for Kansas
+          // UK does better as a 2 seed than a 1 seed
+          // Villanova with low overall mean, farthest travel dist
+          // Indiana vs. Cincy
+          // Illinois - only school w 10+ appearances without apperance as each seed
+
           // if final chapter
           if (response.index === config.chapters.length - 1) {
             // create new click event each time chapter is enter, or else unique div ID is overwritten
@@ -2177,7 +2185,7 @@
     const layers = ['sites', 'line'];
     layers.forEach(layer => {
       // TODO fix bug where site label doesnt work over a school, ex: Iowa site in Nashville overwitten by Vandy
-      map.on('mouseover', layer, (e) => {
+      map.on('mousemove', layer, (e) => {
         applySiteLabelStyles(e.features[0].properties);
       });
 

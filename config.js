@@ -615,9 +615,9 @@ first and only National Championship was won in 1960, decades before modern seed
             
             <br><br>
             <div class="seed-hl-row">
-                <div class="seed-hl" style="background:#7BAFD4">
-                  <div class="seed-hl-title">UNC</div>
-                  <div class="seed-hl-text">457 miles</div>
+                <div class="seed-hl" style="background:#003087">
+                  <div class="seed-hl-title">DUKE</div>
+                  <div class="seed-hl-text">299 miles</div>
                 </div>
                 <div class="seed-hl" style="background:#0051BA">
                   <div class="seed-hl-title">KANSAS</div>
@@ -626,11 +626,12 @@ first and only National Championship was won in 1960, decades before modern seed
               <div class="seed-hl" style="background:#0033A0">
                   <div class="seed-hl-title">KENTUCKY</div>
                   <div class="seed-hl-text">440 miles</div>
-                </div>
-              <div class="seed-hl" style="background:#003087">
-                  <div class="seed-hl-title">DUKE</div>
-                  <div class="seed-hl-text">299 miles</div>
-                </div>
+              </div>
+              <div class="seed-hl" style="background:#7BAFD4">
+                  <div class="seed-hl-title">UNC</div>
+                  <div class="seed-hl-text">457 miles</div>
+              </div>
+
             </div>
             
             <br>
@@ -639,6 +640,7 @@ first and only National Championship was won in 1960, decades before modern seed
             <!-- UK: 440, 327-->
             <!-- UNC: 457, 307-->
             <!-- Kan: 395, 275-->
+            <!-- TODO Adjust weighted dist calculations - 2: 0.73, 3: 0.51, 4: 0.43 -->
             With a collective <strong>108 March Madness appearances</strong> since 1985, the Blue Bloods traveled an
             average of only <strong>394 miles</strong> (194 miles below overall average).
             
