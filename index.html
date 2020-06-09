@@ -1442,6 +1442,9 @@
             chapter.onChapterExit.forEach(setLayerOpacity);
           }
 
+          resetAllFilters();
+          resetExtent(true);
+
           // remove orange active chapter styling when exiting chapter
           $(`#block-${chapter.id}`).removeClass('active-chapter');
         });

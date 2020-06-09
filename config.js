@@ -173,6 +173,7 @@ in the site's city center rather than the exact arena in which the game was play
 <br><br>More information can be found at the <a href="https://github.com/laurenoldham1202/march-madness" target="_blank">project repository</a>.
 `,
             onChapterEnter: [
+                {layer: 'schools', opacity: 0},
                 {layer: 'route', opacity: 1},
                 {layer: 'point', opacity: 1},
             ],
