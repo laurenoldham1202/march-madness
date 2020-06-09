@@ -1306,7 +1306,7 @@
           //   map.setLayoutProperty('schools', 'visibility', 'none');
           } else if (id === 'chapter-12') {
             filters.school = 'St. John\'s';
-            selectSchoolOnMap(sites);
+            selectSchoolOnMap(sites, true);
             map.setLayoutProperty('schools', 'visibility', 'none');
           // } else if (id === 'chapter-13') {
           //   filters.school = 'Virginia Tech';
@@ -1358,15 +1358,15 @@
             applyWeights(schools);
           } else if (id === 'chapter-30') {
             filters.school = 'Michigan';
-            selectSchoolOnMap(sites);
+            selectSchoolOnMap(sites, true);
             map.setLayoutProperty('schools', 'visibility', 'none');
           } else if (id === 'chapter-31') {
             filters.school = 'Kansas';
-            selectSchoolOnMap(sites);
+            selectSchoolOnMap(sites, true);
             map.setLayoutProperty('schools', 'visibility', 'none');
           } else if (id === 'chapter-32') {
             filters.school = 'Villanova';
-            selectSchoolOnMap(sites);
+            selectSchoolOnMap(sites, true);
             map.setLayoutProperty('schools', 'visibility', 'none');
           }
 
@@ -1848,7 +1848,7 @@
     layerGeometry.coordinates = [layerCoords];
 
     if (storyMode) {
-      const center = window.outerWidth <= 1250 ? [-98.5795, 39.8283] : [-116.5, 41.5];
+      const center = window.innerWidth <= 1250 ? [-98.5795, 39.8283] : [-116.5, 41.5];
       map.flyTo({center: center, zoom: 3.5});
     } else {
       // fit bounds to school layer
@@ -1900,7 +1900,7 @@
     });
   }
 
-  function selectSchoolOnMap(sites) {  // TODO iterate over layer source instead of geojson directly
+  function selectSchoolOnMap(sites, storyMode = false) {  // TODO iterate over layer source instead of geojson directly
 
     // reset info card to 'school' view any time a new school is selected
     resetInfoCard();
@@ -1947,8 +1947,13 @@
           }
         });
 
-        // fit bounds to school and sites
-        fitMapBounds(layerGeometry);
+        if (storyMode) {
+          const size = window.innerWidth <= 1215 ? 200 : 600;
+          map.fitBounds(turf.bbox(layerGeometry), { padding: {top: 200, bottom: 200, right: 200, left: size}, duration: 3000 });
+        } else {
+          // fit bounds to school and sites
+          fitMapBounds(layerGeometry);
+        }
 
         // push linestring features to line layer source
         map.getSource('line').setData({ type: 'FeatureCollection', features: lineFeatures });
