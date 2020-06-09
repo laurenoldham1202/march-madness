@@ -544,6 +544,10 @@
       .conference {
         width: 17rem;
       }
+
+      #footer.light {
+        margin-bottom: 0;
+      }
     }
 
     @media (max-height: 850px) {
@@ -1053,6 +1057,34 @@
       $(window).scrollTop($(`#${chapterId}`).offset().top - 100);
     });
   }
+
+  $(window).on('resize', (e) => {
+    // console.log(e.target.outerWidth);
+
+    // adjust center point in story mode if on small screen
+    if (e.target.outerWidth <= 1215) {
+      config.chapters.forEach(chapter => {
+        // console.log($('.active-chapter'));
+
+        if (chapter.location && chapter.location.center.lon === -116.5) {
+          chapter.location.center = {lon: -98.5795, lat: 39.8283};  // TODO create const
+          map.flyTo(chapter.location);
+        }
+      });
+    } else {
+      config.chapters.forEach(chapter => {
+        // console.log($('.active-chapter'));
+
+        if (chapter.location && chapter.location.center.lon === -98.5795) {
+          chapter.location.center = {lon: -116.5, lat: 41.5};  // TODO create const
+          map.flyTo(chapter.location);
+
+        }
+      });
+
+    }
+    // console.log($(window).width());
+  });
 
   function mouseOverChapter() {
     // TODO adjust for plotting on top of buttons
