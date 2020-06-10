@@ -1284,7 +1284,7 @@
           } else if (id === 'chapter-3') {
             triggerAnimation();
           } else if (id === 'chapter-4') {
-            resetExtent(true);
+            // nothing
           } else if (id === 'chapter-5') {  // TODO check white stroke styling
             resetExtent(true);
             map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
@@ -1292,15 +1292,17 @@
             resetExtent(true);
           } else if (id === 'chapter-7') {  // 7
             const oneCount = ['VCU','Virginia Tech','Dayton','Saint Louis','Creighton','Minnesota','TCU','Houston','Loyola–Chicago','California','Texas A&M','Nebraska','Southern Illinois','Butler','La Salle','DePaul'];
-            map.setFilter('schools', ['match', ['get', 'school_common_name'], oneCount, true, false]);
+            // map.setFilter('schools', ['match', ['get', 'school_common_name'], oneCount, true, false]);
 
+            filterMatchMultiple(oneCount);
           } else if (id === 'chapter-8') {  // 8
             const tenCount = ['Michigan', 'Arizona', 'UConn', 'Maryland', 'UCLA', 'Indiana', 'Cincinnati', 'Kentucky', 'Pittsburgh', 'North Carolina', 'Louisville', 'Purdue', 'Michigan State', 'Kansas', 'Oklahoma', 'Syracuse', 'Georgetown', 'Florida', 'Duke', 'Villanova', 'Illinois', 'Ohio State'];
-            map.setFilter('schools', ['match', ['get', 'school_common_name'], tenCount, true, false]);
+            filterMatchMultiple(tenCount);
+            // map.setFilter('schools', ['match', ['get', 'school_common_name'], tenCount, true, false]);
           } else if (id === 'chapter-9') {  // 9
             const blueBloods = {'Duke': '#003087', 'Kentucky': '#0033A0', 'North Carolina': '#7BAFD4', 'Kansas': '#0051BA'};
-            map.setFilter('schools', ['match', ['get', 'school_common_name'], Object.keys(blueBloods), true, false]);
-
+            // map.setFilter('schools', ['match', ['get', 'school_common_name'], Object.keys(blueBloods), true, false]);
+            filterMatchMultiple(Object.keys(blueBloods));
             const bbStyles = [];
             Object.entries(blueBloods).forEach(([school, color]) => {
               bbStyles.push(school, color);
@@ -1329,22 +1331,29 @@
             resetExtent(true);
             styleConferences();
             // match multiple filter values
-            map.setFilter('schools', ['match', ['get', 'conference'], ['Pac-12 Conference', 'Atlantic 10 Conference'], true, false]);
+            filterMatchMultiple(['Pac-12 Conference', 'Atlantic 10 Conference'], 'conference');
+            // map.setFilter('schools', ['match', ['get', 'conference'], ['Pac-12 Conference', 'Atlantic 10 Conference'], true, false]);
           } else if (id === 'chapter-18') {  // 18
             // match multiple filter values
             resetExtent(true);
             styleConferences();
-            map.setFilter('schools', ['match', ['get', 'conference'], ['American Athletic Conference', 'Big 12 Conference'], true, false]);
+            filterMatchMultiple(['American Athletic Conference', 'Big 12 Conference'], 'conference');
+
+            // map.setFilter('schools', ['match', ['get', 'conference'], ['American Athletic Conference', 'Big 12 Conference'], true, false]);
           } else if (id === 'chapter-19') {  // 19
             resetExtent(true);
             styleConferences();
-            map.setFilter('schools', ['match', ['get', 'conference'],
-              ['Southeastern Conference', 'Big 12 Conference',
-                'Atlantic Coast Conference', 'Missouri Valley Conference', 'Mountain West Conference'], true, false]);
+            filterMatchMultiple(['Southeastern Conference', 'Big 12 Conference', 'Atlantic Coast Conference', 'Missouri Valley Conference', 'Mountain West Conference'], 'conference');
+
+            // map.setFilter('schools', ['match', ['get', 'conference'],
+            //   ['Southeastern Conference', 'Big 12 Conference',
+            //     'Atlantic Coast Conference', 'Missouri Valley Conference', 'Mountain West Conference'], true, false]);
           } else if (id === 'chapter-20') {  // 20
             resetAllFilters();
             resetExtent(true);
           }
+
+          // TODO Separate one and ten+ seed dropdowns
 
           // compare blue bloods weighted distances
           // UK does better as a 2 seed than a 1 seed
@@ -1382,6 +1391,12 @@
           $(`#block-${chapter.id}`).removeClass('active-chapter');
         });
     });
+  }
+
+  function filterMatchMultiple(matchArray, matchField = 'school_common_name', layer = 'schools') {
+    // map.setFilter('schools', ['match', ['get', 'school_common_name'], oneCount, true, false]);
+
+    map.setFilter(layer, ['match', ['get', matchField], matchArray, true, false]);
   }
 
   function storyModeSchoolSelect(sites, school) {
