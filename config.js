@@ -13,9 +13,9 @@ const config = {
 <br><br><span class="capital-font" style="font-size: 26pt;">Every year in March,</span> 
 college basketball fans anxiously await Selection Sunday to see if their team made the NCAA Men’s Basketball National 
 Championship tournament, affectionately referred to as March Madness. March
- Madness is a three week-long single-elimination tournament in which 64 teams compete to take home the highly coveted 
- National Championship title. The fun isn’t just reserved for fans - countless people from all across the globe fill out
-  tournament brackets and bet on which teams will make deep runs and ultimately win it all. 
+Madness is a three week-long single-elimination tournament in which 64 teams compete to take home the highly coveted 
+National Championship title. The fun isn’t just reserved for fans - countless people from all across the globe fill out
+tournament brackets and bet on which teams will make deep runs and ultimately win it all. 
   
   <div class="scroll">Scroll &#8681;</div>
             `,
@@ -32,9 +32,7 @@ Championship tournament, affectionately referred to as March Madness. March
                 {layer: 'legend-point', opacity: 0},
                 {layer: 'schools', opacity: 0.7},
             ],
-            onChapterExit: [
-                // {layer: 'schools', opacity: 0},
-            ]
+            onChapterExit: []
         },
         {
             id: 'chapter-1',
@@ -101,7 +99,6 @@ Championship tournament, affectionately referred to as March Madness. March
             id: 'chapter-2',
             title: 'Why Does the First Round Site Matter?',
             image: '',
-            // TODO style list items more nicely
             location: {
                 center: {lon: -116.5, lat: 41.5},
                 zoom: 3.5,
@@ -330,7 +327,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
         },
 
         {
-            id: 'chapter-19',
+            id: 'chapter-19',  // 7
             title: 'Schools with 1 Appearance as Top Seed',
             image: '',
             description: `
@@ -377,7 +374,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
             onChapterExit: []
         },
         {
-            id: 'chapter-20',
+            id: 'chapter-20',  // 8
             title: 'Schools with 10+ Appearances as Top Seed',
             image: '',
             description: `
@@ -429,7 +426,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
             onChapterExit: []
         },
         {
-            id: 'chapter-21',
+            id: 'chapter-21', // 9
             title: 'Blue Bloods',
             image: '',
             description: `
@@ -480,7 +477,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
             onChapterExit: []
         },
         {
-            id: 'chapter-7',
+            id: 'chapter-7',  // 10
             title: 'Single Shortest Travel Distance',
             image: '',
             description: `The <strong>University of Arizona</strong> traveled the single shortest distance, barely leaving campus to travel 
@@ -493,81 +490,8 @@ Viewing aggregations at the school level paints a more varied picture of travel 
             onChapterEnter: [],
             onChapterExit: []
         },
-//         {
-//             id: 'chapter-8',
-//             title: 'Shortest Average Travel Distance',
-//             image: '',
-//             description: `
-// The school with the lowest mean distance traveled is technically <strong>DePaul University</strong>, who have
-//             only made one appearance as a top seed since 1985. The Blue Demons stayed in their home metro Chicago as a 3
-//             seed in 1987, traveling <strong>fewer than 13 miles</strong>.
-// `,
-//             onChapterEnter: [],
-//             onChapterExit: []
-//         },
-
-        // {
-        //     id: 'chapter-9',
-        //     title: 'Shortest Average Travel Distance (with 5+ Appearances)',
-        //     image: '',
-        //     description: `Many schools have only made one or two appearances as a top seeded school, so filtering for schools that have made at least 5
-        //     appearances as a top seed since 1985 paints a more accurate picture of trends. The school with the lowest mean distance traveled is <strong>University of Virginia</strong>,
-        //     who traveled a mean distance of <strong>237 miles</strong>.
-        //
-        //     <br><br>This geographic advantage has had mixed results for the Cavaliers, who famously lost to the UMBC in 2018,
-        //      the first ever 1 seed bested by a 16 seed in the history of the NCAA tournament (having traveled 234 miles
-        //      to Charlotte, North Carolina from Charlottesville, Virginia). UVA went on to redeem themselves by winning
-        //      their first national title the following year in 2019, having traveled 296 miles to Columbia, South Carolina.`,
-        //     onChapterEnter: [],
-        //     onChapterExit: []
-        // },
-        // { // TODO add logic to weights, add same styling as seeds, add pre-line style to p class?
-        //     id: 'chapter-10',
-        //     title: 'Weighted Distance',
-        //     image: '',
-        //     description: `The selection committee gives geographic preference based on seeds, so you would expect a team with
-        //     more appearances as a 1 seed to have a lower mean travel distance than a school with more appearances as a 4 seed.
-        //
-        //     <br><br><strong>To normalize the data, distances were also calculated with the following weights applied based on seed values:</strong>
-        //
-        //      <div class="seed-hl-row">
-        //         <div class="seed-hl" style="background: #80bad1">
-        //             <div class="seed-hl-title">1 SEED</div>
-        //             <div class="seed-hl-text">1.00</div>
-        //         </div>
-        //
-        //        <div class="seed-hl" style="background: #5694c1">
-        //             <div class="seed-hl-title">2 SEED</div>
-        //             <div class="seed-hl-text">0.75</div>
-        //         </div>
-        //
-        //        <div class="seed-hl" style="background: #2c6db1">
-        //             <div class="seed-hl-title">3 SEED</div>
-        //             <div class="seed-hl-text">0.50</div>
-        //         </div>
-        //
-        //        <div class="seed-hl" style="background: #0146a1">
-        //             <div class="seed-hl-title">4 SEED</div>
-        //             <div class="seed-hl-text">0.25</div>
-        //        </div>
-        //     </div>
-        //     <br>
-        //     The weights are roughly proportional to the pool of first round site locations. For the 16 top seeded teams,
-        //     there are 16 possible (non-unique) site locations. 1 seeds get premiere geographic preference (~100% of
-        //     teams get optimal placement). 2 seeds get top pick from the remaining pool (12/16), then 3 seeds from that
-        //     remaining pool (8/16), and finally, 4 seeds get the remaining pick (4/16).
-        //
-        //     <div class="footer" style="margin-top: 1.5rem; text-align: right;">
-        //         <span style="font-size: 0.85rem;">* Proportional circles on the map represent the <strong><u>weighted</u></strong> average
-        //         travel distance for each school
-        //         </span>
-        //     </div>
-        //     `,
-        //     onChapterEnter: [],
-        //     onChapterExit: []
-        // },
         {
-            id: 'chapter-22',
+            id: 'chapter-22',  // 11
             title: 'Weighted Distance',
             image: '',
             description: `
@@ -614,20 +538,6 @@ Viewing aggregations at the school level paints a more varied picture of travel 
             onChapterEnter: [],
             onChapterExit: []
         },
-//         {
-//             id: 'chapter-11',
-//             title: 'Shortest Weighted Average Travel Distance (5+ Appearances)',
-//             image: '',
-//             description: `Accounting for the weighted metric, the lowest WEIGHTED distance traveled by a school with at least
-//             5 appearances is <strong>Ohio State University</strong>. The Buckeyes have had 11 appearances as a top seed since 1985, averaging
-//             a weighted travel distance of only <strong>135 miles (318 miles unweighted)</strong>.
-//
-// <br><br>Unfortunately for the Buckeyes, none of their top-seeded appearances resulted in a national title. Ohio State's
-// first and only National Championship was won in 1960, decades before modern seeding was established.
-// `,
-//             onChapterEnter: [],
-//             onChapterExit: []
-//         },
       {
         id: 'chapter-12',
         title: 'Longest Weighted Average and Overall Travel Distance',
@@ -643,19 +553,8 @@ Viewing aggregations at the school level paints a more varied picture of travel 
         onChapterEnter: [],
         onChapterExit: []
       },
-        // {
-        //     id: 'chapter-13',
-        //     title: 'Longest Average Travel Distance',
-        //     image: '',
-        //     description: `The school with the highest mean travel distance is <strong>Virginia Tech University</strong>; similar to DePaul, the Hokies
-        //      have only made one appearance as a top seed, resulting in an average travel distance of <strong>2,261 miles</strong> (the distance
-        //      between Blacksburg, Virginia and San Jose, California, where Virginia Tech played as a 4 seed in 2019).`,
-        //     onChapterEnter: [],
-        //     onChapterExit: []
-        // },
-
         {
-            id: 'chapter-30',  // TODO fix
+            id: 'chapter-30',  // TODO fix 13
             title: 'Travel by Seed Discrepancies',
             image: '',
             description: `
@@ -693,7 +592,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
         },
 
         {
-            id: 'chapter-31',  // TODO fix
+            id: 'chapter-31',  // TODO fix  14
             title: 'Consistent Travel Distances',
             image: '',
             description: `
@@ -731,7 +630,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
         },
 
         {
-            id: 'chapter-32',  // TODO fix
+            id: 'chapter-32',  // TODO fix 15
             title: 'Consistent Travel Distances',
             image: '',
             description: `
@@ -771,7 +670,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
         },
 
         {
-            id: 'chapter-14',
+            id: 'chapter-14',  // 16
             title: 'Distance by Conference',
             image: '',
             description: `Like many sports, the NCAA divides schools into discrete, geographically clustered conferences.
@@ -803,7 +702,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
             onChapterExit: []
         },
         {
-            id: 'chapter-15',
+            id: 'chapter-15',  //17
             title: 'Conferences with the Longest Mean Travel Distance',
             image: '',
             description: `The conferences with the highest mean travel distances are two coastal conferences: the 
@@ -817,7 +716,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
             onChapterExit: []
         },
         {
-            id: 'chapter-16',
+            id: 'chapter-16',  // 18
             title: 'Conferences with the Lowest Mean Travel Distance',
             image: '',
             description: `On the flip side, the conferences with the lowest mean travel distances are more centrally-
@@ -829,7 +728,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
             onChapterExit: []
         },
       {
-        id: 'chapter-17',
+        id: 'chapter-17',  // 19
         title: 'Conferences with the Lowest Weighted Mean Travel Distance',
         image: '',
         description: `Applying weights to the conference distances, however, paints an unclear picture of any geographic trends. 
@@ -843,7 +742,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
         onChapterExit: []
       },
         {
-            id: 'chapter-18',
+            id: 'chapter-18',  // 20
             title: 'Conclusion',
             image: '',
             description: `So is there any method to the madness? It would appear that way. Generally speaking, a school

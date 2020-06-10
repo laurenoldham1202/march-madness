@@ -1290,68 +1290,46 @@
             map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
           } else if (id === 'chapter-6') {
             resetExtent(true);
-          } else if (id === 'chapter-7') {
+          } else if (id === 'chapter-7') {  // 10
             applyChapterFilters('Arizona', 'Tucson, AZ');
-          // } else if (id === 'chapter-10') {
-          //   applyChapterFilters('Syracuse', 'San Jose, CA');
-          // } else if (id === 'chapter-8') {
-          //   filters.school = 'DePaul';  // todo hide grayed out schools in this view
-          //   selectSchoolOnMap(sites);  // todo adjust to slow pan and zoom
-          //   map.setLayoutProperty('schools', 'visibility', 'none');
-          // } else if (id === 'chapter-9') {
-          //   filters.school = 'Virginia';  // todo sort sites high to low to order seeds properly
-          //   selectSchoolOnMap(sites);
-          //   map.setLayoutProperty('schools', 'visibility', 'none');
-          // } else if (id === 'chapter-10') {
-          //   resetExtent(true);
-          //   filters.weighted = true;  // todo fix how this affects reset extent
-          //   applyWeights(schools);
-          // } else if (id === 'chapter-11') {
-          //   filters.school = 'Ohio State';
-          //   selectSchoolOnMap(sites);
-          //   map.setLayoutProperty('schools', 'visibility', 'none');
           } else if (id === 'chapter-12') {
             filters.school = 'St. John\'s';
             selectSchoolOnMap(sites, true);
             map.setLayoutProperty('schools', 'visibility', 'none');
-          // } else if (id === 'chapter-13') {
-          //   filters.school = 'Virginia Tech';
-          //   selectSchoolOnMap(sites);
-          //   map.setLayoutProperty('schools', 'visibility', 'none');
-          } else if (id === 'chapter-14') {
+          } else if (id === 'chapter-14') {  // 16
             resetExtent(true);
             styleConferences();
-          } else if (id === 'chapter-15') {
+          } else if (id === 'chapter-15') {  //17
             resetExtent(true);
             styleConferences();
             // match multiple filter values
             map.setFilter('schools', ['match', ['get', 'conference'], ['Pac-12 Conference', 'Atlantic 10 Conference'], true, false]);
-          } else if (id === 'chapter-16') {
+          } else if (id === 'chapter-16') {  // 18
             // match multiple filter values
             resetExtent(true);
             styleConferences();
             map.setFilter('schools', ['match', ['get', 'conference'], ['American Athletic Conference', 'Big 12 Conference'], true, false]);
-          } else if (id === 'chapter-17') {
+          } else if (id === 'chapter-17') {  // 19
             resetExtent(true);
             styleConferences();
             map.setFilter('schools', ['match', ['get', 'conference'],
               ['Southeastern Conference', 'Big 12 Conference',
                 'Atlantic Coast Conference', 'Missouri Valley Conference', 'Mountain West Conference'], true, false]);
-          } else if (id === 'chapter-18') {
+          } else if (id === 'chapter-18') {  // 20
             resetAllFilters();
             resetExtent(true);
           }
 
 
 
-          if (id === 'chapter-19') {
+          if (id === 'chapter-19') {  // 7
             const oneCount = ['VCU','Virginia Tech','Dayton','Saint Louis','Creighton','Minnesota','TCU','Houston','Loyola–Chicago','California','Texas A&M','Nebraska','Southern Illinois','Butler','La Salle','DePaul'];
             map.setFilter('schools', ['match', ['get', 'school_common_name'], oneCount, true, false]);
 
-          } else if (id === 'chapter-20') {
+          } else if (id === 'chapter-20') {  // 8
             const tenCount = ['Michigan', 'Arizona', 'UConn', 'Maryland', 'UCLA', 'Indiana', 'Cincinnati', 'Kentucky', 'Pittsburgh', 'North Carolina', 'Louisville', 'Purdue', 'Michigan State', 'Kansas', 'Oklahoma', 'Syracuse', 'Georgetown', 'Florida', 'Duke', 'Villanova', 'Illinois', 'Ohio State'];
             map.setFilter('schools', ['match', ['get', 'school_common_name'], tenCount, true, false]);
-          } else if (id === 'chapter-21') {
+          } else if (id === 'chapter-21') {  // 9
             // const blueBloods = ['Duke', 'Kentucky', 'North Carolina', 'Kansas'];
             const blueBloods = {'Duke': '#003087', 'Kentucky': '#0033A0', 'North Carolina': '#7BAFD4', 'Kansas': '#0051BA'};
             map.setFilter('schools', ['match', ['get', 'school_common_name'], Object.keys(blueBloods), true, false]);
@@ -1362,39 +1340,24 @@
             });
             bbStyles.push('#AAA');
             map.setPaintProperty('schools', 'circle-color', ['match', ['get', 'school_common_name'], ...bbStyles]);
-          } else if (id === 'chapter-22') {
+          } else if (id === 'chapter-22') {  // 11
             map.setFilter('schools', ['has', 'school_common_name']);
             resetExtent(true);
             filters.weighted = true;  // todo fix how this affects reset extent
             applyWeights(schools);
-          } else if (id === 'chapter-30') {
+          } else if (id === 'chapter-30') {  // 13
             filters.school = 'Michigan';
             selectSchoolOnMap(sites, true);
             map.setLayoutProperty('schools', 'visibility', 'none');
-          } else if (id === 'chapter-31') {
+          } else if (id === 'chapter-31') {  // 14
             filters.school = 'Kansas';
             selectSchoolOnMap(sites, true);
             map.setLayoutProperty('schools', 'visibility', 'none');
-          } else if (id === 'chapter-32') {
+          } else if (id === 'chapter-32') {  // 15
             filters.school = 'Villanova';
             selectSchoolOnMap(sites, true);
             map.setLayoutProperty('schools', 'visibility', 'none');
           }
-
-          // TODO make sure all styles work on scroll up and down
-          // TODO adjust map for smaller screens so east coast isnt chopped off
-          // single shortest distance
-          // REMOVE shortest avg
-          // REMOVE shortest avg w 5+
-          // MOVE? weighted dist
-          // REMOVE shortest weight avg
-          // MOVE? longest average to after weighted slide
-          // REMOVE longest avg
-          // by conf
-          // longest conf
-          // shortest conf
-          // REMOVE? weighted conf
-          // conclusion - reword?
 
           // compare blue bloods weighted distances
           // UK does better as a 2 seed than a 1 seed
@@ -1403,23 +1366,6 @@
           // Villanova with low overall mean, farthest travel dist
           // Indiana vs. Cincy
           // Illinois - only school w 10+ appearances without apperance as each seed
-
-          // ---NEW ORDER?---
-          // Highlights
-          // Schools w 1 appearance
-          // Schools w 10+
-          // Blue Bloods
-          // Overall shortest travel dist - Az (fringe blue blood)
-          // Weighted
-          // Longest average
-          // Luck of the draw - Michigan does best as 4 seed
-          // Kansas travels very consistently
-          // Villanova also travels consistently, and lower
-          // by conf
-          // longest conf
-          // shortest conf
-          // REMOVE? weighted conf
-          // conclusion - reword?
 
           // TODO PRESENTATION: MENTION AND CHECK ALL PROGRESS BAR CHAPTERS - APPEARACNES DONT WORK
 
