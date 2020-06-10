@@ -1284,7 +1284,7 @@
           } else if (id === 'chapter-3') {
             triggerAnimation();
           } else if (id === 'chapter-4') {
-
+            resetExtent(true);
           } else if (id === 'chapter-5') {  // TODO check white stroke styling
             resetExtent(true);
             map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
@@ -1298,7 +1298,6 @@
             const tenCount = ['Michigan', 'Arizona', 'UConn', 'Maryland', 'UCLA', 'Indiana', 'Cincinnati', 'Kentucky', 'Pittsburgh', 'North Carolina', 'Louisville', 'Purdue', 'Michigan State', 'Kansas', 'Oklahoma', 'Syracuse', 'Georgetown', 'Florida', 'Duke', 'Villanova', 'Illinois', 'Ohio State'];
             map.setFilter('schools', ['match', ['get', 'school_common_name'], tenCount, true, false]);
           } else if (id === 'chapter-9') {  // 9
-            // const blueBloods = ['Duke', 'Kentucky', 'North Carolina', 'Kansas'];
             const blueBloods = {'Duke': '#003087', 'Kentucky': '#0033A0', 'North Carolina': '#7BAFD4', 'Kansas': '#0051BA'};
             map.setFilter('schools', ['match', ['get', 'school_common_name'], Object.keys(blueBloods), true, false]);
 
@@ -1313,24 +1312,16 @@
           } else if (id === 'chapter-11') {  // 11
             map.setFilter('schools', ['has', 'school_common_name']);
             resetExtent(true);
-            filters.weighted = true;  // todo fix how this affects reset extent
+            filters.weighted = true;
             applyWeights(schools);
           } else if (id === 'chapter-12') {
-            filters.school = 'St. John\'s';
-            selectSchoolOnMap(sites, true);
-            map.setLayoutProperty('schools', 'visibility', 'none');
+            storyModeSchoolSelect(sites, 'St. John\'s');
           } else if (id === 'chapter-13') {  // 13
-            filters.school = 'Michigan';
-            selectSchoolOnMap(sites, true);
-            map.setLayoutProperty('schools', 'visibility', 'none');
+            storyModeSchoolSelect(sites, 'Michigan');
           } else if (id === 'chapter-14') {  // 14
-            filters.school = 'Kansas';
-            selectSchoolOnMap(sites, true);
-            map.setLayoutProperty('schools', 'visibility', 'none');
+            storyModeSchoolSelect(sites, 'Kansas');
           } else if (id === 'chapter-15') {  // 15
-            filters.school = 'Villanova';
-            selectSchoolOnMap(sites, true);
-            map.setLayoutProperty('schools', 'visibility', 'none');
+            storyModeSchoolSelect(sites, 'Villanova');
           } else if (id === 'chapter-16') {  // 16
             resetExtent(true);
             styleConferences();
@@ -1391,6 +1382,12 @@
           $(`#block-${chapter.id}`).removeClass('active-chapter');
         });
     });
+  }
+
+  function storyModeSchoolSelect(sites, school) {
+    filters.school = school;
+    selectSchoolOnMap(sites, true);
+    map.setLayoutProperty('schools', 'visibility', 'none');
   }
 
   function plotLegend() {
