@@ -327,7 +327,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
         },
 
         {
-            id: 'chapter-19',  // 7
+            id: 'chapter-7',  // 7
             title: 'Schools with 1 Appearance as Top Seed',
             image: '',
             description: `
@@ -374,7 +374,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
             onChapterExit: []
         },
         {
-            id: 'chapter-20',  // 8
+            id: 'chapter-8',  // 8
             title: 'Schools with 10+ Appearances as Top Seed',
             image: '',
             description: `
@@ -426,7 +426,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
             onChapterExit: []
         },
         {
-            id: 'chapter-21', // 9
+            id: 'chapter-9', // 9
             title: 'Blue Bloods',
             image: '',
             description: `
@@ -477,7 +477,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
             onChapterExit: []
         },
         {
-            id: 'chapter-7',  // 10
+            id: 'chapter-10',  // 10
             title: 'Single Shortest Travel Distance',
             image: '',
             description: `The <strong>University of Arizona</strong> traveled the single shortest distance, barely leaving campus to travel 
@@ -491,7 +491,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
             onChapterExit: []
         },
         {
-            id: 'chapter-22',  // 11
+            id: 'chapter-11',  // 11
             title: 'Weighted Distance',
             image: '',
             description: `
@@ -554,7 +554,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
         onChapterExit: []
       },
         {
-            id: 'chapter-30',  // TODO fix 13
+            id: 'chapter-13',  // TODO fix 13
             title: 'Travel by Seed Discrepancies',
             image: '',
             description: `
@@ -592,7 +592,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
         },
 
         {
-            id: 'chapter-31',  // TODO fix  14
+            id: 'chapter-14',  // TODO fix  14
             title: 'Consistent Travel Distances',
             image: '',
             description: `
@@ -630,7 +630,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
         },
 
         {
-            id: 'chapter-32',  // TODO fix 15
+            id: 'chapter-15',  // TODO fix 15
             title: 'Consistent Travel Distances',
             image: '',
             description: `
@@ -670,7 +670,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
         },
 
         {
-            id: 'chapter-14',  // 16
+            id: 'chapter-16',  // 16
             title: 'Distance by Conference',
             image: '',
             description: `Like many sports, the NCAA divides schools into discrete, geographically clustered conferences.
@@ -702,7 +702,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
             onChapterExit: []
         },
         {
-            id: 'chapter-15',  //17
+            id: 'chapter-17',  //17
             title: 'Conferences with the Longest Mean Travel Distance',
             image: '',
             description: `The conferences with the highest mean travel distances are two coastal conferences: the 
@@ -716,7 +716,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
             onChapterExit: []
         },
         {
-            id: 'chapter-16',  // 18
+            id: 'chapter-18',  // 18
             title: 'Conferences with the Lowest Mean Travel Distance',
             image: '',
             description: `On the flip side, the conferences with the lowest mean travel distances are more centrally-
@@ -728,7 +728,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
             onChapterExit: []
         },
       {
-        id: 'chapter-17',  // 19
+        id: 'chapter-19',  // 19
         title: 'Conferences with the Lowest Weighted Mean Travel Distance',
         image: '',
         description: `Applying weights to the conference distances, however, paints an unclear picture of any geographic trends. 
@@ -742,7 +742,7 @@ Viewing aggregations at the school level paints a more varied picture of travel 
         onChapterExit: []
       },
         {
-            id: 'chapter-18',  // 20
+            id: 'chapter-20',  // 20
             title: 'Conclusion',
             image: '',
             description: `So is there any method to the madness? It would appear that way. Generally speaking, a school

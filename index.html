@@ -563,16 +563,19 @@
       .toolbar-select {
         width: 10rem;
       }
+
+      .info-header {
+         margin: 0;
+      }
     }
 
     @media (max-width: 830px) {
       .sidebar {
         top: 2.5rem;
         height: 15rem;
-        /* bottom: 0; */
         left: 0;
         right: 0;
-       width: auto;
+        width: auto;
       }
 
       .info-container {
@@ -1290,46 +1293,46 @@
             map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
           } else if (id === 'chapter-6') {
             resetExtent(true);
-          } else if (id === 'chapter-7') {  // 10
+          } else if (id === 'chapter-10') {  // 10
             applyChapterFilters('Arizona', 'Tucson, AZ');
           } else if (id === 'chapter-12') {
             filters.school = 'St. John\'s';
             selectSchoolOnMap(sites, true);
             map.setLayoutProperty('schools', 'visibility', 'none');
-          } else if (id === 'chapter-14') {  // 16
+          } else if (id === 'chapter-16') {  // 16
             resetExtent(true);
             styleConferences();
-          } else if (id === 'chapter-15') {  //17
+          } else if (id === 'chapter-17') {  //17
             resetExtent(true);
             styleConferences();
             // match multiple filter values
             map.setFilter('schools', ['match', ['get', 'conference'], ['Pac-12 Conference', 'Atlantic 10 Conference'], true, false]);
-          } else if (id === 'chapter-16') {  // 18
+          } else if (id === 'chapter-18') {  // 18
             // match multiple filter values
             resetExtent(true);
             styleConferences();
             map.setFilter('schools', ['match', ['get', 'conference'], ['American Athletic Conference', 'Big 12 Conference'], true, false]);
-          } else if (id === 'chapter-17') {  // 19
+          } else if (id === 'chapter-19') {  // 19
             resetExtent(true);
             styleConferences();
             map.setFilter('schools', ['match', ['get', 'conference'],
               ['Southeastern Conference', 'Big 12 Conference',
                 'Atlantic Coast Conference', 'Missouri Valley Conference', 'Mountain West Conference'], true, false]);
-          } else if (id === 'chapter-18') {  // 20
+          } else if (id === 'chapter-20') {  // 20
             resetAllFilters();
             resetExtent(true);
           }
 
 
 
-          if (id === 'chapter-19') {  // 7
+          if (id === 'chapter-7') {  // 7
             const oneCount = ['VCU','Virginia Tech','Dayton','Saint Louis','Creighton','Minnesota','TCU','Houston','Loyola–Chicago','California','Texas A&M','Nebraska','Southern Illinois','Butler','La Salle','DePaul'];
             map.setFilter('schools', ['match', ['get', 'school_common_name'], oneCount, true, false]);
 
-          } else if (id === 'chapter-20') {  // 8
+          } else if (id === 'chapter-8') {  // 8
             const tenCount = ['Michigan', 'Arizona', 'UConn', 'Maryland', 'UCLA', 'Indiana', 'Cincinnati', 'Kentucky', 'Pittsburgh', 'North Carolina', 'Louisville', 'Purdue', 'Michigan State', 'Kansas', 'Oklahoma', 'Syracuse', 'Georgetown', 'Florida', 'Duke', 'Villanova', 'Illinois', 'Ohio State'];
             map.setFilter('schools', ['match', ['get', 'school_common_name'], tenCount, true, false]);
-          } else if (id === 'chapter-21') {  // 9
+          } else if (id === 'chapter-9') {  // 9
             // const blueBloods = ['Duke', 'Kentucky', 'North Carolina', 'Kansas'];
             const blueBloods = {'Duke': '#003087', 'Kentucky': '#0033A0', 'North Carolina': '#7BAFD4', 'Kansas': '#0051BA'};
             map.setFilter('schools', ['match', ['get', 'school_common_name'], Object.keys(blueBloods), true, false]);
@@ -1340,20 +1343,20 @@
             });
             bbStyles.push('#AAA');
             map.setPaintProperty('schools', 'circle-color', ['match', ['get', 'school_common_name'], ...bbStyles]);
-          } else if (id === 'chapter-22') {  // 11
+          } else if (id === 'chapter-11') {  // 11
             map.setFilter('schools', ['has', 'school_common_name']);
             resetExtent(true);
             filters.weighted = true;  // todo fix how this affects reset extent
             applyWeights(schools);
-          } else if (id === 'chapter-30') {  // 13
+          } else if (id === 'chapter-13') {  // 13
             filters.school = 'Michigan';
             selectSchoolOnMap(sites, true);
             map.setLayoutProperty('schools', 'visibility', 'none');
-          } else if (id === 'chapter-31') {  // 14
+          } else if (id === 'chapter-14') {  // 14
             filters.school = 'Kansas';
             selectSchoolOnMap(sites, true);
             map.setLayoutProperty('schools', 'visibility', 'none');
-          } else if (id === 'chapter-32') {  // 15
+          } else if (id === 'chapter-15') {  // 15
             filters.school = 'Villanova';
             selectSchoolOnMap(sites, true);
             map.setLayoutProperty('schools', 'visibility', 'none');
