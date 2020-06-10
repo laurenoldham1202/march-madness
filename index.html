@@ -912,7 +912,7 @@
     type: 'line',
     paint: {
       'line-color': '#999',
-      'line-width': 1,
+      'line-width': 2,
       'line-opacity': 0.75,
     },
     visibility: 'none',
@@ -1870,6 +1870,22 @@
           }
         });
 
+        // TODO update line-width in explore mode
+        lineFeatures.forEach(line => {
+          const lineDistance = turf.lineDistance(line, {units: 'kilometers'});
+          const arc = [];
+          // number of steps to use in the arc and animation, more steps means a smoother arc and animation, but too many steps will result in a low frame rate
+          const steps = 250;
+
+          // draw an arc between the `origin` & `destination` of the two points
+          for (let i = 0; i < lineDistance; i += lineDistance / steps) {
+            const segment = turf.along(line, i, {units: 'kilometers'});
+            arc.push(segment.geometry.coordinates);
+          }
+          line.geometry.coordinates = arc;
+        });
+
+
         if (storyMode) {
           const size = window.innerWidth <= 1215 ? 200 : 600;
           map.fitBounds(turf.bbox(layerGeometry), { padding: {top: 200, bottom: 200, right: 200, left: size}, duration: 3000 });
@@ -2238,13 +2254,15 @@
     const point = {type: 'FeatureCollection', features: [{type: 'Feature', properties: {}, geometry: {type: 'Point', coordinates: origin}}]};
 
     // calculate the distance in kilometers between route start/end point
+    // console.log(route.features);
+    // console.log(route.features[0]);
     const lineDistance = turf.lineDistance(route.features[0], {units: 'kilometers'});
     const arc = [];
     // number of steps to use in the arc and animation, more steps means a smoother arc and animation, but too many steps will result in a low frame rate
     const steps = 250;
 
     // draw an arc between the `origin` & `destination` of the two points
-    for (const i = 0; i < lineDistance; i += lineDistance / steps) {
+    for (let i = 0; i < lineDistance; i += lineDistance / steps) {
       const segment = turf.along(route.features[0], i, {units: 'kilometers'});
       arc.push(segment.geometry.coordinates);
     }
