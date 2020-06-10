@@ -261,7 +261,7 @@ year's tournament.
    
             <div class="seed-hl-row">
                 <div class="seed-hl" style="background: #80bad1">
-                    <div class="seed-hl-title">1 SEED</div>
+                    <div class="seed-hl-title" style="color: white !important;">1 SEED</div>
                     <div class="seed-hl-text">353 miles</div>
                 </div> 
                

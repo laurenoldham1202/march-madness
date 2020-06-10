@@ -1877,8 +1877,8 @@
 
 
         if (storyMode) {
-          const size = window.innerWidth <= 1215 ? 200 : 600;
-          map.fitBounds(turf.bbox(layerGeometry), { padding: {top: 200, bottom: 200, right: 200, left: size}, duration: 3000 });
+          const size = window.innerWidth <= 1215 ? 200 : 750;
+          map.fitBounds(turf.bbox(layerGeometry), { padding: {top: 100, bottom: 100, right: 200, left: size}, duration: 3000 });
         } else {
           // fit bounds to school and sites
           fitMapBounds(layerGeometry);
