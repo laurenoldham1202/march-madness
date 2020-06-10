@@ -12,11 +12,18 @@ const config = {
             id: 'intro',
             description: `
 <br><br><span class="capital-font" style="font-size: 26pt;">Every year in March,</span> 
-college basketball fans anxiously await Selection Sunday to see if their team made the NCAA Men’s Basketball National 
-Championship tournament, affectionately referred to as March Madness. March
-Madness is a three week-long single-elimination tournament in which 64 teams compete to take home the highly coveted 
-National Championship title. The fun isn’t just reserved for fans - countless people from all across the globe fill out
-tournament brackets and bet on which teams will make deep runs and ultimately win it all. 
+the top 64 D1 NCAA men's basketball teams compete in a single-elimination tournament (March Madness) in an attempt to 
+take home the highly coveted National Championship title.
+The title often goes to a top-ranked team, who are given many advantages as a reward for dominating the regular season.
+One such advantage is <strong>geographic preference during the first rounds of the tournament</strong>. While this 
+advantage is <a href="https://www.ncaa.com/news/basketball-men/article/2018-10-19/how-field-68-teams-picked-march-madness" target="_blank">
+outlined by the Selection Committee</a>, I put it to the test by <strong>analyzing the travel distances of top 4 seeds
+during the first round of the tournament from 1985 to 2019.</strong>
+<!--college basketball fans anxiously await Selection Sunday to see if their team made the NCAA Men’s Basketball National -->
+<!--Championship tournament, affectionately referred to as March Madness. March-->
+<!--Madness is a three week-long single-elimination tournament in which 64 teams compete to take home the highly coveted -->
+<!--National Championship title. The fun isn’t just reserved for fans - countless people from all across the globe fill out-->
+<!--tournament brackets and bet on which teams will make deep runs and ultimately win it all. -->
   
   <div class="scroll">Scroll &#8681;</div>
             `,
