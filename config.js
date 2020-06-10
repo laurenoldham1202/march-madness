@@ -24,6 +24,11 @@ during the first round of the tournament from 1985 to 2019.</strong>
 <!--Madness is a three week-long single-elimination tournament in which 64 teams compete to take home the highly coveted -->
 <!--National Championship title. The fun isn’t just reserved for fans - countless people from all across the globe fill out-->
 <!--tournament brackets and bet on which teams will make deep runs and ultimately win it all. -->
+
+             <div class="buttons" style="text-align: center;">
+              <button class="button" id="details-modal" data-toggle="modal" data-target="#about-modal">MORE INFORMATION</button>
+              <button class="button" id="explore-mode">SKIP STORY</button>
+             </div>
   
   <div class="scroll">Scroll &#8681;</div>
             `,

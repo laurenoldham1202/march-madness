@@ -704,6 +704,40 @@
 
 </div>
 
+<div class="modal fade" id="about-modal" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">About</h4>
+      </div>
+      <div class="modal-body">
+        <p>Explore the most dominant DI men's college basketball teams.</p>
+        <p>Teams are compiled based on the most overall wins (top 50 teams) and/or having a national championship title.</p>
+        <p>
+          Change the proportional circles by clicking a button with a rank type.
+          Circles can be style with or without school colors by toggling the switch at the bottom left of the map.
+          Mousing over a school circle will display a popup with some school statistics. Similarly, clicking a row on the table will reveal the same popup.
+        </p>
+        <br>
+        <p>
+          Data Sources:
+          <a href="https://en.wikipedia.org/wiki/Module:College_color" target="_blank">Team Hex Codes (1)</a>,
+          <a href="https://teamcolorcodes.com/ncaa-color-codes/" target="_blank">Team Hex Codes (2)</a>,
+          <a href="https://usteamcolors.com/ncaa-division-1/" target="_blank">Team Hex Codes (3)</a>,
+          <a href="https://en.wikipedia.org/wiki/List_of_teams_with_the_most_victories_in_NCAA_Division_I_men%27s_college_basketball" target="_blank">Rankings List</a>,
+          <a href="https://en.wikipedia.org/wiki/NCAA_Division_I_Men%27s_Basketball_Tournament" target="_blank">National Championship Titles</a>,
+          <a href="https://www.sports-reference.com/cbb/schools/" target="_blank">Additional Statistics</a>
+        </p>
+        <p>Map authored by Lauren Oldham, December 2019.</p>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <div id="story"></div>
 
 <script src="./config.js"></script>
@@ -1839,6 +1873,7 @@
 
         // close any open popups
         popup.remove();
+        map.setLayoutProperty('schools', 'visibility', 'none');
 
         // create empty bounding geometry for fitBounds argument
         const layerGeometry = {type: 'Polygon', coordinates: []};
