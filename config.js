@@ -5,7 +5,8 @@ const config = {
     showMarkers: false,
     theme: 'light',
     alignment: 'left',
-    footer: 'Map created by Lauren Oldham',
+    footer: `Map created by <strong>Lauren Oldham</strong>
+      <br>Check out the <a href="https://github.com/laurenoldham1202/march-madness" target="_blank">project repository</a> for more info!`,
     chapters: [
         {
             id: 'intro',
