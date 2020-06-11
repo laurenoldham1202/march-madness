@@ -166,6 +166,9 @@
       margin: 1rem;
       border-radius: 4px;
       color: #fff;
+      border: none;
+      padding: 0.5rem 0.75rem;
+      width: 8rem;
       background-color: #0146a1;
     }
 
@@ -317,9 +320,12 @@
     /* ------------------------------------------------------------ */
 
     .scroll {
-      display: flex;
-      margin-top: 2rem;
-      float: right;
+      /*display: flex;*/
+      margin-top: 1.45rem;
+      width: 8rem;
+      text-align: center;
+      /*padding: 1rem;*/
+      /*float: right;*/
       color: #0146a1;
     }
 
@@ -478,6 +484,15 @@
     .open-panel {
       height: auto;
       overflow: visible;
+    }
+
+    .story-hl {
+      background: rgba(128,186,209,0.3);
+      padding: 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+      border: 1px solid #0146a1;
+      color: #0146a1;
     }
 
     @media (max-width: 750px) {
@@ -1010,6 +1025,8 @@
     if (e.target.innerText === 'Story Mode') {
       enterStoryMode();
     } else {
+
+      // TODO BUG: Explore mode to storymode in chapter 1 breaks
       enterExploreMode();
     }
   });
@@ -1148,13 +1165,20 @@
     });
   }
 
-  function enterExploreMode() {
+  function enterExploreMode(storyMode = false) {
     // remove story and toggle visibility of explore sidebar on
     story.detach();
     mapExplorer.css('visibility', 'visible');
 
     // hide progress bar
     $('.chapter-list').css('visibility', 'hidden');
+
+    // if entering explore mode through story button, remotely toggle radio button group
+    if (storyMode) {
+      // toggle story/explore mode toggle in toolbar
+      $('#toggle-story-mode').removeClass('active');
+      $('#toggle-explore-mode').addClass('active');
+    }
 
     // reset default map view
     resetExtent();
@@ -1183,6 +1207,12 @@
       }
     });
   }
+
+  $('#skip-story').on('click', () => {
+    enterExploreMode(true);
+    resetExtent();
+  });
+
 
   // TODO Delete old json, replace with new
   // const sitesJson = d3.json('data/cleaned/sites-all-edit.json');
@@ -1283,12 +1313,29 @@
           infoBtnSeed.removeClass('visible');
 
           if (id === 'intro') {
-            map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
+            $('#story-seed-1').trigger('mouseover');
+            // map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
           } else if (id === 'chapter-1') {
-            displayTourneyExample();
+            $('#story-seed-2').trigger('mouseover');
+
+            // displayTourneyExample();
           } else if (id === 'chapter-2') {
             // display one seeds as default view in chapter-2
-            $('#story-seed-1').trigger('mouseover');
+            // $('#story-seed-1').trigger('mouseover');
+            $('#story-seed-3').trigger('mouseover');
+
+
+          // <br><br>The system is not foolproof - Duke, a top-ranked 2 seed, fell to the low-ranked 15 seed Lehigh Mountain Hawks
+          //   in the first round of the 2012 tournament, despite having traveled fewer than 50 miles to their first game.
+          //   2 seeds traveled an average of 155 miles.
+
+            // Playing close to home has many advantages for competing teams:
+            //   <ul>
+            // <li>They spend less time actually traveling, reducing physical and mental exhaustion</li>
+            // <li>They play in the same/similar time zone, avoiding any jet lag issues</li>
+            // <li>It allows fans, friends, and families of the teams to travel to the games</li>
+            // </ul>
+
           } else if (id === 'chapter-3') {
             triggerAnimation();
           } else if (id === 'chapter-4') {
@@ -1297,7 +1344,14 @@
             resetExtent(true);
             map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
           } else if (id === 'chapter-6') {
-            resetExtent(true);
+
+            $('#story-seed-1').trigger('mouseleave');
+            $('#story-seed-2').trigger('mouseleave');
+            $('#story-seed-3').trigger('mouseleave');
+            $('#story-seed-4').trigger('mouseover');
+
+            // resetExtent(true);
+
           } else if (id === 'chapter-7') {  // 7
             const oneCount = ['VCU','Virginia Tech','Dayton','Saint Louis','Creighton','Minnesota','TCU','Houston','Loyola–Chicago','California','Texas A&M','Nebraska','Southern Illinois','Butler','La Salle','DePaul'];
             filterMatchMultiple(oneCount);
@@ -1358,10 +1412,7 @@
           if (response.index === config.chapters.length - 1) {
             // create new click event each time chapter is enter, or else unique div ID is overwritten
             $('#explore-mode').on('click', () => {
-              enterExploreMode();
-              // toggle story/explore mode toggle in toolbar
-              $('#toggle-story-mode').removeClass('active');
-              $('#toggle-explore-mode').addClass('active');
+              enterExploreMode(true);
             });
           }
         })
@@ -1373,8 +1424,8 @@
             chapter.onChapterExit.forEach(setLayerOpacity);
           }
 
-          resetAllFilters();
-          resetExtent(true);
+          // resetAllFilters();
+          // resetExtent(true);
 
           // remove orange active chapter styling when exiting chapter
           $(`#block-${chapter.id}`).removeClass('active-chapter');
@@ -1491,9 +1542,12 @@
       type: 'circle',
       source: {type: 'geojson', data: tourney},
       paint: {
-        'circle-radius': 10,
+        'circle-radius': 6.5,
         'circle-opacity': 0,
-        'circle-color': ['match', ['get', 'seed'], 1, '#80bad1', 2, '#5694c1', 3, '#2c6db1', 4, '#0146a1', 'orange'],
+        'circle-color': '#555',
+        // 'circle-radius': 10,
+        // 'circle-opacity': 0,
+        // 'circle-color': ['match', ['get', 'seed'], 1, '#80bad1', 2, '#5694c1', 3, '#2c6db1', 4, '#0146a1', 'orange'],
       },
       filter: ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'school']]
     });
@@ -1503,9 +1557,12 @@
       type: 'circle',
       source: {type: 'geojson', data: tourney},
       paint: {
-        'circle-radius': 6.5,
+        'circle-radius': 10,
         'circle-opacity': 0,
-        'circle-color': '#555',
+        'circle-color': ['match', ['get', 'seed'], 1, '#80bad1', 2, '#5694c1', 3, '#2c6db1', 4, '#0146a1', 'orange'],
+        // 'circle-radius': 6.5,
+        // 'circle-opacity': 0,
+        // 'circle-color': '#555',
       },
       filter: ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'site']]
     });
@@ -1586,25 +1643,14 @@
               card4Header.html('mean distance as a <strong>4 seed</strong>');
 
               const card = {
-                // header: 'All Top Seeded Schools 1985 - 2019',
                 card1: val[1] ? val[1].mean.toFixed() + ' miles' : '-',
-                // card1text: `${val[1] ? val[1].count : 0} appearances as a 1 seed`,
-                // card1text: `- ${val[1] ? val[1].count : 0} appearances as a 1 seed
-                // - median distance: ${val[1] ? val[1]['50%'].toFixed() : ''}
-                // - shortest distance: ${val[1] ? val[1].min.toFixed() : ''}
-                // - farther distance: ${val[1] ? val[1].max.toFixed() : ''}`,
                 card1text: applyInfoSeedText(val, 1),
                 card2: val[2] ? val[2].mean.toFixed() + ' miles' : '-',
-                // card2text: `${val[2] ? val[2].count : 0} appearances as a 2 seed`,
                 card2text: applyInfoSeedText(val, 2),
                 card3: val[3] ? val[3].mean.toFixed() + ' miles' : '-',
-                // card3text: `${val[3] ? val[3].count : 0} appearances as a 3 seed`,
                 card3text: applyInfoSeedText(val, 3),
                 card4: val[4] ? val[4].mean.toFixed() + ' miles' : '-',
-                // card4text: `${val[4] ? val[4].count : 0} appearances as a 4 seed`,
                 card4text: applyInfoSeedText(val, 4),
-                // card5: '',
-                // card5text: '',
               };
               updateInfoCard(card);
 
@@ -1740,8 +1786,6 @@
       // push all school names to schoolFilter dropdown
       schoolFilter.append(`<option value="${s}">${s}</option>`);
     });
-
-    // console.log(allMin.reduce((a, b) => a + b) / allMin.length);
   }
 
   function resetFilter(filter) {
