@@ -121,6 +121,7 @@
 
     .step img {
       width: 100%;
+      margin-bottom: 1.5rem;
     }
 
     /* ---------------------- MY MAP CODE ---------------------- */
@@ -144,7 +145,6 @@
     }
 
     #extent {
-      /*margin: 0.5rem;*/
       height: 38px;
       width: 38px;
       line-height: 38px;
@@ -1163,7 +1163,7 @@
     });
   }
 
-  // TODO Readjust responsive design for new opening introduction chapters
+  // TODO Refactor all adjustments into single method if possible
   function adjustMapCenter(innerWidth) {
     const isSmallScreen = innerWidth <= 1215;
     const refLon = isSmallScreen ? -116.5 : -98.5795;
@@ -1177,14 +1177,14 @@
         map.flyTo(chapter.location);
       }
 
-      if (chapter.location && chapter.location.zoom === 3.5 && innerWidth <= 1380) {
+      if (chapter.location && chapter.location.zoom === 3.5 && innerWidth <= 1400) {
         chapter.location.zoom = chapter.location.zoom - 0.25;
         map.flyTo(chapter.location);
       }
 
       introChapters.forEach(chap => {
         if (chap === chapter.id && isSmallScreen) {
-          chapter.location.center = center;  // TODO create const
+          chapter.location.center = center;
           chapter.location.zoom = 3.5;
           map.flyTo(chapter.location);
         }
@@ -1905,7 +1905,7 @@
 
     // TODO Simplify with a master fn
     if (storyMode) {
-      const sub = window.innerWidth <= 1380 ? 0.25 : 0;
+      const sub = window.innerWidth <= 1400 ? 0.25 : 0;
       const center = window.innerWidth <= 1250 ? [-98.5795, 39.8283] : [-116.5, 41.5];
       map.flyTo({center: center, zoom: 3.5 - sub });
     } else {
@@ -1923,7 +1923,7 @@
       duration: 3000 });
   }
 
-  // TODO make additional dropdown for special cases, i.e. blue bloods, etc.? Add slider for numbers of appearances?
+  // TODO Add slider for numbers of appearances?
   function selectSchool(sites) {
     schoolFilter.on('change', (e) => {
       // apply selected school to filters
@@ -1945,8 +1945,6 @@
 
       // property of filter, e.g. mean_dist, mean_wtDist, etc.
       const prop = setProperty();
-
-      // TODO update stops for more readability (e.g. max is huge for all schools)
       const stops = createStops(schools, prop);
 
       map.setPaintProperty('schools', 'circle-radius', { property: prop, stops: stops });
@@ -2261,6 +2259,16 @@
             stat === 'count' ? 'count' : '';
   }
 
+  function adjustLightColors(school) {
+    // // both Oklahomas? Clemson, Vandy, Florida, Miami
+    const lightSchools = ['Iowa', 'Missouri', 'Purdue', 'Georgia Tech', 'VCU', 'La Salle', 'Wichita State'];
+    if (lightSchools.includes(school)) {
+      return '#414140';
+    } else {
+      return 'whitesmoke';
+    }
+  }
+
   function onSchoolHover() {
     // empty hoverId, resets on each school mouseover
     let hoverId = null;
@@ -2273,9 +2281,8 @@
       // TODO add +/- overall avg?
 
       // University of Iowa, Creighton, Mizzou, Purdue, Georgia IT, VCU, La Salle
-      console.log(e.features[0].properties);
       label.css('background', e.features[0].properties['color_1']);
-      label.css('color', 'whitesmoke');
+      label.css('color', adjustLightColors(e.features[0].properties.school_common_name));
 
       label.addClass('visible');  // make popup visible on school mouseover
       labelText.text(e.features[0].properties.school_full_name);  // apply school name to label

@@ -11,36 +11,18 @@ const config = {
         {
             id: 'intro',
             description: `
-<br><br><span class="capital-font" style="font-size: 26pt;">Every year in March,</span> 
+<p><span class="capital-font" style="font-size: 26pt;">Every year in March,</span> 
 the top college basketball programs anxiously await Selection Sunday, which determines <em>who</em> and <em>where</em>
-teams will play during March Madness.
+teams will play during March Madness.</p>
 
-<!--<div class="buttons" style="text-align: center;">-->
-<!--    <button class="button" id="details-modal" data-toggle="modal" data-target="#about-modal">INFO</button>-->
-<!--    <button class="button" id="skip-story">SKIP STORY</button>-->
-<!--</div>-->
-<br><br>
-Top ranked teams are supposed to be given a geographic advantage early in the tournament, which is intended to 
+<p>Top ranked teams are supposed to be given a geographic advantage early in the tournament, which is intended to 
 <strong>simulate a home-court advantage</strong> - if they play close to 'home,' fanbases are able to travel to watch 
-the games.
+the games.</p>
 
-<!--<hr>-->
 <div class="story-hl">
 The map shows the overall top ranked teams (1 seeds) from the 2012 NCAA Men's Basketball tournament, who 
 traveled an average distance of 147 miles to their first-round game.
 </div>
-<!--the top 64 D1 NCAA men's basketball teams compete in a single-elimination tournament (March Madness) in an attempt to -->
-<!--take home the highly coveted National Championship title.-->
-<!--The title often goes to a top-ranked team, who are given many advantages as a reward for dominating the regular season.-->
-<!--One such advantage is <strong>geographic preference during the first rounds of the tournament</strong>. While this -->
-<!--advantage is <a href="https://www.ncaa.com/news/basketball-men/article/2018-10-19/how-field-68-teams-picked-march-madness" target="_blank">-->
-<!--outlined by the Selection Committee</a>, I put it to the test by <strong>analyzing the travel distances of top 4 seeds-->
-<!--during the first round of the tournament from 1985 to 2019.</strong>-->
-<!--&lt;!&ndash;college basketball fans anxiously await Selection Sunday to see if their team made the NCAA Men’s Basketball National &ndash;&gt;-->
-<!--&lt;!&ndash;Championship tournament, affectionately referred to as March Madness. March&ndash;&gt;-->
-<!--&lt;!&ndash;Madness is a three week-long single-elimination tournament in which 64 teams compete to take home the highly coveted &ndash;&gt;-->
-<!--&lt;!&ndash;National Championship title. The fun isn’t just reserved for fans - countless people from all across the globe fill out&ndash;&gt;-->
-<!--&lt;!&ndash;tournament brackets and bet on which teams will make deep runs and ultimately win it all. &ndash;&gt;-->
 
 <div class="buttons" style="justify-content: center; display: flex;">
     <button class="button" id="details-modal" data-toggle="modal" data-target="#about-modal">INFO</button>
