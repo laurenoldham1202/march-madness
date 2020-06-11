@@ -121,6 +121,7 @@
 
     .step img {
       width: 100%;
+      margin-bottom: 1.5rem;
     }
 
     /* ---------------------- MY MAP CODE ---------------------- */
@@ -144,17 +145,30 @@
     }
 
     #extent {
-      /*margin: 0.5rem;*/
+      /*height: 38px;*/
+      /*width: 38px;*/
+      /*line-height: 38px;*/
+      /*z-index: 1000;*/
+      /*background: white;*/
+      /*border: 2px solid rgba(10, 10, 10, 0.1);*/
+      /*border-radius: 4px;*/
+    }
+
+    .map-button {
       height: 38px;
       width: 38px;
       line-height: 38px;
-      z-index: 1000;
+      z-index: 2200;
       background: white;
       border: 2px solid rgba(10, 10, 10, 0.1);
       border-radius: 4px;
     }
 
     #extent:hover {
+      background: #eee;
+    }
+
+    .map-button:hover {
       background: #eee;
     }
 
@@ -166,6 +180,9 @@
       margin: 1rem;
       border-radius: 4px;
       color: #fff;
+      border: none;
+      padding: 0.5rem 0.75rem;
+      width: 8rem;
       background-color: #0146a1;
     }
 
@@ -316,10 +333,23 @@
 
     /* ------------------------------------------------------------ */
 
+    .modal-dialog {
+      max-width: 700px !important;
+    }
+
+    .modal-text {
+      height: 30rem;
+      overflow: scroll;
+    }
+
+    .modal-body {
+      padding: 2rem !important;
+    }
+
     .scroll {
-      display: flex;
-      margin-top: 2rem;
-      float: right;
+      margin-top: 1.45rem;
+      width: 8rem;
+      text-align: center;
       color: #0146a1;
     }
 
@@ -480,6 +510,15 @@
       overflow: visible;
     }
 
+    .story-hl {
+      background: rgba(128,186,209,0.3);
+      padding: 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+      border: 1px solid #0146a1;
+      color: #0146a1;
+    }
+
     @media (max-width: 750px) {
       #features {
         width: 90vw;
@@ -541,6 +580,12 @@
       }
     }
 
+    @media (max-width: 1489px) {
+      .button {
+        width: auto;
+      }
+    }
+
     @media (max-width: 830px) {
       .sidebar {
         top: 2.5rem;
@@ -582,8 +627,13 @@
 
 <div class="map-explore">
   <div class="map-control">
-    <button id="extent"><span class="material-icons">public</span></button>
+    <button id="extent" class="map-button"><span class="material-icons">public</span></button>
   </div>
+  <div class="map-control" style="bottom: 1rem !important; top: auto !important; left: 25rem;">
+    <button id="legend" class="map-button"><span class="material-icons">legend_toggle</span></button>
+  </div>
+
+  <div class="map-legend" style="position: absolute; bottom: 1rem; left: 28rem;"></div>
 
   <div class="label">
     <div class="label-text"></div>
@@ -706,32 +756,62 @@
 
 <div class="modal fade" id="about-modal" role="dialog">
   <div class="modal-dialog">
-
-    <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">About</h4>
+        <h4 class="modal-title">March Madness Seeding Explained</h4>
       </div>
-      <div class="modal-body">
-        <p>Explore the most dominant DI men's college basketball teams.</p>
-        <p>Teams are compiled based on the most overall wins (top 50 teams) and/or having a national championship title.</p>
-        <p>
-          Change the proportional circles by clicking a button with a rank type.
-          Circles can be style with or without school colors by toggling the switch at the bottom left of the map.
-          Mousing over a school circle will display a popup with some school statistics. Similarly, clicking a row on the table will reveal the same popup.
-        </p>
-        <br>
-        <p>
-          Data Sources:
-          <a href="https://en.wikipedia.org/wiki/Module:College_color" target="_blank">Team Hex Codes (1)</a>,
-          <a href="https://teamcolorcodes.com/ncaa-color-codes/" target="_blank">Team Hex Codes (2)</a>,
-          <a href="https://usteamcolors.com/ncaa-division-1/" target="_blank">Team Hex Codes (3)</a>,
-          <a href="https://en.wikipedia.org/wiki/List_of_teams_with_the_most_victories_in_NCAA_Division_I_men%27s_college_basketball" target="_blank">Rankings List</a>,
-          <a href="https://en.wikipedia.org/wiki/NCAA_Division_I_Men%27s_Basketball_Tournament" target="_blank">National Championship Titles</a>,
-          <a href="https://www.sports-reference.com/cbb/schools/" target="_blank">Additional Statistics</a>
-        </p>
-        <p>Map authored by Lauren Oldham, December 2019.</p>
+      <div class="modal-body" style="">
+        <div class="modal-text">
+        <p>Every year in March, college basketball fans anxiously await Selection Sunday to see if their team made the
+        NCAA Men’s Basketball National
+        Championship tournament, affectionately referred to as March Madness. March
+        Madness is a three week-long single-elimination tournament in which 64 teams compete to take home the highly coveted
+        National Championship title. The fun isn’t just reserved for fans - countless people from all across the globe fill out
+        tournament brackets and bet on which teams will make deep runs and ultimately win it all.</p>
 
+        While coaches, teams, and fans alike want to see their preferred team effortlessly stroll through
+        the Sweet Sixteen, Elite Eight, and Final Four to play in the National Championship game, they first have to
+        survive the first weekend of the tournament. Putting the ‘madness’ into March Madness, the first and second
+        rounds of the tournament (Round of 64 and Round of 32, respectively) are historically filled with the most
+        chaos, with underdog teams defying odds by knocking out highly favored teams early on. <span class="bold">Because of the
+        precedence for upsets in the first round of the tournament, there is a lot of focus on the matchups and
+        locations for each competing team.</span>
+
+        <p>Selection Sunday does more than just determine who gets into the tournament - it also
+        determines where the chosen teams play, who they play against, and how highly they are ranked.</p>
+
+        <p>Each team is listed from best to worst with an overall rank, a number 1 to 64*, in which 1
+        represents the overall best team in the tournament and 64 represents the worst. These rankings are then
+        grouped into 16 seeds of four teams each, wherein 1 seeds are the best teams and 16 seeds are the worst
+        teams. Many considerations go into the creation of March Madness brackets, but the idea is that <span class="bold">higher
+        seeds are rewarded for their regular season performance by playing against the lowest ranked teams. </span>
+        Additionally, <span class="bold">the selection committee is supposed to give top ranked teams geographic preference in their
+        first round sites.</span></p>
+
+        <p><span class="bold">Because March Madness is a single-elimination tournament, teams only have one shot in each round to advance to the next level.</span>
+          All teams put their best foot forward, but there's no room for an off game - one bad night can (and has) cost the best team in the nation
+          a shot at the national title. Many lower ranked teams don't make it into the tournament very often and have the tenacity to try to become
+          the next Cinderella story.
+          <p>Teams want every advantage at their disposal when going into the tournament, and having a closer first-round
+        site can be incredibly beneficial both physically and psychologically.</p>
+
+        <ul>
+        <li>Student athletes still officially
+        attend classes during the tournament, so shorter travel times are logistically easier; not only that, but
+        traveling long distances via bus or air can be physically draining.</li>
+        <li>Games are played from early morning to
+        late at night across multiple time zones, so it's also ideal to play in or near your home time zone. </li>
+        <li>Perhaps
+        most importantly, playing near your school allows your fanbase to easily travel to the games, simulating
+        as much of a <a href="https://kenpom.com/blog/mining-point-spread-data-home-court-advantage/" target="_blank">
+          home court advantage</a> as possible. When the tides turn against a team in a game, nothing fires them up
+        like a raucous home crowd.</li>
+        </ul>
+
+        <p><span class="bold">The NCAA Selection Committee claims to give geographic preference to the top seeds in order of their rank </span>-
+        one seeds get the highest preference, then two seeds, then three, then four (remaining seeds are not given
+        explicit geographic considerations).</p>
+        </div>
       </div>
     </div>
 
@@ -1010,9 +1090,67 @@
     if (e.target.innerText === 'Story Mode') {
       enterStoryMode();
     } else {
+
+      // TODO BUG: Explore mode to storymode in chapter 1 breaks
       enterExploreMode();
     }
   });
+
+  $('#legend').on('click', (e) => {
+    if (e.target.innerText === 'legend_toggle') {
+      toggleLegendOpen();
+    } else {
+      $('.legend-container').detach();
+      $('#legend').html(`<span class="material-icons">legend_toggle</span>`);
+    }
+  });
+
+  function toggleLegendOpen() {
+    $('#legend').html(`<span class="material-icons">close</span>`);
+
+    const schoolLegend = `
+    <div class="legend-container" style="background: white; padding: 0.5rem; border-radius: 4px; display: flex;">
+      <div class="legend">
+        <div class="legend-row">
+          <div class="circle" style="width: 8px; height: 8px;"></div>
+          <div class="circle" style="width: 16px; height: 16px;"></div>
+          <div class="circle" style="width: 23px; height: 23px;"></div>
+          <div class="circle" style="width: 31px; height: 31px;"></div>
+          <div class="circle" style="width: 44px; height: 44px;"></div>
+          <div class="circle" style="width: 77px; height: 77px;"></div>
+        </div>
+
+        <div class="legend-row">
+          <div class="legend-label" style="width: 38px;">250</div>
+          <div class="legend-label" style="width: 46px;">500</div>
+          <div class="legend-label" style="width: 53px;">750</div>
+          <div class="legend-label" style="width: 61px;">1000</div>
+          <div class="legend-label" style="width: 74px;">1500</div>
+          <div class="legend-label" style="width: 107px;">2500</div>
+        </div>
+        <div style="margin-top: 0.5rem">Schools (mean travel distance in miles)</div>
+      </div>
+
+
+    <div class="legend" style="margin-top: auto;">
+      <div class="legend-row">
+        <div class="circle" style="width: 10px; height: 10px; background: #80bad1 !important;"></div>
+        <div class="circle" style="width: 16px; height: 16px; background: #5694c1 !important;"></div>
+        <div class="circle" style="width: 22px; height: 22px; background: #2c6db1 !important;"></div>
+        <div class="circle" style="width: 28px; height: 28px; background: #0146a1 !important;"></div>
+      </div>
+      <div class="legend-row">
+        <div class="legend-label" style="width: 38px;">1 </div>
+        <div class="legend-label" style="width: 46px;">2 </div>
+        <div class="legend-label" style="width: 53px;">3 </div>
+        <div class="legend-label" style="width: 61px;">4 </div>
+      </div>
+      <div style="margin-top: 0.5rem">Site locations as seed values</div>
+    </div>
+    </div>`;
+
+    $('.map-legend').append(schoolLegend);
+  }
 
   resizeWindow();
 
@@ -1104,10 +1242,13 @@
     });
   }
 
+  // TODO Refactor all adjustments into single method if possible
   function adjustMapCenter(innerWidth) {
     const isSmallScreen = innerWidth <= 1215;
     const refLon = isSmallScreen ? -116.5 : -98.5795;
     const center = isSmallScreen ? {lon: -98.5795, lat: 39.8283} : {lon: -116.5, lat: 41.5};
+
+    const introChapters = ['intro', 'chapter-1', 'chapter-2', 'chapter-6'];
 
     config.chapters.forEach(chapter => {
       if (chapter.location && chapter.location.center.lon === refLon) {
@@ -1115,9 +1256,18 @@
         map.flyTo(chapter.location);
       }
 
-      if (chapter.location && chapter.location.zoom === 3.5 && innerWidth <= 1380) {
+      if (chapter.location && chapter.location.zoom === 3.5 && innerWidth <= 1400) {
         chapter.location.zoom = chapter.location.zoom - 0.25;
+        map.flyTo(chapter.location);
       }
+
+      introChapters.forEach(chap => {
+        if (chap === chapter.id && isSmallScreen) {
+          chapter.location.center = center;
+          chapter.location.zoom = 3.5;
+          map.flyTo(chapter.location);
+        }
+      })
     });
 
 
@@ -1148,13 +1298,42 @@
     });
   }
 
-  function enterExploreMode() {
+  function enterExploreMode(storyMode = false) {
     // remove story and toggle visibility of explore sidebar on
     story.detach();
     mapExplorer.css('visibility', 'visible');
 
+//     $('.sidebar').append(
+//       `<div class="legend-container">
+//     <div class="legend-row">
+//         <div class="circle" style="width: 8px; height: 8px;"></div>
+//         <div class="circle" style="width: 16px; height: 16px;"></div>
+//         <div class="circle" style="width: 23px; height: 23px;"></div>
+//         <div class="circle" style="width: 31px; height: 31px;"></div>
+//         <div class="circle" style="width: 44px; height: 44px;"></div>
+//         <div class="circle" style="width: 77px; height: 77px;"></div>
+//     </div>
+//
+//     <div class="legend-row">
+//         <div class="legend-label" style="width: 38px;">250</div>
+//         <div class="legend-label" style="width: 46px;">500</div>
+//         <div class="legend-label" style="width: 53px;">750</div>
+//         <div class="legend-label" style="width: 61px;">1000</div>
+//         <div class="legend-label" style="width: 74px;">1500</div>
+//         <div class="legend-label" style="width: 107px;">2500</div>
+//     </div>
+// </div>`
+//     );
+
     // hide progress bar
     $('.chapter-list').css('visibility', 'hidden');
+
+    // if entering explore mode through story button, remotely toggle radio button group
+    if (storyMode) {
+      // toggle story/explore mode toggle in toolbar
+      $('#toggle-story-mode').removeClass('active');
+      $('#toggle-explore-mode').addClass('active');
+    }
 
     // reset default map view
     resetExtent();
@@ -1163,6 +1342,7 @@
     infoBtnSeed.addClass('visible');  // display 'seed >' button
   }
 
+  // TODO FIX BUG: Double clicking Story Mode causes break
   function enterStoryMode() {
     mapExplorer.css('visibility', 'hidden');
     $('.chapter-list').css('visibility', 'visible');
@@ -1183,6 +1363,12 @@
       }
     });
   }
+
+  $('#skip-story').on('click', () => {
+    enterExploreMode(true);
+    resetExtent();
+  });
+
 
   // TODO Delete old json, replace with new
   // const sitesJson = d3.json('data/cleaned/sites-all-edit.json');
@@ -1283,12 +1469,29 @@
           infoBtnSeed.removeClass('visible');
 
           if (id === 'intro') {
-            map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
+            $('#story-seed-1').trigger('mouseover');
+            // map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
           } else if (id === 'chapter-1') {
-            displayTourneyExample();
+            $('#story-seed-2').trigger('mouseover');
+
+            // displayTourneyExample();
           } else if (id === 'chapter-2') {
             // display one seeds as default view in chapter-2
-            $('#story-seed-1').trigger('mouseover');
+            // $('#story-seed-1').trigger('mouseover');
+            $('#story-seed-3').trigger('mouseover');
+
+
+          // <br><br>The system is not foolproof - Duke, a top-ranked 2 seed, fell to the low-ranked 15 seed Lehigh Mountain Hawks
+          //   in the first round of the 2012 tournament, despite having traveled fewer than 50 miles to their first game.
+          //   2 seeds traveled an average of 155 miles.
+
+            // Playing close to home has many advantages for competing teams:
+            //   <ul>
+            // <li>They spend less time actually traveling, reducing physical and mental exhaustion</li>
+            // <li>They play in the same/similar time zone, avoiding any jet lag issues</li>
+            // <li>It allows fans, friends, and families of the teams to travel to the games</li>
+            // </ul>
+
           } else if (id === 'chapter-3') {
             triggerAnimation();
           } else if (id === 'chapter-4') {
@@ -1297,7 +1500,14 @@
             resetExtent(true);
             map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
           } else if (id === 'chapter-6') {
-            resetExtent(true);
+
+            $('#story-seed-1').trigger('mouseleave');
+            $('#story-seed-2').trigger('mouseleave');
+            $('#story-seed-3').trigger('mouseleave');
+            $('#story-seed-4').trigger('mouseover');
+
+            // resetExtent(true);
+
           } else if (id === 'chapter-7') {  // 7
             const oneCount = ['VCU','Virginia Tech','Dayton','Saint Louis','Creighton','Minnesota','TCU','Houston','Loyola–Chicago','California','Texas A&M','Nebraska','Southern Illinois','Butler','La Salle','DePaul'];
             filterMatchMultiple(oneCount);
@@ -1358,10 +1568,7 @@
           if (response.index === config.chapters.length - 1) {
             // create new click event each time chapter is enter, or else unique div ID is overwritten
             $('#explore-mode').on('click', () => {
-              enterExploreMode();
-              // toggle story/explore mode toggle in toolbar
-              $('#toggle-story-mode').removeClass('active');
-              $('#toggle-explore-mode').addClass('active');
+              enterExploreMode(true);
             });
           }
         })
@@ -1373,8 +1580,8 @@
             chapter.onChapterExit.forEach(setLayerOpacity);
           }
 
-          resetAllFilters();
-          resetExtent(true);
+          // resetAllFilters();
+          // resetExtent(true);
 
           // remove orange active chapter styling when exiting chapter
           $(`#block-${chapter.id}`).removeClass('active-chapter');
@@ -1491,9 +1698,12 @@
       type: 'circle',
       source: {type: 'geojson', data: tourney},
       paint: {
-        'circle-radius': 10,
+        'circle-radius': 6.5,
         'circle-opacity': 0,
-        'circle-color': ['match', ['get', 'seed'], 1, '#80bad1', 2, '#5694c1', 3, '#2c6db1', 4, '#0146a1', 'orange'],
+        'circle-color': '#555',
+        // 'circle-radius': 10,
+        // 'circle-opacity': 0,
+        // 'circle-color': ['match', ['get', 'seed'], 1, '#80bad1', 2, '#5694c1', 3, '#2c6db1', 4, '#0146a1', 'orange'],
       },
       filter: ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'school']]
     });
@@ -1503,9 +1713,12 @@
       type: 'circle',
       source: {type: 'geojson', data: tourney},
       paint: {
-        'circle-radius': 6.5,
+        'circle-radius': 10,
         'circle-opacity': 0,
-        'circle-color': '#555',
+        'circle-color': ['match', ['get', 'seed'], 1, '#80bad1', 2, '#5694c1', 3, '#2c6db1', 4, '#0146a1', 'orange'],
+        // 'circle-radius': 6.5,
+        // 'circle-opacity': 0,
+        // 'circle-color': '#555',
       },
       filter: ['all', ['==', '$type', 'Point'], ['==', 'feature-type', 'site']]
     });
@@ -1586,25 +1799,14 @@
               card4Header.html('mean distance as a <strong>4 seed</strong>');
 
               const card = {
-                // header: 'All Top Seeded Schools 1985 - 2019',
                 card1: val[1] ? val[1].mean.toFixed() + ' miles' : '-',
-                // card1text: `${val[1] ? val[1].count : 0} appearances as a 1 seed`,
-                // card1text: `- ${val[1] ? val[1].count : 0} appearances as a 1 seed
-                // - median distance: ${val[1] ? val[1]['50%'].toFixed() : ''}
-                // - shortest distance: ${val[1] ? val[1].min.toFixed() : ''}
-                // - farther distance: ${val[1] ? val[1].max.toFixed() : ''}`,
                 card1text: applyInfoSeedText(val, 1),
                 card2: val[2] ? val[2].mean.toFixed() + ' miles' : '-',
-                // card2text: `${val[2] ? val[2].count : 0} appearances as a 2 seed`,
                 card2text: applyInfoSeedText(val, 2),
                 card3: val[3] ? val[3].mean.toFixed() + ' miles' : '-',
-                // card3text: `${val[3] ? val[3].count : 0} appearances as a 3 seed`,
                 card3text: applyInfoSeedText(val, 3),
                 card4: val[4] ? val[4].mean.toFixed() + ' miles' : '-',
-                // card4text: `${val[4] ? val[4].count : 0} appearances as a 4 seed`,
                 card4text: applyInfoSeedText(val, 4),
-                // card5: '',
-                // card5text: '',
               };
               updateInfoCard(card);
 
@@ -1740,8 +1942,6 @@
       // push all school names to schoolFilter dropdown
       schoolFilter.append(`<option value="${s}">${s}</option>`);
     });
-
-    // console.log(allMin.reduce((a, b) => a + b) / allMin.length);
   }
 
   function resetFilter(filter) {
@@ -1807,7 +2007,7 @@
 
     // TODO Simplify with a master fn
     if (storyMode) {
-      const sub = window.innerWidth <= 1380 ? 0.25 : 0;
+      const sub = window.innerWidth <= 1400 ? 0.25 : 0;
       const center = window.innerWidth <= 1250 ? [-98.5795, 39.8283] : [-116.5, 41.5];
       map.flyTo({center: center, zoom: 3.5 - sub });
     } else {
@@ -1825,7 +2025,7 @@
       duration: 3000 });
   }
 
-  // TODO make additional dropdown for special cases, i.e. blue bloods, etc.? Add slider for numbers of appearances?
+  // TODO Add slider for numbers of appearances?
   function selectSchool(sites) {
     schoolFilter.on('change', (e) => {
       // apply selected school to filters
@@ -1847,8 +2047,6 @@
 
       // property of filter, e.g. mean_dist, mean_wtDist, etc.
       const prop = setProperty();
-
-      // TODO update stops for more readability (e.g. max is huge for all schools)
       const stops = createStops(schools, prop);
 
       map.setPaintProperty('schools', 'circle-radius', { property: prop, stops: stops });
@@ -1873,6 +2071,8 @@
 
         // close any open popups
         popup.remove();
+
+        // hide other schools when school is selected to reduce visual mess
         map.setLayoutProperty('schools', 'visibility', 'none');
 
         // create empty bounding geometry for fitBounds argument
@@ -2163,6 +2363,24 @@
             stat === 'count' ? 'count' : '';
   }
 
+  // TODO Create more granular fn for oddly colors schools (oranges, light blues, etc.)
+  // info panel:
+  // header dark text: iowa, la salle, missouri, purdue, vcu, wichita
+  // highlight dark text: oklahoma, oregon, UC Berkely, Baylor, indiana, iowa st, ks state, lsu, loyola, marquette, maryland, michigan, minnesota, pittsburg, st louis, unlv, usc,
+  //
+
+  // both dark: iowa, missouri, wichita, la salle, vcu, purdue
+  // light text, dark subtext: georgia tech??, unc, miami, florida, ok state, clemson
+  function adjustLabelColors(school, subtext = false) {
+    const schools = ['Iowa', 'Missouri', 'Purdue', 'Georgia Tech', 'VCU', 'La Salle', 'Wichita State', 'Oklahoma State', 'Clemson', 'Vandy', 'Florida', 'Miami (FL)'];
+    if (schools.includes(school)) {
+      return subtext ? '#333' : '#555';
+    } else {
+      return subtext ? '#CCC' : 'whitesmoke';
+    }
+  }
+
+
   function onSchoolHover() {
     // empty hoverId, resets on each school mouseover
     let hoverId = null;
@@ -2175,9 +2393,9 @@
       // TODO add +/- overall avg?
 
       // University of Iowa, Creighton, Mizzou, Purdue, Georgia IT, VCU, La Salle
-      console.log(e.features[0].properties);
       label.css('background', e.features[0].properties['color_1']);
-      label.css('color', 'whitesmoke');
+      label.css('color', adjustLabelColors(e.features[0].properties.school_common_name));
+      labelSubText.css('color', adjustLabelColors(e.features[0].properties.school_common_name, true));
 
       label.addClass('visible');  // make popup visible on school mouseover
       labelText.text(e.features[0].properties.school_full_name);  // apply school name to label
