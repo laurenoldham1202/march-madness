@@ -319,13 +319,19 @@
 
     /* ------------------------------------------------------------ */
 
+    .modal-dialog {
+      max-width: 700px !important;
+    }
+
+    .modal-text {
+      height: 30rem;
+      overflow: scroll;
+    }
+
     .scroll {
-      /*display: flex;*/
       margin-top: 1.45rem;
       width: 8rem;
       text-align: center;
-      /*padding: 1rem;*/
-      /*float: right;*/
       color: #0146a1;
     }
 
@@ -721,32 +727,62 @@
 
 <div class="modal fade" id="about-modal" role="dialog">
   <div class="modal-dialog">
-
-    <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">About</h4>
+        <h4 class="modal-title">March Madness Seeding Explained</h4>
       </div>
-      <div class="modal-body">
-        <p>Explore the most dominant DI men's college basketball teams.</p>
-        <p>Teams are compiled based on the most overall wins (top 50 teams) and/or having a national championship title.</p>
-        <p>
-          Change the proportional circles by clicking a button with a rank type.
-          Circles can be style with or without school colors by toggling the switch at the bottom left of the map.
-          Mousing over a school circle will display a popup with some school statistics. Similarly, clicking a row on the table will reveal the same popup.
-        </p>
-        <br>
-        <p>
-          Data Sources:
-          <a href="https://en.wikipedia.org/wiki/Module:College_color" target="_blank">Team Hex Codes (1)</a>,
-          <a href="https://teamcolorcodes.com/ncaa-color-codes/" target="_blank">Team Hex Codes (2)</a>,
-          <a href="https://usteamcolors.com/ncaa-division-1/" target="_blank">Team Hex Codes (3)</a>,
-          <a href="https://en.wikipedia.org/wiki/List_of_teams_with_the_most_victories_in_NCAA_Division_I_men%27s_college_basketball" target="_blank">Rankings List</a>,
-          <a href="https://en.wikipedia.org/wiki/NCAA_Division_I_Men%27s_Basketball_Tournament" target="_blank">National Championship Titles</a>,
-          <a href="https://www.sports-reference.com/cbb/schools/" target="_blank">Additional Statistics</a>
-        </p>
-        <p>Map authored by Lauren Oldham, December 2019.</p>
+      <div class="modal-body" style="">
+        <div class="modal-text">
+        <p>Every year in March, college basketball fans anxiously await Selection Sunday to see if their team made the
+        NCAA Men’s Basketball National
+        Championship tournament, affectionately referred to as March Madness. March
+        Madness is a three week-long single-elimination tournament in which 64 teams compete to take home the highly coveted
+        National Championship title. The fun isn’t just reserved for fans - countless people from all across the globe fill out
+        tournament brackets and bet on which teams will make deep runs and ultimately win it all.</p>
 
+        While coaches, teams, and fans alike want to see their preferred team effortlessly stroll through
+        the Sweet Sixteen, Elite Eight, and Final Four to play in the National Championship game, they first have to
+        survive the first weekend of the tournament. Putting the ‘madness’ into March Madness, the first and second
+        rounds of the tournament (Round of 64 and Round of 32, respectively) are historically filled with the most
+        chaos, with underdog teams defying odds by knocking out highly favored teams early on. <span class="bold">Because of the
+        precedence for upsets in the first round of the tournament, there is a lot of focus on the matchups and
+        locations for each competing team.</span>
+
+        <p>Selection Sunday does more than just determine who gets into the tournament - it also
+        determines where the chosen teams play, who they play against, and how highly they are ranked.</p>
+
+        <p>Each team is listed from best to worst with an overall rank, a number 1 to 64*, in which 1
+        represents the overall best team in the tournament and 64 represents the worst. These rankings are then
+        grouped into 16 seeds of four teams each, wherein 1 seeds are the best teams and 16 seeds are the worst
+        teams. Many considerations go into the creation of March Madness brackets, but the idea is that <span class="bold">higher
+        seeds are rewarded for their regular season performance by playing against the lowest ranked teams. </span>
+        Additionally, <span class="bold">the selection committee is supposed to give top ranked teams geographic preference in their
+        first round sites.</span></p>
+
+        <p><span class="bold">Because March Madness is a single-elimination tournament, teams only have one shot in each round to advance to the next level.</span>
+          All teams put their best foot forward, but there's no room for an off game - one bad night can (and has) cost the best team in the nation
+          a shot at the national title. Many lower ranked teams don't make it into the tournament very often and have the tenacity to try to become
+          the next Cinderella story.
+          <p>Teams want every advantage at their disposal when going into the tournament, and having a closer first-round
+        site can be incredibly beneficial both physically and psychologically.</p>
+
+        <ul>
+        <li>Student athletes still officially
+        attend classes during the tournament, so shorter travel times are logistically easier; not only that, but
+        traveling long distances via bus or air can be physically draining.</li>
+        <li>Games are played from early morning to
+        late at night across multiple time zones, so it's also ideal to play in or near your home time zone. </li>
+        <li>Perhaps
+        most importantly, playing near your school allows your fanbase to easily travel to the games, simulating
+        as much of a <a href="https://kenpom.com/blog/mining-point-spread-data-home-court-advantage/" target="_blank">
+          home court advantage</a> as possible. When the tides turn against a team in a game, nothing fires them up
+        like a raucous home crowd.</li>
+        </ul>
+
+        <p><span class="bold">The NCAA Selection Committee claims to give geographic preference to the top seeds in order of their rank </span>-
+        one seeds get the highest preference, then two seeds, then three, then four (remaining seeds are not given
+        explicit geographic considerations).</p>
+        </div>
       </div>
     </div>
 
