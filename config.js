@@ -68,9 +68,9 @@ traveled an average distance of 147 miles to their first-round game.
 <!--Securing a top seed is intended to reward top-performing teams for dominating the regular season (prior to the -->
 <!--tournament). Unlike many professional sports' championship tournaments, March Madness is a single-elimination tournament,-->
 <!--meaning that teams only have one chance per match-up to advance until a final winner is left.-->
-Top-performing schools are rewarded for their regular season performance in several ways, but most importantly, (1) they
-are matched up against the lowest ranked teams in the tournament, and (2) they get to play close to home early in the 
-tournament.
+Top-performing schools are rewarded for their regular season performance in several ways, but most importantly, <strong>(1) they
+are matched up against the lowest ranked teams in the tournament</strong>, and <strong>(2) they get to play close to home early in the 
+tournament.</strong>
 
 <br><br>
 In a single elimination tournament, every edge a team has can make or break their chances at advancing toward the 
@@ -838,7 +838,7 @@ year's tournament.
         },
         {
             id: 'chapter-18',  // 18
-            title: 'Conferences with the Lowest Mean Travel Distance',
+            title: 'Conferences with the Shortest Mean Travel Distance',
             image: '',
             description: `On the flip side, the conferences with the lowest mean travel distances are more centrally-
             located, with the <span style="color: #F2B701;"><strong>Big 12 Conference</strong></span> traveling an 
@@ -850,7 +850,7 @@ year's tournament.
         },
       {
         id: 'chapter-19',  // 19
-        title: 'Conferences with the Lowest Weighted Mean Travel Distance',
+        title: 'Conferences with the Shortest Weighted Mean Travel Distance',
         image: '',
         description: `Applying weights to the conference distances, however, paints an unclear picture of any geographic trends. 
         These conferences are vaguely concentrated in the Great Plains/Southeast, but are not strictly bound there.
