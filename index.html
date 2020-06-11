@@ -347,7 +347,7 @@
     }
 
     .scroll {
-      margin-top: 1.45rem;
+      /*margin-top: 1.45rem;*/
       width: 8rem;
       text-align: center;
       color: #0146a1;
@@ -519,6 +519,17 @@
       color: #0146a1;
     }
 
+    .button-icon {
+      cursor: pointer;
+      color: #414140;
+      line-height: 25px;
+      margin-top: 0 !important;
+    }
+
+    .button-icon:hover {
+      color: #0146a1;
+    }
+
     @media (max-width: 750px) {
       #features {
         width: 90vw;
@@ -528,7 +539,7 @@
 
     @media (max-width: 1337px) {
       .scroll {
-        margin-top: 1rem;
+        /*margin-top: 1rem;*/
       }
 
       .circle {
@@ -1495,7 +1506,13 @@
           } else if (id === 'chapter-3') {
             triggerAnimation();
           } else if (id === 'chapter-4') {
-            // nothing
+
+            // map.style.stylesheet.layers.forEach((layer) => {
+            //   if (layer.type === 'line') {
+            //     map.setLayoutProperty(layer.id, 'visibility', 'none');
+            //   }
+            // });
+
           } else if (id === 'chapter-5') {
             resetExtent(true);
             map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up

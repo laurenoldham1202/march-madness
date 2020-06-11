@@ -13,7 +13,7 @@ const config = {
             description: `
 <p><span class="capital-font" style="font-size: 26pt;">Every year in March,</span> 
 the top college basketball programs anxiously await Selection Sunday, which determines <em>who</em> and <em>where</em>
-teams will play during March Madness.</p>
+teams will play during March Madness. <span class="material-icons button-icon" id="details-modal" data-toggle="modal" data-target="#about-modal">help</span></p> 
 
 <p>Top ranked teams are supposed to be given a geographic advantage early in the tournament, which is intended to 
 <strong>simulate a home-court advantage</strong> - if they play close to 'home,' fanbases are able to travel to watch 
@@ -24,12 +24,16 @@ The map shows the overall top ranked teams (1 seeds) from the 2012 NCAA Men's Ba
 traveled an average distance of 147 miles to their first-round game.
 </div>
 
-<div class="buttons" style="justify-content: center; display: flex;">
-    <button class="button" id="details-modal" data-toggle="modal" data-target="#about-modal">INFO</button>
-    <button class="button" id="skip-story">SKIP STORY</button>
-      <div class="scroll">Scroll &#8681;</div>
+<!--<div class="buttons" style="justify-content: center; display: flex;">-->
+<!--    <button class="button" id="details-modal" data-toggle="modal" data-target="#about-modal">INFO</button>-->
+<!--    <button class="button" id="skip-story">SKIP STORY</button>-->
+<!--      <div class="scroll">Scroll &#8681;</div>-->
 
+<!--</div>-->
+<div class="scroll-container" style="width: 100%; overflow: hidden;">
+  <div class="scroll" style="float: right;">Scroll &#8681;</div>
 </div>
+
             `,
             image: './images/logo.png',
             location: {
