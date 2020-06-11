@@ -174,7 +174,7 @@ in the first round of the 2012 tournament, despite having traveled fewer than 50
                 // bearing: 0.00,
                 center: { lon: -106.41378, lat: 37.33339 },
                 zoom: 4,
-                pitch: 2.50,
+                pitch: 0,
                 bearing: 0.00
             },
             description: `
