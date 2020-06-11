@@ -145,16 +145,30 @@
     }
 
     #extent {
+      /*height: 38px;*/
+      /*width: 38px;*/
+      /*line-height: 38px;*/
+      /*z-index: 1000;*/
+      /*background: white;*/
+      /*border: 2px solid rgba(10, 10, 10, 0.1);*/
+      /*border-radius: 4px;*/
+    }
+
+    .map-button {
       height: 38px;
       width: 38px;
       line-height: 38px;
-      z-index: 1000;
+      z-index: 2200;
       background: white;
       border: 2px solid rgba(10, 10, 10, 0.1);
       border-radius: 4px;
     }
 
     #extent:hover {
+      background: #eee;
+    }
+
+    .map-button:hover {
       background: #eee;
     }
 
@@ -613,8 +627,13 @@
 
 <div class="map-explore">
   <div class="map-control">
-    <button id="extent"><span class="material-icons">public</span></button>
+    <button id="extent" class="map-button"><span class="material-icons">public</span></button>
   </div>
+  <div class="map-control" style="bottom: 1rem !important; top: auto !important; left: 25rem;">
+    <button id="legend" class="map-button"><span class="material-icons">legend_toggle</span></button>
+  </div>
+
+  <div class="map-legend" style="position: absolute; bottom: 1rem; left: 28rem;"></div>
 
   <div class="label">
     <div class="label-text"></div>
@@ -1077,6 +1096,67 @@
     }
   });
 
+  $('#legend').on('click', (e) => {
+
+    console.log(e.target.innerText);
+
+    if (e.target.innerText === 'legend_toggle') {
+      $('#legend').html(`<span class="material-icons">close</span>`);
+
+      const schoolLegend = `
+    <div class="legend-container" style="background: white;padding: 0.5rem;border-radius: 4px; display: flex;">
+    <div class="tmp">
+      <div class="legend-row">
+          <div class="circle" style="width: 8px; height: 8px;"></div>
+          <div class="circle" style="width: 16px; height: 16px;"></div>
+          <div class="circle" style="width: 23px; height: 23px;"></div>
+          <div class="circle" style="width: 31px; height: 31px;"></div>
+          <div class="circle" style="width: 44px; height: 44px;"></div>
+          <div class="circle" style="width: 77px; height: 77px;"></div>
+      </div>
+
+      <div class="legend-row">
+          <div class="legend-label" style="width: 38px;">250</div>
+          <div class="legend-label" style="width: 46px;">500</div>
+          <div class="legend-label" style="width: 53px;">750</div>
+          <div class="legend-label" style="width: 61px;">1000</div>
+          <div class="legend-label" style="width: 74px;">1500</div>
+          <div class="legend-label" style="width: 107px;">2500</div>
+      </div>
+<div style="margin-top: 0.5rem">Schools (mean travel distance in miles)</div>
+</div>
+<div class="tmp" style="margin-top: auto;">
+      <div class="legend-row">
+        <div class="circle" style="width: 10px; height: 10px; background: #80bad1 !important;"></div>
+        <div class="circle" style="width: 16px; height: 16px; background: #5694c1 !important;"></div>
+        <div class="circle" style="width: 22px; height: 22px; background: #2c6db1 !important;"></div>
+        <div class="circle" style="width: 28px; height: 28px; background: #0146a1 !important;"></div>
+      </div>
+      <div class="legend-row">
+        <div class="legend-label" style="width: 38px;">1 </div>
+        <div class="legend-label" style="width: 46px;">2 </div>
+        <div class="legend-label" style="width: 53px;">3 </div>
+        <div class="legend-label" style="width: 61px;">4 </div>
+      </div>
+            <div style="margin-top: 0.5rem">Site locations as seed values</div>
+
+      </div>
+
+    </div>`;
+
+      $('.map-legend').append(schoolLegend);
+    } else {
+      console.log('remove');
+      $('.legend-container').detach();
+      $('#legend').html(`<span class="material-icons">legend_toggle</span>`);
+
+
+    }
+
+
+
+  });
+
   resizeWindow();
 
   // filter 2012 example on seed box mouseover
@@ -1228,6 +1308,28 @@
     story.detach();
     mapExplorer.css('visibility', 'visible');
 
+//     $('.sidebar').append(
+//       `<div class="legend-container">
+//     <div class="legend-row">
+//         <div class="circle" style="width: 8px; height: 8px;"></div>
+//         <div class="circle" style="width: 16px; height: 16px;"></div>
+//         <div class="circle" style="width: 23px; height: 23px;"></div>
+//         <div class="circle" style="width: 31px; height: 31px;"></div>
+//         <div class="circle" style="width: 44px; height: 44px;"></div>
+//         <div class="circle" style="width: 77px; height: 77px;"></div>
+//     </div>
+//
+//     <div class="legend-row">
+//         <div class="legend-label" style="width: 38px;">250</div>
+//         <div class="legend-label" style="width: 46px;">500</div>
+//         <div class="legend-label" style="width: 53px;">750</div>
+//         <div class="legend-label" style="width: 61px;">1000</div>
+//         <div class="legend-label" style="width: 74px;">1500</div>
+//         <div class="legend-label" style="width: 107px;">2500</div>
+//     </div>
+// </div>`
+//     );
+
     // hide progress bar
     $('.chapter-list').css('visibility', 'hidden');
 
@@ -1245,6 +1347,7 @@
     infoBtnSeed.addClass('visible');  // display 'seed >' button
   }
 
+  // TODO FIX BUG: Double clicking Story Mode causes break
   function enterStoryMode() {
     mapExplorer.css('visibility', 'hidden');
     $('.chapter-list').css('visibility', 'visible');
@@ -1975,7 +2078,7 @@
         popup.remove();
 
         // hide other schools when school is selected to reduce visual mess
-        // map.setLayoutProperty('schools', 'visibility', 'none');
+        map.setLayoutProperty('schools', 'visibility', 'none');
 
         // create empty bounding geometry for fitBounds argument
         const layerGeometry = {type: 'Polygon', coordinates: []};
@@ -2013,13 +2116,13 @@
         });
 
 
-        // if (storyMode) {
-        //   const size = window.innerWidth <= 1215 ? 200 : 750;
-        //   map.fitBounds(turf.bbox(layerGeometry), { padding: {top: 100, bottom: 100, right: 200, left: size}, duration: 3000 });
-        // } else {
-        //   // fit bounds to school and sites
-        //   fitMapBounds(layerGeometry);
-        // }
+        if (storyMode) {
+          const size = window.innerWidth <= 1215 ? 200 : 750;
+          map.fitBounds(turf.bbox(layerGeometry), { padding: {top: 100, bottom: 100, right: 200, left: size}, duration: 3000 });
+        } else {
+          // fit bounds to school and sites
+          fitMapBounds(layerGeometry);
+        }
 
         // push linestring features to line layer source
         map.getSource('line').setData({ type: 'FeatureCollection', features: lineFeatures });
