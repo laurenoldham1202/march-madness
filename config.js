@@ -278,6 +278,12 @@ in the first round of the 2012 tournament, despite having traveled fewer than 50
             // TODO remove fitbounds from school selection to give better reference for distances?
           id: 'chapter-3',
           title: `Methodology`,
+            location: {
+                center: {lon: -116.5, lat: 41.5},
+                zoom: 3.5,
+                pitch: 0.00,
+                bearing: 0.00,
+            },
           description: `
 Tournament data for each top seed (1-4) and its respective first-round site location was 
 collected from <a href="https://www.sports-reference.com/cbb/postseason/" target="_blank">Sports Reference</a>. The data was
@@ -303,6 +309,12 @@ in the site's city center rather than the exact arena in which the game was play
         {
             id: 'chapter-4',
             title: 'Reading the Map',
+            location: {
+                center: {lon: -116.5, lat: 41.5},
+                zoom: 3.5,
+                pitch: 0.00,
+                bearing: 0.00,
+            },
             // TODO adjust these styles for responsive design
             description: `
 <strong>Schools</strong> are represented as proportional circles on the map (based on their unweighted mean travel 
