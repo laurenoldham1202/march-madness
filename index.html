@@ -2259,15 +2259,18 @@
             stat === 'count' ? 'count' : '';
   }
 
-  function adjustLightColors(school) {
-    // // both Oklahomas? Clemson, Vandy, Florida, Miami
-    const lightSchools = ['Iowa', 'Missouri', 'Purdue', 'Georgia Tech', 'VCU', 'La Salle', 'Wichita State'];
-    if (lightSchools.includes(school)) {
-      return '#414140';
+  // TODO Create more granular fn for oddly colors schools (oranges, light blues, etc.)
+  // both dark: iowa, missouri, wichita, la salle, vcu, purdue
+  // light text, dark subtext: georgia tech??, unc, miami, florida, ok state, clemson
+  function adjustLabelColors(school, subtext = false) {
+    const schools = ['Iowa', 'Missouri', 'Purdue', 'Georgia Tech', 'VCU', 'La Salle', 'Wichita State', 'Oklahoma State', 'Clemson', 'Vandy', 'Florida', 'Miami (FL)'];
+    if (schools.includes(school)) {
+      return subtext ? '#333' : '#555';
     } else {
-      return 'whitesmoke';
+      return subtext ? '#CCC' : 'whitesmoke';
     }
   }
+
 
   function onSchoolHover() {
     // empty hoverId, resets on each school mouseover
@@ -2282,7 +2285,8 @@
 
       // University of Iowa, Creighton, Mizzou, Purdue, Georgia IT, VCU, La Salle
       label.css('background', e.features[0].properties['color_1']);
-      label.css('color', adjustLightColors(e.features[0].properties.school_common_name));
+      label.css('color', adjustLabelColors(e.features[0].properties.school_common_name));
+      labelSubText.css('color', adjustLabelColors(e.features[0].properties.school_common_name, true));
 
       label.addClass('visible');  // make popup visible on school mouseover
       labelText.text(e.features[0].properties.school_full_name);  // apply school name to label
