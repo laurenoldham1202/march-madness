@@ -1097,35 +1097,42 @@
   });
 
   $('#legend').on('click', (e) => {
-
-    console.log(e.target.innerText);
-
     if (e.target.innerText === 'legend_toggle') {
-      $('#legend').html(`<span class="material-icons">close</span>`);
+      toggleLegendOpen();
+    } else {
+      $('.legend-container').detach();
+      $('#legend').html(`<span class="material-icons">legend_toggle</span>`);
+    }
+  });
 
-      const schoolLegend = `
-    <div class="legend-container" style="background: white;padding: 0.5rem;border-radius: 4px; display: flex;">
-    <div class="tmp">
-      <div class="legend-row">
+  function toggleLegendOpen() {
+    $('#legend').html(`<span class="material-icons">close</span>`);
+
+    const schoolLegend = `
+    <div class="legend-container" style="background: white; padding: 0.5rem; border-radius: 4px; display: flex;">
+      <div class="legend">
+        <div class="legend-row">
           <div class="circle" style="width: 8px; height: 8px;"></div>
           <div class="circle" style="width: 16px; height: 16px;"></div>
           <div class="circle" style="width: 23px; height: 23px;"></div>
           <div class="circle" style="width: 31px; height: 31px;"></div>
           <div class="circle" style="width: 44px; height: 44px;"></div>
           <div class="circle" style="width: 77px; height: 77px;"></div>
-      </div>
+        </div>
 
-      <div class="legend-row">
+        <div class="legend-row">
           <div class="legend-label" style="width: 38px;">250</div>
           <div class="legend-label" style="width: 46px;">500</div>
           <div class="legend-label" style="width: 53px;">750</div>
           <div class="legend-label" style="width: 61px;">1000</div>
           <div class="legend-label" style="width: 74px;">1500</div>
           <div class="legend-label" style="width: 107px;">2500</div>
+        </div>
+        <div style="margin-top: 0.5rem">Schools (mean travel distance in miles)</div>
       </div>
-<div style="margin-top: 0.5rem">Schools (mean travel distance in miles)</div>
-</div>
-<div class="tmp" style="margin-top: auto;">
+
+
+    <div class="legend" style="margin-top: auto;">
       <div class="legend-row">
         <div class="circle" style="width: 10px; height: 10px; background: #80bad1 !important;"></div>
         <div class="circle" style="width: 16px; height: 16px; background: #5694c1 !important;"></div>
@@ -1138,24 +1145,12 @@
         <div class="legend-label" style="width: 53px;">3 </div>
         <div class="legend-label" style="width: 61px;">4 </div>
       </div>
-            <div style="margin-top: 0.5rem">Site locations as seed values</div>
-
-      </div>
-
+      <div style="margin-top: 0.5rem">Site locations as seed values</div>
+    </div>
     </div>`;
 
-      $('.map-legend').append(schoolLegend);
-    } else {
-      console.log('remove');
-      $('.legend-container').detach();
-      $('#legend').html(`<span class="material-icons">legend_toggle</span>`);
-
-
-    }
-
-
-
-  });
+    $('.map-legend').append(schoolLegend);
+  }
 
   resizeWindow();
 
