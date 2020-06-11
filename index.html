@@ -328,6 +328,10 @@
       overflow: scroll;
     }
 
+    .modal-body {
+      padding: 2rem !important;
+    }
+
     .scroll {
       margin-top: 1.45rem;
       width: 8rem;
@@ -1969,7 +1973,9 @@
 
         // close any open popups
         popup.remove();
-        map.setLayoutProperty('schools', 'visibility', 'none');
+
+        // hide other schools when school is selected to reduce visual mess
+        // map.setLayoutProperty('schools', 'visibility', 'none');
 
         // create empty bounding geometry for fitBounds argument
         const layerGeometry = {type: 'Polygon', coordinates: []};
@@ -2007,13 +2013,13 @@
         });
 
 
-        if (storyMode) {
-          const size = window.innerWidth <= 1215 ? 200 : 750;
-          map.fitBounds(turf.bbox(layerGeometry), { padding: {top: 100, bottom: 100, right: 200, left: size}, duration: 3000 });
-        } else {
-          // fit bounds to school and sites
-          fitMapBounds(layerGeometry);
-        }
+        // if (storyMode) {
+        //   const size = window.innerWidth <= 1215 ? 200 : 750;
+        //   map.fitBounds(turf.bbox(layerGeometry), { padding: {top: 100, bottom: 100, right: 200, left: size}, duration: 3000 });
+        // } else {
+        //   // fit bounds to school and sites
+        //   fitMapBounds(layerGeometry);
+        // }
 
         // push linestring features to line layer source
         map.getSource('line').setData({ type: 'FeatureCollection', features: lineFeatures });
@@ -2260,6 +2266,11 @@
   }
 
   // TODO Create more granular fn for oddly colors schools (oranges, light blues, etc.)
+  // info panel:
+  // header dark text: iowa, la salle, missouri, purdue, vcu, wichita
+  // highlight dark text: oklahoma, oregon, UC Berkely, Baylor, indiana, iowa st, ks state, lsu, loyola, marquette, maryland, michigan, minnesota, pittsburg, st louis, unlv, usc,
+  //
+
   // both dark: iowa, missouri, wichita, la salle, vcu, purdue
   // light text, dark subtext: georgia tech??, unc, miami, florida, ok state, clemson
   function adjustLabelColors(school, subtext = false) {
