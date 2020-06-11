@@ -2,25 +2,26 @@
 
 ## I. Introduction
 
-Every year in March, the top 68 Division 1 men's college basketball programs are selected to compete for the NCAA's 
-national championship title in a single-elimination competition colloquially called March Madness. While the selection 
-process and tournament format for March Madness have changed considerably since its inception in 1939, countless fans 
-have become devoted to understanding and predicting the tournament field in the study of 'Bracketology.' The modern era 
-of the tournament began in 1985 with a final field of 64 teams and preferential seeding to determine the year's bracket.
+Every year in March, college basketball fans anxiously await Selection Sunday to see if their team made the NCAA Men’s Basketball National Championship tournament, affectionately referred to as March Madness. March Madness is a three week-long single-elimination tournament in which 64 teams compete to take home the highly coveted National Championship title. The fun isn’t just reserved for fans - countless people from all across the globe fill out tournament brackets and bet on which teams will make deep runs and ultimately win it all.
 
-In theory, higher ranked teams are rewarded by playing the lowest ranked teams in the tournament. Furthermore, according
-to the NCAA's selection process, top seeded teams are to have geographic preference over lower seeded teams in the first
-two rounds of the tournament (if possible - other factors are considered). **I want to analyze the first/second round 
-sites for each of the top 4 seeded teams (four teams in each seed for 16 total top teams each year) from 1985 to 2020 to 
-establish patterns, potential biases, and test the NCAA's claim of geographic preference.**
+While coaches, teams, and fans alike want to see their preferred team effortlessly stroll through the Sweet Sixteen, Elite Eight, and Final Four to play in the National Championship game, they first have to survive the first weekend of the tournament. Putting the ‘madness’ into March Madness, the first and second rounds of the tournament (Round of 64 and Round of 32, respectively) are historically filled with the most chaos, with underdog teams defying odds by knocking out highly favored teams early on. Because of the precedence for upsets in the first round of the tournament, there is a lot of focus on the matchups and locations for each competing team. Furthermore, unlike most professional sports tournaments, March Madness is a sudden-death tournament in which each match-up only plays once - the winning team advances, while the losing team gets sent home until next year.
 
-Obsessed with so-called 'chaos,' college basketball fans thrive on the unpredictability of the first and second rounds of 
-the NCAA tournament. While higher ranked/seeded teams are expected to make deep runs, it is not uncommon for them to get upset 
-by lower ranked teams ([sorry UVA fans](https://www.usatoday.com/story/sports/college/columnist/dan-wolken/2018/03/17/umbc-virginia-upset-jairus-lyles-ncaa-tournament/434704002/)).
-Teams want every advantage they can entering the first weekend of the tournament. The advantage of playing at a site 
-closer to the school location is both pragmatic and psychological. The players are still attending classes, so it is 
-logistically easier to travel shorter distances. Furthermore, playing closer to the school allows the team's fan base
-and families a better opportunity to watch them play, giving them as much of a [home court advantage](https://kenpom.com/blog/mining-point-spread-data-home-court-advantage/) as possible. 
+Selection Sunday does more than just determine who gets into the tournament - it also determines where the chosen teams play, who they play against, and how highly they are ranked.
+
+Each team is listed from best to worst with an overall rank, a number 1 to 64*, in which 1 represents the overall best team in the tournament and 64 represents the worst. These rankings are then grouped into 16 seeds of four teams each, wherein 1 seeds are the best teams and 16 seeds are the worst teams. 
+
+Many considerations go into the creation of March Madness brackets, but the idea is that higher seeds are rewarded for their regular season performance by playing against the lowest ranked teams. Additionally, the selection committee is supposed to give top ranked teams geographic preference in their first round sites.
+
+Because March Madness is a single-elimination tournament, teams only have one shot in each round to advance to the next level. All teams put their best foot forward, but there's no room for an off game - one bad night can (and has) cost the best team in the nation a shot at the national title. Many lower ranked teams don't make it into the tournament very often and have the tenacity to try to become the next Cinderella story.
+
+Teams want every advantage at their disposal when going into the tournament, and having a closer first-round site can be incredibly beneficial both physically and psychologically.
+
+Student athletes still officially attend classes during the tournament, so shorter travel times are logistically easier; not only that, but traveling long distances via bus or air can be physically draining.
+Games are played from early morning to late at night across multiple time zones, so it's also ideal to play in or near your home time zone.
+Perhaps most importantly, playing near your school allows your fanbase to easily travel to the games, simulating as much of a [home court advantage](https://kenpom.com/blog/mining-point-spread-data-home-court-advantage/)  as possible. When the tides turn against a team in a game, nothing fires them up like a raucous home crowd.
+The NCAA Selection Committee claims to give geographic preference to the top seeds in order of their rank - one seeds get the highest preference, then two seeds, then three, then four (remaining seeds are not given explicit geographic considerations).
+
+**In this project, I test the claim that higher ranked/seeded teams are given geographic preference over lower ranked teams during the first tournament rounds of March Madness from 1985 to 2019.**
 
 ### A. Literature Review
 
