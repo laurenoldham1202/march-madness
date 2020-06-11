@@ -562,6 +562,12 @@
       }
     }
 
+    @media (max-width: 1489px) {
+      .button {
+        width: auto;
+      }
+    }
+
     @media (max-width: 830px) {
       .sidebar {
         top: 2.5rem;
@@ -1157,6 +1163,7 @@
     });
   }
 
+  // TODO Readjust responsive design for new opening introduction chapters
   function adjustMapCenter(innerWidth) {
     const isSmallScreen = innerWidth <= 1215;
     const refLon = isSmallScreen ? -116.5 : -98.5795;
