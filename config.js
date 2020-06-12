@@ -24,12 +24,6 @@ The map shows the overall top ranked teams (1 seeds) from the 2012 NCAA Men's Ba
 traveled an average distance of 147 miles to their first-round game.
 </div>
 
-<!--<div class="buttons" style="justify-content: center; display: flex;">-->
-<!--    <button class="button" id="details-modal" data-toggle="modal" data-target="#about-modal">INFO</button>-->
-<!--    <button class="button" id="skip-story">SKIP STORY</button>-->
-<!--      <div class="scroll">Scroll &#8681;</div>-->
-
-<!--</div>-->
 <div class="scroll-container" style="width: 100%; overflow: hidden;">
   <div class="scroll" style="float: right;">Scroll &#8681;</div>
 </div>
