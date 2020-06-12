@@ -1572,9 +1572,13 @@
             // resetExtent(true);
 
           } else if (id === 'chapter-7') {  // 7
+            // TODO fix bug when going from shortest travel distance chapter back to these filters
+            map.setPaintProperty('schools', 'circle-color', '#E27600');
+            // map.setFilter('schools', ['has', 'school_common_name']);
             const oneCount = ['VCU','Virginia Tech','Dayton','Saint Louis','Creighton','Minnesota','TCU','Houston','Loyola–Chicago','California','Texas A&M','Nebraska','Southern Illinois','Butler','La Salle','DePaul'];
             filterMatchMultiple(oneCount);
           } else if (id === 'chapter-8') {  // 8
+            map.setPaintProperty('schools', 'circle-color', '#E27600');
             const tenCount = ['Michigan', 'Arizona', 'UConn', 'Maryland', 'UCLA', 'Indiana', 'Cincinnati', 'Kentucky', 'Pittsburgh', 'North Carolina', 'Louisville', 'Purdue', 'Michigan State', 'Kansas', 'Oklahoma', 'Syracuse', 'Georgetown', 'Florida', 'Duke', 'Villanova', 'Illinois', 'Ohio State'];
             filterMatchMultiple(tenCount);
           } else if (id === 'chapter-9') {  // 9
