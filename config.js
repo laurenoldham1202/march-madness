@@ -461,6 +461,12 @@ year's tournament.
             id: 'chapter-7',  // 7
             title: 'Schools with 1 Appearance as Top Seed',
             image: '',
+            location: {
+                center: {lon: -116.5, lat: 41.5},
+                zoom: 3.5,
+                pitch: 0.00,
+                bearing: 0.00,
+            },
             description: `
             For many schools, making it into the tournament is a huge accomplishment by itself - earning a top seed is
             even more uncommon.
@@ -508,6 +514,12 @@ year's tournament.
             id: 'chapter-8',  // 8
             title: 'Schools with 10+ Appearances as Top Seed',
             image: '',
+            location: {
+                center: {lon: -116.5, lat: 41.5},
+                zoom: 3.5,
+                pitch: 0.00,
+                bearing: 0.00,
+            },
             description: `
             On the flip side, many schools have strong programs that consistently perform at the top level - <strong>22
             schools have made 10 or more appearances as a top seed</strong>, traveling a mean distance very close to the
