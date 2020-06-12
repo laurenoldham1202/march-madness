@@ -2437,18 +2437,12 @@
             stat === 'count' ? 'count' : '';
   }
 
-  // TODO Create more granular fn for oddly colors schools (oranges, light blues, etc.)
-  // info panel:
-  // header dark text: iowa, la salle, missouri, purdue, vcu, wichita
-  // highlight dark text: oklahoma, oregon, UC Berkely, Baylor, indiana, iowa st, ks state, lsu, loyola, marquette, maryland, michigan, minnesota, pittsburg, st louis, unlv, usc,
-  //
-
   // both dark: iowa, missouri, wichita, la salle, vcu, purdue
   // light text, dark subtext: georgia tech??, unc, miami, florida, ok state, clemson
   function adjustLabelColors(school, subtext = false) {
-    const schools = ['Iowa', 'Missouri', 'Purdue', 'Georgia Tech', 'VCU', 'La Salle', 'Wichita State', 'Oklahoma State', 'Clemson', 'Vandy', 'Florida', 'Miami (FL)'];
+    const schools = ['Iowa', 'Missouri', 'Purdue', 'Georgia Tech', 'VCU', 'La Salle', 'Wichita State', 'Oklahoma State', 'Clemson', 'Vandy', 'Florida', 'Miami (FL)', 'North Carolina'];
     if (schools.includes(school)) {
-      return subtext ? '#333' : '#555';
+      return subtext ? '#444' : '#555';
     } else {
       return subtext ? '#CCC' : 'whitesmoke';
     }
