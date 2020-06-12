@@ -522,7 +522,7 @@
     .button-icon {
       cursor: pointer;
       color: #414140;
-      line-height: 25px;
+      line-height: 18px;
       margin-top: 0 !important;
     }
 
@@ -2214,11 +2214,23 @@
     // apply colors associated with selected school to info cards
     infoHeader.css('background', feature.properties.color_1);
     infoHeader.css('border-color', feature.properties.color_2);
+    infoHeader.css('color', adjustHeaderColor(feature.properties));
 
     // add style tags because jQuery does not apply to CSS pseudo classes
-    infoHeader.append(`<style>.info-row:hover > .info-stat {background: ${feature.properties.color_2}</style>`)
-    infoHeader.append(`<style>.info-row:hover > .info-stat {border-color: ${feature.properties.color_2}</style>`)
-    infoHeader.append(`<style>.info-row:hover > .info-text {border-color: ${feature.properties.color_2}</style>`)
+    infoHeader.append(`<style>.info-row:hover > .info-stat {background: ${feature.properties.color_2}</style>`);
+    infoHeader.append(`<style>.info-row:hover > .info-stat {color: ${adjustInfoTextColor(feature.properties)}</style>`);
+    infoHeader.append(`<style>.info-row:hover > .info-stat {border-color: ${feature.properties.color_2}</style>`);
+    infoHeader.append(`<style>.info-row:hover > .info-text {border-color: ${feature.properties.color_2}</style>`);
+  }
+
+  function adjustInfoTextColor(featureProps) {
+    const schools = ['Oklahoma', 'Oregon', 'California', 'Baylor', 'Indiana', 'Iowa State', 'Kansas State', 'LSU', 'Loyola–Chicago', 'Marquette', 'Maryland', 'Michigan', 'Minnesota', 'Pittsburgh', 'Saint Louis', 'UNLV', 'USC'];
+    return schools.includes(featureProps.school_common_name) ? featureProps.color_1 : 'whitesmoke';
+  }
+
+  function adjustHeaderColor(featureProps) {
+    const schools = ['Iowa', 'Missouri', 'Wichita State', 'La Salle', 'VCU', 'Purdue'];
+    return schools.includes(featureProps.school_common_name) ? featureProps.color_2 : 'whitesmoke';
   }
 
   function differenceText(value) {
@@ -2441,7 +2453,6 @@
       return subtext ? '#CCC' : 'whitesmoke';
     }
   }
-
 
   function onSchoolHover() {
     // empty hoverId, resets on each school mouseover
