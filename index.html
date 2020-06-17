@@ -845,30 +845,29 @@
 
           <div class="seed-hl-row">
             <div class="seed-hl" style="background: #80bad1">
-              <div class="seed-hl-title">1 SEED</div>
+              <div class="seed-hl-title" style="color:white">1 SEED</div>
               <div class="seed-hl-text">1.00</div>
             </div>
 
             <div class="seed-hl" style="background: #5694c1">
               <div class="seed-hl-title">2 SEED</div>
-              <div class="seed-hl-text">0.75</div>
+              <div class="seed-hl-text">0.73</div>
             </div>
 
             <div class="seed-hl" style="background: #2c6db1">
               <div class="seed-hl-title">3 SEED</div>
-              <div class="seed-hl-text">0.50</div>
+              <div class="seed-hl-text">0.51</div>
             </div>
 
             <div class="seed-hl" style="background: #0146a1">
               <div class="seed-hl-title">4 SEED</div>
-              <div class="seed-hl-text">0.25</div>
+              <div class="seed-hl-text">0.43</div>
             </div>
           </div>
           <br>
-          The weights are roughly proportional to the pool of first round site locations. For the 16 top seeded teams,
-          there are 16 possible (non-unique) site locations. 1 seeds get premiere geographic preference (~100% of
-          teams get optimal placement). 2 seeds get top pick from the remaining pool (12/16), then 3 seeds from that
-          remaining pool (8/16), and finally, 4 seeds get the remaining pick (4/16).
+          The weights are derived from the overall seed averages. Based on data from 1985 to 2019, <strong>2 seeds
+          travel ~1.3 times farther than 1 seeds</strong> (353/482 = 0.73), <strong>3 seeds travel nearly double the distance of 1
+          seeds</strong> (353/689 = 0.51), and <strong>4 seeds travel ~2.3 times farther than 1 seeds</strong> (353/829 = 0.43).
         </div>
       </div>
     </div>
@@ -1431,13 +1430,17 @@
   // const sitesJson = d3.json('data/cleaned/sites-all-edit.json');
   const sitesJson = d3.json('data/edits/distances-sites-GCD.json');
   // const schoolsJson = d3.json('data/cleaned/schools-agg.json');
-  const schoolsJson = d3.json('data/edits/schools-wtAvg.json');
+  // const schoolsJson = d3.json('data/edits/schools-wtAvg.json');
+  const schoolsJson = d3.json('data/new_weights/schools-wtAvg-NEWWEIGHTS.json');
   // const seedsJson = d3.json('data/cleaned/seeds-by-school.json');
-  const seedsJson = d3.json('data/edits/seeds-by-school.json');
+  // const seedsJson = d3.json('data/edits/seeds-by-school.json');
+  const seedsJson = d3.json('data/new_weights/seeds-by-school-NEWWEIGHTS.json');
   // const seedsAggJson = d3.json('data/cleaned/seeds-overall.json');
-  const seedsAggJson = d3.json('data/edits/seeds-overall.json');
+  // const seedsAggJson = d3.json('data/edits/seeds-overall.json');
+  const seedsAggJson = d3.json('data/new_weights/seeds-overall-NEWWEIGHTS.json');
   // const confJson = d3.json('data/cleaned/conference-agg.json');
-  const confJson = d3.json('data/edits/conference-agg.json');
+  // const confJson = d3.json('data/edits/conference-agg.json');
+  const confJson = d3.json('data/new_weights/conference-agg-NEWWEIGHTS.json');
   const colorsJson = d3.json('data/cleaned/school-colors.json');
   const d1Json = d3.json('data/tmp/d1-schools-master.json');
   // const tourney2019 = d3.json('data/created/tourney-2019.json');

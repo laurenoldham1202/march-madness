@@ -647,30 +647,55 @@ year's tournament.
             
              <div class="seed-hl-row">
                 <div class="seed-hl" style="background: #80bad1">
-                    <div class="seed-hl-title">1 SEED</div>
+                    <div class="seed-hl-title" style="color:white">1 SEED</div>
                     <div class="seed-hl-text">1.00</div>
                 </div> 
                
                <div class="seed-hl" style="background: #5694c1">
                     <div class="seed-hl-title">2 SEED</div>
-                    <div class="seed-hl-text">0.75</div>
+                    <div class="seed-hl-text">0.73</div>
                 </div>
                        
                <div class="seed-hl" style="background: #2c6db1">
                     <div class="seed-hl-title">3 SEED</div>
-                    <div class="seed-hl-text">0.50</div>
+                    <div class="seed-hl-text">0.51</div>
                 </div>
                        
                <div class="seed-hl" style="background: #0146a1">
                     <div class="seed-hl-title">4 SEED</div>
-                    <div class="seed-hl-text">0.25</div>
+                    <div class="seed-hl-text">0.43</div>
                </div>
             </div>
             <br>
-            The weights are roughly proportional to the pool of first round site locations. For the 16 top seeded teams,
-            there are 16 possible (non-unique) site locations. 1 seeds get premiere geographic preference (~100% of 
-            teams get optimal placement). 2 seeds get top pick from the remaining pool (12/16), then 3 seeds from that 
-            remaining pool (8/16), and finally, 4 seeds get the remaining pick (4/16).
+            The weights are derived from the overall seed averages. Based on data from 1985 to 2019, <strong>2 seeds
+            travel ~1.3 times farther than 1 seeds</strong>, <strong>3 seeds travel nearly double the distance of 1
+            seeds</strong>, and <strong>4 seeds travel ~2.3 times farther than 1 seeds.</strong>
+  <!-- <div class="seed-hl-row">-->
+<!--                <div class="seed-hl" style="background: #80bad1">-->
+<!--                    <div class="seed-hl-title">1 SEED</div>-->
+<!--                    <div class="seed-hl-text">1.00</div>-->
+<!--                </div> -->
+<!--               -->
+<!--               <div class="seed-hl" style="background: #5694c1">-->
+<!--                    <div class="seed-hl-title">2 SEED</div>-->
+<!--                    <div class="seed-hl-text">0.75</div>-->
+<!--                </div>-->
+<!--                       -->
+<!--               <div class="seed-hl" style="background: #2c6db1">-->
+<!--                    <div class="seed-hl-title">3 SEED</div>-->
+<!--                    <div class="seed-hl-text">0.50</div>-->
+<!--                </div>-->
+<!--                       -->
+<!--               <div class="seed-hl" style="background: #0146a1">-->
+<!--                    <div class="seed-hl-title">4 SEED</div>-->
+<!--                    <div class="seed-hl-text">0.25</div>-->
+<!--               </div>-->
+<!--            </div>-->
+<!--            <br>-->
+<!--            The weights are roughly proportional to the pool of first round site locations. For the 16 top seeded teams,-->
+<!--            there are 16 possible (non-unique) site locations. 1 seeds get premiere geographic preference (~100% of -->
+<!--            teams get optimal placement). 2 seeds get top pick from the remaining pool (12/16), then 3 seeds from that -->
+<!--            remaining pool (8/16), and finally, 4 seeds get the remaining pick (4/16).-->
             `,
             location: {
                 center: { lon: -95.91291, lat: 36.54204 },
@@ -687,7 +712,7 @@ year's tournament.
         image: '',
         description: `The school with the highest mean travel distance with at least 5 appearances is <strong>St. John's University</strong>
              in Queens, New York. The Red Storm traveled an average of <strong>1,604 miles</strong> over 5 appearances. St. John's also represents
-             the highest WEIGHTED mean travel distance at 1,323 miles.
+             the highest WEIGHTED mean travel distance at 1,332 miles.
               
               <br><br>Interestingly, the Red Storm have fared better geographically
              as lower seeds than as higher seeds - they traveled 1,900+ miles in all three of their appearances as a 1 and 2 seed,
@@ -854,7 +879,7 @@ year's tournament.
             who averaged <span style="color: #11A579;"><strong>832 travel miles</strong></span>.
             
             <br><br>Even applying weights by seed couldn't help these conferences - they remained the first and third longest traveling
-            conferences, traveling a weighted 442 and 375 miles respectively.`,
+            conferences, traveling a weighted 483 and 457 miles respectively.`,
             onChapterEnter: [],
             onChapterExit: []
         },
@@ -870,20 +895,21 @@ year's tournament.
             onChapterEnter: [],
             onChapterExit: []
         },
-      {
-        id: 'chapter-19',  // 19
-        title: 'Conferences with the Shortest Weighted Mean Travel Distance',
-        image: '',
-        description: `Applying weights to the conference distances, however, paints an unclear picture of any geographic trends. 
-        These conferences are vaguely concentrated in the Great Plains/Southeast, but are not strictly bound there.
-        
-        <br><br>The <span style="color: #E68310;"><strong>Missouri Valley Conference</strong></span> has the overall shortest weighted travel distance at <span style="color: #E68310;"><strong>142 miles</strong></span>, but only has 2 March
-        Madness appearances. Four conferences have weighted travel distances between 280 and 288 miles: <span style="color: #F2B701;"><strong>Big 12 (280 miles)</strong></span>,
-        <span style="color: #3969AC;"><strong>Atlantic Coast Conference (282 miles)</strong></span>, <span style="color: #008695;"><strong>Mountain West Conference (283 miles)</strong></span>, and <span style="color: #f97b72;"><strong>Southeastern Conference (288 miles)</strong></span>.
-        `,
-        onChapterEnter: [],
-        onChapterExit: []
-      },
+      // TODO fix for new weights
+      // {
+      //   id: 'chapter-19',  // 19
+      //   title: 'Conferences with the Shortest Weighted Mean Travel Distance',
+      //   image: '',
+      //   description: `Applying weights to the conference distances, however, paints an unclear picture of any geographic trends.
+      //   These conferences are vaguely concentrated in the Great Plains/Southeast, but are not strictly bound there.
+      //
+      //   <br><br>The <span style="color: #E68310;"><strong>Missouri Valley Conference</strong></span> has the overall shortest weighted travel distance at <span style="color: #E68310;"><strong>142 miles</strong></span>, but only has 2 March
+      //   Madness appearances. Four conferences have weighted travel distances between 280 and 288 miles: <span style="color: #F2B701;"><strong>Big 12 (280 miles)</strong></span>,
+      //   <span style="color: #3969AC;"><strong>Atlantic Coast Conference (282 miles)</strong></span>, <span style="color: #008695;"><strong>Mountain West Conference (283 miles)</strong></span>, and <span style="color: #f97b72;"><strong>Southeastern Conference (288 miles)</strong></span>.
+      //   `,
+      //   onChapterEnter: [],
+      //   onChapterExit: []
+      // },
         {
             id: 'chapter-20',  // 20
             title: 'Conclusion',
