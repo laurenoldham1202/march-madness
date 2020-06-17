@@ -121,14 +121,13 @@ of appearances of each seed in a school's history.
 
 To allow for more accurate comparison amongst schools, weights were applied based on seed values.
 * 1 seeds: 1.00
-* 2 seeds: 0.75
-* 3 seeds: 0.50
-* 4 seeds: 0.25
+* 2 seeds: 0.73
+* 3 seeds: 0.51
+* 4 seeds: 0.43
 
-The weights are roughly proportional to the pool of first round site locations. For the 16 top seeded teams, there are 
-16 possible (non-unique) site locations. 1 seeds get premiere geographic preference (~100% of teams get optimal 
-placement). 2 seeds get top pick from the remaining pool (12/16), then 3 seeds from that remaining pool (8/16), and 
-finally, 4 seeds get the remaining pick (4/16).
+The weights are derived from the overall seed averages. Based on data from 1985 to 2019, 2 seeds
+travel ~1.3 times farther than 1 seeds (353/482 = 0.73), 3 seeds travel nearly double the distance of 1
+seeds (353/689 = 0.51), and 4 seeds travel ~2.3 times farther than 1 seeds (353/829 = 0.43).
 
 
 #### Sources
@@ -313,6 +312,11 @@ Furthermore, when considering geographically clustered conferences, it appears t
 shorter distances than Eastern/Western coastal teams**.
 
 ---
+#### Planned Work
+
+* Adjust responsive design (especially in story mode)
+* Add option to compare two school directly in explore mode
+* Rework March Madness terminology
 
 #### Future Considerations
 
