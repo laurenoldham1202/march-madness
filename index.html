@@ -86,7 +86,7 @@
     }
 
     #features {
-      padding-top: 4rem;
+      /*padding-top: 4rem;*/
       padding-bottom: 10vh;
       z-index: 100;
     }
@@ -645,15 +645,17 @@
 <div id="map-compare"></div>
 
 <!--<div class="btn">< Explore Mode</div>-->
-<button class="exit">< Exit comparison mode</button>
-<div class="doot">
-  <select id="school-compare-1" class="toolbar-select"></select>
-</div>
+<div class="comparison-mode" style="visibility: hidden;">
+  <button class="exit">< Exit comparison mode</button>
+  <div class="doot">
+    <select id="school-compare-1" class="toolbar-select"></select>
+  </div>
 
-<div class="tmp" style="position: fixed; top: 50vh;">
-<select id="school-compare-2" class="toolbar-select">
-  <option value="all">All Schools</option>
-</select>
+  <div class="tmp" style="position: fixed; top: 50vh;">
+    <select id="school-compare-2" class="toolbar-select">
+      <option value="all">All Schools</option>
+    </select>
+  </div>
 </div>
 
 <div class="toolbar">
@@ -1496,6 +1498,9 @@
     // TODO add 2 select inputs
     $('#map').css('height', '50vh');
     mapExplorer.css('visibility', 'hidden');
+
+    $('.comparison-mode').css('visibility', 'visible');
+
     $('#map-compare').css('visibility', 'visible');
     $('#map-compare').css('height', '50vh');
 
@@ -1521,6 +1526,9 @@
     $('#map-compare').css('height', '0');
     $('.btn-group').css('visibility', 'visible');
     $('.toolbar').css('pointer-events', 'auto');
+
+    $('.comparison-mode').css('visibility', 'hidden');
+
 
 
     // $('.footer-btn').css('visibility', 'visible');
