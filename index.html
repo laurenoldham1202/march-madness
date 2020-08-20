@@ -58,6 +58,15 @@
         z-index: -5;
     }
 
+    #map-compare {
+      bottom: 0;
+      height: 50vh;
+      width: 100vw;
+      position: fixed;
+      z-index: -5;
+      visibility: hidden;
+    }
+
     #header {
       padding: 2vh;
       text-align: center;
@@ -530,6 +539,14 @@
       color: #0146a1;
     }
 
+    .exit {
+      z-index: 2500;
+      border-radius: 4px;
+      margin: 0.5rem 0 0 0.5rem;
+      border: 1px solid #CCC;
+      color: #777;
+    }
+
     @media (max-width: 750px) {
       #features {
         width: 90vw;
@@ -622,10 +639,26 @@
 <body>
 
 <div id="map" class="map-story-mode"></div>
+<div id="map-compare"></div>
+
+<!--<div class="btn">< Explore Mode</div>-->
+<button class="exit">< Exit comparison mode</button>
+<div class="doot">
+  <select id="school-compare-1" class="toolbar-select"></select>
+</div>
+
+<div class="tmp" style="position: fixed; top: 50vh;">
+<select id="school-compare-2" class="toolbar-select">
+  <option value="all">All Schools</option>
+</select>
+</div>
 
 <div class="toolbar">
   <div class="chapter-list"></div>
   <div class="chapter-tooltip"></div>
+
+<!--  <div class="btn btn-secondary" id="comparison-mode" style="left: 24rem;">Comparison</div>-->
+
   <div class="btn-group btn-group-toggle app-mode-toggle" data-toggle="buttons">
     <label class="btn btn-secondary active" id="toggle-story-mode">
       <input type="radio" name="options" id="map-story" checked> Story Mode
@@ -633,12 +666,16 @@
     <label class="btn btn-secondary" id="toggle-explore-mode">
       <input type="radio" name="options" id="map-explore"> Explore Mode
     </label>
+<!--    <label class="btn btn-secondary" id="toggle-compare-mode" >-->
+<!--      <input type="radio" name="options" id="map-compare"> Compare-->
+<!--    </label>-->
   </div>
 </div>
 
 <div class="map-explore">
   <div class="map-control">
     <button id="extent" class="map-button"><span class="material-icons">public</span></button>
+    <button id="compare" class="map-button"><span class="material-icons">compare</span></button>
   </div>
   <div class="map-control" style="bottom: 1rem !important; top: auto !important; left: 25rem;">
     <button id="legend" class="map-button"><span class="material-icons">legend_toggle</span></button>
@@ -1012,6 +1049,13 @@
     // fadeTransition: 1000,
     fadeDuration: 1000,
     transformRequest: transformRequest
+  });
+
+  compareMap = new mapboxgl.Map({
+    container: 'map-compare',
+    style: config.style,
+    center: [0, 0],
+    zoom: 2,
   });
 
   // marker = new mapboxgl.Marker();
@@ -1440,6 +1484,17 @@
   $('#skip-story').on('click', () => {
     enterExploreMode(true);
     resetExtent();
+  });
+
+  // TODO BUG: Entering explore mode too fast breaks - check deployed version
+  $('#compare').on('click', () => {
+    // TODO Hide seed button
+    // TODO Go back to regular explore mode?
+    // TODO add 2 select inputs
+    $('#map').css('height', '50vh');
+    mapExplorer.css('visibility', 'hidden');
+    $('#map-compare').css('visibility', 'visible');
+
   });
 
 
@@ -2023,11 +2078,22 @@
       });
     });
 
+    const inputs = [schoolFilter, $('#school-compare-1'), $('#school-compare-2')];
     allSchools.sort();  // sort schools alphabetically
     allSchools.forEach(s => {
       // push all school names to schoolFilter dropdown
-      schoolFilter.append(`<option value="${s}">${s}</option>`);
+      // schoolFilter.append(`<option value="${s}">${s}</option>`);
+      // $('#school-compare-1').append(`<option value="${s}">${s}</option>`);
+      inputs.forEach(input => {
+        console.log(input);
+        pushSchoolsToInputs(input, s);
+      });
+
     });
+  }
+
+  function pushSchoolsToInputs(input, school) {
+    input.append(`<option value="${school}">${school}</option>`);
   }
 
   function resetFilter(filter) {
