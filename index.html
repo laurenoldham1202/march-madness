@@ -1507,6 +1507,13 @@
 
   });
 
+  $('.exit').on('click', () => {
+    enterExploreMode();
+    // TODO Reset full map height for map 1
+    // TODO hide map 2
+    // TODO add visibility and pointer events to toolbar
+  });
+
 
   // TODO Delete old json, replace with new
   // const sitesJson = d3.json('data/cleaned/sites-all-edit.json');
