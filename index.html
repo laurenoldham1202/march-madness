@@ -660,7 +660,7 @@
 <!--  <div class="btn btn-secondary" id="comparison-mode" style="left: 24rem;">Comparison</div>-->
 
   <div class="btn-group btn-group-toggle app-mode-toggle" data-toggle="buttons">
-    <label class="btn btn-secondary active" id="toggle-story-mode">
+    <label class="btn btn-secondary active" id="toggle-story-mode" >
       <input type="radio" name="options" id="map-story" checked> Story Mode
     </label>
     <label class="btn btn-secondary" id="toggle-explore-mode">
@@ -1495,6 +1495,16 @@
     mapExplorer.css('visibility', 'hidden');
     $('#map-compare').css('visibility', 'visible');
 
+    $('.btn-secondary').css('visibility', 'hidden');
+    // $('.btn-secondary').addClass('disabled');
+    // $('.btn-secondary').button('disable');
+    // $('.btn-secondary').css('pointer-events', 'none !important');
+    // $('.btn-group').prop('disabled', true);
+    // $('#map-story').prop('disabled', true);
+
+    $('.toolbar').css('pointer-events', 'none');
+    // $('#map-explore').css('pointer-events', 'none !important');
+
   });
 
 
@@ -2078,14 +2088,12 @@
       });
     });
 
+    // all school dropdown inputs (main school filter, 2 comparison inputs)
     const inputs = [schoolFilter, $('#school-compare-1'), $('#school-compare-2')];
     allSchools.sort();  // sort schools alphabetically
     allSchools.forEach(s => {
-      // push all school names to schoolFilter dropdown
-      // schoolFilter.append(`<option value="${s}">${s}</option>`);
-      // $('#school-compare-1').append(`<option value="${s}">${s}</option>`);
+      // loop through  dropdown inputs and push school names to each one
       inputs.forEach(input => {
-        console.log(input);
         pushSchoolsToInputs(input, s);
       });
 
