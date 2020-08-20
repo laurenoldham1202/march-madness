@@ -644,25 +644,20 @@
 <div id="map" class="map-story-mode"></div>
 <div id="map-compare"></div>
 
-<!--<div class="btn">< Explore Mode</div>-->
 <div class="comparison-mode" style="visibility: hidden;">
   <button class="exit">< Exit comparison mode</button>
-  <div class="doot">
+  <div class="comparison-filter">
     <select id="school-compare-1" class="toolbar-select"></select>
   </div>
 
-  <div class="tmp" style="position: fixed; top: 50vh;">
-    <select id="school-compare-2" class="toolbar-select">
-      <option value="all">All Schools</option>
-    </select>
+  <div class="comparison-filter" style="position: fixed; top: 50vh;">
+    <select id="school-compare-2" class="toolbar-select"></select>
   </div>
 </div>
 
 <div class="toolbar">
   <div class="chapter-list"></div>
   <div class="chapter-tooltip"></div>
-
-<!--  <div class="btn btn-secondary" id="comparison-mode" style="left: 24rem;">Comparison</div>-->
 
   <div class="btn-group btn-group-toggle app-mode-toggle" data-toggle="buttons">
     <label class="btn btn-secondary active" id="toggle-story-mode" >
@@ -1493,56 +1488,42 @@
 
   // TODO BUG: Entering explore mode too fast breaks - check deployed version
   $('#compare').on('click', () => {
-    // TODO Hide seed button
-    // TODO Go back to regular explore mode?
-    // TODO add 2 select inputs
-    $('#map').css('height', '50vh');
-    mapExplorer.css('visibility', 'hidden');
+    enterComparisonStyles();
+  });
 
-    $('.comparison-mode').css('visibility', 'visible');
+  function enterComparisonStyles() {
+    $('#map-compare').css('visibility', 'visible');  // make 2nd comparison map visible
+    $('#map-compare').css('height', '50vh');  // set 2nd comparison map to 50% height
+    $('.comparison-mode').css('visibility', 'visible');  // make comparison mode inputs visible
 
-    $('#map-compare').css('visibility', 'visible');
-    $('#map-compare').css('height', '50vh');
+    mapExplorer.css('visibility', 'hidden');  // hide all comparison mode divs (side panel)
+    $('#map').css('height', '50vh');  // reduce original map to 50% height
+    $('.toolbar').css('visibility', 'hidden');  // hide top toolbar divs
+    $('.toolbar').css('pointer-events', 'none');  // force stop toolbar click events even when hidden
 
-
-    // TODO do these 1 by 1 so '< seed' button doesn't show up
-    // $('.btn-secondary').css('visibility', 'hidden');
-    $('.btn-group').css('visibility', 'hidden');
-
-
-    $('.toolbar').css('pointer-events', 'none');
-
+    // hide whichever info footer btn is visible
     [infoBtnSchool, infoBtnSeed].forEach(footer => {
       if (footer.css('visibility') === 'visible') {
         footer.removeClass('visible');
       }
     });
-
-  });
+  }
 
   $('.exit').on('click', () => {
     // TODO adjust map center in top map?
-    $('#map').css('height', '100vh');
-    $('#map-compare').css('height', '0');
-    $('.btn-group').css('visibility', 'visible');
-    $('.toolbar').css('pointer-events', 'auto');
-
-    $('.comparison-mode').css('visibility', 'hidden');
-
-
-
-    // $('.footer-btn').css('visibility', 'visible');
-    // $('.footer-left > .footer-btn').css('visibility', 'hidden');
-
-    // $('.info-footer').css('visibility', 'visible');
-    // $('.footer-right.footer-btn').css('visibility', 'visible');
-
-
-    enterExploreMode();
-    // TODO Reset full map height for map 1
-    // TODO hide map 2
-    // TODO add visibility and pointer events to toolbar
+    exitComparisonStyles();
   });
+
+  function exitComparisonStyles() {
+    $('#map').css('height', '100vh');  // reset original map height to full view height
+    $('#map-compare').css('height', '0');  // set comparison map to 2 height for slide transition
+    $('.toolbar').css('visibility', 'visible');  // make top toolbar visible
+    $('.toolbar').css('pointer-events', 'auto');  // enable top toolbar click events
+    $('.comparison-mode').css('visibility', 'hidden');  // hide comparison mode inputs
+    enterExploreMode();  // make side panel visible again as you enter explore mode
+  }
+
+
 
 
   // TODO Delete old json, replace with new
