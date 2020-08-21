@@ -1577,6 +1577,7 @@
       // TODO Fix top map `<canvas class="mapboxgl-canvas">` height - should be 50vh
       map.flyTo({center: [-98.6, 39.8-18], zoom: 2.85 });
       enterComparisonStyles();
+      createAllCompareLayers(schools, sites);
 
       // console.log(filters.school);
 
@@ -1585,6 +1586,14 @@
     $('#school-compare-1').on('change', (e) => {
       selectSchoolOnMap(sites, false, e.target.value);
       map.flyTo({center: [-98.6, 39.8-18], zoom: 2.85 });
+      infoBtnSeed.removeClass('visible');  // UGH I HATE THIS BUG
+    });
+
+    $('#school-compare-2').on('change', (e) => {
+      // TODO Actually tie to input change
+      selectSchoolOnMapCompare(sites, false, 'Kentucky', compareMap);
+      // selectSchoolOnMap(sites, false, e.target.value);
+      map.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
       infoBtnSeed.removeClass('visible');  // UGH I HATE THIS BUG
     });
 
@@ -2355,6 +2364,103 @@
       }
     });
   }
+
+  function selectSchoolOnMapCompare(sites, storyMode = false, input, map) {  // TODO iterate over layer source instead of geojson directly
+
+    // reset info card to 'school' view any time a new school is selected
+    resetInfoCard();
+
+    const lineFeatures = [];
+    let min = null;
+    let max = null;
+
+    console.log(map.style);
+
+    map.getSource('schools')['_data'].features.forEach(feature => {
+
+      // selected school
+      if (feature.properties.school_common_name === input) {
+
+        // close any open popups
+        popup.remove();
+
+        // hide other schools when school is selected to reduce visual mess
+        map.setLayoutProperty('schools', 'visibility', 'none');
+
+        // create empty bounding geometry for fitBounds argument
+        const layerGeometry = {type: 'Polygon', coordinates: []};
+        // coordinate array (formatted[[0,0],[1,1],[...]) to be pushed to layerGeometry coordinates
+        // start with school point coordinates
+        const layerCoords = [feature.geometry.coordinates];
+
+        // loop through all tournament sites
+        sites.features.forEach(site => {
+          // filter sites for the selected school
+          if (site.properties.school_common_name === feature.properties.school_common_name) {
+            // console.log(site);
+            // push site coordinates to single array
+            layerCoords.push(site.geometry.coordinates);
+            // wrap coords
+            layerGeometry.coordinates = [layerCoords];
+
+            // push linestring features to a feature array to be inserted into lines layer geojson source
+            createLineFeatures(lineFeatures, site, feature);
+          }
+
+          // set minimum and maximum distances for info cards
+          // iterate through sites and match to the min and max distances traveled, to fixed with for exact match
+          if (site.properties.distance.toFixed(4) === feature.properties.min_dist.toFixed(4)) {
+            min = site.properties;
+          }
+          if (site.properties.distance.toFixed(4) === feature.properties.max_dist.toFixed(4)) {
+            max = site.properties;
+          }
+        });
+
+        // update linestrings as arcs
+        lineFeatures.forEach(line => {
+          arcLineString(line);
+        });
+
+
+        if (storyMode) {
+          const size = window.innerWidth <= 1215 ? 200 : 750;
+          map.fitBounds(turf.bbox(layerGeometry), { padding: {top: 100, bottom: 100, right: 200, left: size}, duration: 3000 });
+        } else {
+          // fit bounds to school and sites
+          fitMapBounds(layerGeometry);
+        }
+
+        // push linestring features to line layer source
+        map.getSource('line').setData({ type: 'FeatureCollection', features: lineFeatures });
+
+        // difference between school averages and overall averages // TODO add min and max avg? or compare against overall min and max?
+        const diffDistMed = (feature.properties['50%_dist'] - highlights['50%_dist']).toFixed();
+        const differenceDist = (feature.properties.mean_dist - highlights.mean_dist).toFixed();
+
+        const inputs = {
+          header: feature.properties.school_full_name,
+          card1: `${feature.properties.mean_dist.toFixed()} miles`,
+          card1text: `${feature.properties.mean_wtDist.toFixed()} miles WEIGHTED mean \n \n ${differenceDist} miles ${differenceText(differenceDist)} all-school average (${highlights.mean_dist} miles)`,
+          card2: `${feature.properties['50%_dist'].toFixed()} miles`,
+          card2text: `${feature.properties['50%_wtDist'].toFixed()} miles WEIGHTED median \n \n ${diffDistMed} miles  ${differenceText(diffDistMed)} all-school average (${highlights['50%_dist']} miles)`,
+          card3: `${feature.properties.min_dist.toFixed()} miles`,
+          card3text: `${min.city}, ${min.state} to ${min.site} as a ${min.seed} seed in ${min.year}`,
+          card4: `${feature.properties.max_dist.toFixed()} miles`,
+          card4text: `${max.city}, ${max.state} to ${max.site} as a ${max.seed} seed in ${max.year}`,
+          card5: feature.properties.count_dist,
+          card5text: 'Appearances as 1-4 seed',  // TODO put subinfoHeader w list of number of apperances as each seed
+        };
+        updateInfoCard(inputs);  // update highlights/info card with school info
+        applySchoolLabelStyles(feature);  // style mouseover label with school colors
+
+        // TODO make these fn dynamic by updating map input
+        styleLayersCompare(feature);  // style and filter school, site, and line layers based on selected school
+        setAvgDistanceLayerCompare(feature);  // set average distance circle at same location as selected school, apply source to layer
+      }
+    });
+  }
+
   // function selectSchoolOnMap(sites, storyMode = false) {  // TODO iterate over layer source instead of geojson directly
   //
   //   // reset info card to 'school' view any time a new school is selected
@@ -2521,6 +2627,38 @@
     });
   }
 
+  function setAvgDistanceLayerCompare(feature) {  // TODO rename fn
+    // create formatted mapbox/geojson feature to apply to avg-distance layer source
+    const avgDistance = [{
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: feature.geometry.coordinates,
+      },
+      properties: feature.properties,
+    }];
+
+    // apply geojson source to selected school layer
+    compareMap.getSource('selected-school').setData({ type: 'FeatureCollection', features: avgDistance });
+
+    // TODO apply to avg-distance layer - update with full agg values? (e.g. compare school min to overall min? or avg min?)
+    const property = setProperty();
+
+    // apply circle radius based on data-driven radiuses
+    compareMap.setPaintProperty('selected-school', 'circle-radius',
+      // radius dynamically determined by currently selected filters
+      { property: property, stops: createStops(compareMap.getSource('selected-school')['_data'], property) }
+    );
+
+    // apply above geojson to avg-distance layer
+    compareMap.getSource('avg-distance').setData({ type: 'FeatureCollection', features: avgDistance });
+
+    // toggle visibility of layer back on if previously set to none (e.g. in resetExtent)
+    ['avg-distance', 'selected-school'].forEach(layer => {
+      compareMap.setLayoutProperty(layer, 'visibility', 'visible');
+    });
+  }
+
   function styleLayers(feature) {
     // gray out non-selected schools
     grayOutSchools();
@@ -2529,6 +2667,17 @@
     ['sites', 'line'].forEach(layer => {
       map.setFilter(layer, ['==', 'school_common_name', feature.properties.school_common_name]);
       map.setLayoutProperty(layer, 'visibility', 'visible');
+    });
+  }
+
+  function styleLayersCompare(feature) {
+    // gray out non-selected schools
+    grayOutSchools();
+
+    // filter site layer and toggle visibility on for sites and lines that match the clicked school
+    ['sites', 'line'].forEach(layer => {
+      compareMap.setFilter(layer, ['==', 'school_common_name', feature.properties.school_common_name]);
+      compareMap.setLayoutProperty(layer, 'visibility', 'visible');
     });
   }
 
@@ -2774,6 +2923,22 @@
     }, layerInfo.before);  // layer to place before plotting
   }
 
+  function createCompareLayer(layerInfo, sourceData = { type: 'FeatureCollection', features: [] }) {
+    // layer without geojson source - source is added dynamically
+    compareMap.addLayer({
+      id: layerInfo.id,
+      type: layerInfo.type,
+      source: {
+        type: 'geojson',
+        data: sourceData,
+      },
+      paint: layerInfo.paint,
+      layout: {
+        visibility: layerInfo.visibility,
+      }
+    }, layerInfo.before);  // layer to place before plotting
+  }
+
   function createAllLayers(schools, sites) {
     // TODO SITES: Apply layering so that higher seeds/smaller circles plot on top of lower seeds
     // sort geojson in descending order to plot larger circles underneath smaller ones
@@ -2789,6 +2954,24 @@
     layerDetails.forEach(details => {
       const source = details === siteDetails ? sites : details === schoolDetails ? schools : null;
       createLayer(details, source);
+    });
+  }
+
+  function createAllCompareLayers(schools, sites) {
+    // TODO SITES: Apply layering so that higher seeds/smaller circles plot on top of lower seeds
+    // sort geojson in descending order to plot larger circles underneath smaller ones
+    // TODO Sort for each stat selection
+    // TODO SCHOOLS sorting causes bug when select school, click weighted toggle, then click a diff school - plots multi schools
+    // geojson.features.sort((a, b) => (a.properties.mean_dist > b.properties.mean_dist) ? 1 : -1).reverse();
+
+    const property = setProperty();
+    const stops = createStops(schools, property);
+    schoolDetails.paint['circle-radius'] = {property: property, stops: stops};
+
+    const layerDetails = [schoolDetails, siteDetails, lineStringDetails, avgDistanceDetails, selectedSchoolDetails];
+    layerDetails.forEach(details => {
+      const source = details === siteDetails ? sites : details === schoolDetails ? schools : null;
+      createCompareLayer(details, source);
     });
   }
 
