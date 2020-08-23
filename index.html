@@ -52,8 +52,11 @@
 
     #map {
       top: 0;
-      height: 100vh;
-      width: 100vw;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      /*height: 100vh;*/
+      /*width: 100vw;*/
       position: fixed;
       z-index: -5;
       transition: 0.3s ease-in-out height;
@@ -1507,7 +1510,9 @@
     $('.comparison-mode').css('visibility', 'visible');  // make comparison mode inputs visible
 
     mapExplorer.css('visibility', 'hidden');  // hide all comparison mode divs (side panel)
-    $('#map').css('height', '50vh');  // reduce original map to 50% height
+    // $('#map').css('height', '50vh');  // reduce original map to 50% height
+    $('#map').css('bottom', '50%');  // reduce original map to 50% height
+    map.resize();
     $('.toolbar').css('visibility', 'hidden');  // hide top toolbar divs
     $('.toolbar').css('pointer-events', 'none');  // force stop toolbar click events even when hidden
 
@@ -1591,9 +1596,9 @@
 
       selectSchoolOnMap(map, sites, false, $('#school-compare-1').val());
 
-      // TODO Fix top map `<canvas class="mapboxgl-canvas">` height - should be 50vh
-      map.flyTo({center: [-98.6, 39.8-15], zoom: 2.85 });
       enterComparisonStyles();
+      // TODO Fix top map `<canvas class="mapboxgl-canvas">` height - should be 50vh
+      map.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
       // createAllCompareLayers(schools, sites);
 
       // console.log(filters.school);
@@ -1601,8 +1606,9 @@
     });
 
     $('#school-compare-1').on('change', (e) => {
+      console.log('school changed')
       selectSchoolOnMap(map, sites, false, e.target.value);
-      map.flyTo({center: [-98.6, 39.8-15], zoom: 2.85 });
+      map.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
       infoBtnSeed.removeClass('visible');  // UGH I HATE THIS BUG
     });
 
