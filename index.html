@@ -1543,12 +1543,15 @@
   });
 
   function exitComparisonStyles() {
-    $('#map').css('height', '100vh');  // reset original map height to full view height
+    // $('#map').css('height', '100vh');  // reset original map height to full view height
+    $('#map').css('bottom', '0');  // reset original map height to full view height
     // $('#map > .mapboxgl-canvas').css('height', '100vh');  // reset original map height to full view height
     $('#map-compare').css('height', '0');  // set comparison map to 2 height for slide transition
     $('.toolbar').css('visibility', 'visible');  // make top toolbar visible
     $('.toolbar').css('pointer-events', 'auto');  // enable top toolbar click events
     $('.comparison-mode').css('visibility', 'hidden');  // hide comparison mode inputs
+
+    map.resize();
     enterExploreMode();  // make side panel visible again as you enter explore mode
   }
 
