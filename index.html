@@ -1526,6 +1526,7 @@
 
   function exitComparisonStyles() {
     $('#map').css('height', '100vh');  // reset original map height to full view height
+    $('#map > .mapboxgl-canvas').css('height', '100vh');  // reset original map height to full view height
     $('#map-compare').css('height', '0');  // set comparison map to 2 height for slide transition
     $('.toolbar').css('visibility', 'visible');  // make top toolbar visible
     $('.toolbar').css('pointer-events', 'auto');  // enable top toolbar click events
@@ -1591,6 +1592,7 @@
 
     $('#school-compare-2').on('change', (e) => {
       // TODO Actually tie to input change
+      // TODO MAKE FNS IN SELECTSCHOOLCOMPARE MORE DYNAMIC WITH MAP INPUT
       selectSchoolOnMapCompare(sites, false, 'Kentucky', compareMap);
       // selectSchoolOnMap(sites, false, e.target.value);
       map.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
