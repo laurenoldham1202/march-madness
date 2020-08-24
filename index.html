@@ -401,6 +401,11 @@
       font-size: 0.75rem !important;
     }
 
+    .compare-title {
+      font-weight: 600;
+      font-size: 0.75rem !important;
+    }
+
     .circle {
       background: #E27600;
       border-radius: 50px;
@@ -640,6 +645,21 @@
         visibility: hidden !important;
       }
     }
+
+    .comparison-stats {
+      background: white;
+      border: 1px solid black;
+      width: 12.5%;
+      margin: 0.5rem;
+      border-radius: 4px;
+      padding: 0.5rem;
+    }
+
+    .comparison-filter {
+      width: 100%;
+      display: flex;
+    }
+
   </style>
 </head>
 <body>
@@ -649,12 +669,29 @@
 
 <div class="comparison-mode" style="visibility: hidden;">
   <button class="exit">< Exit comparison mode</button>
-  <div class="comparison-filter">
+  <div class="comparison-filter school-1">
     <select id="school-compare-1" class="toolbar-select"></select>
+    <div class="comparison-stats">
+      <div class="compare-title">MEAN</div>
+      <div class="compare-text-mean-1"></div>
+    </div>
+    <div class="comparison-stats">
+      <div class="compare-title">MEDIAN</div>
+      <div class="compare-text-med-1"></div>
+    </div>
+    <div class="comparison-stats">
+      <div class="compare-title">MIN</div>
+      <div class="compare-text-min-1"></div>
+    </div>
+    <div class="comparison-stats">
+      <div class="compare-title">MAX</div>
+      <div class="compare-text-max-1"></div>
+    </div>
   </div>
 
-  <div class="comparison-filter" style="position: fixed; top: 50vh;">
+  <div class="comparison-filter school-2" style="position: fixed; top: 50vh;">
     <select id="school-compare-2" class="toolbar-select"></select>
+
   </div>
 </div>
 
@@ -1345,6 +1382,7 @@
     $(window).on('resize', (e) => {
       // console.log('resized')
       adjustMapCenter(e.target.innerWidth);
+      // map.resize();
     });
   }
 
@@ -1591,6 +1629,31 @@
     const tourney = data[7];
 
 
+    // function displayComparisonStats(schools, selectedSchool, schoolOrder) {
+    //   schools.features.forEach(school => {
+    //     if (school.properties.school_common_name === selectedSchool) {
+    //       console.log(returnStat('mean_dist'));
+    //       $(`.compare-text-mean-${schoolOrder}`).text(returnStat(school, 'mean_dist'));
+    //
+    //
+    //       // $(`.comparison-filter.school-${schoolOrder}`).append(`<div class="comparison-stats">MEAN: ${returnStat(school, 'mean_dist')}</div>`);
+    //       // $(`.comparison-filter.school-${schoolOrder}`).append(`<div class="comparison-stats">MEDIAN: ${returnStat(school, '50%_dist')}</div>`);
+    //       // $(`.comparison-filter.school-${schoolOrder}`).append(`<div class="comparison-stats">MIN: ${returnStat(school, 'min_dist')}</div>`);
+    //       // $(`.comparison-filter.school-${schoolOrder}`).append(`<div class="comparison-stats">MAX: ${returnStat(school, 'max_dist')}</div>`);
+    //       // $(`.comparison-filter.school-${schoolOrder}`).append(`<div class="comparison-stats">MAX: ${returnStat(school, 'max_dist')}</div>`);
+    //       // $(`.comparison-filter.school-${schoolOrder}`).append(`<div class="comparison-stats">MAX: ${returnStat(school, 'max_dist')}</div>`);
+    //       // $(`.comparison-filter.school-${schoolOrder}`).append(`<div class="comparison-stats">MAX: ${returnStat(school, 'max_dist')}</div>`);
+    //       // $(`.comparison-filter.school-${schoolOrder}`).append(`<div class="comparison-stats">MAX: ${returnStat(school, 'max_dist')}</div>`);
+    //       // mean, med, min, max
+    //       // by seed
+    //     }
+    //   });
+    // }
+    //
+    // function returnStat(school, stat) {
+    //   return school.properties[stat].toFixed() + ' miles';
+    // }
+
     // TODO BUG: Entering explore mode too fast breaks - check deployed version
     $('#compare').on('click', () => {
 
@@ -1606,13 +1669,34 @@
 
       // console.log(filters.school);
 
+        // schools.features.forEach(school => {
+        //   if (school.properties.school_common_name === filters.school) {
+        //     $('.compare-text-mean-1').text('blah');
+        //     console.log(school.properties);
+        //   }
+        // });
+      // displayComparisonStats(schools, filters.school, 1);
+
     });
 
     $('#school-compare-1').on('change', (e) => {
-      console.log('school changed')
+      // console.log('school changed')
       selectSchoolOnMap(map, sites, false, e.target.value);
       map.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
       infoBtnSeed.removeClass('visible');  // UGH I HATE THIS BUG
+
+      // console.log(filters.school);
+
+      // displayComparisonStats(schools, e.target.value, 1);
+      // schools.features.forEach(school => {
+      //   if (school.properties.school_common_name === e.target.value) {
+      //     console.log(school);
+      //     $(`.compare-text-mean-${1}`).text(school.properties.mean_dist);
+      //
+      //   }
+      // });
+      displayCompareStats(e.target.value, 1);
+
     });
 
     $('#school-compare-2').on('change', (e) => {
@@ -1626,7 +1710,38 @@
       // selectSchoolOnMap(sites, false, e.target.value);
       compareMap.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
       infoBtnSeed.removeClass('visible');  // UGH I HATE THIS BUG
+
+      // displayComparisonStats(e.target.value, 2);
+
+      // console.log(schools);
+      // schools.features.forEach(school => {
+      //   if (school.properties.school_common_name === e.target.value) {
+      //     console.log(school);
+      //
+      //     $(`.comparison-filter.${'school-2'}`).append('<div class="tmp">MEAN: 50</div>')
+      //     $('.comparison-filter.school-2').append('<div class="tmp">MED: 50</div>')
+      //     $('.comparison-filter.school-2').append('<div class="tmp">MIN: 50</div>')
+      //     $('.comparison-filter.school-2').append('<div class="tmp">MAX: 50</div>')
+      //     // mean, med, min, max
+      //     // by seed
+      //   }
+      // });
     });
+
+    function displayCompareStats(selectedSchool, order) {
+      schools.features.forEach(school => {
+        if (school.properties.school_common_name === selectedSchool) {
+          console.log(school);
+          $(`.compare-text-mean-${order}`).text(returnStat(school, 'mean'));
+          $(`.compare-text-med-${order}`).text(returnStat(school, '50%'));
+        }
+      });
+
+      function returnStat(school, stat) {
+        return school.properties[`${stat}_dist`].toFixed() + ' miles';
+      }
+    }
+
 
     // iterate over schools and seeds geojson layers before manipulating map
     // push schools to schoolFilter dropdown, apply seed values to school feature properties
@@ -1689,6 +1804,7 @@
 
           // adjust center point in story mode if on small screen
           adjustMapCenter(window.innerWidth);
+          // map.resize();
 
           map.flyTo(chapter.location);
           if (config.showMarkers) {
