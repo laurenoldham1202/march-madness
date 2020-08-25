@@ -1260,7 +1260,7 @@
       }
     } else {
 
-      // TODO BUG: Explore mode to storymode in chapter 1 breaks
+      // TODO BUG: Explore mode to storymode in chapter 1 breaks - might be fixed w above bug fix ^
       enterExploreMode();
     }
   });
@@ -1490,28 +1490,6 @@
     story.detach();
     mapExplorer.css('visibility', 'visible');
 
-//     $('.sidebar').append(
-//       `<div class="legend-container">
-//     <div class="legend-row">
-//         <div class="circle" style="width: 8px; height: 8px;"></div>
-//         <div class="circle" style="width: 16px; height: 16px;"></div>
-//         <div class="circle" style="width: 23px; height: 23px;"></div>
-//         <div class="circle" style="width: 31px; height: 31px;"></div>
-//         <div class="circle" style="width: 44px; height: 44px;"></div>
-//         <div class="circle" style="width: 77px; height: 77px;"></div>
-//     </div>
-//
-//     <div class="legend-row">
-//         <div class="legend-label" style="width: 38px;">250</div>
-//         <div class="legend-label" style="width: 46px;">500</div>
-//         <div class="legend-label" style="width: 53px;">750</div>
-//         <div class="legend-label" style="width: 61px;">1000</div>
-//         <div class="legend-label" style="width: 74px;">1500</div>
-//         <div class="legend-label" style="width: 107px;">2500</div>
-//     </div>
-// </div>`
-//     );
-
     // hide progress bar
     $('.chapter-list').css('visibility', 'hidden');
 
@@ -1529,15 +1507,179 @@
     infoBtnSeed.addClass('visible');  // display 'seed >' button
   }
 
-  // TODO FIX BUG: Double clicking Story Mode causes break
+  function storyScroll() {
+    scroller
+      .setup({
+        step: '.step',
+        offset: 0.5,
+        progress: true
+      })
+      .onStepEnter(response => {
+        console.log(response);
+        const id = response.element.id;
+        const chapter = config.chapters.find(chap => chap.id === id);
+        response.element.classList.add('active');
+
+        // adjust center point in story mode if on small screen
+        adjustMapCenter(window.innerWidth);
+        // map.resize();
+
+        map.flyTo(chapter.location);
+        if (config.showMarkers) {
+          marker.setLngLat(chapter.location.center);
+        }
+        if (chapter.onChapterEnter.length > 0) {
+          chapter.onChapterEnter.forEach(setLayerOpacity);
+        }
+
+        // highlight the active chapter with orange in progress bar
+        $(`#block-${chapter.id}`).addClass('active-chapter');
+
+        // remove `Seed >` button when in story mode and scrolling through chapters
+        infoBtnSeed.removeClass('visible');
+
+        if (id === 'intro') {
+          // console.log('intro');
+          $('#story-seed-1').trigger('mouseover');
+          // map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
+        } else if (id === 'chapter-1') {
+          // console.log('2');
+          $('#story-seed-2').trigger('mouseover');
+
+          // displayTourneyExample();
+        } else if (id === 'chapter-2') {
+          // display one seeds as default view in chapter-2
+          // $('#story-seed-1').trigger('mouseover');
+          $('#story-seed-3').trigger('mouseover');
+
+
+          // <br><br>The system is not foolproof - Duke, a top-ranked 2 seed, fell to the low-ranked 15 seed Lehigh Mountain Hawks
+          //   in the first round of the 2012 tournament, despite having traveled fewer than 50 miles to their first game.
+          //   2 seeds traveled an average of 155 miles.
+
+          // Playing close to home has many advantages for competing teams:
+          //   <ul>
+          // <li>They spend less time actually traveling, reducing physical and mental exhaustion</li>
+          // <li>They play in the same/similar time zone, avoiding any jet lag issues</li>
+          // <li>It allows fans, friends, and families of the teams to travel to the games</li>
+          // </ul>
+
+        } else if (id === 'chapter-3') {
+          triggerAnimation();
+        } else if (id === 'chapter-4') {
+
+          // map.style.stylesheet.layers.forEach((layer) => {
+          //   if (layer.type === 'line') {
+          //     map.setLayoutProperty(layer.id, 'visibility', 'none');
+          //   }
+          // });
+
+        } else if (id === 'chapter-5') {
+          resetExtent(true);
+          map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
+        } else if (id === 'chapter-6') {
+
+          $('#story-seed-1').trigger('mouseleave');
+          $('#story-seed-2').trigger('mouseleave');
+          $('#story-seed-3').trigger('mouseleave');
+          $('#story-seed-4').trigger('mouseover');
+
+          // resetExtent(true);
+
+        } else if (id === 'chapter-7') {  // 7
+          // TODO fix bug when going from shortest travel distance chapter back to these filters
+          map.setPaintProperty('schools', 'circle-color', '#E27600');
+          // map.setFilter('schools', ['has', 'school_common_name']);
+          const oneCount = ['VCU','Virginia Tech','Dayton','Saint Louis','Creighton','Minnesota','TCU','Houston','Loyola–Chicago','California','Texas A&M','Nebraska','Southern Illinois','Butler','La Salle','DePaul'];
+          filterMatchMultiple(oneCount);
+        } else if (id === 'chapter-8') {  // 8
+          map.setPaintProperty('schools', 'circle-color', '#E27600');
+          const tenCount = ['Michigan', 'Arizona', 'UConn', 'Maryland', 'UCLA', 'Indiana', 'Cincinnati', 'Kentucky', 'Pittsburgh', 'North Carolina', 'Louisville', 'Purdue', 'Michigan State', 'Kansas', 'Oklahoma', 'Syracuse', 'Georgetown', 'Florida', 'Duke', 'Villanova', 'Illinois', 'Ohio State'];
+          filterMatchMultiple(tenCount);
+        } else if (id === 'chapter-9') {  // 9
+          const blueBloods = {'Duke': '#003087', 'Kentucky': '#0033A0', 'North Carolina': '#7BAFD4', 'Kansas': '#0051BA'};
+          filterMatchMultiple(Object.keys(blueBloods));
+          const bbStyles = [];
+          Object.entries(blueBloods).forEach(([school, color]) => {
+            bbStyles.push(school, color);
+          });
+          bbStyles.push('#AAA');
+          map.setPaintProperty('schools', 'circle-color', ['match', ['get', 'school_common_name'], ...bbStyles]);
+        } else if (id === 'chapter-10') {  // 10
+          applyChapterFilters('Arizona', 'Tucson, AZ');
+        } else if (id === 'chapter-11') {  // 11
+          map.setFilter('schools', ['has', 'school_common_name']);
+          resetExtent(true);
+          filters.weighted = true;
+          applyWeights(schools);
+        } else if (id === 'chapter-12') {
+          storyModeSchoolSelect(sites, 'St. John\'s');
+        } else if (id === 'chapter-13') {  // 13
+          storyModeSchoolSelect(sites, 'Michigan');
+        } else if (id === 'chapter-14') {  // 14
+          storyModeSchoolSelect(sites, 'Kansas');
+        } else if (id === 'chapter-15') {  // 15
+          storyModeSchoolSelect(sites, 'Villanova');
+        } else if (id === 'chapter-16') {  // 16
+          storyModeConfDisplay();
+        } else if (id === 'chapter-17') {  //17
+          storyModeConfDisplay(['Pac-12 Conference', 'Atlantic 10 Conference']);
+        } else if (id === 'chapter-18') {  // 18
+          storyModeConfDisplay(['American Athletic Conference', 'Big 12 Conference']);
+        } else if (id === 'chapter-19') {  // 19
+          storyModeConfDisplay(['Southeastern Conference', 'Big 12 Conference', 'Atlantic Coast Conference', 'Missouri Valley Conference', 'Mountain West Conference']);
+        } else if (id === 'chapter-20') {  // 20
+          resetAllFilters();
+          resetExtent(true);
+        }
+
+        // TODO Separate one and ten+ seed dropdowns
+
+        // compare blue bloods weighted distances
+        // UK does better as a 2 seed than a 1 seed
+        // Michigan has done best as a 4 seed - luck of the draw
+        // STORY: MSU with v similar 1-2-3 seed rankings, same for Kansas - centrally located, always travels apx same
+        // Villanova with low overall mean, farthest travel dist
+        // Indiana vs. Cincy
+        // Illinois - only school w 10+ appearances without apperance as each seed
+
+        // TODO PRESENTATION: MENTION AND CHECK ALL PROGRESS BAR CHAPTERS - APPEARACNES DONT WORK
+        // TODO update README
+
+        // if final chapter
+        if (response.index === config.chapters.length - 1) {
+          // create new click event each time chapter is enter, or else unique div ID is overwritten
+          $('#explore-mode').on('click', () => {
+            enterExploreMode(true);
+          });
+        }
+      })
+      .onStepExit(response => {
+        const chapter = config.chapters.find(chap => chap.id === response.element.id);
+        response.element.classList.remove('active');
+        // console.log(response.element.id);
+        if (chapter.onChapterExit.length > 0) {
+          chapter.onChapterExit.forEach(setLayerOpacity);
+        }
+
+        // resetAllFilters();
+        // resetExtent(true);
+
+        // remove orange active chapter styling when exiting chapter
+        $(`#block-${chapter.id}`).removeClass('active-chapter');
+      });
+
+  }
+
   function enterStoryMode() {
+    $('body').append(story);
     mapExplorer.css('visibility', 'hidden');
     $('.chapter-list').css('visibility', 'visible');
-    $('body').append(story);
 
     resetExtent();
     resetAllFilters();
     infoBtnSeed.removeClass('visible');
+    storyScroll();  // prevent bug when toggling between chapters to explore back to story, which doesn't reset on intro
   }
 
   function clearStoryLayers() {
@@ -1769,167 +1911,9 @@
       $('.toolbar').css('pointer-events', 'auto');  // force stop toolbar click events even when hidden
 
 
-      // STORYTELLING MODE  todo place in fn
+      // STORYTELLING MODE
       // todo move map div abs position to not have to add padding once story mode is exited, reset bearing on resetExtent
-      // todo reset layers + filters when storymode is entered again
-      // setup the instance, pass callback functions
-      scroller
-        .setup({
-          step: '.step',
-          offset: 0.5,
-          progress: true
-        })
-        .onStepEnter(response => {
-          const id = response.element.id;
-          const chapter = config.chapters.find(chap => chap.id === id);
-          response.element.classList.add('active');
-
-          // adjust center point in story mode if on small screen
-          adjustMapCenter(window.innerWidth);
-          // map.resize();
-
-          map.flyTo(chapter.location);
-          if (config.showMarkers) {
-            marker.setLngLat(chapter.location.center);
-          }
-          if (chapter.onChapterEnter.length > 0) {
-            chapter.onChapterEnter.forEach(setLayerOpacity);
-          }
-
-          // highlight the active chapter with orange in progress bar
-          $(`#block-${chapter.id}`).addClass('active-chapter');
-
-          // remove `Seed >` button when in story mode and scrolling through chapters
-          infoBtnSeed.removeClass('visible');
-
-          if (id === 'intro') {
-            $('#story-seed-1').trigger('mouseover');
-            // map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
-          } else if (id === 'chapter-1') {
-            $('#story-seed-2').trigger('mouseover');
-
-            // displayTourneyExample();
-          } else if (id === 'chapter-2') {
-            // display one seeds as default view in chapter-2
-            // $('#story-seed-1').trigger('mouseover');
-            $('#story-seed-3').trigger('mouseover');
-
-
-          // <br><br>The system is not foolproof - Duke, a top-ranked 2 seed, fell to the low-ranked 15 seed Lehigh Mountain Hawks
-          //   in the first round of the 2012 tournament, despite having traveled fewer than 50 miles to their first game.
-          //   2 seeds traveled an average of 155 miles.
-
-            // Playing close to home has many advantages for competing teams:
-            //   <ul>
-            // <li>They spend less time actually traveling, reducing physical and mental exhaustion</li>
-            // <li>They play in the same/similar time zone, avoiding any jet lag issues</li>
-            // <li>It allows fans, friends, and families of the teams to travel to the games</li>
-            // </ul>
-
-          } else if (id === 'chapter-3') {
-            triggerAnimation();
-          } else if (id === 'chapter-4') {
-
-            // map.style.stylesheet.layers.forEach((layer) => {
-            //   if (layer.type === 'line') {
-            //     map.setLayoutProperty(layer.id, 'visibility', 'none');
-            //   }
-            // });
-
-          } else if (id === 'chapter-5') {
-            resetExtent(true);
-            map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
-          } else if (id === 'chapter-6') {
-
-            $('#story-seed-1').trigger('mouseleave');
-            $('#story-seed-2').trigger('mouseleave');
-            $('#story-seed-3').trigger('mouseleave');
-            $('#story-seed-4').trigger('mouseover');
-
-            // resetExtent(true);
-
-          } else if (id === 'chapter-7') {  // 7
-            // TODO fix bug when going from shortest travel distance chapter back to these filters
-            map.setPaintProperty('schools', 'circle-color', '#E27600');
-            // map.setFilter('schools', ['has', 'school_common_name']);
-            const oneCount = ['VCU','Virginia Tech','Dayton','Saint Louis','Creighton','Minnesota','TCU','Houston','Loyola–Chicago','California','Texas A&M','Nebraska','Southern Illinois','Butler','La Salle','DePaul'];
-            filterMatchMultiple(oneCount);
-          } else if (id === 'chapter-8') {  // 8
-            map.setPaintProperty('schools', 'circle-color', '#E27600');
-            const tenCount = ['Michigan', 'Arizona', 'UConn', 'Maryland', 'UCLA', 'Indiana', 'Cincinnati', 'Kentucky', 'Pittsburgh', 'North Carolina', 'Louisville', 'Purdue', 'Michigan State', 'Kansas', 'Oklahoma', 'Syracuse', 'Georgetown', 'Florida', 'Duke', 'Villanova', 'Illinois', 'Ohio State'];
-            filterMatchMultiple(tenCount);
-          } else if (id === 'chapter-9') {  // 9
-            const blueBloods = {'Duke': '#003087', 'Kentucky': '#0033A0', 'North Carolina': '#7BAFD4', 'Kansas': '#0051BA'};
-            filterMatchMultiple(Object.keys(blueBloods));
-            const bbStyles = [];
-            Object.entries(blueBloods).forEach(([school, color]) => {
-              bbStyles.push(school, color);
-            });
-            bbStyles.push('#AAA');
-            map.setPaintProperty('schools', 'circle-color', ['match', ['get', 'school_common_name'], ...bbStyles]);
-          } else if (id === 'chapter-10') {  // 10
-            applyChapterFilters('Arizona', 'Tucson, AZ');
-          } else if (id === 'chapter-11') {  // 11
-            map.setFilter('schools', ['has', 'school_common_name']);
-            resetExtent(true);
-            filters.weighted = true;
-            applyWeights(schools);
-          } else if (id === 'chapter-12') {
-            storyModeSchoolSelect(sites, 'St. John\'s');
-          } else if (id === 'chapter-13') {  // 13
-            storyModeSchoolSelect(sites, 'Michigan');
-          } else if (id === 'chapter-14') {  // 14
-            storyModeSchoolSelect(sites, 'Kansas');
-          } else if (id === 'chapter-15') {  // 15
-            storyModeSchoolSelect(sites, 'Villanova');
-          } else if (id === 'chapter-16') {  // 16
-            storyModeConfDisplay();
-          } else if (id === 'chapter-17') {  //17
-            storyModeConfDisplay(['Pac-12 Conference', 'Atlantic 10 Conference']);
-          } else if (id === 'chapter-18') {  // 18
-            storyModeConfDisplay(['American Athletic Conference', 'Big 12 Conference']);
-          } else if (id === 'chapter-19') {  // 19
-            storyModeConfDisplay(['Southeastern Conference', 'Big 12 Conference', 'Atlantic Coast Conference', 'Missouri Valley Conference', 'Mountain West Conference']);
-          } else if (id === 'chapter-20') {  // 20
-            resetAllFilters();
-            resetExtent(true);
-          }
-
-          // TODO Separate one and ten+ seed dropdowns
-
-          // compare blue bloods weighted distances
-          // UK does better as a 2 seed than a 1 seed
-          // Michigan has done best as a 4 seed - luck of the draw
-          // STORY: MSU with v similar 1-2-3 seed rankings, same for Kansas - centrally located, always travels apx same
-          // Villanova with low overall mean, farthest travel dist
-          // Indiana vs. Cincy
-          // Illinois - only school w 10+ appearances without apperance as each seed
-
-          // TODO PRESENTATION: MENTION AND CHECK ALL PROGRESS BAR CHAPTERS - APPEARACNES DONT WORK
-          // TODO update README
-
-          // if final chapter
-          if (response.index === config.chapters.length - 1) {
-            // create new click event each time chapter is enter, or else unique div ID is overwritten
-            $('#explore-mode').on('click', () => {
-              enterExploreMode(true);
-            });
-          }
-        })
-        .onStepExit(response => {
-          const chapter = config.chapters.find(chap => chap.id === response.element.id);
-          response.element.classList.remove('active');
-          // console.log(response.element.id);
-          if (chapter.onChapterExit.length > 0) {
-            chapter.onChapterExit.forEach(setLayerOpacity);
-          }
-
-          // resetAllFilters();
-          // resetExtent(true);
-
-          // remove orange active chapter styling when exiting chapter
-          $(`#block-${chapter.id}`).removeClass('active-chapter');
-        });
+      storyScroll();
     });
   }
 
