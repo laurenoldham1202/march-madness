@@ -658,6 +658,7 @@
     .comparison-filter {
       width: 100%;
       display: flex;
+      margin-left: 0.33rem;
     }
 
   </style>
@@ -668,44 +669,47 @@
 <div id="map-compare"></div>
 
 <div class="comparison-mode" style="visibility: hidden;">
-  <button class="exit">< Exit comparison mode</button>
   <div class="comparison-filter school-1">
     <select id="school-compare-1" class="toolbar-select"></select>
     <div class="comparison-stats">
-      <div class="compare-title">MEAN</div>
-      <div class="compare-text-mean-1"></div>
+      <span class="compare-title">MEAN</span>
+      <span class="compare-text compare-text-mean-1"></span>
     </div>
     <div class="comparison-stats">
-      <div class="compare-title">MEDIAN</div>
-      <div class="compare-text-med-1"></div>
+      <span class="compare-title">MEDIAN</span>
+      <span class="compare-text compare-text-med-1"></span>
     </div>
     <div class="comparison-stats">
-      <div class="compare-title">MIN</div>
-      <div class="compare-text-min-1"></div>
+      <span class="compare-title">MIN</span>
+      <span class="compare-text compare-text-min-1"></span>
     </div>
     <div class="comparison-stats">
-      <div class="compare-title">MAX</div>
-      <div class="compare-text-max-1"></div>
+      <span class="compare-title">MAX</span>
+      <span class="compare-text compare-text-max-1"></span>
     </div>
   </div>
+  <button class="exit">< Exit comparison mode</button>
+
 
   <div class="comparison-filter school-2" style="position: fixed; top: 50vh;">
-    <select id="school-compare-2" class="toolbar-select"></select>
+    <select id="school-compare-2" class="toolbar-select">
+      <option value="label">Select school</option>
+    </select>
     <div class="comparison-stats">
-      <div class="compare-title">MEAN</div>
-      <div class="compare-text-mean-2"></div>
+      <span class="compare-title">MEAN</span>
+      <span class="compare-text compare-text-mean-2"></span>
     </div>
     <div class="comparison-stats">
-      <div class="compare-title">MEDIAN</div>
-      <div class="compare-text-med-2"></div>
+      <span class="compare-title">MEDIAN</span>
+      <span class="compare-text compare-text-med-2"></span>
     </div>
     <div class="comparison-stats">
-      <div class="compare-title">MIN</div>
-      <div class="compare-text-min-2"></div>
+      <span class="compare-title">MIN</span>
+      <span class="compare-text compare-text-min-2"></span>
     </div>
     <div class="comparison-stats">
-      <div class="compare-title">MAX</div>
-      <div class="compare-text-max-2"></div>
+      <span class="compare-title">MAX</span>
+      <span class="compare-text compare-text-max-2"></span>
     </div>
   </div>
 </div>
@@ -1648,12 +1652,19 @@
 
       // TODO set default comparison if no school selected?
       $('#school-compare-1').val(filters.school !== 'all' ? filters.school : 'Kentucky');
+      $('#school-compare-2').val('Louisville');
+      // $('#school-compare-1').val(filters.school);
+
+      displayCompareStats($('#school-compare-1').val(), 1);
+      displayCompareStats($('#school-compare-2').val(), 2);
 
       selectSchoolOnMap(map, sites, false, $('#school-compare-1').val());
+      selectSchoolOnMap(compareMap, sites, false, $('#school-compare-2').val());
 
       enterComparisonStyles();
       // TODO Fix top map `<canvas class="mapboxgl-canvas">` height - should be 50vh
       map.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
+      compareMap.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
 
     });
 
@@ -1667,6 +1678,8 @@
     });
 
     $('#school-compare-2').on('change', (e) => {
+
+
       // TODO Actually tie to input change
       // TODO MAKE FNS IN SELECTSCHOOLCOMPARE MORE DYNAMIC WITH MAP INPUT
       // TODO BUG: SELCTING 2ND SCHOOL CHANGES 1ST MAP BOUNDS
@@ -1682,6 +1695,7 @@
     // TODO display titles and distances inline
     // TODO Display stats on default before click event
     // TODO add school colors?
+    // TODO Default to label 'select comparison school' instead of alabama/1st school in 2nd filter
     function displayCompareStats(selectedSchool, order) {
       schools.features.forEach(school => {
         if (school.properties.school_common_name === selectedSchool) {
