@@ -691,7 +691,22 @@
 
   <div class="comparison-filter school-2" style="position: fixed; top: 50vh;">
     <select id="school-compare-2" class="toolbar-select"></select>
-
+    <div class="comparison-stats">
+      <div class="compare-title">MEAN</div>
+      <div class="compare-text-mean-2"></div>
+    </div>
+    <div class="comparison-stats">
+      <div class="compare-title">MEDIAN</div>
+      <div class="compare-text-med-2"></div>
+    </div>
+    <div class="comparison-stats">
+      <div class="compare-title">MIN</div>
+      <div class="compare-text-min-2"></div>
+    </div>
+    <div class="comparison-stats">
+      <div class="compare-title">MAX</div>
+      <div class="compare-text-max-2"></div>
+    </div>
   </div>
 </div>
 
@@ -1628,32 +1643,6 @@
     const d1 = data[6];
     const tourney = data[7];
 
-
-    // function displayComparisonStats(schools, selectedSchool, schoolOrder) {
-    //   schools.features.forEach(school => {
-    //     if (school.properties.school_common_name === selectedSchool) {
-    //       console.log(returnStat('mean_dist'));
-    //       $(`.compare-text-mean-${schoolOrder}`).text(returnStat(school, 'mean_dist'));
-    //
-    //
-    //       // $(`.comparison-filter.school-${schoolOrder}`).append(`<div class="comparison-stats">MEAN: ${returnStat(school, 'mean_dist')}</div>`);
-    //       // $(`.comparison-filter.school-${schoolOrder}`).append(`<div class="comparison-stats">MEDIAN: ${returnStat(school, '50%_dist')}</div>`);
-    //       // $(`.comparison-filter.school-${schoolOrder}`).append(`<div class="comparison-stats">MIN: ${returnStat(school, 'min_dist')}</div>`);
-    //       // $(`.comparison-filter.school-${schoolOrder}`).append(`<div class="comparison-stats">MAX: ${returnStat(school, 'max_dist')}</div>`);
-    //       // $(`.comparison-filter.school-${schoolOrder}`).append(`<div class="comparison-stats">MAX: ${returnStat(school, 'max_dist')}</div>`);
-    //       // $(`.comparison-filter.school-${schoolOrder}`).append(`<div class="comparison-stats">MAX: ${returnStat(school, 'max_dist')}</div>`);
-    //       // $(`.comparison-filter.school-${schoolOrder}`).append(`<div class="comparison-stats">MAX: ${returnStat(school, 'max_dist')}</div>`);
-    //       // $(`.comparison-filter.school-${schoolOrder}`).append(`<div class="comparison-stats">MAX: ${returnStat(school, 'max_dist')}</div>`);
-    //       // mean, med, min, max
-    //       // by seed
-    //     }
-    //   });
-    // }
-    //
-    // function returnStat(school, stat) {
-    //   return school.properties[stat].toFixed() + ' miles';
-    // }
-
     // TODO BUG: Entering explore mode too fast breaks - check deployed version
     $('#compare').on('click', () => {
 
@@ -1665,17 +1654,6 @@
       enterComparisonStyles();
       // TODO Fix top map `<canvas class="mapboxgl-canvas">` height - should be 50vh
       map.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
-      // createAllCompareLayers(schools, sites);
-
-      // console.log(filters.school);
-
-        // schools.features.forEach(school => {
-        //   if (school.properties.school_common_name === filters.school) {
-        //     $('.compare-text-mean-1').text('blah');
-        //     console.log(school.properties);
-        //   }
-        // });
-      // displayComparisonStats(schools, filters.school, 1);
 
     });
 
@@ -1684,17 +1662,6 @@
       selectSchoolOnMap(map, sites, false, e.target.value);
       map.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
       infoBtnSeed.removeClass('visible');  // UGH I HATE THIS BUG
-
-      // console.log(filters.school);
-
-      // displayComparisonStats(schools, e.target.value, 1);
-      // schools.features.forEach(school => {
-      //   if (school.properties.school_common_name === e.target.value) {
-      //     console.log(school);
-      //     $(`.compare-text-mean-${1}`).text(school.properties.mean_dist);
-      //
-      //   }
-      // });
       displayCompareStats(e.target.value, 1);
 
     });
@@ -1704,36 +1671,26 @@
       // TODO MAKE FNS IN SELECTSCHOOLCOMPARE MORE DYNAMIC WITH MAP INPUT
       // TODO BUG: SELCTING 2ND SCHOOL CHANGES 1ST MAP BOUNDS
 
-      // selectSchoolOnMapCompare(sites, false, 'Kentucky', compareMap);
       selectSchoolOnMap(compareMap, sites, false, e.target.value);
 
-      // selectSchoolOnMap(sites, false, e.target.value);
       compareMap.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
       infoBtnSeed.removeClass('visible');  // UGH I HATE THIS BUG
 
-      // displayComparisonStats(e.target.value, 2);
-
-      // console.log(schools);
-      // schools.features.forEach(school => {
-      //   if (school.properties.school_common_name === e.target.value) {
-      //     console.log(school);
-      //
-      //     $(`.comparison-filter.${'school-2'}`).append('<div class="tmp">MEAN: 50</div>')
-      //     $('.comparison-filter.school-2').append('<div class="tmp">MED: 50</div>')
-      //     $('.comparison-filter.school-2').append('<div class="tmp">MIN: 50</div>')
-      //     $('.comparison-filter.school-2').append('<div class="tmp">MAX: 50</div>')
-      //     // mean, med, min, max
-      //     // by seed
-      //   }
-      // });
+      displayCompareStats(e.target.value, 2);
     });
 
+    // TODO display titles and distances inline
+    // TODO Display stats on default before click event
+    // TODO add school colors?
     function displayCompareStats(selectedSchool, order) {
       schools.features.forEach(school => {
         if (school.properties.school_common_name === selectedSchool) {
-          console.log(school);
+          console.log(school.properties);
+
           $(`.compare-text-mean-${order}`).text(returnStat(school, 'mean'));
           $(`.compare-text-med-${order}`).text(returnStat(school, '50%'));
+          $(`.compare-text-min-${order}`).text(returnStat(school, 'min'));
+          $(`.compare-text-max-${order}`).text(returnStat(school, 'max'));
         }
       });
 
@@ -1741,7 +1698,6 @@
         return school.properties[`${stat}_dist`].toFixed() + ' miles';
       }
     }
-
 
     // iterate over schools and seeds geojson layers before manipulating map
     // push schools to schoolFilter dropdown, apply seed values to school feature properties
