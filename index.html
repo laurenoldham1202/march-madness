@@ -483,6 +483,7 @@
       left: 0;
       display: flex;
       z-index: 2000;
+      pointer-events: none;
     }
 
     .small-text > .seed-hl {
@@ -1245,11 +1246,18 @@
 
   mapDiv = $('#map');
 
+  rivals = {
+
+  }
+
   story = $('#story');
 
   $('.app-mode-toggle').on('click', (e) => {
     if (e.target.innerText === 'Story Mode') {
-      enterStoryMode();
+      // only enter story mode if not already in story mode
+      if (!$('#toggle-story-mode')[0].classList.contains('active')) {
+        enterStoryMode();
+      }
     } else {
 
       // TODO BUG: Explore mode to storymode in chapter 1 breaks
@@ -1662,6 +1670,7 @@
       selectSchoolOnMap(compareMap, sites, false, $('#school-compare-2').val());
 
       enterComparisonStyles();
+
       // TODO Fix top map `<canvas class="mapboxgl-canvas">` height - should be 50vh
       map.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
       compareMap.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
@@ -1756,6 +1765,9 @@
           compareMap.removeLayer(layer.id);
         }
       });
+
+      $('.toolbar').css('pointer-events', 'auto');  // force stop toolbar click events even when hidden
+
 
       // STORYTELLING MODE  todo place in fn
       // todo move map div abs position to not have to add padding once story mode is exited, reset bearing on resetExtent
