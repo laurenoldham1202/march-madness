@@ -756,6 +756,20 @@
   <button class="exit">< BACK</button>
 
 
+
+
+  <div class="dropdown">
+    <button class="btn btn-primary btn-sm dropdown-toggle" style="width: 15rem; text-align: left; display: flex;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Select a school
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    </div>
+  </div>
+
+
+
+
+
   <div class="comparison-filter school-2" style="position: fixed; top: 50vh;">
     <select id="school-compare-2" class="toolbar-select">
       <option value="label">Select school</option>
@@ -830,22 +844,6 @@
 
   <div class="sidebar">
     <h1 class="capital-font" style="text-align: center;">March Madness</h1>
-
-
-
-    <div class="dropdown">
-      <button class="btn btn-primary btn-sm dropdown-toggle" style="width: 15rem; text-align: left; display: flex;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Dropdown button
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-      </div>
-    </div>
-
-
-
     <hr>
     <div class="filters-container">
 
@@ -1899,13 +1897,16 @@
 
       // TODO set default comparison if no school selected?
       $('#school-compare-1').val(filters.school !== 'all' ? filters.school : 'Kentucky');
-      $('#school-compare-2').val('Louisville');
+      // $('#school-compare-2').val('Louisville');
+      $('#dropdownMenuButton').text('Louisville');
 
       displayCompareStats($('#school-compare-1').val(), 1);
-      displayCompareStats($('#school-compare-2').val(), 2);
+      // displayCompareStats($('#school-compare-2').val(), 2);
+      displayCompareStats($('#dropdownMenuButton').text(), 2);
 
       selectSchoolOnMap(map, sites, false, $('#school-compare-1').val());
-      selectSchoolOnMap(compareMap, sites, false, $('#school-compare-2').val());
+      // selectSchoolOnMap(compareMap, sites, false, $('#school-compare-2').val());
+      selectSchoolOnMap(compareMap, sites, false, $('#dropdownMenuButton').text());
 
       enterComparisonStyles();
 
@@ -1931,6 +1932,20 @@
       infoBtnSeed.removeClass('visible');  // UGH I HATE THIS BUG
 
       displayCompareStats(e.target.value, 2);
+    });
+
+    $('.dropdown-menu').on('click', (e) => {
+      // // console.log(e.target.innerText);
+      // $('#dropdownMenuButton').text(e.target.innerText);
+      // console.log($('#dropdownMenuButton').text());
+
+
+      selectSchoolOnMap(compareMap, sites, false, e.target.innerText);
+
+      compareMap.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
+      infoBtnSeed.removeClass('visible');  // UGH I HATE THIS BUG
+
+      displayCompareStats(e.target.innerText, 2);
     });
 
     // TODO Display stats on default before click event
@@ -2264,23 +2279,6 @@
     card3Header.html('minimum distance traveled');
     card4Header.html('maximum distance traveled');
   }
-
-  $('.dropdown-menu').append(`<a class="dropdown-item" href="#">KENTUCKY</a>`);
-
-  $('.dropdown-menu').on('select', (e) => {
-    console.log('select', e.target.value);
-  });
-  $('.dropdown-menu').on('change', (e) => {
-    console.log('change', e.target.value);
-  });
-  $('.dropdown-menu').on('click', (e) => {
-    console.log('click', e);
-    $('#dropdownMenuButton').text(e.target.innerHTML);
-  });
-
-  // console.log($('#dropdownMenuButton'));
-  // console.log($('#dropdownMenuButton'));
-
 
   function applyInfoSeedText(value, seed) {
     if (value[seed]) {
