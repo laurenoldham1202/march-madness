@@ -726,7 +726,11 @@
 
 <div class="comparison-mode" style="visibility: hidden;">
   <div class="comparison-filter school-1">
-    <select id="school-compare-1" class="toolbar-select"></select>
+<!--    <select id="school-compare-1" class="toolbar-select"></select>-->
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdown-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a school</button>
+      <div class="dropdown-menu dropdown-menu-1" aria-labelledby="dropdown-1"></div>
+    </div>
     <div class="comparison-stats">
       <span class="compare-title">MEAN</span>
       <span class="compare-text compare-text-mean-1"></span>
@@ -1901,15 +1905,18 @@
     $('#compare').on('click', () => {
 
       // TODO set default comparison if no school selected?
-      $('#school-compare-1').val(filters.school !== 'all' ? filters.school : 'Kentucky');
+      // $('#school-compare-1').val(filters.school !== 'all' ? filters.school : 'Kentucky');
+      $('#dropdown-1').text(filters.school !== 'all' ? filters.school : 'Kentucky');
       // $('#school-compare-2').val('Louisville');
       $('#dropdown-2').text('Louisville');
 
-      displayCompareStats($('#school-compare-1').val(), 1);
+      // displayCompareStats($('#school-compare-1').val(), 1);
+      displayCompareStats($('#dropdown-1').text(), 1);
       // displayCompareStats($('#school-compare-2').val(), 2);
       displayCompareStats($('#dropdown-2').text(), 2);
 
-      selectSchoolOnMap(map, sites, false, $('#school-compare-1').val());
+      // selectSchoolOnMap(map, sites, false, $('#school-compare-1').val());
+      selectSchoolOnMap(map, sites, false, $('#dropdown-1').text());
       // selectSchoolOnMap(compareMap, sites, false, $('#school-compare-2').val());
       selectSchoolOnMap(compareMap, sites, false, $('#dropdown-2').text());
 
@@ -1920,36 +1927,37 @@
 
     });
 
-    $('#school-compare-1').on('change', (e) => {
-      // console.log('school changed')
-      selectSchoolOnMap(map, sites, false, e.target.value);
+    // $('#school-compare-1').on('change', (e) => {
+    //   // console.log('school changed')
+    //   selectSchoolOnMap(map, sites, false, e.target.value);
+    //   map.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
+    //   infoBtnSeed.removeClass('visible');  // UGH I HATE THIS BUG
+    //   displayCompareStats(e.target.value, 1);
+    //
+    // });
+
+    // $('#school-compare-2').on('change', (e) => {
+    //
+    //   selectSchoolOnMap(compareMap, sites, false, e.target.value);
+    //
+    //   compareMap.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
+    //   infoBtnSeed.removeClass('visible');  // UGH I HATE THIS BUG
+    //
+    //   displayCompareStats(e.target.value, 2);
+    // });
+
+    $('.dropdown-menu-1').on('click', (e) => {
+      selectSchoolOnMap(map, sites, false, e.target.innerText);
       map.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
       infoBtnSeed.removeClass('visible');  // UGH I HATE THIS BUG
-      displayCompareStats(e.target.value, 1);
-
-    });
-
-    $('#school-compare-2').on('change', (e) => {
-
-      selectSchoolOnMap(compareMap, sites, false, e.target.value);
-
-      compareMap.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
-      infoBtnSeed.removeClass('visible');  // UGH I HATE THIS BUG
-
-      displayCompareStats(e.target.value, 2);
+      displayCompareStats(e.target.innerText, 2);
+      $('#dropdown-1').text(e.target.innerText);
     });
 
     $('.dropdown-menu-2').on('click', (e) => {
-      // // console.log(e.target.innerText);
-      // $('#dropdown-2').text(e.target.innerText);
-      // console.log($('#dropdown-2').text());
-
-
       selectSchoolOnMap(compareMap, sites, false, e.target.innerText);
-
       compareMap.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
       infoBtnSeed.removeClass('visible');  // UGH I HATE THIS BUG
-
       displayCompareStats(e.target.innerText, 2);
       $('#dropdown-2').text(e.target.innerText);
     });
@@ -2393,6 +2401,7 @@
 
     allSchools.forEach(s => {
 
+      $('.dropdown-menu-1').append(`<a class="dropdown-item" href="#">${s}</a>`);
       $('.dropdown-menu-2').append(`<a class="dropdown-item" href="#">${s}</a>`);
 
       // loop through  dropdown inputs and push school names to each one
