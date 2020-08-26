@@ -661,6 +661,7 @@
       margin: 0.5rem;
       border-radius: 4px;
       padding: 0.5rem;
+      white-space: nowrap;
     }
 
     .comparison-filter {
@@ -758,22 +759,20 @@
 
 
 
-  <div class="dropdown">
-    <button class="btn btn-primary btn-sm dropdown-toggle" style="width: 15rem; text-align: left; display: flex;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Select a school
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    </div>
-  </div>
+
 
 
 
 
 
   <div class="comparison-filter school-2" style="position: fixed; top: 50vh;">
-    <select id="school-compare-2" class="toolbar-select">
-      <option value="label">Select school</option>
-    </select>
+<!--    <select id="school-compare-2" class="toolbar-select">-->
+<!--      <option value="label">Select school</option>-->
+<!--    </select>-->
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle" style="width: 11rem; text-align: left; display: flex; margin-top: 0.6rem;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a school</button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"></div>
+    </div>
     <div class="comparison-stats">
       <span class="compare-title">MEAN</span>
       <span class="compare-text compare-text-mean-2"></span>
@@ -1946,6 +1945,7 @@
       infoBtnSeed.removeClass('visible');  // UGH I HATE THIS BUG
 
       displayCompareStats(e.target.innerText, 2);
+      $('#dropdownMenuButton').text(e.target.innerText);
     });
 
     // TODO Display stats on default before click event
