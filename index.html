@@ -739,6 +739,22 @@
       <span class="compare-title">MAX</span>
       <span class="compare-text compare-text-max-2"></span>
     </div>
+    <div class="comparison-stats seed-compare" style="background: #80bad1;">
+      <span class="compare-title">1 SEED</span>
+      <span class="compare-text compare-text-2-seed-1"></span>
+    </div>
+    <div class="comparison-stats seed-compare" style="background: #5694c1;">
+      <span class="compare-title">2 SEED</span>
+      <span class="compare-text compare-text-2-seed-2"></span>
+    </div>
+    <div class="comparison-stats seed-compare" style="background: #2c6db1;">
+      <span class="compare-title">3 SEED</span>
+      <span class="compare-text compare-text-2-seed-3"></span>
+    </div>
+    <div class="comparison-stats seed-compare" style="background: #0146a1;">
+      <span class="compare-title">4 SEED</span>
+      <span class="compare-text compare-text-2-seed-4"></span>
+    </div>
   </div>
 </div>
 
@@ -1892,7 +1908,7 @@
 
       function returnSeedStat(school, seed) {
         const seedMap = {1: 'oneSeed', 2: 'twoSeed', 3: 'threeSeed', 4: 'fourSeed'};
-        return school.properties.oneSeed ? school.properties[seedMap[seed]].mean.toFixed() + ' mi' : 'N/A';
+        return school.properties[seedMap[seed]] ? school.properties[seedMap[seed]].mean.toFixed() + ' mi' : 'N/A';
       }
     }
 
