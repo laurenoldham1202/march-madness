@@ -554,9 +554,11 @@
     .exit {
       z-index: 2500;
       border-radius: 4px;
-      margin: 0.5rem 0 0 0.5rem;
+      margin: 0 0 0 0.75rem;
       border: 1px solid #CCC;
       color: #777;
+      padding: 0.25rem 0.5rem;
+      background: #EEE;
     }
 
     @media (max-width: 750px) {
@@ -648,8 +650,9 @@
     }
 
     .comparison-stats {
-      background: white;
-      border: 1px solid black;
+      background: #F5F5F5;
+      border: 1px solid #414140;
+      color: #414140;
       width: 12.5%;
       margin: 0.5rem;
       border-radius: 4px;
@@ -660,6 +663,14 @@
       width: 100%;
       display: flex;
       margin-left: 0.33rem;
+    }
+
+    .compare-text {
+      margin-left: 0.25rem;
+    }
+
+    .seed-compare {
+      color: #FFF;
     }
 
   </style>
@@ -688,8 +699,24 @@
       <span class="compare-title">MAX</span>
       <span class="compare-text compare-text-max-1"></span>
     </div>
+    <div class="comparison-stats seed-compare" style="background: #80bad1;">
+      <span class="compare-title">1 SEED</span>
+      <span class="compare-text compare-text-1-seed-1"></span>
+    </div>
+    <div class="comparison-stats seed-compare" style="background: #5694c1;">
+      <span class="compare-title">2 SEED</span>
+      <span class="compare-text compare-text-1-seed-2"></span>
+    </div>
+    <div class="comparison-stats seed-compare" style="background: #2c6db1;">
+      <span class="compare-title">3 SEED</span>
+      <span class="compare-text compare-text-1-seed-3"></span>
+    </div>
+    <div class="comparison-stats seed-compare" style="background: #0146a1;">
+      <span class="compare-title">4 SEED</span>
+      <span class="compare-text compare-text-1-seed-4"></span>
+    </div>
   </div>
-  <button class="exit">< Exit comparison mode</button>
+  <button class="exit">< BACK</button>
 
 
   <div class="comparison-filter school-2" style="position: fixed; top: 50vh;">
@@ -1252,18 +1279,7 @@
 
   story = $('#story');
 
-  $('.app-mode-toggle').on('click', (e) => {
-    if (e.target.innerText === 'Story Mode') {
-      // only enter story mode if not already in story mode
-      if (!$('#toggle-story-mode')[0].classList.contains('active')) {
-        enterStoryMode();
-      }
-    } else {
 
-      // TODO BUG: Explore mode to storymode in chapter 1 breaks - might be fixed w above bug fix ^
-      enterExploreMode();
-    }
-  });
 
   $('#legend').on('click', (e) => {
     if (e.target.innerText === 'legend_toggle') {
@@ -1507,7 +1523,7 @@
     infoBtnSeed.addClass('visible');  // display 'seed >' button
   }
 
-  function storyScroll() {
+  function storyScroll(sites, schools) {
     scroller
       .setup({
         step: '.step',
@@ -1515,7 +1531,6 @@
         progress: true
       })
       .onStepEnter(response => {
-        console.log(response);
         const id = response.element.id;
         const chapter = config.chapters.find(chap => chap.id === id);
         response.element.classList.add('active');
@@ -1671,7 +1686,7 @@
 
   }
 
-  function enterStoryMode() {
+  function enterStoryMode(sites, schools) {
     $('body').append(story);
     mapExplorer.css('visibility', 'hidden');
     $('.chapter-list').css('visibility', 'visible');
@@ -1679,7 +1694,7 @@
     resetExtent();
     resetAllFilters();
     infoBtnSeed.removeClass('visible');
-    storyScroll();  // prevent bug when toggling between chapters to explore back to story, which doesn't reset on intro
+    storyScroll(sites, schools);  // prevent bug when toggling between chapters to explore back to story, which doesn't reset on intro
   }
 
   function clearStoryLayers() {
@@ -1709,6 +1724,7 @@
   //
   // });
 
+  // TODO Adjust site mouseover labels
   function enterComparisonStyles() {
     // $('#map > .mapboxgl-canvas').css('height', '50vh');  // reset original map height to full view height
 
@@ -1797,13 +1813,24 @@
     const d1 = data[6];
     const tourney = data[7];
 
-    // TODO BUG: Entering explore mode too fast breaks - check deployed version
+    $('.app-mode-toggle').on('click', (e) => {
+      if (e.target.innerText === 'Story Mode') {
+        // only enter story mode if not already in story mode
+        if (!$('#toggle-story-mode')[0].classList.contains('active')) {
+          enterStoryMode(sites, schools);
+        }
+      } else {
+
+        // TODO BUG: Explore mode to storymode in chapter 1 breaks - might be fixed w above bug fix ^
+        enterExploreMode();
+      }
+    });
+
     $('#compare').on('click', () => {
 
       // TODO set default comparison if no school selected?
       $('#school-compare-1').val(filters.school !== 'all' ? filters.school : 'Kentucky');
       $('#school-compare-2').val('Louisville');
-      // $('#school-compare-1').val(filters.school);
 
       displayCompareStats($('#school-compare-1').val(), 1);
       displayCompareStats($('#school-compare-2').val(), 2);
@@ -1813,7 +1840,6 @@
 
       enterComparisonStyles();
 
-      // TODO Fix top map `<canvas class="mapboxgl-canvas">` height - should be 50vh
       map.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
       compareMap.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
 
@@ -1830,11 +1856,6 @@
 
     $('#school-compare-2').on('change', (e) => {
 
-
-      // TODO Actually tie to input change
-      // TODO MAKE FNS IN SELECTSCHOOLCOMPARE MORE DYNAMIC WITH MAP INPUT
-      // TODO BUG: SELCTING 2ND SCHOOL CHANGES 1ST MAP BOUNDS
-
       selectSchoolOnMap(compareMap, sites, false, e.target.value);
 
       compareMap.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
@@ -1843,10 +1864,10 @@
       displayCompareStats(e.target.value, 2);
     });
 
-    // TODO display titles and distances inline
     // TODO Display stats on default before click event
     // TODO add school colors?
     // TODO Default to label 'select comparison school' instead of alabama/1st school in 2nd filter
+    // TODO add weights on mouseover?
     function displayCompareStats(selectedSchool, order) {
       schools.features.forEach(school => {
         if (school.properties.school_common_name === selectedSchool) {
@@ -1856,11 +1877,22 @@
           $(`.compare-text-med-${order}`).text(returnStat(school, '50%'));
           $(`.compare-text-min-${order}`).text(returnStat(school, 'min'));
           $(`.compare-text-max-${order}`).text(returnStat(school, 'max'));
+
+          $(`.compare-text-${order}-seed-1`).text(returnSeedStat(school, 1));
+          $(`.compare-text-${order}-seed-2`).text(returnSeedStat(school, 2));
+          $(`.compare-text-${order}-seed-3`).text(returnSeedStat(school, 3));
+          $(`.compare-text-${order}-seed-4`).text(returnSeedStat(school, 4));
+
         }
       });
 
       function returnStat(school, stat) {
-        return school.properties[`${stat}_dist`].toFixed() + ' miles';
+        return school.properties[`${stat}_dist`].toFixed() + ' mi';
+      }
+
+      function returnSeedStat(school, seed) {
+        const seedMap = {1: 'oneSeed', 2: 'twoSeed', 3: 'threeSeed', 4: 'fourSeed'};
+        return school.properties.oneSeed ? school.properties[seedMap[seed]].mean.toFixed() + ' mi' : 'N/A';
       }
     }
 
@@ -1913,7 +1945,7 @@
 
       // STORYTELLING MODE
       // todo move map div abs position to not have to add padding once story mode is exited, reset bearing on resetExtent
-      storyScroll();
+      storyScroll(sites, schools);
     });
   }
 
@@ -2484,193 +2516,6 @@
     });
   }
 
-  // function selectSchoolOnMapCompare(sites, storyMode = false, input, map) {  // TODO iterate over layer source instead of geojson directly
-  //
-  //   // reset info card to 'school' view any time a new school is selected
-  //   resetInfoCard();
-  //
-  //   const lineFeatures = [];
-  //   let min = null;
-  //   let max = null;
-  //
-  //   console.log(map.style);
-  //
-  //   map.getSource('schools')['_data'].features.forEach(feature => {
-  //
-  //     // selected school
-  //     if (feature.properties.school_common_name === input) {
-  //
-  //       // close any open popups
-  //       popup.remove();
-  //
-  //       // hide other schools when school is selected to reduce visual mess
-  //       map.setLayoutProperty('schools', 'visibility', 'none');
-  //
-  //       // create empty bounding geometry for fitBounds argument
-  //       const layerGeometry = {type: 'Polygon', coordinates: []};
-  //       // coordinate array (formatted[[0,0],[1,1],[...]) to be pushed to layerGeometry coordinates
-  //       // start with school point coordinates
-  //       const layerCoords = [feature.geometry.coordinates];
-  //
-  //       // loop through all tournament sites
-  //       sites.features.forEach(site => {
-  //         // filter sites for the selected school
-  //         if (site.properties.school_common_name === feature.properties.school_common_name) {
-  //           // console.log(site);
-  //           // push site coordinates to single array
-  //           layerCoords.push(site.geometry.coordinates);
-  //           // wrap coords
-  //           layerGeometry.coordinates = [layerCoords];
-  //
-  //           // push linestring features to a feature array to be inserted into lines layer geojson source
-  //           createLineFeatures(lineFeatures, site, feature);
-  //         }
-  //
-  //         // set minimum and maximum distances for info cards
-  //         // iterate through sites and match to the min and max distances traveled, to fixed with for exact match
-  //         if (site.properties.distance.toFixed(4) === feature.properties.min_dist.toFixed(4)) {
-  //           min = site.properties;
-  //         }
-  //         if (site.properties.distance.toFixed(4) === feature.properties.max_dist.toFixed(4)) {
-  //           max = site.properties;
-  //         }
-  //       });
-  //
-  //       // update linestrings as arcs
-  //       lineFeatures.forEach(line => {
-  //         arcLineString(line);
-  //       });
-  //
-  //
-  //       if (storyMode) {
-  //         const size = window.innerWidth <= 1215 ? 200 : 750;
-  //         map.fitBounds(turf.bbox(layerGeometry), { padding: {top: 100, bottom: 100, right: 200, left: size}, duration: 3000 });
-  //       } else {
-  //         // fit bounds to school and sites
-  //         fitMapBounds(layerGeometry);
-  //       }
-  //
-  //       // push linestring features to line layer source
-  //       map.getSource('line').setData({ type: 'FeatureCollection', features: lineFeatures });
-  //
-  //       // difference between school averages and overall averages // TODO add min and max avg? or compare against overall min and max?
-  //       const diffDistMed = (feature.properties['50%_dist'] - highlights['50%_dist']).toFixed();
-  //       const differenceDist = (feature.properties.mean_dist - highlights.mean_dist).toFixed();
-  //
-  //       const inputs = {
-  //         header: feature.properties.school_full_name,
-  //         card1: `${feature.properties.mean_dist.toFixed()} miles`,
-  //         card1text: `${feature.properties.mean_wtDist.toFixed()} miles WEIGHTED mean \n \n ${differenceDist} miles ${differenceText(differenceDist)} all-school average (${highlights.mean_dist} miles)`,
-  //         card2: `${feature.properties['50%_dist'].toFixed()} miles`,
-  //         card2text: `${feature.properties['50%_wtDist'].toFixed()} miles WEIGHTED median \n \n ${diffDistMed} miles  ${differenceText(diffDistMed)} all-school average (${highlights['50%_dist']} miles)`,
-  //         card3: `${feature.properties.min_dist.toFixed()} miles`,
-  //         card3text: `${min.city}, ${min.state} to ${min.site} as a ${min.seed} seed in ${min.year}`,
-  //         card4: `${feature.properties.max_dist.toFixed()} miles`,
-  //         card4text: `${max.city}, ${max.state} to ${max.site} as a ${max.seed} seed in ${max.year}`,
-  //         card5: feature.properties.count_dist,
-  //         card5text: 'Appearances as 1-4 seed',  // TODO put subinfoHeader w list of number of apperances as each seed
-  //       };
-  //       updateInfoCard(inputs);  // update highlights/info card with school info
-  //       applySchoolLabelStyles(feature);  // style mouseover label with school colors
-  //
-  //       // TODO make these fn dynamic by updating map input
-  //       styleLayersCompare(feature);  // style and filter school, site, and line layers based on selected school
-  //       setAvgDistanceLayerCompare(feature);  // set average distance circle at same location as selected school, apply source to layer
-  //     }
-  //   });
-  // }
-
-  // function selectSchoolOnMap(sites, storyMode = false) {  // TODO iterate over layer source instead of geojson directly
-  //
-  //   // reset info card to 'school' view any time a new school is selected
-  //   resetInfoCard();
-  //
-  //   const lineFeatures = [];
-  //   let min = null;
-  //   let max = null;
-  //
-  //   map.getSource('schools')['_data'].features.forEach(feature => {
-  //
-  //     // selected school
-  //     if (feature.properties.school_common_name === filters.school) {
-  //
-  //       // close any open popups
-  //       popup.remove();
-  //
-  //       // hide other schools when school is selected to reduce visual mess
-  //       map.setLayoutProperty('schools', 'visibility', 'none');
-  //
-  //       // create empty bounding geometry for fitBounds argument
-  //       const layerGeometry = {type: 'Polygon', coordinates: []};
-  //       // coordinate array (formatted[[0,0],[1,1],[...]) to be pushed to layerGeometry coordinates
-  //       // start with school point coordinates
-  //       const layerCoords = [feature.geometry.coordinates];
-  //
-  //       // loop through all tournament sites
-  //       sites.features.forEach(site => {
-  //         // filter sites for the selected school
-  //         if (site.properties.school_common_name === feature.properties.school_common_name) {
-  //           // console.log(site);
-  //           // push site coordinates to single array
-  //           layerCoords.push(site.geometry.coordinates);
-  //           // wrap coords
-  //           layerGeometry.coordinates = [layerCoords];
-  //
-  //           // push linestring features to a feature array to be inserted into lines layer geojson source
-  //           createLineFeatures(lineFeatures, site, feature);
-  //         }
-  //
-  //         // set minimum and maximum distances for info cards
-  //         // iterate through sites and match to the min and max distances traveled, to fixed with for exact match
-  //         if (site.properties.distance.toFixed(4) === feature.properties.min_dist.toFixed(4)) {
-  //           min = site.properties;
-  //         }
-  //         if (site.properties.distance.toFixed(4) === feature.properties.max_dist.toFixed(4)) {
-  //           max = site.properties;
-  //         }
-  //       });
-  //
-  //       // update linestrings as arcs
-  //       lineFeatures.forEach(line => {
-  //         arcLineString(line);
-  //       });
-  //
-  //
-  //       if (storyMode) {
-  //         const size = window.innerWidth <= 1215 ? 200 : 750;
-  //         map.fitBounds(turf.bbox(layerGeometry), { padding: {top: 100, bottom: 100, right: 200, left: size}, duration: 3000 });
-  //       } else {
-  //         // fit bounds to school and sites
-  //         fitMapBounds(layerGeometry);
-  //       }
-  //
-  //       // push linestring features to line layer source
-  //       map.getSource('line').setData({ type: 'FeatureCollection', features: lineFeatures });
-  //
-  //       // difference between school averages and overall averages // TODO add min and max avg? or compare against overall min and max?
-  //       const diffDistMed = (feature.properties['50%_dist'] - highlights['50%_dist']).toFixed();
-  //       const differenceDist = (feature.properties.mean_dist - highlights.mean_dist).toFixed();
-  //
-  //       const inputs = {
-  //         header: feature.properties.school_full_name,
-  //         card1: `${feature.properties.mean_dist.toFixed()} miles`,
-  //         card1text: `${feature.properties.mean_wtDist.toFixed()} miles WEIGHTED mean \n \n ${differenceDist} miles ${differenceText(differenceDist)} all-school average (${highlights.mean_dist} miles)`,
-  //         card2: `${feature.properties['50%_dist'].toFixed()} miles`,
-  //         card2text: `${feature.properties['50%_wtDist'].toFixed()} miles WEIGHTED median \n \n ${diffDistMed} miles  ${differenceText(diffDistMed)} all-school average (${highlights['50%_dist']} miles)`,
-  //         card3: `${feature.properties.min_dist.toFixed()} miles`,
-  //         card3text: `${min.city}, ${min.state} to ${min.site} as a ${min.seed} seed in ${min.year}`,
-  //         card4: `${feature.properties.max_dist.toFixed()} miles`,
-  //         card4text: `${max.city}, ${max.state} to ${max.site} as a ${max.seed} seed in ${max.year}`,
-  //         card5: feature.properties.count_dist,
-  //         card5text: 'Appearances as 1-4 seed',  // TODO put subinfoHeader w list of number of apperances as each seed
-  //       };
-  //       updateInfoCard(inputs);  // update highlights/info card with school info
-  //       applySchoolLabelStyles(feature);  // style mouseover label with school colors
-  //       styleLayers(feature);  // style and filter school, site, and line layers based on selected school
-  //       setAvgDistanceLayer(feature);  // set average distance circle at same location as selected school, apply source to layer
-  //     }
-  //   });
-  // }
 
   function applySchoolLabelStyles(feature) {
     // TODO conditions for white
@@ -2711,7 +2556,6 @@
         'coordinates': [feature.geometry.coordinates, site.geometry.coordinates],
       }
     });
-    // return lineFeatures;
   }
 
   function setAvgDistanceLayer(feature, map) {  // TODO rename fn
