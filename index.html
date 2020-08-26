@@ -710,6 +710,12 @@
       background-color: #0146a1;
     }
 
+    .dropdown-toggle {
+      width: 11rem;
+      text-align: left;
+      display: flex;
+      margin-top: 0.6rem;
+    }
 
   </style>
 </head>
@@ -770,8 +776,8 @@
 <!--      <option value="label">Select school</option>-->
 <!--    </select>-->
     <div class="dropdown">
-      <button class="btn btn-primary dropdown-toggle" style="width: 11rem; text-align: left; display: flex; margin-top: 0.6rem;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a school</button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"></div>
+      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdown-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a school</button>
+      <div class="dropdown-menu dropdown-menu-2" aria-labelledby="dropdown-2"></div>
     </div>
     <div class="comparison-stats">
       <span class="compare-title">MEAN</span>
@@ -1897,15 +1903,15 @@
       // TODO set default comparison if no school selected?
       $('#school-compare-1').val(filters.school !== 'all' ? filters.school : 'Kentucky');
       // $('#school-compare-2').val('Louisville');
-      $('#dropdownMenuButton').text('Louisville');
+      $('#dropdown-2').text('Louisville');
 
       displayCompareStats($('#school-compare-1').val(), 1);
       // displayCompareStats($('#school-compare-2').val(), 2);
-      displayCompareStats($('#dropdownMenuButton').text(), 2);
+      displayCompareStats($('#dropdown-2').text(), 2);
 
       selectSchoolOnMap(map, sites, false, $('#school-compare-1').val());
       // selectSchoolOnMap(compareMap, sites, false, $('#school-compare-2').val());
-      selectSchoolOnMap(compareMap, sites, false, $('#dropdownMenuButton').text());
+      selectSchoolOnMap(compareMap, sites, false, $('#dropdown-2').text());
 
       enterComparisonStyles();
 
@@ -1933,10 +1939,10 @@
       displayCompareStats(e.target.value, 2);
     });
 
-    $('.dropdown-menu').on('click', (e) => {
+    $('.dropdown-menu-2').on('click', (e) => {
       // // console.log(e.target.innerText);
-      // $('#dropdownMenuButton').text(e.target.innerText);
-      // console.log($('#dropdownMenuButton').text());
+      // $('#dropdown-2').text(e.target.innerText);
+      // console.log($('#dropdown-2').text());
 
 
       selectSchoolOnMap(compareMap, sites, false, e.target.innerText);
@@ -1945,7 +1951,7 @@
       infoBtnSeed.removeClass('visible');  // UGH I HATE THIS BUG
 
       displayCompareStats(e.target.innerText, 2);
-      $('#dropdownMenuButton').text(e.target.innerText);
+      $('#dropdown-2').text(e.target.innerText);
     });
 
     // TODO Display stats on default before click event
@@ -2387,7 +2393,7 @@
 
     allSchools.forEach(s => {
 
-      $('.dropdown-menu').append(`<a class="dropdown-item" href="#">${s}</a>`);
+      $('.dropdown-menu-2').append(`<a class="dropdown-item" href="#">${s}</a>`);
 
       // loop through  dropdown inputs and push school names to each one
       inputs.forEach(input => {
