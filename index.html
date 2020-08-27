@@ -1350,8 +1350,94 @@
   mapDiv = $('#map');
 
   rivals = {
-
-  }
+    "St. John's": "Seton Hall",
+    "VCU": "",
+    "Virginia Tech": "Virginia",
+    "Stanford": "California",
+    "Miami (FL)": "Florida State",
+    "Dayton": "Xavier",
+    "Saint Louis": "Dayton",
+    "Seton Hall": "St. John's",
+    "USC": "UCLA",
+    "Vanderbilt": "Tennessee",
+    "Auburn": "Alabama",
+    "Saint Joseph's": "Villanova",
+    "Maryland": "Duke",
+    "NC State": "Wake Forest",
+    "UCLA": "USC",
+    "New Mexico": "UNLV",
+    "Arizona": "UCLA",
+    "Michigan": "Michigan State",
+    "Indiana": "Purdue",
+    "Missouri": "Arkansas",
+    "UConn": "Syracuse",
+    "Wichita State": "Kansas State",
+    "Iowa": "",
+    "BYU": "",
+    "Creighton": "",
+    "TCU": "",
+    "Minnesota": "",
+    "Boston College": "",
+    "Louisville": "Kentucky",
+    "Texas": "",
+    "Wake Forest": "",
+    "Iowa State": "",
+    "Utah": "",
+    "LSU": "",
+    "Texas Tech": "",
+    "San Diego State": "",
+    "Florida State": "",
+    "Gonzaga": "",
+    "Oklahoma State": "",
+    "Kentucky": "Louisville",
+    "Syracuse": "",
+    "Pittsburgh": "",
+    "Loyola-Chicago": "",
+    "Cincinnati": "",
+    "Washington State": "",
+    "Mississippi State": "",
+    "Arkansas": "",
+    "Michigan State": "",
+    "North Carolina": "Duke",
+    "California": "",
+    "Purdue": "",
+    "Oklahoma": "",
+    "Xavier": "Butler",
+    "Georgetown": "",
+    "Baylor": "",
+    "Kansas": "",
+    "Wisconsin": "",
+    "Memphis": "",
+    "Georgia Tech": "",
+    "South Carolina": "",
+    "Kansas State": "",
+    "Oregon": "",
+    "Florida": "",
+    "UMass": "",
+    "UNLV": "",
+    "Washington": "",
+    "Temple": "",
+    "Houston": "",
+    "Marquette": "DePaul",
+    "Illinois": "",
+    "Ole Miss": "",
+    "Duke": "North Carolina",
+    "Georgia": "",
+    "Virginia": "",
+    "Tennessee": "",
+    "Clemson": "",
+    "Texas A&M": "",
+    "Nebraska": "",
+    "Ohio State": "",
+    "Villanova": "Saint Joseph's",
+    "Southern Illinois": "",
+    "Notre Dame": "",
+    "West Virginia": "",
+    "Alabama": "",
+    "Butler": "Xavier",
+    "La Salle": "Saint Joseph's",
+    "DePaul": "Marquette"
+  };
 
   story = $('#story');
 
@@ -1789,16 +1875,11 @@
     resetExtent();
   });
 
-  // // TODO BUG: Entering explore mode too fast breaks - check deployed version
-  // $('#compare').on('click', () => {
-  //   $('#school-compare-1').val(filters.school !== 'all' ? filters.school : 'Kentucky');
-  //
-  //   selectSchoolOnMap(sites);
-  //   enterComparisonStyles();
-  //
-  //   console.log(filters.school);
-  //
-  // });
+
+  $('#map-compare').on('mouseover', (e) => {
+    // TODO add tooltip for comparison mode btn
+    e.append(`<div>DOOT</div>`)
+  });
 
   // TODO Adjust site mouseover labels - ADD TO SECOND SCHOOL
   // TODO Create default matches
@@ -1907,19 +1988,17 @@
     $('#compare').on('click', () => {
 
       // TODO set default comparison if no school selected?
-      // $('#school-compare-1').val(filters.school !== 'all' ? filters.school : 'Kentucky');
-      $('#dropdown-1').text(filters.school !== 'all' ? filters.school : 'Kentucky');
-      // $('#school-compare-2').val('Louisville');
-      $('#dropdown-2').text('Louisville');
+      $('#dropdown-1').text(filters.school !== 'all' ? filters.school : 'Duke');
 
-      // displayCompareStats($('#school-compare-1').val(), 1);
+      if ($('#dropdown-1').text() === 'Duke') {
+
+        $('#dropdown-2').text('North Carolina');
+      }
+
       displayCompareStats($('#dropdown-1').text(), 1);
-      // displayCompareStats($('#school-compare-2').val(), 2);
       displayCompareStats($('#dropdown-2').text(), 2);
 
-      // selectSchoolOnMap(map, sites, false, $('#school-compare-1').val());
       selectSchoolOnMap(map, sites, false, $('#dropdown-1').text());
-      // selectSchoolOnMap(compareMap, sites, false, $('#school-compare-2').val());
       selectSchoolOnMap(compareMap, sites, false, $('#dropdown-2').text());
 
       enterComparisonStyles();
@@ -1929,30 +2008,11 @@
 
     });
 
-    // $('#school-compare-1').on('change', (e) => {
-    //   // console.log('school changed')
-    //   selectSchoolOnMap(map, sites, false, e.target.value);
-    //   map.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
-    //   infoBtnSeed.removeClass('visible');  // UGH I HATE THIS BUG
-    //   displayCompareStats(e.target.value, 1);
-    //
-    // });
-
-    // $('#school-compare-2').on('change', (e) => {
-    //
-    //   selectSchoolOnMap(compareMap, sites, false, e.target.value);
-    //
-    //   compareMap.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
-    //   infoBtnSeed.removeClass('visible');  // UGH I HATE THIS BUG
-    //
-    //   displayCompareStats(e.target.value, 2);
-    // });
-
     $('.dropdown-menu-1').on('click', (e) => {
       selectSchoolOnMap(map, sites, false, e.target.innerText);
       map.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
       infoBtnSeed.removeClass('visible');  // UGH I HATE THIS BUG
-      displayCompareStats(e.target.innerText, 2);
+      displayCompareStats(e.target.innerText, 1);
       $('#dropdown-1').text(e.target.innerText);
     });
 
@@ -1971,7 +2031,6 @@
     function displayCompareStats(selectedSchool, order) {
       schools.features.forEach(school => {
         if (school.properties.school_common_name === selectedSchool) {
-          console.log(school.properties);
 
           $(`.compare-text-mean-${order}`).text(returnStat(school, 'mean'));
           $(`.compare-text-med-${order}`).text(returnStat(school, '50%'));
@@ -2540,7 +2599,12 @@
     let min = null;
     let max = null;
 
+    const tmp = {};
+
     map.getSource('schools')['_data'].features.forEach(feature => {
+
+      tmp[feature.properties.school_common_name] = '';
+      console.log(JSON.stringify(tmp));
 
       // selected school
       if (feature.properties.school_common_name === input) {
