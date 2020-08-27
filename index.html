@@ -717,6 +717,22 @@
       margin-top: 0.6rem;
     }
 
+    .label-compare {
+      position: absolute;
+      top: calc(50% + 3rem);
+      right: 0;
+      background: whitesmoke;
+      border: 1px solid #AAA;
+      border-radius: 4px;
+      color: #414140;
+      padding: 1rem;
+      margin: 0.5rem;
+      width: 19rem;
+      text-align: center;
+      visibility: hidden;
+      font-family: Roboto, sans-serif;
+    }
+
   </style>
 </head>
 <body>
@@ -849,6 +865,11 @@
   <div class="label">
     <div class="label-text"></div>
     <div class="label-subtext"></div>
+  </div>
+
+  <div class="label-compare">
+    <div class="label-text-compare"></div>
+    <div class="label-subtext-compare"></div>
   </div>
 
   <div class="sidebar">
@@ -1988,11 +2009,12 @@
     $('#compare').on('click', () => {
 
       // TODO set default comparison if no school selected?
-      $('#dropdown-1').text(filters.school !== 'all' ? filters.school : 'Duke');
+      $('#dropdown-1').text(filters.school !== 'all' ? filters.school : 'Kentucky');
 
-      if ($('#dropdown-1').text() === 'Duke') {
+      if ($('#dropdown-1').text() === 'Kentucky') {
 
-        $('#dropdown-2').text('North Carolina');
+        // TODO Hide stat boxes if nothing is selected
+        $('#dropdown-2').text('Louisville');
       }
 
       displayCompareStats($('#dropdown-1').text(), 1);
@@ -2074,6 +2096,7 @@
 
       // map events
       onSiteHover();
+      onCompareSiteHover();
       onSchoolHover();
       onSchoolClick(sites);
 
@@ -3022,11 +3045,38 @@
     });
   }
 
+  function onCompareSiteHover() {
+    // TODO add visual afforance to line+site? Add invisible thicker linestring layer for smoother popup
+    const layers = ['sites', 'line'];
+    layers.forEach(layer => {
+      // TODO fix bug where site label doesnt work over a school, ex: Iowa site in Nashville overwitten by Vandy
+      compareMap.on('mousemove', layer, (e) => {
+        applyCompareSiteLabelStyles(e.features[0].properties);
+      });
+
+      compareMap.on('mouseleave', layer, () => {
+        $('.label-compare').removeClass('visible');  // hide label on mouseleave
+      });
+    });
+  }
+
   function backgroundColor(property) {
     return property.seed === 1 ? '#80bad1' :
       property.seed === 2 ? '#5694c1' :
         property.seed === 3 ? '#2c6db1' :
           property.seed === 4 ? '#0146a1' : '#AAA';
+  }
+
+  function applyCompareSiteLabelStyles(props) {
+    const content = `${props.school_common_name} played ${props.distance.toFixed()}
+            miles from home in ${props.site} in ${props.year} as a ${props.seed} seed.`;
+
+    // update label text and styles TODO add +/- from seed avg
+    $('.label-compare').addClass('visible');  // make info label visible
+    $('.label-text-compare').text(content);  // apply site info content
+    $('.label-subtext-compare').text('');  // apply site info content
+    $('.label-compare').css('background', backgroundColor(props));  // apply styles based on seed
+    $('.label-compare').css('color', 'white');
   }
 
   function applySiteLabelStyles(props) {
