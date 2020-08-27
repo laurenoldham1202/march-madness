@@ -858,6 +858,12 @@
 
       <!-- todo use charcoal background instead of blue? -->
       <div class="filter-row">
+
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="sf" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Schools</button>
+          <div class="dropdown-menu sf-menu" aria-labelledby="sf"></div>
+        </div>
+
         <select id="schoolFilter" class="toolbar-select">
           <option value="all">All Schools</option>
         </select>
@@ -1333,6 +1339,7 @@
   mapExplorer = $('.map-explore');
   weightedToggle = $('#weightedToggle');
   schoolFilter = $('#schoolFilter');
+  sf = $('#sf');
   seedFilter = $('#seedFilter');
   conferenceFilter = $('#conferenceFilter');
   statFilter = $('#statFilter');
@@ -2311,6 +2318,9 @@
     schoolFilter.val(school);  // todo school not set to all when entering explore mode from selected schools
     schoolFilter.trigger('change');
 
+    sf.text(school);
+    sf.trigger('click');
+
     // set filter to display only selected school and site
     ['sites', 'line'].forEach(layer => {
       // TODO apply site seed styling
@@ -2401,6 +2411,7 @@
 
     allSchools.forEach(s => {
 
+      $('.sf-menu').append(`<a class="dropdown-item" href="#">${s}</a>`);
       $('.dropdown-menu-1').append(`<a class="dropdown-item" href="#">${s}</a>`);
       $('.dropdown-menu-2').append(`<a class="dropdown-item" href="#">${s}</a>`);
 
@@ -2424,11 +2435,17 @@
   }
 
   function resetAllFilters(excludeFilter = null) {
-    let filters = [weightedToggle, schoolFilter, seedFilter, conferenceFilter, statFilter];
+    let filters = [weightedToggle, schoolFilter, seedFilter, conferenceFilter, statFilter, sf];
     if (excludeFilter) {
       const index = filters.indexOf(excludeFilter);
       filters.splice(index, 1);
-      excludeFilter.val('all');
+      if (excludeFilter === sf) {
+        excludeFilter.text('All Schools');
+      } else {
+
+        excludeFilter.val('all');
+      }
+
     }
     filters.forEach(filter => {
       resetFilter(filter);
@@ -2504,6 +2521,19 @@
     schoolFilter.on('change', (e) => {
       // apply selected school to filters
       filters.school = e.target.value;
+      selectSchoolOnMap(map, sites);
+
+      if (filters.school !== 'all') {
+        selectSchoolOnMap(map, sites);
+      } else {
+        resetExtent();
+      }
+    });
+
+    $('.sf-menu').on('click', (e) => {
+      // apply selected school to filters
+      filters.school = e.target.innerText;
+      sf.text(filters.school);
       selectSchoolOnMap(map, sites);
 
       if (filters.school !== 'all') {
@@ -2865,6 +2895,7 @@
       filters.school = e.features[0].properties.school_common_name;
       // set school filter dropdown value as clicked school
       schoolFilter.val(filters.school);
+      sf.text(filters.school);
       selectSchoolOnMap(map, sites, colors);
     });
   }
