@@ -479,7 +479,6 @@
       visibility: hidden;
     }
 
-
     .toolbar {
       position: fixed;
       top: 0;
@@ -563,6 +562,18 @@
       color: #777;
       padding: 0.25rem 0.5rem;
       background: #EEE;
+    }
+
+    .btn-tooltip {
+      position: fixed;
+      top: 2.75rem;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.5);
+      color: whitesmoke;
+      padding: 0.25rem;
+      font-size: 0.85rem;
+      z-index: 3000;
+      visibility: hidden;
     }
 
     @media (max-width: 750px) {
@@ -855,6 +866,7 @@
   <div class="map-control">
     <button id="extent" class="map-button"><span class="material-icons">public</span></button>
     <button id="compare" class="map-button"><span class="material-icons">compare</span></button>
+    <div class="btn-tooltip"></div>
   </div>
   <div class="map-control" style="bottom: 1rem !important; top: auto !important; left: 25rem;">
     <button id="legend" class="map-button"><span class="material-icons">legend_toggle</span></button>
@@ -2076,6 +2088,24 @@
         return school.properties[seedMap[seed]] ? school.properties[seedMap[seed]].mean.toFixed() + ' mi' : 'N/A';
       }
     }
+
+    $('#extent').on('mouseover', () => {
+      $('.btn-tooltip').css('visibility', 'visible');
+      $('.btn-tooltip').text('Reset map and filters');
+    });
+
+    $('#extent').on('mouseout', () => {
+      $('.btn-tooltip').css('visibility', 'hidden');
+    });
+
+    $('#compare').on('mouseover', () => {
+      $('.btn-tooltip').css('visibility', 'visible');
+      $('.btn-tooltip').text('Compare two schools');
+    });
+
+    $('#compare').on('mouseout', () => {
+      $('.btn-tooltip').css('visibility', 'hidden');
+    });
 
     // iterate over schools and seeds geojson layers before manipulating map
     // push schools to schoolFilter dropdown, apply seed values to school feature properties
