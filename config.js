@@ -10,13 +10,14 @@ const config = {
         {
             id: 'intro',
             description: `
-<div class="center" style="text-align: center;"><img src="./images/bball-2.png"></div>
+<!--<div class="center" style="text-align: center;"><img src="./images/bball-2.png"></div>-->
+<img src="./images/bball-2.png" style="float: left; margin-right: 1rem;">
 <p><span class="capital-font" style="font-size: 26pt;">Every year in March,</span> 
-the top college basketball programs anxiously await Selection Sunday, which determines <em>who</em> and <em>where</em>
-teams will play during March Madness. <span class="material-icons button-icon" id="details-modal" data-toggle="modal" data-target="#about-modal">help</span></p> 
+the top college basketball programs are placed in a tournament bracket, which determines <em>who</em> and <em>where</em>
+teams will play during NCAA's men's college basketball championship. <span class="material-icons button-icon" id="details-modal" data-toggle="modal" data-target="#about-modal">help</span></p> 
 
-<p>Top ranked teams are supposed to be given a geographic advantage early in the tournament, which is intended to 
-<strong>simulate a home-court advantage</strong> - if they play close to 'home,' fanbases are able to travel to watch 
+<p>Top ranked teams are supposed to be given a <span class="geo-source" data-toggle="modal" data-target="#geo-source-modal">geographic advantage early in the tournament</span>, which is intended to 
+simulate a home-court advantage - if they play close to 'home,' fanbases are able to travel to watch 
 the games.</p>
 
 <div class="story-hl">
@@ -311,8 +312,11 @@ year's tournament.
             title: 'Distances by Seed',
             image: '',
             description: `Analysis of data from 1985 to 2019 falls in line with the NCAA's claim of 
-            geographic preference for higher seeds, with <strong>1 seeds averaging the shortest travel distance, 2 seeds averaging
-            the second shortest travel distance, 3 seeds average the third shortest travel distance, and 4 seeds traveling
+            geographic preference for higher seeds, with 
+            <br><strong>1 seeds averaging the shortest travel distance,
+            <br>2 seeds averaging the second shortest travel distance,
+             <br>3 seeds average the third shortest travel distance, and
+              <br>4 seeds traveling
             the furthest of all top ranked seeds</strong>.
    
             <div class="seed-hl-row">
