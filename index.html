@@ -743,6 +743,9 @@
       visibility: hidden;
       font-family: Roboto, sans-serif;
     }
+    .step img {
+      width: 50%;
+    }
 
   </style>
 </head>
@@ -753,7 +756,6 @@
 
 <div class="comparison-mode" style="visibility: hidden;">
   <div class="comparison-filter school-1">
-<!--    <select id="school-compare-1" class="toolbar-select"></select>-->
     <div class="dropdown">
       <button class="btn btn-primary dropdown-toggle" type="button" id="dropdown-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a school</button>
       <div class="dropdown-menu dropdown-menu-1" aria-labelledby="dropdown-1"></div>
@@ -793,19 +795,7 @@
   </div>
   <button class="exit">< BACK</button>
 
-
-
-
-
-
-
-
-
-
   <div class="comparison-filter school-2" style="position: fixed; top: 50vh;">
-<!--    <select id="school-compare-2" class="toolbar-select">-->
-<!--      <option value="label">Select school</option>-->
-<!--    </select>-->
     <div class="dropdown">
       <button class="btn btn-primary dropdown-toggle" type="button" id="dropdown-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a school</button>
       <div class="dropdown-menu dropdown-menu-2" aria-labelledby="dropdown-2"></div>
@@ -856,9 +846,6 @@
     <label class="btn btn-secondary" id="toggle-explore-mode">
       <input type="radio" name="options" id="map-explore"> Explore Mode
     </label>
-<!--    <label class="btn btn-secondary" id="toggle-compare-mode" >-->
-<!--      <input type="radio" name="options" id="map-compare"> Compare-->
-<!--    </label>-->
   </div>
 </div>
 
@@ -885,7 +872,8 @@
   </div>
 
   <div class="sidebar">
-    <h1 class="capital-font" style="text-align: center;">March Madness</h1>
+    <h1 class="capital-font" style="text-align: center;">Going the Distance</h1>
+    <div style="text-align: center; font-size: 0.75rem;">First-Round March Madness Travel Distances Analysis</div>
     <hr>
     <div class="filters-container">
 

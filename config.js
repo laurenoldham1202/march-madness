@@ -10,6 +10,7 @@ const config = {
         {
             id: 'intro',
             description: `
+<div class="center" style="text-align: center;"><img src="./images/bball-2.png"></div>
 <p><span class="capital-font" style="font-size: 26pt;">Every year in March,</span> 
 the top college basketball programs anxiously await Selection Sunday, which determines <em>who</em> and <em>where</em>
 teams will play during March Madness. <span class="material-icons button-icon" id="details-modal" data-toggle="modal" data-target="#about-modal">help</span></p> 
@@ -28,7 +29,8 @@ traveled an average distance of 147 miles to their first-round game.
 </div>
 
             `,
-            image: './images/logo.png',
+            // image: './images/logo.png',
+            // image: './images/bball-2.png',
             location: {
                 center: { lon: -86.54989, lat: 38.96481 },
                 zoom: 5.34,
