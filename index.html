@@ -138,10 +138,9 @@
       font-size: 18px;
     }
 
-    .step img {
-      width: 100%;
-      margin-bottom: 1.5rem;
-    }
+    /*.step img {*/
+    /*  width: 100%;*/
+    /*}*/
 
     /* ---------------------- MY MAP CODE ---------------------- */
 
@@ -451,11 +450,19 @@
     }
 
     .chapter {
-      width: 5.25%;
+      /*width: 5.25%;*/
+      /*background: #0146a1;*/
+      /*border: 1px solid rgba(255, 255, 255, 0.4);*/
+      /*height: 0.75rem;*/
+      /*cursor: pointer;*/
+      width: 4.25%;
       background: #0146a1;
       border: 1px solid rgba(255, 255, 255, 0.4);
-      height: 0.75rem;
       cursor: pointer;
+      font-size: 0.8rem;
+      color: whitesmoke;
+      padding: 0.25rem 0;
+      text-align: center;
     }
 
     .active-chapter {
@@ -604,7 +611,7 @@
       }
 
       .step img {
-        width: 300px;
+        width: 10% !important;
       }
 
       .light {
@@ -743,6 +750,7 @@
       visibility: hidden;
       font-family: Roboto, sans-serif;
     }
+
     .step img {
       width: 50%;
     }
@@ -750,6 +758,16 @@
     .geo-source {
       color: #0071bc;
       cursor: pointer;
+    }
+
+    .story-test {
+      background: #E27600;
+      color: whitesmoke;
+      position: fixed;
+      bottom: 1.5rem;
+      right: 0.5rem;
+      font-weight: 700;
+      border: 1px solid whitesmoke;
     }
 
   </style>
@@ -844,15 +862,19 @@
   <div class="chapter-list"></div>
   <div class="chapter-tooltip"></div>
 
-  <div class="btn-group btn-group-toggle app-mode-toggle" data-toggle="buttons">
-    <label class="btn btn-secondary active" id="toggle-story-mode" >
-      <input type="radio" name="options" id="map-story" checked> Story Mode
-    </label>
-    <label class="btn btn-secondary" id="toggle-explore-mode">
-      <input type="radio" name="options" id="map-explore"> Explore Mode
-    </label>
-  </div>
+<!--  <button class="btn" style="background: #E27600">Skip Story ></button>-->
+
+<!--  <div class="btn-group btn-group-toggle app-mode-toggle" data-toggle="buttons">-->
+<!--    <label class="btn btn-secondary active" id="toggle-story-mode" >-->
+<!--      <input type="radio" name="options" id="map-story" checked> Story Mode-->
+<!--    </label>-->
+<!--    <label class="btn btn-secondary" id="toggle-explore-mode">-->
+<!--      <input type="radio" name="options" id="map-explore"> Explore Mode-->
+<!--    </label>-->
+<!--  </div>-->
 </div>
+<button class="btn story-test">Skip Story ></button>
+
 
 <div class="map-explore">
   <div class="map-control">
@@ -1404,9 +1426,10 @@
 
   mapDiv = $('#map');
 
+  // TODO implement random comparison button?
   rivals = {
     "St. John's": "Seton Hall",
-    "VCU": "",
+    "VCU": "Dayton",
     "Virginia Tech": "Virginia",
     "Stanford": "California",
     "Miami (FL)": "Florida State",
@@ -1419,53 +1442,53 @@
     "Saint Joseph's": "Villanova",
     "Maryland": "Duke",
     "NC State": "Wake Forest",
-    "UCLA": "USC",
+    "UCLA": "Arizona",
     "New Mexico": "UNLV",
     "Arizona": "UCLA",
     "Michigan": "Michigan State",
     "Indiana": "Purdue",
-    "Missouri": "Arkansas",
+    "Missouri": "Kansas",
     "UConn": "Syracuse",
     "Wichita State": "Kansas State",
-    "Iowa": "",
-    "BYU": "",
-    "Creighton": "",
-    "TCU": "",
-    "Minnesota": "",
-    "Boston College": "",
+    "Iowa": "Iowa State",
+    "BYU": "Utah",
+    "Creighton": "Nebraska",
+    "TCU": "Baylor",
+    "Minnesota": "Wisconsin",
+    "Boston College": "UMass",
     "Louisville": "Kentucky",
-    "Texas": "",
-    "Wake Forest": "",
-    "Iowa State": "",
-    "Utah": "",
-    "LSU": "",
-    "Texas Tech": "",
-    "San Diego State": "",
-    "Florida State": "",
-    "Gonzaga": "",
-    "Oklahoma State": "",
+    "Texas": "Oklahoma",
+    "Wake Forest": "North Carolina",
+    "Iowa State": "Iowa",
+    "Utah": "BYU",
+    "LSU": "Auburn",  // TODO check??
+    "Texas Tech": "Texas",
+    "San Diego State": "UNLV",
+    "Florida State": "Florida",
+    "Gonzaga": "Washington",
+    "Oklahoma State": "Oklahoma",
     "Kentucky": "Louisville",
-    "Syracuse": "",
-    "Pittsburgh": "",
-    "Loyola-Chicago": "",
-    "Cincinnati": "",
+    "Syracuse": "Georgetown",
+    "Pittsburgh": "West Virginia",
+    "Loyola-Chicago": "DePaul",
+    "Cincinnati": "Xavier",
     "Washington State": "",
     "Mississippi State": "",
     "Arkansas": "",
-    "Michigan State": "",
+    "Michigan State": "Michigan",
     "North Carolina": "Duke",
     "California": "",
-    "Purdue": "",
+    "Purdue": "Indiana",
     "Oklahoma": "",
-    "Xavier": "Butler",
-    "Georgetown": "",
+    "Xavier": "Cincinnati",
+    "Georgetown": "Syracuse",
     "Baylor": "",
-    "Kansas": "",
+    "Kansas": "Kansas State",
     "Wisconsin": "",
     "Memphis": "",
     "Georgia Tech": "",
     "South Carolina": "",
-    "Kansas State": "",
+    "Kansas State": "Kansas",
     "Oregon": "",
     "Florida": "",
     "UMass": "",
@@ -1473,8 +1496,8 @@
     "Washington": "",
     "Temple": "",
     "Houston": "",
-    "Marquette": "DePaul",
-    "Illinois": "",
+    "Marquette": "Wisconsin",
+    "Illinois": "Missouri",
     "Ole Miss": "",
     "Duke": "North Carolina",
     "Georgia": "",
@@ -1487,7 +1510,7 @@
     "Villanova": "Saint Joseph's",
     "Southern Illinois": "",
     "Notre Dame": "",
-    "West Virginia": "",
+    "West Virginia": "Pitt",
     "Alabama": "",
     "Butler": "Xavier",
     "La Salle": "Saint Joseph's",
@@ -1627,6 +1650,8 @@
     config.chapters.forEach(chapter => {
       $('.chapter-list').append(`<div class='chapter' id="block-${chapter.id}"></div>`);
     });
+    $('.chapter-list').append(`<div class='chapter' style="width: 15% !important; background: #5694c1" id="explore">EXPLORE</div>`);
+
   }
 
   function clickChapter() {
