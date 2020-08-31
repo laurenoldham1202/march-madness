@@ -594,6 +594,7 @@
       font-size: 0.85rem;
       z-index: 3000;
       visibility: hidden;
+      /*width: 10rem;*/
     }
 
     @media (max-width: 750px) {
@@ -2202,7 +2203,6 @@
 
     $('#extent').on('mouseover', (e) => {
       $('.btn-tooltip').css('left', e.target.offsetLeft);
-
       $('.btn-tooltip').css('visibility', 'visible');
       $('.btn-tooltip').text('Reset map and filters');
     });
@@ -2213,7 +2213,6 @@
 
     $('#compare').on('mouseover', (e) => {
       $('.btn-tooltip').css('left', e.target.offsetLeft);
-
       $('.btn-tooltip').css('visibility', 'visible');
       $('.btn-tooltip').text('Compare two schools');
     });
@@ -2223,9 +2222,7 @@
     });
 
     $('#story-mode-btn').on('mouseover', (e) => {
-      // console.log(e);
-      $('.btn-tooltip').css('left', e.target.offsetLeft);
-
+      $('.btn-tooltip').css('left', e.target.offsetLeft - 20);
       $('.btn-tooltip').css('visibility', 'visible');
       $('.btn-tooltip').text('Return to story');
     });
