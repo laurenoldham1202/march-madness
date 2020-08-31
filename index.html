@@ -306,7 +306,7 @@
 
     .label {
       position: absolute;
-      top: 3rem;
+      top: 4rem;
       right: 0;
       background: whitesmoke;
       border: 1px solid #AAA;
@@ -584,8 +584,9 @@
     }
 
     .btn-tooltip {
-      position: fixed;
-      top: 2.75rem;
+      /*position: fixed;*/
+      position: absolute;
+      top: 4.25rem;
       border-radius: 4px;
       background: rgba(0, 0, 0, 0.5);
       color: whitesmoke;
@@ -787,7 +788,8 @@
       top: .5rem;
       right: .5rem;
       display: flex;
-      visibility: hidden;
+      /*z-index: 2500;*/
+      /*visibility: hidden;*/
     }
 
   </style>
@@ -897,24 +899,31 @@
 
 <button class="btn skip-story-btn" id="toggle-explore-mode">Skip Story ></button>
 
-<div class="map-menu">
-  <button class="map-menu-btn">
-    <div class="material-icons">public</div> Reset
-  </button>
-  <button class="map-menu-btn">
-    <div class="material-icons">compare</div> Compare
-  </button>
-  <button class="map-menu-btn">
-    <div class="material-icons">menu_book</div> Learn
-  </button>
-</div>
 
 
 <div class="map-explore">
-  <div class="map-control">
-    <button id="extent" class="map-button"><span class="material-icons">public</span></button>
-    <button id="compare" class="map-button"><span class="material-icons">compare</span></button>
+
+
+  <!-- TODO add tooltips, add styles to skip story btn focus and active-->
+  <!-- TODO update label location -->
+  <div class="map-menu">
+    <button class="map-menu-btn" id="extent">
+      <div class="material-icons">public</div> Reset
+    </button>
+    <button class="map-menu-btn" id="compare">
+      <div class="material-icons">compare</div> Compare
+    </button>
+    <button class="map-menu-btn" id="story-mode-btn">
+      <div class="material-icons">menu_book</div> Learn
+    </button>
     <div class="btn-tooltip"></div>
+  </div>
+
+
+  <div class="map-control">
+<!--    <button id="extent" class="map-button"><span class="material-icons">public</span></button>-->
+<!--    <button id="compare" class="map-button"><span class="material-icons">compare</span></button>-->
+<!--    <div class="btn-tooltip"></div>-->
   </div>
   <div class="map-control" style="bottom: 1rem !important; top: auto !important; left: 25rem;">
     <button id="legend" class="map-button"><span class="material-icons">legend_toggle</span></button>
@@ -1687,10 +1696,6 @@
     $('.chapter-list').append(`<!--<div class='chapter' style="width: 15% !important; background: #5694c1" id="toggle-explore-mode">EXPLORE</div>-->`);
   }
 
-  $('#toggle-explore-mode').on('click', () => {
-    enterExploreMode();
-  });
-
   function clickChapter() {
     $('.chapter').on('click', (e) => {
       if (e.target.id !== 'toggle-explore-mode') {
@@ -1769,6 +1774,7 @@
         }
       });
 
+      console.log(e.target.offsetLeft);
       // toggle visibility and place each tooltip below chapter block
       tooltip.css('left', e.target.offsetLeft);
       tooltip.css('visibility', 'visible');
@@ -1786,7 +1792,7 @@
     // remove story and toggle visibility of explore sidebar on
     story.detach();
     mapExplorer.css('visibility', 'visible');
-    $('.map-menu').css('visibility', 'visible');
+    // $('.map-menu').css('visibility', 'visible');
 
     // hide progress bar
     $('.chapter-list').css('visibility', 'hidden');
@@ -1974,7 +1980,9 @@
   function enterStoryMode(sites, schools) {
     $('body').append(story);
     mapExplorer.css('visibility', 'hidden');
+    mapExplorer.css('visibility', 'hidden');
     $('.chapter-list').css('visibility', 'visible');
+    $('.skip-story-btn').css('visibility', 'visible');
 
     resetExtent();
     resetAllFilters();
@@ -2001,7 +2009,7 @@
 
   $('#map-compare').on('mouseover', (e) => {
     // TODO add tooltip for comparison mode btn
-    e.append(`<div>DOOT</div>`)
+    // e.append(`<div>DOOT</div>`)
   });
 
   // TODO Adjust site mouseover labels - ADD TO SECOND SCHOOL
@@ -2095,6 +2103,14 @@
     const d1 = data[6];
     const tourney = data[7];
 
+    $('#toggle-explore-mode').on('click', () => {
+      enterExploreMode();
+    });
+
+    $('#story-mode-btn').on('click', () => {
+      enterStoryMode(sites, schools);
+    });
+
     $('.app-mode-toggle').on('click', (e) => {
       if (e.target.innerText === 'Story Mode') {
         // only enter story mode if not already in story mode
@@ -2109,6 +2125,7 @@
     });
 
     $('#compare').on('click', () => {
+      console.log('click');
 
       // TODO set default comparison if no school selected?
       $('#dropdown-1').text(filters.school !== 'all' ? filters.school : 'Kentucky');
@@ -2179,7 +2196,13 @@
       }
     }
 
-    $('#extent').on('mouseover', () => {
+    // $('.map-menu').on('mouseover', (e) => {
+    //   console.log(e.target.offsetLeft);
+    // });
+
+    $('#extent').on('mouseover', (e) => {
+      $('.btn-tooltip').css('left', e.target.offsetLeft);
+
       $('.btn-tooltip').css('visibility', 'visible');
       $('.btn-tooltip').text('Reset map and filters');
     });
@@ -2188,12 +2211,26 @@
       $('.btn-tooltip').css('visibility', 'hidden');
     });
 
-    $('#compare').on('mouseover', () => {
+    $('#compare').on('mouseover', (e) => {
+      $('.btn-tooltip').css('left', e.target.offsetLeft);
+
       $('.btn-tooltip').css('visibility', 'visible');
       $('.btn-tooltip').text('Compare two schools');
     });
 
     $('#compare').on('mouseout', () => {
+      $('.btn-tooltip').css('visibility', 'hidden');
+    });
+
+    $('#story-mode-btn').on('mouseover', (e) => {
+      // console.log(e);
+      $('.btn-tooltip').css('left', e.target.offsetLeft);
+
+      $('.btn-tooltip').css('visibility', 'visible');
+      $('.btn-tooltip').text('Return to story');
+    });
+
+    $('#story-mode-btn').on('mouseout', () => {
       $('.btn-tooltip').css('visibility', 'hidden');
     });
 
@@ -2746,8 +2783,8 @@
 
     map.getSource('schools')['_data'].features.forEach(feature => {
 
-      tmp[feature.properties.school_common_name] = '';
-      console.log(JSON.stringify(tmp));
+      // tmp[feature.properties.school_common_name] = '';
+      // console.log(JSON.stringify(tmp));
 
       // selected school
       if (feature.properties.school_common_name === input) {
