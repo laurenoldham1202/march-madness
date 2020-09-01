@@ -6,6 +6,10 @@
 
   <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
+<!--  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
+
   <!-- map -->
   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css' rel='stylesheet' />
@@ -51,11 +55,26 @@
     }
 
     #map {
-        top: 0;
-        height: 100vh;
-        width: 100vw;
-        position: fixed;
-        z-index: -5;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      /*height: 100vh;*/
+      /*width: 100vw;*/
+      position: fixed;
+      z-index: -5;
+      transition: 0.3s ease-in-out height;
+    }
+
+    #map-compare {
+      bottom: 0;
+      height: 50vh;
+      width: 100vw;
+      position: fixed;
+      z-index: -5;
+      visibility: hidden;
+      transition: 0.3s ease-in-out height;
+
     }
 
     #header {
@@ -74,7 +93,7 @@
     }
 
     #features {
-      padding-top: 4rem;
+      padding-top: 3rem;
       padding-bottom: 10vh;
       z-index: 100;
     }
@@ -117,12 +136,12 @@
     .step div {
       line-height: 25px;
       font-size: 18px;
+      /*margin-top: 3rem;*/
     }
 
-    .step img {
-      width: 100%;
-      margin-bottom: 1.5rem;
-    }
+    /*.step img {*/
+    /*  width: 100%;*/
+    /*}*/
 
     /* ---------------------- MY MAP CODE ---------------------- */
 
@@ -162,6 +181,17 @@
       background: white;
       border: 2px solid rgba(10, 10, 10, 0.1);
       border-radius: 4px;
+    }
+
+    .map-menu-btn {
+      z-index: 2200;
+      background: white;
+      border: 2px solid rgba(10, 10, 10, 0.1);
+      border-radius: 4px;
+      width: 4.5rem;
+      margin: .1rem;
+      font-size: 0.8rem;
+      flex-direction: column;
     }
 
     #extent:hover {
@@ -277,7 +307,7 @@
 
     .label {
       position: absolute;
-      top: 3rem;
+      top: 4rem;
       right: 0;
       background: whitesmoke;
       border: 1px solid #AAA;
@@ -386,6 +416,11 @@
       font-size: 0.75rem !important;
     }
 
+    .compare-title {
+      font-weight: 600;
+      font-size: 0.75rem !important;
+    }
+
     .circle {
       background: #E27600;
       border-radius: 50px;
@@ -427,11 +462,20 @@
     }
 
     .chapter {
-      width: 5.25%;
+      /*width: 5.25%;*/
+      /*background: #0146a1;*/
+      /*border: 1px solid rgba(255, 255, 255, 0.4);*/
+      height: 0.75rem;
+      /*cursor: pointer;*/
+      /*width: 4.25%;*/
+      width: 5%;
       background: #0146a1;
       border: 1px solid rgba(255, 255, 255, 0.4);
-      height: 0.75rem;
       cursor: pointer;
+      font-size: 0.8rem;
+      color: whitesmoke;
+      padding: 0.25rem 0;
+      text-align: center;
     }
 
     .active-chapter {
@@ -455,7 +499,6 @@
       visibility: hidden;
     }
 
-
     .toolbar {
       position: fixed;
       top: 0;
@@ -463,6 +506,7 @@
       left: 0;
       display: flex;
       z-index: 2000;
+      pointer-events: none;
     }
 
     .small-text > .seed-hl {
@@ -530,6 +574,30 @@
       color: #0146a1;
     }
 
+    /*.exit {*/
+    /*  z-index: 2500;*/
+    /*  border-radius: 4px;*/
+    /*  margin: 0 0 0 0.33rem;*/
+    /*  border: 1px solid #CCC;*/
+    /*  color: #777;*/
+    /*  padding: 0.25rem 0.5rem;*/
+    /*  background: #EEE;*/
+    /*}*/
+
+    .btn-tooltip {
+      /*position: fixed;*/
+      position: absolute;
+      top: 4.25rem;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.5);
+      color: whitesmoke;
+      padding: 0.25rem;
+      font-size: 0.85rem;
+      z-index: 3000;
+      visibility: hidden;
+      /*width: 10rem;*/
+    }
+
     @media (max-width: 750px) {
       #features {
         width: 90vw;
@@ -558,7 +626,7 @@
       }
 
       .step img {
-        width: 300px;
+        width: 10% !important;
       }
 
       .light {
@@ -617,28 +685,340 @@
         visibility: hidden !important;
       }
     }
+
+    .comparison-stats {
+      background: #F5F5F5;
+      border: 1px solid #414140;
+      color: #414140;
+      width: 6rem;
+      margin: 0.5rem;
+      border-radius: 4px;
+      padding: 0.5rem;
+      white-space: nowrap;
+    }
+
+    .comparison-filter {
+      width: 100%;
+      display: flex;
+      /*margin-left: 0.33rem;*/
+    }
+
+    .compare-text {
+      /*margin-left: 0.25rem;*/
+    }
+
+    .seed-compare {
+      color: #FFF;
+    }
+
+    .stats {
+      position: absolute; top: 4rem; display: flex;
+    }
+
+    .col {
+      padding: 0 !important;
+    }
+
+    .dropdown-toggle::after {
+      margin-left: auto !important;
+      margin-top: .5rem;
+    }
+
+    .dropdown-menu {
+      max-height: 15rem;
+      overflow: scroll;
+    }
+
+    .btn-primary {
+      background: #0146a1;
+    }
+
+    .btn-primary:hover {
+      background: #002F6D;
+    }
+
+    .show>.btn-primary.dropdown-toggle {
+      background: #002F6D;
+    }
+
+    .dropdown-item:active {
+      background-color: #002F6D;
+    }
+
+    .dropdown-item:hover {
+      color: #FFF;
+      text-decoration: none;
+      background-color: #0146a1;
+    }
+
+    .dropdown-toggle {
+      width: 13rem;
+      text-align: left;
+      display: flex;
+      margin-top: 0.6rem;
+      margin-left: 0.5rem;
+    }
+
+    .label-compare {
+      position: absolute;
+      top: calc(50% + 3rem);
+      right: 0;
+      background: whitesmoke;
+      border: 1px solid #AAA;
+      border-radius: 4px;
+      color: #414140;
+      padding: 1rem;
+      margin: 0.5rem;
+      width: 19rem;
+      text-align: center;
+      visibility: hidden;
+      font-family: Roboto, sans-serif;
+    }
+
+    .step img {
+      width: 50%;
+    }
+
+    .geo-source {
+      color: #0071bc;
+      cursor: pointer;
+    }
+
+    .skip-story-btn {
+      background: #E27600;
+      color: whitesmoke;
+      position: fixed;
+      bottom: 1.5rem;
+      right: 0.5rem;
+      font-weight: 700;
+      border: 1px solid whitesmoke;
+    }
+
+    .skip-story-btn:hover {
+      background: #C16501;
+      color: whitesmoke;
+    }
+
+    .map-menu {
+      position: absolute;
+      top: .5rem;
+      right: .5rem;
+      display: flex;
+    }
+
+    .compare-menu {
+      position: fixed;
+      top: .5rem;
+      right: .5rem;
+      display: flex;
+    }
+
   </style>
 </head>
 <body>
 
 <div id="map" class="map-story-mode"></div>
+<div id="map-compare"></div>
+
+<!--<div class="comparison-mode" style="visibility: hidden;">-->
+<!--  <div class="comparison-filter school-1">-->
+<!--    <div class="dropdown">-->
+<!--      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdown-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a school</button>-->
+<!--      <div class="dropdown-menu dropdown-menu-1" aria-labelledby="dropdown-1"></div>-->
+<!--    </div>-->
+<!--    <div class="comparison-stats">-->
+<!--      <span class="compare-title">MEAN</span>-->
+<!--      <span class="compare-text compare-text-mean-1"></span>-->
+<!--    </div>-->
+<!--    <div class="comparison-stats">-->
+<!--      <span class="compare-title">MEDIAN</span>-->
+<!--      <span class="compare-text compare-text-med-1"></span>-->
+<!--    </div>-->
+<!--    <div class="comparison-stats">-->
+<!--      <span class="compare-title">MIN</span>-->
+<!--      <span class="compare-text compare-text-min-1"></span>-->
+<!--    </div>-->
+<!--    <div class="comparison-stats">-->
+<!--      <span class="compare-title">MAX</span>-->
+<!--      <span class="compare-text compare-text-max-1"></span>-->
+<!--    </div>-->
+<!--    <div class="comparison-stats seed-compare" style="background: #80bad1;">-->
+<!--      <span class="compare-title">1 SEED</span>-->
+<!--      <span class="compare-text compare-text-1-seed-1"></span>-->
+<!--    </div>-->
+<!--    <div class="comparison-stats seed-compare" style="background: #5694c1;">-->
+<!--      <span class="compare-title">2 SEED</span>-->
+<!--      <span class="compare-text compare-text-1-seed-2"></span>-->
+<!--    </div>-->
+<!--    <div class="comparison-stats seed-compare" style="background: #2c6db1;">-->
+<!--      <span class="compare-title">3 SEED</span>-->
+<!--      <span class="compare-text compare-text-1-seed-3"></span>-->
+<!--    </div>-->
+<!--    <div class="comparison-stats seed-compare" style="background: #0146a1;">-->
+<!--      <span class="compare-title">4 SEED</span>-->
+<!--      <span class="compare-text compare-text-1-seed-4"></span>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <button class="exit">< BACK</button> -->
+
+
+
+
+<div class="comparison-mode" style="visibility: hidden; position: fixed;">
+
+  <div class="compare-menu">
+    <button class="map-menu-btn exit">
+      <span style="font-size: 1rem !important; width: auto !important;"> < Back</span>
+    </button>
+  </div>
+
+  <div class="comparison-filter school-1">
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdown-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a school</button>
+      <div class="dropdown-menu dropdown-menu-1" aria-labelledby="dropdown-1"></div>
+    </div>
+
+    <div class="stats">
+      <div class="col">
+        <div class="comparison-stats">
+          <div class="compare-title">MEAN</div>
+          <div class="compare-text compare-text-mean-1"></div>
+        </div>
+        <div class="comparison-stats">
+          <div class="compare-title">MEDIAN</div>
+          <div class="compare-text compare-text-med-1"></div>
+        </div>
+        <div class="comparison-stats">
+          <div class="compare-title">MIN</div>
+          <div class="compare-text compare-text-min-1"></div>
+        </div>
+        <div class="comparison-stats">
+          <div class="compare-title">MAX</div>
+          <div class="compare-text compare-text-max-1"></div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="comparison-stats seed-compare" style="background: #80bad1;">
+          <div class="compare-title">1 SEED</div>
+          <div class="compare-text compare-text-1-seed-1"></div>
+        </div>
+        <div class="comparison-stats seed-compare" style="background: #5694c1;">
+          <div class="compare-title">2 SEED</div>
+          <div class="compare-text compare-text-1-seed-2"></div>
+        </div>
+        <div class="comparison-stats seed-compare" style="background: #2c6db1;">
+          <div class="compare-title">3 SEED</div>
+          <div class="compare-text compare-text-1-seed-3"></div>
+        </div>
+        <div class="comparison-stats seed-compare" style="background: #0146a1;">
+          <div class="compare-title">4 SEED</div>
+          <div class="compare-text compare-text-1-seed-4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!--  <button class="exit">< BACK</button>-->
+
+<!--  <div class="doot" style="width: 30rem;position: absolute;top: 3rem;left: 1rem;">-->
+
+
+  <div class="comparison-filter school-2" style="position: fixed; top: 50vh;">
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdown-2"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a school</button>
+      <div class="dropdown-menu dropdown-menu-2" aria-labelledby="dropdown-2"></div>
+    </div>
+    <div class="stats">
+      <div class="col">
+        <div class="comparison-stats">
+          <div class="compare-title">MEAN</div>
+          <div class="compare-text compare-text-mean-2"></div>
+        </div>
+        <div class="comparison-stats">
+          <div class="compare-title">MEDIAN</div>
+          <div class="compare-text compare-text-med-2"></div>
+        </div>
+        <div class="comparison-stats">
+          <div class="compare-title">MIN</div>
+          <div class="compare-text compare-text-min-2"></div>
+        </div>
+        <div class="comparison-stats">
+          <div class="compare-title">MAX</div>
+          <div class="compare-text compare-text-max-2"></div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="comparison-stats seed-compare" style="background: #80bad1;">
+          <div class="compare-title">1 SEED</div>
+          <div class="compare-text compare-text-2-seed-1"></div>
+        </div>
+        <div class="comparison-stats seed-compare" style="background: #5694c1;">
+          <div class="compare-title">2 SEED</div>
+          <div class="compare-text compare-text-2-seed-2"></div>
+        </div>
+        <div class="comparison-stats seed-compare" style="background: #2c6db1;">
+          <div class="compare-title">3 SEED</div>
+          <div class="compare-text compare-text-2-seed-3"></div>
+        </div>
+        <div class="comparison-stats seed-compare" style="background: #0146a1;">
+          <div class="compare-title">4 SEED</div>
+          <div class="compare-text compare-text-2-seed-4"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
 
 <div class="toolbar">
   <div class="chapter-list"></div>
   <div class="chapter-tooltip"></div>
-  <div class="btn-group btn-group-toggle app-mode-toggle" data-toggle="buttons">
-    <label class="btn btn-secondary active" id="toggle-story-mode">
-      <input type="radio" name="options" id="map-story" checked> Story Mode
-    </label>
-    <label class="btn btn-secondary" id="toggle-explore-mode">
-      <input type="radio" name="options" id="map-explore"> Explore Mode
-    </label>
-  </div>
+
+<!--  <button class="btn" style="background: #E27600">Skip Story ></button>-->
+
+<!--  <div class="btn-group btn-group-toggle app-mode-toggle" data-toggle="buttons">-->
+<!--    <label class="btn btn-secondary active" id="toggle-story-mode" >-->
+<!--      <input type="radio" name="options" id="map-story" checked> Story Mode-->
+<!--    </label>-->
+<!--    <label class="btn btn-secondary" id="toggle-explore-mode">-->
+<!--      <input type="radio" name="options" id="map-explore"> Explore Mode-->
+<!--    </label>-->
+<!--  </div>-->
 </div>
 
+
+<button class="btn skip-story-btn" id="toggle-explore-mode">Skip Story ></button>
+
+
+
 <div class="map-explore">
+
+
+  <!-- TODO add tooltips, add styles to skip story btn focus and active-->
+  <!-- TODO update label location -->
+  <div class="map-menu">
+    <button class="map-menu-btn" id="extent">
+      <div class="material-icons">public</div> Reset
+    </button>
+    <button class="map-menu-btn" id="compare">
+      <div class="material-icons">compare</div> Compare
+    </button>
+    <button class="map-menu-btn" id="story-mode-btn">
+      <div class="material-icons">menu_book</div> Learn
+    </button>
+    <div class="btn-tooltip"></div>
+  </div>
+
+
   <div class="map-control">
-    <button id="extent" class="map-button"><span class="material-icons">public</span></button>
+<!--    <button id="extent" class="map-button"><span class="material-icons">public</span></button>-->
+<!--    <button id="compare" class="map-button"><span class="material-icons">compare</span></button>-->
+<!--    <div class="btn-tooltip"></div>-->
   </div>
   <div class="map-control" style="bottom: 1rem !important; top: auto !important; left: 25rem;">
     <button id="legend" class="map-button"><span class="material-icons">legend_toggle</span></button>
@@ -651,8 +1031,14 @@
     <div class="label-subtext"></div>
   </div>
 
+  <div class="label-compare">
+    <div class="label-text-compare"></div>
+    <div class="label-subtext-compare"></div>
+  </div>
+
   <div class="sidebar">
-    <h1 class="capital-font" style="text-align: center;">March Madness</h1>
+    <h1 class="capital-font" style="text-align: center;">Going the Distance</h1>
+    <div style="text-align: center; font-size: 0.75rem;">First-Round March Madness Travel Distances Analysis</div>
     <hr>
     <div class="filters-container">
 
@@ -749,7 +1135,7 @@
 
     <div class="info-footer" style="width: 100%; display: flex;">
       <div class="footer-left" style="width: 50%; visibility: hidden;">
-        <button type="button" class="btn btn-secondary footer-btn">< School</button>
+        <button type="button" class="btn btn-secondary footer-btn" id="">< School</button>
       </div>
       <div class="footer-right" style="margin-left: auto; width: 50%; text-align: right; visibility: hidden;">
         <button type="button" class="btn btn-secondary footer-btn">Seed ></button>
@@ -772,33 +1158,31 @@
       </div>
       <div class="modal-body">
         <div class="modal-text">
-        <p>Every year in March, college basketball fans anxiously await Selection Sunday to see if their team made the
+        <p>Every year in March, college basketball fans anxiously wait to see if their team made the
         NCAA Men’s Basketball National
-        Championship tournament, affectionately referred to as March Madness. March
-        Madness is a three week-long single-elimination tournament in which 64 teams compete to take home the highly coveted
+        Championship tournament. The tournament is a three week-long single-elimination tournament in which 64 teams compete to take home the highly coveted
         National Championship title. The fun isn’t just reserved for fans - countless people from all across the globe fill out
         tournament brackets and bet on which teams will make deep runs and ultimately win it all.</p>
 
         While coaches, teams, and fans alike want to see their preferred team effortlessly stroll through
-        the Sweet Sixteen, Elite Eight, and Final Four to play in the National Championship game, they first have to
-        survive the first weekend of the tournament. Putting the ‘madness’ into March Madness, the first and second
+        each round to play in the National Championship game, they first have to
+        survive the first weekend of the tournament. The first and second
         rounds of the tournament (Round of 64 and Round of 32, respectively) are historically filled with the most
         chaos, with underdog teams defying odds by knocking out highly favored teams early on. <span class="bold">Because of the
         precedence for upsets in the first round of the tournament, there is a lot of focus on the matchups and
         locations for each competing team.</span>
 
-        <p>Selection Sunday does more than just determine who gets into the tournament - it also
-        determines where the chosen teams play, who they play against, and how highly they are ranked.</p>
+        <p>Tournament brackets does more than just determine who gets into the tournament - they also
+        determine where the chosen teams play, who they play against, and how highly they are ranked.</p>
 
         <p>Each team is listed from best to worst with an overall rank, a number 1 to 64*, in which 1
         represents the overall best team in the tournament and 64 represents the worst. These rankings are then
         grouped into 16 seeds of four teams each, wherein 1 seeds are the best teams and 16 seeds are the worst
-        teams. Many considerations go into the creation of March Madness brackets, but the idea is that <span class="bold">higher
+        teams. Many considerations go into the creation of tournament brackets, but the idea is that <span class="bold">higher
         seeds are rewarded for their regular season performance by playing against the lowest ranked teams. </span>
-        Additionally, <span class="bold">the selection committee is supposed to give top ranked teams geographic preference in their
-        first round sites.</span></p>
+        Additionally, <span class="bold">top-ranked teams are not to be placed in a home-crowd disadvantage.</span></p>
 
-        <p><span class="bold">Because March Madness is a single-elimination tournament, teams only have one shot in each round to advance to the next level.</span>
+        <p><span class="bold">Because the tournament is single-elimination, teams only have one shot in each round to advance to the next level.</span>
           All teams put their best foot forward, but there's no room for an off game - one bad night can (and has) cost the best team in the nation
           a shot at the national title. Many lower ranked teams don't make it into the tournament very often and have the tenacity to try to become
           the next Cinderella story.
@@ -818,9 +1202,15 @@
         like a raucous home crowd.</li>
         </ul>
 
-        <p><span class="bold">The NCAA Selection Committee claims to give geographic preference to the top seeds in order of their rank </span>-
-        one seeds get the highest preference, then two seeds, then three, then four (remaining seeds are not given
-        explicit geographic considerations).</p>
+          <p>In the NCAA's <a href="https://www.ncaa.com/news/basketball-men/article/2020-08-17/how-field-68-teams-picked-march-madness" target="_blank">"How the field of 68 teams is picked for March Madness"</a> rules*, it states:</p>
+
+          <p><strong>'To recognize the demonstrated quality of such teams, the committee shall not place teams seeded on the first four lines at a potential “home-crowd disadvantage” in the first round.'</strong></p>
+
+          <p>While this mention of a home-crowd disadvantage is vague and there are many other rules that go into tournament seeding,
+            fans generally interpret this statement to mean that top seeded teams receive geographic preference in accordance with their rank.
+
+          <p>This project analyzes first-round site location distances to see if higher ranked teams receive better geographic preference during the national championship tournament.</p>
+          <p><footer style="font-size: 0.75rem;">* Last accessed 08/26/2020</footer>
         </div>
       </div>
     </div>
@@ -840,8 +1230,13 @@
           travel distances are expected to fluctuate based on the frequency of appearances of each seed in a school's
           history.
 
+          <br><br>In other word, comparing a school with five appearances as a 1 seed against a school with five
+          appearances as a 4 seed would not make sense with raw values - you would expect the school with more 1 seed
+          appearances to have a much lower average travel distance. Applying weights to these values helps to normalize
+          them for more accurate comparisons.
+
           <br><br>
-          To allow for more accurate comparison amongst schools, weights were applied based on seed values.
+          Weights are applied based on seed values.
 
           <div class="seed-hl-row">
             <div class="seed-hl" style="background: #80bad1">
@@ -868,6 +1263,26 @@
           The weights are derived from the overall seed averages. Based on data from 1985 to 2019, <strong>2 seeds
           travel ~1.3 times farther than 1 seeds</strong> (353/482 = 0.73), <strong>3 seeds travel nearly double the distance of 1
           seeds</strong> (353/689 = 0.51), and <strong>4 seeds travel ~2.3 times farther than 1 seeds</strong> (353/829 = 0.43).
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="geo-source-modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="modal-text">
+          <p>In the NCAA's <a href="https://www.ncaa.com/news/basketball-men/article/2020-08-17/how-field-68-teams-picked-march-madness" target="_blank">"How the field of 68 teams is picked for March Madness"</a> rules*, it states:</p>
+
+          <p><strong>'To recognize the demonstrated quality of such teams, the committee shall not place teams seeded on the first four lines at a potential “home-crowd disadvantage” in the first round.'</strong></p>
+
+          <p>While this mention of a home-crowd disadvantage is vague and there are many other rules that go into tournament seeding,
+          fans generally interpret this statement to mean that top seeded teams receive geographic preference in accordance with their rank.
+
+          <p>This project analyzes first-round site location distances to see if higher ranked teams receive better geographic preference during the national championship tournament.</p>
+          <p><footer style="font-size: 0.75rem;">* Last accessed 08/26/2020</footer>
         </div>
       </div>
     </div>
@@ -1014,6 +1429,15 @@
     transformRequest: transformRequest
   });
 
+  compareMap = new mapboxgl.Map({
+    container: 'map-compare',
+    style: config.style,
+    // center: [0, 0],
+    // zoom: 2,
+    center: [-98.6, 39.8],
+    zoom: 2.85,
+  });
+
   // marker = new mapboxgl.Marker();
   // if (config.showMarkers) {
   //     marker.setLngLat(config.chapters[0].location.center).addTo(map);
@@ -1140,17 +1564,100 @@
 
   mapDiv = $('#map');
 
+  // TODO implement random comparison button?
+  rivals = {
+    "St. John's": "Seton Hall",
+    "VCU": "Dayton",
+    "Virginia Tech": "Virginia",
+    "Stanford": "California",
+    "Miami (FL)": "Florida State",
+    "Dayton": "Xavier",
+    "Saint Louis": "Dayton",
+    "Seton Hall": "St. John's",
+    "USC": "UCLA",
+    "Vanderbilt": "Tennessee",
+    "Auburn": "Alabama",
+    "Saint Joseph's": "Villanova",
+    "Maryland": "Duke",
+    "NC State": "Wake Forest",
+    "UCLA": "Arizona",
+    "New Mexico": "UNLV",
+    "Arizona": "UCLA",
+    "Michigan": "Michigan State",
+    "Indiana": "Purdue",
+    "Missouri": "Kansas",
+    "UConn": "Syracuse",
+    "Wichita State": "Kansas State",
+    "Iowa": "Iowa State",
+    "BYU": "Utah",
+    "Creighton": "Nebraska",
+    "TCU": "Baylor",
+    "Minnesota": "Wisconsin",
+    "Boston College": "UMass",
+    "Louisville": "Kentucky",
+    "Texas": "Oklahoma",
+    "Wake Forest": "North Carolina",
+    "Iowa State": "Iowa",
+    "Utah": "BYU",
+    "LSU": "Auburn",  // TODO check??
+    "Texas Tech": "Texas",
+    "San Diego State": "UNLV",
+    "Florida State": "Florida",
+    "Gonzaga": "Washington",
+    "Oklahoma State": "Oklahoma",
+    "Kentucky": "Louisville",
+    "Syracuse": "Georgetown",
+    "Pittsburgh": "West Virginia",
+    "Loyola-Chicago": "DePaul",
+    "Cincinnati": "Xavier",
+    "Washington State": "",
+    "Mississippi State": "",
+    "Arkansas": "",
+    "Michigan State": "Michigan",
+    "North Carolina": "Duke",
+    "California": "",
+    "Purdue": "Indiana",
+    "Oklahoma": "",
+    "Xavier": "Cincinnati",
+    "Georgetown": "Syracuse",
+    "Baylor": "",
+    "Kansas": "Kansas State",
+    "Wisconsin": "",
+    "Memphis": "",
+    "Georgia Tech": "",
+    "South Carolina": "",
+    "Kansas State": "Kansas",
+    "Oregon": "",
+    "Florida": "",
+    "UMass": "",
+    "UNLV": "",
+    "Washington": "",
+    "Temple": "",
+    "Houston": "",
+    "Marquette": "Wisconsin",
+    "Illinois": "Missouri",
+    "Ole Miss": "",
+    "Duke": "North Carolina",
+    "Georgia": "",
+    "Virginia": "",
+    "Tennessee": "",
+    "Clemson": "",
+    "Texas A&M": "",
+    "Nebraska": "",
+    "Ohio State": "",
+    "Villanova": "Saint Joseph's",
+    "Southern Illinois": "",
+    "Notre Dame": "",
+    "West Virginia": "Pitt",
+    "Alabama": "",
+    "Butler": "Xavier",
+    "La Salle": "Saint Joseph's",
+    "DePaul": "Marquette"
+  };
+
   story = $('#story');
 
-  $('.app-mode-toggle').on('click', (e) => {
-    if (e.target.innerText === 'Story Mode') {
-      enterStoryMode();
-    } else {
 
-      // TODO BUG: Explore mode to storymode in chapter 1 breaks
-      enterExploreMode();
-    }
-  });
 
   $('#legend').on('click', (e) => {
     if (e.target.innerText === 'legend_toggle') {
@@ -1281,20 +1788,25 @@
     config.chapters.forEach(chapter => {
       $('.chapter-list').append(`<div class='chapter' id="block-${chapter.id}"></div>`);
     });
+    $('.chapter-list').append(`<!--<div class='chapter' style="width: 15% !important; background: #5694c1" id="toggle-explore-mode">EXPLORE</div>-->`);
   }
 
   function clickChapter() {
     $('.chapter').on('click', (e) => {
-      // split chapter id from 'block-' prefix to match with chapter
-      const chapterId = e.target.id.split('block-')[1];
-      // scroll to the selected chapter with some padding
-      $(window).scrollTop($(`#${chapterId}`).offset().top - 100);
+      if (e.target.id !== 'toggle-explore-mode') {
+        // split chapter id from 'block-' prefix to match with chapter
+        const chapterId = e.target.id.split('block-')[1];
+        // scroll to the selected chapter with some padding
+        $(window).scrollTop($(`#${chapterId}`).offset().top - 100);
+      }
     });
   }
 
   function resizeWindow() {
     $(window).on('resize', (e) => {
+      // console.log('resized')
       adjustMapCenter(e.target.innerWidth);
+      // map.resize();
     });
   }
 
@@ -1302,28 +1814,44 @@
   function adjustMapCenter(innerWidth) {
     const isSmallScreen = innerWidth <= 1215;
     const refLon = isSmallScreen ? -116.5 : -98.5795;
+
     const center = isSmallScreen ? {lon: -98.5795, lat: 39.8283} : {lon: -116.5, lat: 41.5};
 
     const introChapters = ['intro', 'chapter-1', 'chapter-2', 'chapter-6'];
+
 
     config.chapters.forEach(chapter => {
       if (chapter.location && chapter.location.center.lon === refLon) {
         chapter.location.center = center;  // TODO create const
         map.flyTo(chapter.location);
+        // console.log('adj' + chapter.id)
+
       }
 
-      if (chapter.location && chapter.location.zoom === 3.5 && innerWidth <= 1400) {
-        chapter.location.zoom = chapter.location.zoom - 0.25;
-        map.flyTo(chapter.location);
-      }
+      // TODO: Plot school on top of seeds in story mode - create new layer?
+      // TODO BUG: First 4 chapters adjusting screen size messes up placement
+      // TODO fix: this happens on first resize, which prompts below (intro chaps) on subsequent resizes
+      // if (chapter.location && chapter.location.zoom === 3.5 && innerWidth <= 1400) {
+      //   chapter.location.zoom = chapter.location.zoom - 0.25;
+      //   // console.log('adj')
+      //   // console.log('adj' + chapter.id);
+      //
+      //   map.flyTo(chapter.location);
+      // }
 
+      // TODO Bug: Intro chapter story > explore > story
       introChapters.forEach(chap => {
         if (chap === chapter.id && isSmallScreen) {
+          // console.log(isSmallScreen);
           chapter.location.center = center;
+
+          // TODO adjust to 3.25?
           chapter.location.zoom = 3.5;
           map.flyTo(chapter.location);
+          // console.log('adjust ' + chapter.id)
+
         }
-      })
+      });
     });
 
 
@@ -1341,6 +1869,7 @@
         }
       });
 
+      console.log(e.target.offsetLeft);
       // toggle visibility and place each tooltip below chapter block
       tooltip.css('left', e.target.offsetLeft);
       tooltip.css('visibility', 'visible');
@@ -1358,32 +1887,14 @@
     // remove story and toggle visibility of explore sidebar on
     story.detach();
     mapExplorer.css('visibility', 'visible');
-
-//     $('.sidebar').append(
-//       `<div class="legend-container">
-//     <div class="legend-row">
-//         <div class="circle" style="width: 8px; height: 8px;"></div>
-//         <div class="circle" style="width: 16px; height: 16px;"></div>
-//         <div class="circle" style="width: 23px; height: 23px;"></div>
-//         <div class="circle" style="width: 31px; height: 31px;"></div>
-//         <div class="circle" style="width: 44px; height: 44px;"></div>
-//         <div class="circle" style="width: 77px; height: 77px;"></div>
-//     </div>
-//
-//     <div class="legend-row">
-//         <div class="legend-label" style="width: 38px;">250</div>
-//         <div class="legend-label" style="width: 46px;">500</div>
-//         <div class="legend-label" style="width: 53px;">750</div>
-//         <div class="legend-label" style="width: 61px;">1000</div>
-//         <div class="legend-label" style="width: 74px;">1500</div>
-//         <div class="legend-label" style="width: 107px;">2500</div>
-//     </div>
-// </div>`
-//     );
+    // $('.map-menu').css('visibility', 'visible');
 
     // hide progress bar
     $('.chapter-list').css('visibility', 'hidden');
+    $('.skip-story-btn').css('visibility', 'hidden');
 
+
+    // TODO delete
     // if entering explore mode through story button, remotely toggle radio button group
     if (storyMode) {
       // toggle story/explore mode toggle in toolbar
@@ -1398,15 +1909,180 @@
     infoBtnSeed.addClass('visible');  // display 'seed >' button
   }
 
-  // TODO FIX BUG: Double clicking Story Mode causes break
-  function enterStoryMode() {
+  function storyScroll(sites, schools) {
+    scroller
+      .setup({
+        step: '.step',
+        offset: 0.5,
+        progress: true
+      })
+      .onStepEnter(response => {
+        const id = response.element.id;
+        const chapter = config.chapters.find(chap => chap.id === id);
+        response.element.classList.add('active');
+
+        // adjust center point in story mode if on small screen
+        adjustMapCenter(window.innerWidth);
+        // map.resize();
+
+        map.flyTo(chapter.location);
+        if (config.showMarkers) {
+          marker.setLngLat(chapter.location.center);
+        }
+        if (chapter.onChapterEnter.length > 0) {
+          chapter.onChapterEnter.forEach(setLayerOpacity);
+        }
+
+        // highlight the active chapter with orange in progress bar
+        $(`#block-${chapter.id}`).addClass('active-chapter');
+
+        // remove `Seed >` button when in story mode and scrolling through chapters
+        infoBtnSeed.removeClass('visible');
+
+        if (id === 'intro') {
+          // console.log('intro');
+          $('#story-seed-1').trigger('mouseover');
+          // map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
+        } else if (id === 'chapter-1') {
+          // console.log('2');
+          $('#story-seed-2').trigger('mouseover');
+
+          // displayTourneyExample();
+        } else if (id === 'chapter-2') {
+          // display one seeds as default view in chapter-2
+          // $('#story-seed-1').trigger('mouseover');
+          $('#story-seed-3').trigger('mouseover');
+
+
+          // <br><br>The system is not foolproof - Duke, a top-ranked 2 seed, fell to the low-ranked 15 seed Lehigh Mountain Hawks
+          //   in the first round of the 2012 tournament, despite having traveled fewer than 50 miles to their first game.
+          //   2 seeds traveled an average of 155 miles.
+
+          // Playing close to home has many advantages for competing teams:
+          //   <ul>
+          // <li>They spend less time actually traveling, reducing physical and mental exhaustion</li>
+          // <li>They play in the same/similar time zone, avoiding any jet lag issues</li>
+          // <li>It allows fans, friends, and families of the teams to travel to the games</li>
+          // </ul>
+
+        } else if (id === 'chapter-3') {
+          triggerAnimation();
+        } else if (id === 'chapter-4') {
+
+          // map.style.stylesheet.layers.forEach((layer) => {
+          //   if (layer.type === 'line') {
+          //     map.setLayoutProperty(layer.id, 'visibility', 'none');
+          //   }
+          // });
+
+        } else if (id === 'chapter-5') {
+          resetExtent(true);
+          map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
+        } else if (id === 'chapter-6') {
+
+          $('#story-seed-1').trigger('mouseleave');
+          $('#story-seed-2').trigger('mouseleave');
+          $('#story-seed-3').trigger('mouseleave');
+          $('#story-seed-4').trigger('mouseover');
+
+          // resetExtent(true);
+
+        } else if (id === 'chapter-7') {  // 7
+          // TODO fix bug when going from shortest travel distance chapter back to these filters
+          map.setPaintProperty('schools', 'circle-color', '#E27600');
+          // map.setFilter('schools', ['has', 'school_common_name']);
+          const oneCount = ['VCU','Virginia Tech','Dayton','Saint Louis','Creighton','Minnesota','TCU','Houston','Loyola–Chicago','California','Texas A&M','Nebraska','Southern Illinois','Butler','La Salle','DePaul'];
+          filterMatchMultiple(oneCount);
+        } else if (id === 'chapter-8') {  // 8
+          map.setPaintProperty('schools', 'circle-color', '#E27600');
+          const tenCount = ['Michigan', 'Arizona', 'UConn', 'Maryland', 'UCLA', 'Indiana', 'Cincinnati', 'Kentucky', 'Pittsburgh', 'North Carolina', 'Louisville', 'Purdue', 'Michigan State', 'Kansas', 'Oklahoma', 'Syracuse', 'Georgetown', 'Florida', 'Duke', 'Villanova', 'Illinois', 'Ohio State'];
+          filterMatchMultiple(tenCount);
+        } else if (id === 'chapter-9') {  // 9
+          const blueBloods = {'Duke': '#003087', 'Kentucky': '#0033A0', 'North Carolina': '#7BAFD4', 'Kansas': '#0051BA'};
+          filterMatchMultiple(Object.keys(blueBloods));
+          const bbStyles = [];
+          Object.entries(blueBloods).forEach(([school, color]) => {
+            bbStyles.push(school, color);
+          });
+          bbStyles.push('#AAA');
+          map.setPaintProperty('schools', 'circle-color', ['match', ['get', 'school_common_name'], ...bbStyles]);
+        } else if (id === 'chapter-10') {  // 10
+          applyChapterFilters('Arizona', 'Tucson, AZ');
+        } else if (id === 'chapter-11') {  // 11
+          map.setFilter('schools', ['has', 'school_common_name']);
+          resetExtent(true);
+          filters.weighted = true;
+          applyWeights(schools);
+        } else if (id === 'chapter-12') {
+          storyModeSchoolSelect(sites, 'St. John\'s');
+        } else if (id === 'chapter-13') {  // 13
+          storyModeSchoolSelect(sites, 'Michigan');
+        } else if (id === 'chapter-14') {  // 14
+          storyModeSchoolSelect(sites, 'Kansas');
+        } else if (id === 'chapter-15') {  // 15
+          storyModeSchoolSelect(sites, 'Villanova');
+        } else if (id === 'chapter-16') {  // 16
+          storyModeConfDisplay();
+        } else if (id === 'chapter-17') {  //17
+          storyModeConfDisplay(['Pac-12 Conference', 'Atlantic 10 Conference']);
+        } else if (id === 'chapter-18') {  // 18
+          storyModeConfDisplay(['American Athletic Conference', 'Big 12 Conference']);
+        } else if (id === 'chapter-19') {  // 19
+          storyModeConfDisplay(['Southeastern Conference', 'Big 12 Conference', 'Atlantic Coast Conference', 'Missouri Valley Conference', 'Mountain West Conference']);
+        } else if (id === 'chapter-20') {  // 20
+          resetAllFilters();
+          resetExtent(true);
+        }
+
+        // TODO Separate one and ten+ seed dropdowns
+
+        // compare blue bloods weighted distances
+        // UK does better as a 2 seed than a 1 seed
+        // Michigan has done best as a 4 seed - luck of the draw
+        // STORY: MSU with v similar 1-2-3 seed rankings, same for Kansas - centrally located, always travels apx same
+        // Villanova with low overall mean, farthest travel dist
+        // Indiana vs. Cincy
+        // Illinois - only school w 10+ appearances without apperance as each seed
+
+        // TODO PRESENTATION: MENTION AND CHECK ALL PROGRESS BAR CHAPTERS - APPEARACNES DONT WORK
+        // TODO update README
+
+        // if final chapter
+        if (response.index === config.chapters.length - 1) {
+          // create new click event each time chapter is enter, or else unique div ID is overwritten
+          $('#explore-mode').on('click', () => {
+            enterExploreMode(true);
+          });
+        }
+      })
+      .onStepExit(response => {
+        const chapter = config.chapters.find(chap => chap.id === response.element.id);
+        response.element.classList.remove('active');
+        // console.log(response.element.id);
+        if (chapter.onChapterExit.length > 0) {
+          chapter.onChapterExit.forEach(setLayerOpacity);
+        }
+
+        // resetAllFilters();
+        // resetExtent(true);
+
+        // remove orange active chapter styling when exiting chapter
+        $(`#block-${chapter.id}`).removeClass('active-chapter');
+      });
+
+  }
+
+  function enterStoryMode(sites, schools) {
+    $('body').append(story);
+    mapExplorer.css('visibility', 'hidden');
     mapExplorer.css('visibility', 'hidden');
     $('.chapter-list').css('visibility', 'visible');
-    $('body').append(story);
+    $('.skip-story-btn').css('visibility', 'visible');
 
     resetExtent();
     resetAllFilters();
     infoBtnSeed.removeClass('visible');
+    storyScroll(sites, schools);  // prevent bug when toggling between chapters to explore back to story, which doesn't reset on intro
   }
 
   function clearStoryLayers() {
@@ -1424,6 +2100,77 @@
     enterExploreMode(true);
     resetExtent();
   });
+
+
+  $('#map-compare').on('mouseover', (e) => {
+    // TODO add tooltip for comparison mode btn
+    // e.append(`<div>DOOT</div>`)
+  });
+
+  // TODO Adjust site mouseover labels - ADD TO SECOND SCHOOL
+  // TODO Create default matches
+  // TODO Don't auto default to louisville and ky
+  function enterComparisonStyles() {
+    // $('#map > .mapboxgl-canvas').css('height', '50vh');  // reset original map height to full view height
+
+    $('#map-compare').css('visibility', 'visible');  // make 2nd comparison map visible
+    $('#map-compare').css('height', '50vh');  // set 2nd comparison map to 50% height
+    $('.comparison-mode').css('visibility', 'visible');  // make comparison mode inputs visible
+
+    mapExplorer.css('visibility', 'hidden');  // hide all comparison mode divs (side panel)
+    // $('#map').css('height', '50vh');  // reduce original map to 50% height
+    $('#map').css('bottom', '50%');  // reduce original map to 50% height
+    map.resize();
+    $('.toolbar').css('visibility', 'hidden');  // hide top toolbar divs
+    $('.toolbar').css('pointer-events', 'none');  // force stop toolbar click events even when hidden
+
+    // hide whichever info footer btn is visible
+    [infoBtnSchool, infoBtnSeed].forEach(footer => {
+      if (footer.css('visibility') === 'visible') {
+        footer.removeClass('visible');
+      }
+    });
+
+    // map['_interactive'] = false;
+    map.dragPan.disable();
+    compareMap.dragPan.disable();
+
+
+    // $('#map > .mapboxgl-canvas').css('height', '50vh');  // reset original map height to full view height
+// console.log($('#map').children);
+
+    // $('.mapboxgl-canvas')[0].height = $('.mapboxgl-canvas')[0].height / 2;
+    // map.resize();
+
+    // $('.mapboxgl-canvas')[0].css('height', '400px');
+
+    // $('.mapboxgl-canary').css('height', '50vh');
+    // $('.mapboxgl-canary').css('top', '0');
+    // $('.mapboxgl-canary').css('position', 'absolute');
+  }
+
+  $('.exit').on('click', () => {
+    // TODO adjust map center in top map?
+    exitComparisonStyles();
+  });
+
+  function exitComparisonStyles() {
+    // $('#map').css('height', '100vh');  // reset original map height to full view height
+    $('#map').css('bottom', '0');  // reset original map height to full view height
+    // $('#map > .mapboxgl-canvas').css('height', '100vh');  // reset original map height to full view height
+    $('#map-compare').css('height', '0');  // set comparison map to 2 height for slide transition
+    $('.toolbar').css('visibility', 'visible');  // make top toolbar visible
+    $('.toolbar').css('pointer-events', 'auto');  // enable top toolbar click events
+    $('.comparison-mode').css('visibility', 'hidden');  // hide comparison mode inputs
+
+    map.resize();
+    map.dragPan.enable();
+    compareMap.dragPan.enable();
+
+    enterExploreMode();  // make side panel visible again as you enter explore mode
+  }
+
+
 
 
   // TODO Delete old json, replace with new
@@ -1458,6 +2205,133 @@
     const d1 = data[6];
     const tourney = data[7];
 
+    $('#toggle-explore-mode').on('click', () => {
+      enterExploreMode();
+    });
+
+    $('#story-mode-btn').on('click', () => {
+      enterStoryMode(sites, schools);
+    });
+
+    $('.app-mode-toggle').on('click', (e) => {
+      if (e.target.innerText === 'Story Mode') {
+        // only enter story mode if not already in story mode
+        if (!$('#toggle-story-mode')[0].classList.contains('active')) {
+          enterStoryMode(sites, schools);
+        }
+      } else {
+
+        // TODO BUG: Explore mode to storymode in chapter 1 breaks - might be fixed w above bug fix ^
+        enterExploreMode();
+      }
+    });
+
+    $('#compare').on('click', () => {
+      console.log('click');
+
+      // TODO set default comparison if no school selected?
+      $('#dropdown-1').text(filters.school !== 'all' ? filters.school : 'Kentucky');
+
+      if ($('#dropdown-1').text() === 'Kentucky') {
+
+        // TODO Hide stat boxes if nothing is selected
+        $('#dropdown-2').text('Louisville');
+      }
+
+      displayCompareStats($('#dropdown-1').text(), 1);
+      displayCompareStats($('#dropdown-2').text(), 2);
+
+      selectSchoolOnMap(map, sites, false, $('#dropdown-1').text());
+      selectSchoolOnMap(compareMap, sites, false, $('#dropdown-2').text());
+
+      enterComparisonStyles();
+
+      map.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
+      compareMap.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
+
+    });
+
+    $('.dropdown-menu-1').on('click', (e) => {
+      selectSchoolOnMap(map, sites, false, e.target.innerText);
+      map.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
+      infoBtnSeed.removeClass('visible');  // UGH I HATE THIS BUG
+      displayCompareStats(e.target.innerText, 1);
+      $('#dropdown-1').text(e.target.innerText);
+    });
+
+    $('.dropdown-menu-2').on('click', (e) => {
+      selectSchoolOnMap(compareMap, sites, false, e.target.innerText);
+      compareMap.flyTo({center: [-98.6, 39.8], zoom: 2.85 });
+      infoBtnSeed.removeClass('visible');  // UGH I HATE THIS BUG
+      displayCompareStats(e.target.innerText, 2);
+      $('#dropdown-2').text(e.target.innerText);
+    });
+
+    // TODO Display stats on default before click event
+    // TODO add school colors?
+    // TODO Default to label 'select comparison school' instead of alabama/1st school in 2nd filter
+    // TODO add weights on mouseover?
+    function displayCompareStats(selectedSchool, order) {
+      schools.features.forEach(school => {
+        if (school.properties.school_common_name === selectedSchool) {
+
+          $(`.compare-text-mean-${order}`).text(returnStat(school, 'mean'));
+          $(`.compare-text-med-${order}`).text(returnStat(school, '50%'));
+          $(`.compare-text-min-${order}`).text(returnStat(school, 'min'));
+          $(`.compare-text-max-${order}`).text(returnStat(school, 'max'));
+
+          $(`.compare-text-${order}-seed-1`).text(returnSeedStat(school, 1));
+          $(`.compare-text-${order}-seed-2`).text(returnSeedStat(school, 2));
+          $(`.compare-text-${order}-seed-3`).text(returnSeedStat(school, 3));
+          $(`.compare-text-${order}-seed-4`).text(returnSeedStat(school, 4));
+
+        }
+      });
+
+      function returnStat(school, stat) {
+        return school.properties[`${stat}_dist`].toFixed() + ' mi';
+      }
+
+      function returnSeedStat(school, seed) {
+        const seedMap = {1: 'oneSeed', 2: 'twoSeed', 3: 'threeSeed', 4: 'fourSeed'};
+        return school.properties[seedMap[seed]] ? school.properties[seedMap[seed]].mean.toFixed() + ' mi' : 'N/A';
+      }
+    }
+
+    // $('.map-menu').on('mouseover', (e) => {
+    //   console.log(e.target.offsetLeft);
+    // });
+
+    $('#extent').on('mouseover', (e) => {
+      $('.btn-tooltip').css('left', e.target.offsetLeft);
+      $('.btn-tooltip').css('visibility', 'visible');
+      $('.btn-tooltip').text('Reset map and filters');
+    });
+
+    $('#extent').on('mouseout', () => {
+      $('.btn-tooltip').css('visibility', 'hidden');
+    });
+
+    $('#compare').on('mouseover', (e) => {
+      $('.btn-tooltip').css('left', e.target.offsetLeft);
+      $('.btn-tooltip').css('visibility', 'visible');
+      $('.btn-tooltip').text('Compare two schools');
+    });
+
+    $('#compare').on('mouseout', () => {
+      $('.btn-tooltip').css('visibility', 'hidden');
+    });
+
+    $('#story-mode-btn').on('mouseover', (e) => {
+      $('.btn-tooltip').css('left', e.target.offsetLeft - 20);
+      $('.btn-tooltip').css('visibility', 'visible');
+      $('.btn-tooltip').text('Return to story');
+    });
+
+    $('#story-mode-btn').on('mouseout', () => {
+      $('.btn-tooltip').css('visibility', 'hidden');
+    });
+
     // iterate over schools and seeds geojson layers before manipulating map
     // push schools to schoolFilter dropdown, apply seed values to school feature properties
     iterateGeojsonSource(schools, seeds, colors);
@@ -1471,11 +2345,13 @@
       plot2012example(tourney);
       plotLegend();
 
-      // generate all map layers
-      createAllLayers(schools, sites);
+      // generate all map layers for main and comparison maps
+      createAllLayers(schools, sites, map);
+      createAllLayers(schools, sites, compareMap);
 
       // map events
       onSiteHover();
+      onCompareSiteHover();
       onSchoolHover();
       onSchoolClick(sites);
 
@@ -1495,167 +2371,18 @@
           map.removeLayer(layer.id);
         }
       });
+      compareMap.style.stylesheet.layers.forEach((layer) => {
+        if (layer.type === 'symbol') {
+          compareMap.removeLayer(layer.id);
+        }
+      });
 
-      // STORYTELLING MODE  todo place in fn
+      $('.toolbar').css('pointer-events', 'auto');  // force stop toolbar click events even when hidden
+
+
+      // STORYTELLING MODE
       // todo move map div abs position to not have to add padding once story mode is exited, reset bearing on resetExtent
-      // todo reset layers + filters when storymode is entered again
-      // setup the instance, pass callback functions
-      scroller
-        .setup({
-          step: '.step',
-          offset: 0.5,
-          progress: true
-        })
-        .onStepEnter(response => {
-          const id = response.element.id;
-          const chapter = config.chapters.find(chap => chap.id === id);
-          response.element.classList.add('active');
-
-          // adjust center point in story mode if on small screen
-          adjustMapCenter(window.innerWidth);
-
-          map.flyTo(chapter.location);
-          if (config.showMarkers) {
-            marker.setLngLat(chapter.location.center);
-          }
-          if (chapter.onChapterEnter.length > 0) {
-            chapter.onChapterEnter.forEach(setLayerOpacity);
-          }
-
-          // highlight the active chapter with orange in progress bar
-          $(`#block-${chapter.id}`).addClass('active-chapter');
-
-          // remove `Seed >` button when in story mode and scrolling through chapters
-          infoBtnSeed.removeClass('visible');
-
-          if (id === 'intro') {
-            $('#story-seed-1').trigger('mouseover');
-            // map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
-          } else if (id === 'chapter-1') {
-            $('#story-seed-2').trigger('mouseover');
-
-            // displayTourneyExample();
-          } else if (id === 'chapter-2') {
-            // display one seeds as default view in chapter-2
-            // $('#story-seed-1').trigger('mouseover');
-            $('#story-seed-3').trigger('mouseover');
-
-
-          // <br><br>The system is not foolproof - Duke, a top-ranked 2 seed, fell to the low-ranked 15 seed Lehigh Mountain Hawks
-          //   in the first round of the 2012 tournament, despite having traveled fewer than 50 miles to their first game.
-          //   2 seeds traveled an average of 155 miles.
-
-            // Playing close to home has many advantages for competing teams:
-            //   <ul>
-            // <li>They spend less time actually traveling, reducing physical and mental exhaustion</li>
-            // <li>They play in the same/similar time zone, avoiding any jet lag issues</li>
-            // <li>It allows fans, friends, and families of the teams to travel to the games</li>
-            // </ul>
-
-          } else if (id === 'chapter-3') {
-            triggerAnimation();
-          } else if (id === 'chapter-4') {
-
-            // map.style.stylesheet.layers.forEach((layer) => {
-            //   if (layer.type === 'line') {
-            //     map.setLayoutProperty(layer.id, 'visibility', 'none');
-            //   }
-            // });
-
-          } else if (id === 'chapter-5') {
-            resetExtent(true);
-            map.setLayoutProperty('schools', 'visibility', 'visible');  // make visible again if scroll up
-          } else if (id === 'chapter-6') {
-
-            $('#story-seed-1').trigger('mouseleave');
-            $('#story-seed-2').trigger('mouseleave');
-            $('#story-seed-3').trigger('mouseleave');
-            $('#story-seed-4').trigger('mouseover');
-
-            // resetExtent(true);
-
-          } else if (id === 'chapter-7') {  // 7
-            // TODO fix bug when going from shortest travel distance chapter back to these filters
-            map.setPaintProperty('schools', 'circle-color', '#E27600');
-            // map.setFilter('schools', ['has', 'school_common_name']);
-            const oneCount = ['VCU','Virginia Tech','Dayton','Saint Louis','Creighton','Minnesota','TCU','Houston','Loyola–Chicago','California','Texas A&M','Nebraska','Southern Illinois','Butler','La Salle','DePaul'];
-            filterMatchMultiple(oneCount);
-          } else if (id === 'chapter-8') {  // 8
-            map.setPaintProperty('schools', 'circle-color', '#E27600');
-            const tenCount = ['Michigan', 'Arizona', 'UConn', 'Maryland', 'UCLA', 'Indiana', 'Cincinnati', 'Kentucky', 'Pittsburgh', 'North Carolina', 'Louisville', 'Purdue', 'Michigan State', 'Kansas', 'Oklahoma', 'Syracuse', 'Georgetown', 'Florida', 'Duke', 'Villanova', 'Illinois', 'Ohio State'];
-            filterMatchMultiple(tenCount);
-          } else if (id === 'chapter-9') {  // 9
-            const blueBloods = {'Duke': '#003087', 'Kentucky': '#0033A0', 'North Carolina': '#7BAFD4', 'Kansas': '#0051BA'};
-            filterMatchMultiple(Object.keys(blueBloods));
-            const bbStyles = [];
-            Object.entries(blueBloods).forEach(([school, color]) => {
-              bbStyles.push(school, color);
-            });
-            bbStyles.push('#AAA');
-            map.setPaintProperty('schools', 'circle-color', ['match', ['get', 'school_common_name'], ...bbStyles]);
-          } else if (id === 'chapter-10') {  // 10
-            applyChapterFilters('Arizona', 'Tucson, AZ');
-          } else if (id === 'chapter-11') {  // 11
-            map.setFilter('schools', ['has', 'school_common_name']);
-            resetExtent(true);
-            filters.weighted = true;
-            applyWeights(schools);
-          } else if (id === 'chapter-12') {
-            storyModeSchoolSelect(sites, 'St. John\'s');
-          } else if (id === 'chapter-13') {  // 13
-            storyModeSchoolSelect(sites, 'Michigan');
-          } else if (id === 'chapter-14') {  // 14
-            storyModeSchoolSelect(sites, 'Kansas');
-          } else if (id === 'chapter-15') {  // 15
-            storyModeSchoolSelect(sites, 'Villanova');
-          } else if (id === 'chapter-16') {  // 16
-            storyModeConfDisplay();
-          } else if (id === 'chapter-17') {  //17
-            storyModeConfDisplay(['Pac-12 Conference', 'Atlantic 10 Conference']);
-          } else if (id === 'chapter-18') {  // 18
-            storyModeConfDisplay(['American Athletic Conference', 'Big 12 Conference']);
-          } else if (id === 'chapter-19') {  // 19
-            storyModeConfDisplay(['Southeastern Conference', 'Big 12 Conference', 'Atlantic Coast Conference', 'Missouri Valley Conference', 'Mountain West Conference']);
-          } else if (id === 'chapter-20') {  // 20
-            resetAllFilters();
-            resetExtent(true);
-          }
-
-          // TODO Separate one and ten+ seed dropdowns
-
-          // compare blue bloods weighted distances
-          // UK does better as a 2 seed than a 1 seed
-          // Michigan has done best as a 4 seed - luck of the draw
-          // STORY: MSU with v similar 1-2-3 seed rankings, same for Kansas - centrally located, always travels apx same
-          // Villanova with low overall mean, farthest travel dist
-          // Indiana vs. Cincy
-          // Illinois - only school w 10+ appearances without apperance as each seed
-
-          // TODO PRESENTATION: MENTION AND CHECK ALL PROGRESS BAR CHAPTERS - APPEARACNES DONT WORK
-          // TODO update README
-
-          // if final chapter
-          if (response.index === config.chapters.length - 1) {
-            // create new click event each time chapter is enter, or else unique div ID is overwritten
-            $('#explore-mode').on('click', () => {
-              enterExploreMode(true);
-            });
-          }
-        })
-        .onStepExit(response => {
-          const chapter = config.chapters.find(chap => chap.id === response.element.id);
-          response.element.classList.remove('active');
-          // console.log(response.element.id);
-          if (chapter.onChapterExit.length > 0) {
-            chapter.onChapterExit.forEach(setLayerOpacity);
-          }
-
-          // resetAllFilters();
-          // resetExtent(true);
-
-          // remove orange active chapter styling when exiting chapter
-          $(`#block-${chapter.id}`).removeClass('active-chapter');
-        });
+      storyScroll(sites, schools);
     });
   }
 
@@ -1682,7 +2409,7 @@
 
   function storyModeSchoolSelect(sites, school) {
     filters.school = school;
-    selectSchoolOnMap(sites, true);
+    selectSchoolOnMap(map, sites, true);
     map.setLayoutProperty('schools', 'visibility', 'none');
   }
 
@@ -1891,7 +2618,7 @@
       if (filters.school === 'all') {
         setDefaultInfoCard();
       } else {
-        selectSchoolOnMap(sites);
+        selectSchoolOnMap(map, sites);
       }
     });
   }
@@ -1933,7 +2660,7 @@
     map.getSource('line')['_data'].features.forEach(line => {
       // find geometry for line that matches the selected school and site
       if (line.properties.site === site && line.properties.school_common_name === school) {
-        fitMapBounds(line.geometry);  // fit bounds to specific example
+        fitMapBounds(line.geometry, map);  // fit bounds to specific example
       }
     });
 
@@ -2006,11 +2733,26 @@
       });
     });
 
+    // all school dropdown inputs (main school filter, 2 comparison inputs)
+    const inputs = [schoolFilter, $('#school-compare-1'), $('#school-compare-2')];
     allSchools.sort();  // sort schools alphabetically
+
+
     allSchools.forEach(s => {
-      // push all school names to schoolFilter dropdown
-      schoolFilter.append(`<option value="${s}">${s}</option>`);
+
+      $('.dropdown-menu-1').append(`<a class="dropdown-item" href="#">${s}</a>`);
+      $('.dropdown-menu-2').append(`<a class="dropdown-item" href="#">${s}</a>`);
+
+      // loop through  dropdown inputs and push school names to each one
+      inputs.forEach(input => {
+        pushSchoolsToInputs(input, s);
+      });
+
     });
+  }
+
+  function pushSchoolsToInputs(input, school) {
+    input.append(`<option value="${school}">${school}</option>`);
   }
 
   function resetFilter(filter) {
@@ -2055,6 +2797,7 @@
 
     // reset default gray color to info box infoHeader
     infoHeader.css('background', '#414140');
+    infoHeader.css('color', 'whitesmoke');
     infoHeader.css('border-color', '#AAA');
 
     const layers = ['sites', 'line', 'avg-distance', 'selected-school']; // TODO create constants
@@ -2079,14 +2822,15 @@
       const sub = window.innerWidth <= 1400 ? 0.25 : 0;
       const center = window.innerWidth <= 1250 ? [-98.5795, 39.8283] : [-116.5, 41.5];
       map.flyTo({center: center, zoom: 3.5 - sub });
+      console.log('resetExtent');
     } else {
       // fit bounds to school layer
-      fitMapBounds(layerGeometry);
+      fitMapBounds(layerGeometry, map);
     }
   }
 
   // TODO Refactor for all screen and storyMode adjustments
-  function fitMapBounds(layerGeometry) {
+  function fitMapBounds(layerGeometry, map) {
     const isSmallScreen = window.innerWidth <= 1215;  // determine if browser is small screen
     const padding = isSmallScreen ? 250 : 50;  // if browser is small screen, increase padding - extra left for storymode
     map.fitBounds(turf.bbox(layerGeometry), { padding:
@@ -2099,10 +2843,10 @@
     schoolFilter.on('change', (e) => {
       // apply selected school to filters
       filters.school = e.target.value;
-      selectSchoolOnMap(sites);
+      selectSchoolOnMap(map, sites);
 
       if (filters.school !== 'all') {
-        selectSchoolOnMap(sites);
+        selectSchoolOnMap(map, sites);
       } else {
         resetExtent();
       }
@@ -2124,7 +2868,7 @@
     });
   }
 
-  function selectSchoolOnMap(sites, storyMode = false) {  // TODO iterate over layer source instead of geojson directly
+  function selectSchoolOnMap(map, sites, storyMode = false, input = filters.school) {  // TODO iterate over layer source instead of geojson directly
 
     // reset info card to 'school' view any time a new school is selected
     resetInfoCard();
@@ -2133,10 +2877,15 @@
     let min = null;
     let max = null;
 
+    const tmp = {};
+
     map.getSource('schools')['_data'].features.forEach(feature => {
 
+      // tmp[feature.properties.school_common_name] = '';
+      // console.log(JSON.stringify(tmp));
+
       // selected school
-      if (feature.properties.school_common_name === filters.school) {
+      if (feature.properties.school_common_name === input) {
 
         // close any open popups
         popup.remove();
@@ -2185,7 +2934,7 @@
           map.fitBounds(turf.bbox(layerGeometry), { padding: {top: 100, bottom: 100, right: 200, left: size}, duration: 3000 });
         } else {
           // fit bounds to school and sites
-          fitMapBounds(layerGeometry);
+          fitMapBounds(layerGeometry, map);
         }
 
         // push linestring features to line layer source
@@ -2210,11 +2959,12 @@
         };
         updateInfoCard(inputs);  // update highlights/info card with school info
         applySchoolLabelStyles(feature);  // style mouseover label with school colors
-        styleLayers(feature);  // style and filter school, site, and line layers based on selected school
-        setAvgDistanceLayer(feature);  // set average distance circle at same location as selected school, apply source to layer
+        styleLayers(feature, map);  // style and filter school, site, and line layers based on selected school
+        setAvgDistanceLayer(feature, map);  // set average distance circle at same location as selected school, apply source to layer
       }
     });
   }
+
 
   function applySchoolLabelStyles(feature) {
     // TODO conditions for white
@@ -2255,10 +3005,9 @@
         'coordinates': [feature.geometry.coordinates, site.geometry.coordinates],
       }
     });
-    // return lineFeatures;
   }
 
-  function setAvgDistanceLayer(feature) {  // TODO rename fn
+  function setAvgDistanceLayer(feature, map) {  // TODO rename fn
     // create formatted mapbox/geojson feature to apply to avg-distance layer source
     const avgDistance = [{
       type: "Feature",
@@ -2290,7 +3039,39 @@
     });
   }
 
-  function styleLayers(feature) {
+  function setAvgDistanceLayerCompare(feature) {  // TODO rename fn
+    // create formatted mapbox/geojson feature to apply to avg-distance layer source
+    const avgDistance = [{
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: feature.geometry.coordinates,
+      },
+      properties: feature.properties,
+    }];
+
+    // apply geojson source to selected school layer
+    compareMap.getSource('selected-school').setData({ type: 'FeatureCollection', features: avgDistance });
+
+    // TODO apply to avg-distance layer - update with full agg values? (e.g. compare school min to overall min? or avg min?)
+    const property = setProperty();
+
+    // apply circle radius based on data-driven radiuses
+    compareMap.setPaintProperty('selected-school', 'circle-radius',
+      // radius dynamically determined by currently selected filters
+      { property: property, stops: createStops(compareMap.getSource('selected-school')['_data'], property) }
+    );
+
+    // apply above geojson to avg-distance layer
+    compareMap.getSource('avg-distance').setData({ type: 'FeatureCollection', features: avgDistance });
+
+    // toggle visibility of layer back on if previously set to none (e.g. in resetExtent)
+    ['avg-distance', 'selected-school'].forEach(layer => {
+      compareMap.setLayoutProperty(layer, 'visibility', 'visible');
+    });
+  }
+
+  function styleLayers(feature, map) {
     // gray out non-selected schools
     grayOutSchools();
 
@@ -2298,6 +3079,17 @@
     ['sites', 'line'].forEach(layer => {
       map.setFilter(layer, ['==', 'school_common_name', feature.properties.school_common_name]);
       map.setLayoutProperty(layer, 'visibility', 'visible');
+    });
+  }
+
+  function styleLayersCompare(feature) {
+    // gray out non-selected schools
+    grayOutSchools();
+
+    // filter site layer and toggle visibility on for sites and lines that match the clicked school
+    ['sites', 'line'].forEach(layer => {
+      compareMap.setFilter(layer, ['==', 'school_common_name', feature.properties.school_common_name]);
+      compareMap.setLayoutProperty(layer, 'visibility', 'visible');
     });
   }
 
@@ -2417,7 +3209,7 @@
       filters.school = e.features[0].properties.school_common_name;
       // set school filter dropdown value as clicked school
       schoolFilter.val(filters.school);
-      selectSchoolOnMap(sites, colors);
+      selectSchoolOnMap(map, sites, colors);
     });
   }
 
@@ -2508,11 +3300,38 @@
     });
   }
 
+  function onCompareSiteHover() {
+    // TODO add visual afforance to line+site? Add invisible thicker linestring layer for smoother popup
+    const layers = ['sites', 'line'];
+    layers.forEach(layer => {
+      // TODO fix bug where site label doesnt work over a school, ex: Iowa site in Nashville overwitten by Vandy
+      compareMap.on('mousemove', layer, (e) => {
+        applyCompareSiteLabelStyles(e.features[0].properties);
+      });
+
+      compareMap.on('mouseleave', layer, () => {
+        $('.label-compare').removeClass('visible');  // hide label on mouseleave
+      });
+    });
+  }
+
   function backgroundColor(property) {
     return property.seed === 1 ? '#80bad1' :
       property.seed === 2 ? '#5694c1' :
         property.seed === 3 ? '#2c6db1' :
           property.seed === 4 ? '#0146a1' : '#AAA';
+  }
+
+  function applyCompareSiteLabelStyles(props) {
+    const content = `${props.school_common_name} played ${props.distance.toFixed()}
+            miles from home in ${props.site} in ${props.year} as a ${props.seed} seed.`;
+
+    // update label text and styles TODO add +/- from seed avg
+    $('.label-compare').addClass('visible');  // make info label visible
+    $('.label-text-compare').text(content);  // apply site info content
+    $('.label-subtext-compare').text('');  // apply site info content
+    $('.label-compare').css('background', backgroundColor(props));  // apply styles based on seed
+    $('.label-compare').css('color', 'white');
   }
 
   function applySiteLabelStyles(props) {
@@ -2527,7 +3346,7 @@
     label.css('color', 'white');
   }
 
-  function createLayer(layerInfo, sourceData = { type: 'FeatureCollection', features: [] }) {
+  function createLayer(layerInfo, sourceData = { type: 'FeatureCollection', features: [] }, map) {
     // layer without geojson source - source is added dynamically
     map.addLayer({
       id: layerInfo.id,
@@ -2543,7 +3362,7 @@
     }, layerInfo.before);  // layer to place before plotting
   }
 
-  function createAllLayers(schools, sites) {
+  function createAllLayers(schools, sites, map) {
     // TODO SITES: Apply layering so that higher seeds/smaller circles plot on top of lower seeds
     // sort geojson in descending order to plot larger circles underneath smaller ones
     // TODO Sort for each stat selection
@@ -2557,7 +3376,7 @@
     const layerDetails = [schoolDetails, siteDetails, lineStringDetails, avgDistanceDetails, selectedSchoolDetails];
     layerDetails.forEach(details => {
       const source = details === siteDetails ? sites : details === schoolDetails ? schools : null;
-      createLayer(details, source);
+      createLayer(details, source, map);
     });
   }
 

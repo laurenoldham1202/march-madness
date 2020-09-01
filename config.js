@@ -1,6 +1,5 @@
 const config = {
     style: 'mapbox://styles/laurenoldham1202/ck9d9t3360puw1ilehqxfc0oa',
-    // style: 'mapbox://styles/mapbox/light-v10',
     accessToken: 'pk.eyJ1IjoibGF1cmVub2xkaGFtMTIwMiIsImEiOiJjaW55dm9lemUxOGc1dWttMzI5dDI5aGtvIn0.3xAukiULCDm0OId5yIgXOA',
     showMarkers: false,
     theme: 'light',
@@ -11,12 +10,14 @@ const config = {
         {
             id: 'intro',
             description: `
+<!--<div class="center" style="text-align: center;"><img src="./images/bball-2.png"></div>-->
+<img src="./images/bball-2.png" style="float: left; margin-right: 1rem;">
 <p><span class="capital-font" style="font-size: 26pt;">Every year in March,</span> 
-the top college basketball programs anxiously await Selection Sunday, which determines <em>who</em> and <em>where</em>
-teams will play during March Madness. <span class="material-icons button-icon" id="details-modal" data-toggle="modal" data-target="#about-modal">help</span></p> 
+the top college basketball programs are placed in a tournament bracket, which determines <em>who</em> and <em>where</em>
+teams will play during NCAA's men's college basketball championship. <span class="material-icons button-icon" id="details-modal" data-toggle="modal" data-target="#about-modal">help</span></p> 
 
-<p>Top ranked teams are supposed to be given a geographic advantage early in the tournament, which is intended to 
-<strong>simulate a home-court advantage</strong> - if they play close to 'home,' fanbases are able to travel to watch 
+<p>Top ranked teams are supposed to be given a <span class="geo-source" data-toggle="modal" data-target="#geo-source-modal">geographic advantage early in the tournament</span>, which is intended to 
+simulate a home-court advantage - if they play close to 'home,' fanbases are able to travel to watch 
 the games.</p>
 
 <div class="story-hl">
@@ -29,16 +30,13 @@ traveled an average distance of 147 miles to their first-round game.
 </div>
 
             `,
-            image: './images/logo.png',
+            // image: './images/logo.png',
+            // image: './images/bball-2.png',
             location: {
                 center: { lon: -86.54989, lat: 38.96481 },
                 zoom: 5.34,
                 pitch: 0.00,
                 bearing: 0.00
-                // center: {lon: -116.5, lat: 41.5},
-                // zoom: 3.5,
-                // pitch: 0.00,
-                // bearing: 0.00,
             },
             onChapterEnter: [
                 {layer: 'tourney-sites', opacity: 1},
@@ -46,18 +44,7 @@ traveled an average distance of 147 miles to their first-round game.
                 {layer: 'tourney', opacity: 1},
                 {layer: 'schools', opacity: 0},
             ],
-            onChapterExit: [
-                // {layer: 'tourney-sites', opacity: 0},
-                // {layer: 'tourney-lines', opacity: 0},
-                // {layer: 'tourney', opacity: 0},
-            ]
-            // onChapterEnter: [
-            //     {layer: 'tourney', opacity: 0},
-            //     {layer: 'legend-lines', opacity: 0},
-            //     {layer: 'legend-point', opacity: 0},
-            //     {layer: 'schools', opacity: 0.7},
-            // ],
-            // onChapterExit: []
+            onChapterExit: []
         },
         {
             id: 'chapter-1',
@@ -79,51 +66,6 @@ The system is not foolproof - Duke, a top-ranked 2 seed, fell to the low-ranked 
 in the first round of the 2012 tournament, despite having traveled fewer than 50 miles to their first game.
 2 seeds traveled an average of 155 miles.
 </div>
-
-<!--            Before the tournament starts, schools are grouped into ranked seeds to determine their position in the -->
-<!--            bracket, which dictates <em>where</em> and <em>who</em> they play. -->
-<!--            -->
-<!--            <br><br>-->
-<!--            64 teams are grouped into 16 seeds. <strong>The first 4 seeds (1-4) are considered the best seeds and represent the -->
-<!--            top teams in the tournament.</strong>-->
-<!--            -->
-<!--            <br><br>-->
-<!--            For example, during the 2012 tournament:-->
-<!--            <br><br>-->
-<!--            <div class="row">-->
-<!--                <div class="col">-->
-<!--                  <strong>1 Seeds</strong> (best)-->
-<!--                  <div class="seed-hl seed-one seed-hl-col">(1) Kentucky</div>-->
-<!--                  <div class="seed-hl seed-one seed-hl-col">(2) Syracuse</div>-->
-<!--                  <div class="seed-hl seed-one seed-hl-col">(3) UNC</div>-->
-<!--                  <div class="seed-hl seed-one seed-hl-col">(4) Michigan St.</div>-->
-<!--                </div> -->
-<!--                <div class="col">-->
-<!--                  <strong>2 Seeds</strong> (2nd best)-->
-<!--                  <div class="seed-hl seed-two seed-hl-col">(5) Kansas</div>-->
-<!--                  <div class="seed-hl seed-two seed-hl-col">(6) Duke</div>-->
-<!--                  <div class="seed-hl seed-two seed-hl-col">(7) Ohio State</div>-->
-<!--                  <div class="seed-hl seed-two seed-hl-col">(8) Missouri</div>-->
-<!--                </div>-->
-<!--              -->
-<!--            </div>-->
-<!--            -->
-<!--            <div class="row">-->
-<!--              <div class="col">-->
-<!--                  <strong>3 Seeds</strong> (3rd best)-->
-<!--                  <div class="seed-hl seed-three seed-hl-col">(9) Baylor</div>-->
-<!--                  <div class="seed-hl seed-three seed-hl-col">(10) Marquette</div>-->
-<!--                  <div class="seed-hl seed-three seed-hl-col">(11) Florida State</div>-->
-<!--                  <div class="seed-hl seed-three seed-hl-col">(12) Georgetown</div>-->
-<!--              </div>-->
-<!--              <div class="col">-->
-<!--                <strong>4 Seeds</strong> (4th best)-->
-<!--                  <div class="seed-hl seed-four seed-hl-col">(13) Michigan</div>-->
-<!--                  <div class="seed-hl seed-four seed-hl-col">(14) Wisconsin</div>-->
-<!--                  <div class="seed-hl seed-four seed-hl-col">(15) Indiana</div>-->
-<!--                  <div class="seed-hl seed-four seed-hl-col">(16) Louisville</div>-->
-<!--                </div>-->
-<!--            </div>-->
             `,
             location: {
                 center: { lon: -95.19207, lat: 37.96458 },
@@ -137,10 +79,6 @@ in the first round of the 2012 tournament, despite having traveled fewer than 50
                 {layer: 'tourney', opacity: 1},
                 {layer: 'schools', opacity: 0},
             ],
-            // onChapterEnter: [
-            //     {layer: 'schools', opacity: 0},
-            //     {layer: 'tourney', opacity: 1},
-            // ],
             onChapterExit: []
         },
         {
@@ -148,12 +86,8 @@ in the first round of the 2012 tournament, despite having traveled fewer than 50
             title: 'Why Does the First Round Site Matter?',
             image: '',
             location: {
-                // center: {lon: -116.5, lat: 41.5},
-                // zoom: 3.5,
-                // pitch: 0.00,
-                // bearing: 0.00,
-                center: { lon: -106.41378, lat: 37.33339 },
-                zoom: 4,
+                center: { lon: -103.41378, lat: 37.33339 },
+                zoom: 3.85,
                 pitch: 0,
                 bearing: 0.00
             },
@@ -278,7 +212,7 @@ in the first round of the 2012 tournament, despite having traveled fewer than 50
           title: `Methodology`,
             location: {
                 center: {lon: -116.5, lat: 41.5},
-                zoom: 3.5,
+                zoom: 3.25,
                 pitch: 0.00,
                 bearing: 0.00,
             },
@@ -309,7 +243,7 @@ in the site's city center rather than the exact arena in which the game was play
             title: 'Reading the Map',
             location: {
                 center: {lon: -116.5, lat: 41.5},
-                zoom: 3.5,
+                zoom: 3.25,
                 pitch: 0.00,
                 bearing: 0.00,
             },
@@ -378,8 +312,11 @@ year's tournament.
             title: 'Distances by Seed',
             image: '',
             description: `Analysis of data from 1985 to 2019 falls in line with the NCAA's claim of 
-            geographic preference for higher seeds, with <strong>1 seeds averaging the shortest travel distance, 2 seeds averaging
-            the second shortest travel distance, 3 seeds average the third shortest travel distance, and 4 seeds traveling
+            geographic preference for higher seeds, with 
+            <br><strong>1 seeds averaging the shortest travel distance,
+            <br>2 seeds averaging the second shortest travel distance,
+             <br>3 seeds average the third shortest travel distance, and
+              <br>4 seeds traveling
             the furthest of all top ranked seeds</strong>.
    
             <div class="seed-hl-row">
@@ -415,55 +352,13 @@ year's tournament.
             ],
             onChapterExit: []
         },
-//         {
-//             id: 'chapter-60',
-//             title: 'Highlights',
-//             image: '',  // TODO fix 2866 miles stretching last box
-//             description: `
-// Viewing aggregations at the school level paints a more varied picture of travel distances during
-//             March Madness, ranging from the <strong>shortest travel distance of less than a mile</strong> to the <strong>farthest travel distance exceeding
-//             2,400 miles</strong>. The <strong>overall mean distance traveled for all top four seeded schools from 1985 to 2019 was 588 miles</strong>;
-//             the <strong>median distance traveled clocked in a bit lower at 394 miles</strong>, perhaps a more accurate representation that
-//             lessens the influence of outliers.
-//
-//               <div class="seed-hl-row">
-//                <div class="seed-hl" style="background: #0146a1">
-//                     <div class="seed-hl-title">MEAN</div>
-//                     <div class="seed-hl-text">588 miles</div>
-//                 </div>
-//
-//                <div class="seed-hl" style="background: #0146a1">
-//                     <div class="seed-hl-title">MED</div>
-//                     <div class="seed-hl-text">394 miles</div>
-//                </div>
-//                 <div class="seed-hl" style="background: #0146a1">
-//                     <div class="seed-hl-title">MIN</div>
-//                     <div class="seed-hl-text">0.42 miles</div>
-//                 </div>
-//
-//                <div class="seed-hl" style="background: #0146a1">
-//                     <div class="seed-hl-title">MAX</div>
-//                     <div class="seed-hl-text">2,452 miles</div>
-//                 </div>
-//             </div>
-//             `,
-//             location: {
-//                 center: [-112.5, 41.5],
-//                 zoom: 3.75,
-//                 pitch: 0.00,
-//                 bearing: 0.00,
-//             },
-//             onChapterEnter: [],
-//             onChapterExit: []
-//         },
-
         {
             id: 'chapter-7',  // 7
             title: 'Schools with 1 Appearance as Top Seed',
             image: '',
             location: {
                 center: {lon: -116.5, lat: 41.5},
-                zoom: 3.5,
+                zoom: 3.25,
                 pitch: 0.00,
                 bearing: 0.00,
             },
@@ -516,7 +411,7 @@ year's tournament.
             image: '',
             location: {
                 center: {lon: -116.5, lat: 41.5},
-                zoom: 3.5,
+                zoom: 3.25,
                 pitch: 0.00,
                 bearing: 0.00,
             },
