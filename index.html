@@ -136,6 +136,7 @@
     .step div {
       line-height: 25px;
       font-size: 18px;
+      margin-top: 3rem;
     }
 
     /*.step img {*/
@@ -573,15 +574,15 @@
       color: #0146a1;
     }
 
-    .exit {
-      z-index: 2500;
-      border-radius: 4px;
-      margin: 0 0 0 0.33rem;
-      border: 1px solid #CCC;
-      color: #777;
-      padding: 0.25rem 0.5rem;
-      background: #EEE;
-    }
+    /*.exit {*/
+    /*  z-index: 2500;*/
+    /*  border-radius: 4px;*/
+    /*  margin: 0 0 0 0.33rem;*/
+    /*  border: 1px solid #CCC;*/
+    /*  color: #777;*/
+    /*  padding: 0.25rem 0.5rem;*/
+    /*  background: #EEE;*/
+    /*}*/
 
     .btn-tooltip {
       /*position: fixed;*/
@@ -798,8 +799,13 @@
       top: .5rem;
       right: .5rem;
       display: flex;
-      /*z-index: 2500;*/
-      /*visibility: hidden;*/
+    }
+
+    .compare-menu {
+      position: fixed;
+      top: .5rem;
+      right: .5rem;
+      display: flex;
     }
 
   </style>
@@ -850,7 +856,18 @@
 <!--  </div>-->
 <!--  <button class="exit">< BACK</button> -->
 
-<div class="comparison-mode" style="visibility: hidden; position: absolute;">
+
+
+
+<div class="comparison-mode" style="visibility: hidden; position: fixed;">
+
+  <div class="compare-menu">
+    <button class="map-menu-btn exit">
+      <span class="material-icons">arrow_left</span>
+      <span style="margin-bottom: 0.3rem;">Back</span>
+    </button>
+  </div>
+
   <div class="comparison-filter school-1">
     <div class="dropdown">
       <button class="btn btn-primary dropdown-toggle" type="button" id="dropdown-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a school</button>
@@ -895,9 +912,9 @@
         </div>
       </div>
     </div>
-
-
   </div>
+
+
 <!--  <button class="exit">< BACK</button>-->
 
 <!--  <div class="doot" style="width: 30rem;position: absolute;top: 3rem;left: 1rem;">-->
@@ -951,6 +968,8 @@
     </div>
   </div>
 </div>
+
+
 
 <div class="toolbar">
   <div class="chapter-list"></div>
