@@ -93,7 +93,7 @@
     }
 
     #features {
-      /*padding-top: 4rem;*/
+      padding-top: 3rem;
       padding-bottom: 10vh;
       z-index: 100;
     }
@@ -136,7 +136,7 @@
     .step div {
       line-height: 25px;
       font-size: 18px;
-      margin-top: 3rem;
+      /*margin-top: 3rem;*/
     }
 
     /*.step img {*/
@@ -2127,6 +2127,10 @@
       }
     });
 
+    // map['_interactive'] = false;
+    map.dragPan.disable();
+    compareMap.dragPan.disable();
+
 
     // $('#map > .mapboxgl-canvas').css('height', '50vh');  // reset original map height to full view height
 // console.log($('#map').children);
@@ -2156,6 +2160,9 @@
     $('.comparison-mode').css('visibility', 'hidden');  // hide comparison mode inputs
 
     map.resize();
+    map.dragPan.enable();
+    compareMap.dragPan.enable();
+
     enterExploreMode();  // make side panel visible again as you enter explore mode
   }
 
