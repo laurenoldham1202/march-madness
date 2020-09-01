@@ -689,7 +689,7 @@
       background: #F5F5F5;
       border: 1px solid #414140;
       color: #414140;
-      width: 12.5%;
+      width: 6rem;
       margin: 0.5rem;
       border-radius: 4px;
       padding: 0.5rem;
@@ -699,15 +699,23 @@
     .comparison-filter {
       width: 100%;
       display: flex;
-      margin-left: 0.33rem;
+      /*margin-left: 0.33rem;*/
     }
 
     .compare-text {
-      margin-left: 0.25rem;
+      /*margin-left: 0.25rem;*/
     }
 
     .seed-compare {
       color: #FFF;
+    }
+
+    .stats {
+      position: absolute; top: 4rem; display: flex;
+    }
+
+    .col {
+      padding: 0 !important;
     }
 
     .dropdown-toggle::after {
@@ -743,10 +751,11 @@
     }
 
     .dropdown-toggle {
-      width: 11rem;
+      width: 13rem;
       text-align: left;
       display: flex;
       margin-top: 0.6rem;
+      margin-left: 0.5rem;
     }
 
     .label-compare {
@@ -800,83 +809,145 @@
 <div id="map" class="map-story-mode"></div>
 <div id="map-compare"></div>
 
-<div class="comparison-mode" style="visibility: hidden;">
+<!--<div class="comparison-mode" style="visibility: hidden;">-->
+<!--  <div class="comparison-filter school-1">-->
+<!--    <div class="dropdown">-->
+<!--      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdown-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a school</button>-->
+<!--      <div class="dropdown-menu dropdown-menu-1" aria-labelledby="dropdown-1"></div>-->
+<!--    </div>-->
+<!--    <div class="comparison-stats">-->
+<!--      <span class="compare-title">MEAN</span>-->
+<!--      <span class="compare-text compare-text-mean-1"></span>-->
+<!--    </div>-->
+<!--    <div class="comparison-stats">-->
+<!--      <span class="compare-title">MEDIAN</span>-->
+<!--      <span class="compare-text compare-text-med-1"></span>-->
+<!--    </div>-->
+<!--    <div class="comparison-stats">-->
+<!--      <span class="compare-title">MIN</span>-->
+<!--      <span class="compare-text compare-text-min-1"></span>-->
+<!--    </div>-->
+<!--    <div class="comparison-stats">-->
+<!--      <span class="compare-title">MAX</span>-->
+<!--      <span class="compare-text compare-text-max-1"></span>-->
+<!--    </div>-->
+<!--    <div class="comparison-stats seed-compare" style="background: #80bad1;">-->
+<!--      <span class="compare-title">1 SEED</span>-->
+<!--      <span class="compare-text compare-text-1-seed-1"></span>-->
+<!--    </div>-->
+<!--    <div class="comparison-stats seed-compare" style="background: #5694c1;">-->
+<!--      <span class="compare-title">2 SEED</span>-->
+<!--      <span class="compare-text compare-text-1-seed-2"></span>-->
+<!--    </div>-->
+<!--    <div class="comparison-stats seed-compare" style="background: #2c6db1;">-->
+<!--      <span class="compare-title">3 SEED</span>-->
+<!--      <span class="compare-text compare-text-1-seed-3"></span>-->
+<!--    </div>-->
+<!--    <div class="comparison-stats seed-compare" style="background: #0146a1;">-->
+<!--      <span class="compare-title">4 SEED</span>-->
+<!--      <span class="compare-text compare-text-1-seed-4"></span>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <button class="exit">< BACK</button> -->
+
+<div class="comparison-mode" style="visibility: hidden; position: absolute;">
   <div class="comparison-filter school-1">
     <div class="dropdown">
       <button class="btn btn-primary dropdown-toggle" type="button" id="dropdown-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a school</button>
       <div class="dropdown-menu dropdown-menu-1" aria-labelledby="dropdown-1"></div>
     </div>
-    <div class="comparison-stats">
-      <span class="compare-title">MEAN</span>
-      <span class="compare-text compare-text-mean-1"></span>
+
+    <div class="stats">
+      <div class="col">
+        <div class="comparison-stats">
+          <div class="compare-title">MEAN</div>
+          <div class="compare-text compare-text-mean-1"></div>
+        </div>
+        <div class="comparison-stats">
+          <div class="compare-title">MEDIAN</div>
+          <div class="compare-text compare-text-med-1"></div>
+        </div>
+        <div class="comparison-stats">
+          <div class="compare-title">MIN</div>
+          <div class="compare-text compare-text-min-1"></div>
+        </div>
+        <div class="comparison-stats">
+          <div class="compare-title">MAX</div>
+          <div class="compare-text compare-text-max-1"></div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="comparison-stats seed-compare" style="background: #80bad1;">
+          <div class="compare-title">1 SEED</div>
+          <div class="compare-text compare-text-1-seed-1"></div>
+        </div>
+        <div class="comparison-stats seed-compare" style="background: #5694c1;">
+          <div class="compare-title">2 SEED</div>
+          <div class="compare-text compare-text-1-seed-2"></div>
+        </div>
+        <div class="comparison-stats seed-compare" style="background: #2c6db1;">
+          <div class="compare-title">3 SEED</div>
+          <div class="compare-text compare-text-1-seed-3"></div>
+        </div>
+        <div class="comparison-stats seed-compare" style="background: #0146a1;">
+          <div class="compare-title">4 SEED</div>
+          <div class="compare-text compare-text-1-seed-4"></div>
+        </div>
+      </div>
     </div>
-    <div class="comparison-stats">
-      <span class="compare-title">MEDIAN</span>
-      <span class="compare-text compare-text-med-1"></span>
-    </div>
-    <div class="comparison-stats">
-      <span class="compare-title">MIN</span>
-      <span class="compare-text compare-text-min-1"></span>
-    </div>
-    <div class="comparison-stats">
-      <span class="compare-title">MAX</span>
-      <span class="compare-text compare-text-max-1"></span>
-    </div>
-    <div class="comparison-stats seed-compare" style="background: #80bad1;">
-      <span class="compare-title">1 SEED</span>
-      <span class="compare-text compare-text-1-seed-1"></span>
-    </div>
-    <div class="comparison-stats seed-compare" style="background: #5694c1;">
-      <span class="compare-title">2 SEED</span>
-      <span class="compare-text compare-text-1-seed-2"></span>
-    </div>
-    <div class="comparison-stats seed-compare" style="background: #2c6db1;">
-      <span class="compare-title">3 SEED</span>
-      <span class="compare-text compare-text-1-seed-3"></span>
-    </div>
-    <div class="comparison-stats seed-compare" style="background: #0146a1;">
-      <span class="compare-title">4 SEED</span>
-      <span class="compare-text compare-text-1-seed-4"></span>
-    </div>
+
+
   </div>
-  <button class="exit">< BACK</button>
+<!--  <button class="exit">< BACK</button>-->
+
+<!--  <div class="doot" style="width: 30rem;position: absolute;top: 3rem;left: 1rem;">-->
+
 
   <div class="comparison-filter school-2" style="position: fixed; top: 50vh;">
     <div class="dropdown">
-      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdown-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a school</button>
+      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdown-2"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a school</button>
       <div class="dropdown-menu dropdown-menu-2" aria-labelledby="dropdown-2"></div>
     </div>
-    <div class="comparison-stats">
-      <span class="compare-title">MEAN</span>
-      <span class="compare-text compare-text-mean-2"></span>
-    </div>
-    <div class="comparison-stats">
-      <span class="compare-title">MEDIAN</span>
-      <span class="compare-text compare-text-med-2"></span>
-    </div>
-    <div class="comparison-stats">
-      <span class="compare-title">MIN</span>
-      <span class="compare-text compare-text-min-2"></span>
-    </div>
-    <div class="comparison-stats">
-      <span class="compare-title">MAX</span>
-      <span class="compare-text compare-text-max-2"></span>
-    </div>
-    <div class="comparison-stats seed-compare" style="background: #80bad1;">
-      <span class="compare-title">1 SEED</span>
-      <span class="compare-text compare-text-2-seed-1"></span>
-    </div>
-    <div class="comparison-stats seed-compare" style="background: #5694c1;">
-      <span class="compare-title">2 SEED</span>
-      <span class="compare-text compare-text-2-seed-2"></span>
-    </div>
-    <div class="comparison-stats seed-compare" style="background: #2c6db1;">
-      <span class="compare-title">3 SEED</span>
-      <span class="compare-text compare-text-2-seed-3"></span>
-    </div>
-    <div class="comparison-stats seed-compare" style="background: #0146a1;">
-      <span class="compare-title">4 SEED</span>
-      <span class="compare-text compare-text-2-seed-4"></span>
+    <div class="stats">
+      <div class="col">
+        <div class="comparison-stats">
+          <div class="compare-title">MEAN</div>
+          <div class="compare-text compare-text-mean-2"></div>
+        </div>
+        <div class="comparison-stats">
+          <div class="compare-title">MEDIAN</div>
+          <div class="compare-text compare-text-med-2"></div>
+        </div>
+        <div class="comparison-stats">
+          <div class="compare-title">MIN</div>
+          <div class="compare-text compare-text-min-2"></div>
+        </div>
+        <div class="comparison-stats">
+          <div class="compare-title">MAX</div>
+          <div class="compare-text compare-text-max-2"></div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="comparison-stats seed-compare" style="background: #80bad1;">
+          <div class="compare-title">1 SEED</div>
+          <div class="compare-text compare-text-2-seed-1"></div>
+        </div>
+        <div class="comparison-stats seed-compare" style="background: #5694c1;">
+          <div class="compare-title">2 SEED</div>
+          <div class="compare-text compare-text-2-seed-2"></div>
+        </div>
+        <div class="comparison-stats seed-compare" style="background: #2c6db1;">
+          <div class="compare-title">3 SEED</div>
+          <div class="compare-text compare-text-2-seed-3"></div>
+        </div>
+        <div class="comparison-stats seed-compare" style="background: #0146a1;">
+          <div class="compare-title">4 SEED</div>
+          <div class="compare-text compare-text-2-seed-4"></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
